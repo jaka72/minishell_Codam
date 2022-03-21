@@ -6,7 +6,9 @@
 /*   By: kito <kito@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/21 07:39:01 by kito          #+#    #+#                 */
-/*   Updated: 2022/03/21 07:39:08 by kito          ########   odam.nl         */
+/*   Updated: 2022/03/21 07:48:44 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include <stdio.h>
