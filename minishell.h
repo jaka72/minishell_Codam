@@ -46,3 +46,5 @@ typedef struct s_cmd
 extern int	laststatus; //maybe the last cmd exit status for $?
 
 #endif
+
+// Added Jaka: Testing branches
