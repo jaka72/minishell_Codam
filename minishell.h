@@ -37,13 +37,11 @@ typedef struct s_cmd
 	t_env			*start_env;
 	char			**args;
 	int				fd_in;
-	int				d_out;
+	int				fd_out;
 	char			*infile;
 	char			*outfile;
 	struct s_cmd	*next;
 }	t_cmd;
-
-extern int	laststatus; //maybe the last cmd exit status for $?
 
 #endif
 
