@@ -10,16 +10,14 @@ int	 main()
 {
 	char		*prompt;
 	char		*line = NULL;
-	// HIST_ENTRY	*history = NULL;
 
 	prompt = getenv("PS1");
-	printf("PS1 is %s\n", prompt);
 	if (prompt == NULL)
 		prompt = "minishell > ";
 	// before while loop, get env
 	while ((line = readline(prompt)))
 	{
-		printf("line is %s\n", line);
+		printf("%s\n", line);
 		add_history(line);
 		// here parsing and make a linkedlist of t_cmd
 		// after makint t_cmd list, fork and execute

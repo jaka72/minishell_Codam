@@ -2,15 +2,20 @@ NAME	=	minishell
 #BONUS	=	minishell_bonus
 
 LIBFT_DIR	= 	./libft
-LIBFT_SRC	= 	$(LIBFT_DIR)/ft_strlen.c					\
+LIBFT_SRC	= 	$(LIBFT_DIR)/ft_memset.c					\
+				$(LIBFT_DIR)/ft_strlen.c					\
+				$(LIBFT_DIR)/ft_memcpy.c					\
+				$(LIBFT_DIR)/ft_memccpy.c					\
 				$(LIBFT_DIR)/ft_strncmp.c					\
-				$(LIBFT_DIR)/ft_strlcpy.c					\
-				$(LIBFT_DIR)/ft_itoa.c						\
-				$(LIBFT_DIR)/ft_atoi.c						\
-				$(LIBFT_DIR)/ft_split.c						\
-				$(LIBFT_DIR)/ft_strjoin.c
+				$(LIBFT_DIR)/ft_strdup.c
 LIBFT_OBJ	=	$(LIBFT_SRC:%.c=%.o)
 LIBFT_A		=	$(LIBFT_DIR)/libft.a
+
+#for common resources like utility, error handling
+UTIL_DIR	=	./util
+UTIL_SRC	=	$(PARSING_DIR)/error.c					\
+				$(PARSING_DIR)/util.c
+UTIL_OBJ	= 	$(UTIL_SRC:%.c=%.o)
 
 #for getting environment variables and keybound setting
 INIT_DIR	=	./init
@@ -55,7 +60,8 @@ BULTIN_OBJ	=	$(BUILTIN_SRC:%.c=%.o)
 MAIN_SRC	= 	main.c
 MAIN_OBJ	=	$(MAIN_SRC:%.c=%.o)
 
-OBJ			=	$(INIT_OBJ)		\
+OBJ			=	$(UTIL_OBJ)		\
+				$(INIT_OBJ)		\
 				$(EXPAND_OBJ) 	\
 				$(FILE_OBJ)		\
 				$(PARSING_OBJ)	\
