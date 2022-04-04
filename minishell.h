@@ -12,6 +12,7 @@
 # include <readline/history.h>
 # include <termcap.h>
 # include <termios.h>
+# include "libft/libft.h"
 
 typedef struct s_env		t_env;
 typedef struct s_infos		t_infos;

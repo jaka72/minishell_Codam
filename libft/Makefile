@@ -6,21 +6,25 @@
 #    By: kito <kito@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/12/01 17:08:43 by kito          #+#    #+#                  #
-#    Updated: 2022/03/31 18:04:18 by kito          ########   odam.nl          #
+#    Updated: 2022/04/04 12:41:54 by kito          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	libft.a
-SRC			=	ft_memset.c		\
-				ft_strlen.c		\
-				ft_memcpy.c		\
-				ft_memccpy.c	\
-				ft_strncmp.c	\
-				ft_strdup.c
+SRC			=	ft_memset.c			\
+				ft_strlen.c			\
+				ft_memcpy.c			\
+				ft_memccpy.c		\
+				ft_strchr.c			\
+				ft_strncmp.c		\
+				ft_strdup.c			\
+				ft_strjoin.c		\
+				ft_strjoin_free.c	\
+				ft_split.c
 
 CFLAGS		=	-Wall -Wextra -Werror
 
-REGUL_OBJ	=	$(SRC:%.c=%.o)
+OBJ	=	$(SRC:%.c=%.o)
 
 HEADER_FILE	=	libft.h
 
@@ -33,7 +37,7 @@ $(NAME): $(OBJ)
 	gcc -c $(CFLAGS) -o $@ $<
 
 clean:
-	rm -rf $(REGUL_OBJ) 
+	rm -rf $(OBJ) 
 
 fclean: clean
 	rm -f $(NAME)
