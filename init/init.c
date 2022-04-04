@@ -2,122 +2,11 @@
 
 sig_atomic_t	g_flag;
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	if (s == NULL)
-		return (-1);
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-
-void	*ft_memset(void *b, int c, size_t len)
-{
-	unsigned char	*newb;
-	unsigned char	newc;
-	size_t			i;
-
-	newb = (unsigned char *)b;
-	newc = (unsigned char)c;
-	i = 0;
-	while (i < len)
-	{
-		newb[i] = newc;
-		i++;
-	}
-	return (b);
-}
-
-void	*ft_memcpy(void *dst, const void *src, size_t n)
-{
-	unsigned char	*newdist;
-	unsigned char	*newsrc;
-	size_t			i;
-
-	newdist = (unsigned char *)dst;
-	newsrc = (unsigned char *)src;
-	i = 0;
-	if (n == 0 || dst == src)
-		return (dst);
-	while (i < n)
-	{
-		newdist[i] = newsrc[i];
-		i++;
-	}
-	return (dst);
-}
-
-void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
-{
-	unsigned char	*newdist;
-	unsigned char	*newsrc;
-	unsigned char	newc;
-	size_t			i;
-
-	newdist = (unsigned char *)dst;
-	newsrc = (unsigned char *)src;
-	newc = (unsigned char)c;
-	i = 0;
-	while (i < n)
-	{
-		newdist[i] = newsrc[i];
-		if (newsrc[i] == newc)
-			return (dst + (unsigned char)(i + 1));
-		i++;
-	}
-	return (NULL);
-}
-
-char	*ft_strdup(const char *s1)
-{
-	char	*newstr;
-	int		size;
-	int		i;
-
-	size = ft_strlen(s1);
-	i = 0;
-	newstr = (char *)malloc(size + 1);
-	if (!newstr)
-		return (NULL);
-	while (i < size)
-	{
-		newstr[i] = s1[i];
-		i++;
-	}
-	newstr[i] = '\0';
-	return (newstr);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (s1[i] != '\0' && s2[i] != '\0' && i + 1 < n)
-	{
-		if (s1[i] == s2[i])
-			i++;
-		else
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-	}
-	if (s1[i] == '\0' || s2[i] == '\0' || i + 1 == n)
-		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-	else
-		return (0);
-}
-
-
 void	errtext_exit(char *text)
 {
 	perror(text);
 	exit(ERROR_RETURN);
 }
-
 void	free_info(t_infos *infos)
 {
 	t_env	*env;
@@ -281,9 +170,8 @@ void	ms_init(t_infos *info, char *envp[])
 	print_env(info);
 }
 
-char	*env_expand(t_infos	*info, char *tx)
+char	*name_expand(t_infos *info, char *tx)
 {
-
 	char	*newtx;
 	t_env	*env;
 
@@ -291,11 +179,55 @@ char	*env_expand(t_infos	*info, char *tx)
 	env = info->start_env; 
 	while (env)
 	{
-		if (ft_strncmp(tx, env->name) == 0)
-			newtx = env->value; 
+		if (ft_strncmp(tx, env->name, ft_strlen(tx)) == 0)
+		{
+			newtx = malloc(ft_strlen(env->value) + 1);
+			if (newtx == NULL)
+				errtext_exit("check expand malloc failed");
+			newtx = ft_memcpy(newtx, env->value, ft_strlen(env->value));
+			newtx[ft_strlen(env->value)] = '\0';
+			free(tx);
+			return (newtx);
+		}
 		env = env->next;
 	}
 	return (newtx);
+}
+
+char	*check_expand(t_infos *info, char *tx)
+{
+	int		i;
+	char	**temp;
+	char	*expanded;
+	char	*old;
+
+	i = 0;
+	expanded = NULL;
+	old = NULL;
+	if (ft_strchr(tx, '$') == NULL)
+		return (tx);
+	temp = ft_split(tx, '$');
+	if (temp == NULL)
+		errtext_exit("check expand split failed");
+	while(temp[i] != NULL)
+	{
+		printf("before expanded : %s\n", temp[i]);
+		temp[i] = name_expand(info, temp[i]);
+		printf("expanded : %s\n", temp[i]);
+		i++;
+	}
+	i = 0;
+	while(temp[i] != NULL)
+	{
+		printf("hello\n");
+		expanded = ft_strjoin_free(expanded, temp[i]);
+		if (expanded == NULL)
+			errtext_exit("expand text failed");
+		i++;
+	}
+	// free(temp);
+	printf("end expanded : %s\n", expanded);
+	return (expanded);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -310,6 +242,7 @@ int	main(int argc, char *argv[], char *envp[])
 	line = readline(info.prompt);
 	while (line)
 	{
+		line = check_expand(&info, line);
 		printf("%s\n", line);
 		if (strlen(line) > 0)
 			add_history(line);
