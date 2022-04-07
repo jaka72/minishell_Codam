@@ -1,5 +1,5 @@
 NAME	=	minishell
-#BONUS	=	minishell_bonus
+BONUS	=	minishell_bonus
 
 LIBFT_DIR	= 	./libft
 LIBFT_SRC	= 	$(LIBFT_DIR)/ft_memset.c					\
@@ -11,70 +11,70 @@ LIBFT_SRC	= 	$(LIBFT_DIR)/ft_memset.c					\
 				$(LIBFT_DIR)/ft_strdup.c					\
 				$(LIBFT_DIR)/ft_strjoin.c					\
 				$(LIBFT_DIR)/ft_strjoin_free.c				\
-				$(LIBFT_DIR)/ft_split.c	
+				$(LIBFT_DIR)/ft_strlcpy.c					\
+				$(LIBFT_DIR)/ft_split.c
 LIBFT_OBJ	=	$(LIBFT_SRC:%.c=%.o)
 LIBFT_A		=	$(LIBFT_DIR)/libft.a
 
 #for common resources like utility, error handling
 UTIL_DIR	=	./util
-UTIL_SRC	=	$(PARSING_DIR)/error.c					\
-				$(PARSING_DIR)/util.c
+UTIL_SRC	=	$(UTIL_DIR)/error.c					\
+				$(UTIL_DIR)/util.c
 UTIL_OBJ	= 	$(UTIL_SRC:%.c=%.o)
 
 #for getting environment variables and keybound setting
 INIT_DIR	=	./init
-INIT_SRC	=	$(PARSING_DIR)/init.c					\
-				$(PARSING_DIR)/init_util.c
+INIT_SRC	=	$(INIT_DIR)/init.c					\
+				$(INIT_DIR)/env.c					\
+				$(INIT_DIR)/expand.c	
 INIT_OBJ	= 	$(INIT_SRC:%.c=%.o)
 
-#for expanding $---
-EXPAND_DIR		=	./expand
-EXPAND_SRC		=	$(EXPAND_DIR)/expand.c
-EXPAND_OBJ		=	$(EXPAND_DIR:%c=%.o)
+#for excute the command
+EXEC_DIR	=	./exec
+EXEC_SRC	=	$(EXEC_DIR)/exec.c	
+EXEC_OBJ	= 	$(EXEC_SRC:%.c=%.o)
 
 #for setting file information to cmd-struct from (<, <<, > , >>)
 FILE_DIR		= 	./file
-FILE_SRC		= 	$(FILE_DIR)/infile.c						\
-					$(FILE_DIR)/heredoc.c						\
-					$(FILE_DIR)/outfile.c						\
-					$(FILE_DIR)/outfile_append.c
+FILE_SRC		= 	$(FILE_DIR)/heredoc.c						
+#					$(FILE_DIR)/infile.c						
+# 					$(FILE_DIR)/outfile.c						
+# 					$(FILE_DIR)/outfile_append.c
 FILE_OBJ		=	$(FILE_SRC:%.c=%.o)
 
 # For parsing from a line
 # If there is(are) pipe(s), divide line
 # If there is <, <<, > , >>, pass that with next word to the file command (above)
 # make strings array with rest of words and complete each cmd-struct 
-PARSING_DIR	=	./parsing
-PARSING_SRC	=	$(PARSING_DIR)/parsing.c					\
-				$(PARSING_DIR)/parsing_util.c
-PARSING_OBJ	=	$(PARSING_SRC:%.c=%.0)
+# PARSING_DIR	=	./parsing
+# PARSING_SRC	=	$(PARSING_DIR)/parsing.c					
+# 				$(PARSING_DIR)/parsing_util.c
+# PARSING_OBJ	=	$(PARSING_SRC:%.c=%.0)
 
 #for builtin commands
-BUILTIN_DIR	=	./builtin
-BUILTIN_SRC	=	$(BUILTIN_DIR)/echo.c				\
-				$(BUILTIN_DIR)/cd.c					\
-				$(BUILTIN_DIR)/pwd.c				\
-				$(BUILTIN_DIR)/export.c				\
-				$(BUILTIN_DIR)/unset.c				\
-				$(BUILTIN_DIR)/env.c				\
-				$(BUILTIN_DIR)/exit.c
-BULTIN_OBJ	=	$(BUILTIN_SRC:%.c=%.o)
+# BUILTIN_DIR	=	./builtin
+# BUILTIN_SRC	=	$(BUILTIN_DIR)/echo.c				
+# 				$(BUILTIN_DIR)/cd.c					
+# 				$(BUILTIN_DIR)/pwd.c				
+# 				$(BUILTIN_DIR)/export.c				
+# 				$(BUILTIN_DIR)/unset.c				
+# 				$(BUILTIN_DIR)/env.c				
+# 				$(BUILTIN_DIR)/exit.c
+# BULTIN_OBJ	=	$(BUILTIN_SRC:%.c=%.o)
 
 #for main and running commands (fork and execte)
-MAIN_SRC	= 	main.c
+MAIN_SRC	=	testmain.c
 MAIN_OBJ	=	$(MAIN_SRC:%.c=%.o)
 
 OBJ			=	$(UTIL_OBJ)		\
 				$(INIT_OBJ)		\
-				$(EXPAND_OBJ) 	\
+				$(EXEC_OBJ)		\
 				$(FILE_OBJ)		\
-				$(PARSING_OBJ)	\
-				$(BULTIN_OBJ)	\
 				$(MAIN_OBJ)
 
 HEADER		=	minishell.h
 
-CFLAGS		=	-Wall -Wetra -Werror -L/usr/local/lib -I/usr/local/include -lreadline
+CFLAGS		=	-Wall -Wextra -Werror 
 
 all:		$(NAME)
 
@@ -87,5 +87,7 @@ $(LIBFT_A):	$(LIBFT_OBJ) $(LIBFT_DIR)/libft.h
 	gcc -c $(CFLAGS) -o $@ $<
 
 $(NAME):	$(LIBFT_A) $(OBJ) $(HEADER)
-	GCC $(CFLAGS) $(OBJ) $(LIBFT_A) -O $(NAME)
+	gcc $(CFLAGS) $(OBJ) -lreadline $(LIBFT_A) -o $(NAME)
 
+# if compile doesn't work, check 'brew info readline' and add 2 flags of LDFLAGS and CPPFLAGS
+# for example "-L/usr/local/lib -I/usr/local/include"

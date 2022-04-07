@@ -6,7 +6,7 @@
 #    By: kito <kito@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/12/01 17:08:43 by kito          #+#    #+#                  #
-#    Updated: 2022/04/04 12:41:54 by kito          ########   odam.nl          #
+#    Updated: 2022/04/07 16:26:55 by kito          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC			=	ft_memset.c			\
 				ft_strdup.c			\
 				ft_strjoin.c		\
 				ft_strjoin_free.c	\
+				ft_strlcpy.c		\
 				ft_split.c
 
 CFLAGS		=	-Wall -Wextra -Werror
