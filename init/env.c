@@ -110,7 +110,7 @@ char	**get_env_array(t_env *start_env)
 		errtext_exit("malloc for envs failed\n");
 	temp = NULL;
 	current = start_env;
-	ft_file_heredoc("hello", 1);
+	// ft_file_heredoc("hello", 1); // jaka
 	while (current)
 	{
 		temp = malloc((ft_strlen(current->name) + ft_strlen(current->value) + 2));
