@@ -58,14 +58,14 @@ int	check_syntax_errors(t_source *src, int is_tester, char **argv)
 		
 // 	while (1)
 // 	{
-// 		// INSERT THIS AFTER KEIKO'S readline() AND BEFORE history() //////////////////////////////	
+// 		// INSERT THIS AFTER KEIKO'S readline() ///////////////////////
 // 		check_syntax_errors(&src, is_tester, argv);
 	
 // 		if (is_tester == 1)
 // 			exit(0);
 // 		else
 // 			continue ;
-// 		// ABOVE IS JAKA'S CODE //////////////////////////////////////
+
 
 
 

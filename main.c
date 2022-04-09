@@ -15,7 +15,7 @@ int	 main(int argc, char **argv) // ADDED JAKA, NEED argv FOR THE TESTER
 	char		*line = NULL;
 
 
-	// ADDED JAKA // INITIAL CHECKING FOR SYNTAX ERRORS/////////////// 
+	// ADDED JAKA: INITIAL CHECKING FOR SYNTAX ERRORS/////////////// 
 	t_source	src;
 	int			is_tester; // just for tester.sh
 	src.inputline = NULL;
@@ -24,7 +24,6 @@ int	 main(int argc, char **argv) // ADDED JAKA, NEED argv FOR THE TESTER
 		is_tester = 1;
 	/////////////////////////////////////////////////////////////////
 
-	printf("Tester %d\n"); // jaka
 
 //	prompt = getenv("PS1");
 //	if (prompt == NULL)
