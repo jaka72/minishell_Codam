@@ -91,3 +91,14 @@ $(NAME):	$(LIBFT_A) $(OBJ) $(HEADER)
 
 # if compile doesn't work, check 'brew info readline' and add 2 flags of LDFLAGS and CPPFLAGS
 # for example "-L/usr/local/lib -I/usr/local/include"
+
+clean:
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
+
+libftclean:
+	cd $(DIR_LIBFT); make fclean; cd ../
+
+re: fclean all

@@ -41,22 +41,22 @@ typedef struct s_cmd
 	char			**args;
 	int				fd_in;		// fd_in  : default is 0, if "<" -2, if "<<" -3.
 	int				fd_out;		// fd_out : default is 1, if ">" -2, if ">>" -3.
-	char			*infile;
-	char			*outfile;
+	char			**infile;
+	char			**outfile;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }	t_cmd;
 
-#endif
-
 // util/error.c
 void	errtext_exit(char *text);
 void	free_envlist(t_infos *infos);
+int		free_strings(char **strs);
+void	free_tcmd(t_cmd *cmds);
 void	err_free_env_exit(t_infos *infos, char *text);
 
 // util/util.c
 char	*make_malloc_str(char *text);
-
+char	*free_return_null(char *text);
 
 // init/init.c
 void	handle_sigint(int num);
@@ -64,7 +64,7 @@ void	ms_init(t_infos *info, char *envp[]);
 
 // init/env.c
 t_env	*last_env(t_env *start_env);
-int	count_env(t_env *start_env);
+int		count_env(t_env *start_env);
 t_env	*get_name_value(t_env *env, char *envtext);
 t_env	*get_env(t_infos *infos, char *envp[]);
 char	**get_env_array(t_env *start_env);
@@ -75,12 +75,15 @@ char	*name_expand(t_infos *info, char *tx);
 char	*check_expand(t_infos *info, char *tx);
 
 // file/heredoc.c
-char	*ft_addtext_free(char *s1, char *s2, int *num);
-char	*ft_checklimit(char *buff, char *limiter);
-char	*ft_write_free(int fd, char *checklimit);
-int	ft_file_heredoc(char *limiter, int fd_out);
+char	*addtext_free(char *s1, char *s2, int *num);
+char	*check_limiter(char *buff, char *limiter);
+char	*write_free(int fd, char *checklimit);
+int		get_heredoc(char *limiter, int fd_out);
+int		make_heredoc(char *limiter);
 
 // exec/exec.c
 char	*ft_find_env_passnum(char *envp[]);
 char	*ft_make_binpass(int i, char *pass, char *cmd);
 char	*ft_findshell_pass(char *cmd, char *envp[]);
+
+#endif
