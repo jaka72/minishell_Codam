@@ -42,6 +42,19 @@ FILE_SRC		= 	$(FILE_DIR)/heredoc.c
 # 					$(FILE_DIR)/outfile_append.c
 FILE_OBJ		=	$(FILE_SRC:%.c=%.o)
 
+
+# ADDED JAKA: SYNTAX ERRORS #######################################
+FILE_DIR		= 	./check_syntax
+FILE_SRC		= 	$(FILE_DIR)/syntax_main.c				\
+					$(FILE_DIR)/syntax_check_quotes.c		\
+					$(FILE_DIR)/syntax_check_pipes.c		\
+					$(FILE_DIR)/syntax_check_redirects.c	\
+					$(FILE_DIR)/ft_utils.c	\
+					$(FILE_DIR)/libft_functions.c
+FILE_OBJ		=	$(FILE_SRC:%.c=%.o)
+###################################################################
+
+
 # For parsing from a line
 # If there is(are) pipe(s), divide line
 # If there is <, <<, > , >>, pass that with next word to the file command (above)
@@ -74,7 +87,7 @@ OBJ			=	$(UTIL_OBJ)		\
 
 HEADER		=	minishell.h
 
-CFLAGS		=	-Wall -Wextra -Werror 
+CFLAGS		=	#-Wall -Wextra -Werror 
 
 all:		$(NAME)
 

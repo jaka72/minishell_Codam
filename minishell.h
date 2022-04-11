@@ -15,6 +15,8 @@
 # include <termios.h>
 # include "libft/libft.h"
 
+# include "check_syntax/syntax_header.h"
+
 typedef struct s_env		t_env;
 typedef struct s_infos		t_infos;
 
