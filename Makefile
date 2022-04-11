@@ -42,7 +42,7 @@ FILE_SRC		= 	$(FILE_DIR)/heredoc.c
 # 					$(FILE_DIR)/outfile_append.c
 FILE_OBJ		=	$(FILE_SRC:%.c=%.o)
 
-# ADDED JAKA: SYNTAX ERRORS 
+# ADDED JAKA: SYNTAX ERRORS (name changed)
 SYNTAX_DIR		= 	./check_syntax
 SYNTAX_SRC		= 	$(SYNTAX_DIR)/syntax_main.c				\
 					$(SYNTAX_DIR)/syntax_check_quotes.c		\
