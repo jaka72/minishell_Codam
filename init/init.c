@@ -20,11 +20,11 @@ void	ms_init(t_infos *info, char *envp[])
 	if (rc)
 		errtext_exit("get termios failed\n");
 	info->termios_new = info->termios_save;
-	info->termios_new.c_iflag &= BRKINT;
+	// info->termios_new.c_iflag &= BRKINT; this line causes problem when "cat" function opens stdin
 	info->termios_new.c_lflag &= ~(ECHOCTL);
-	info->termios_new.c_cc[VQUIT] = 0;
-	info->termios_new.c_cc[VEOF] = 4;
-	info->termios_new.c_cc[VINTR] = 3;
+	// info->termios_new.c_cc[VQUIT] = 0; 
+	// info->termios_new.c_cc[VEOF] = 4; 
+	// info->termios_new.c_cc[VINTR] = 3;
 	rc = tcsetattr(0, 0, &info->termios_new);
 	if (rc)
 		errtext_exit("set termios failed\n");

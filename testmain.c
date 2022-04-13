@@ -7,7 +7,7 @@ t_cmd	*make_dammy1(t_infos *info, t_cmd *strdammy)
 		errtext_exit("making dammy failed\n");
 	strdammy->start_env = info->start_env;
 	strdammy->args = ft_split("cat", ' ');
-	strdammy->fd_in = -2;
+	strdammy->fd_in = 0;
 	strdammy->fd_out = 1;
 	strdammy->infile = ft_split("infile", ' ');
 	strdammy->outfile = NULL;
@@ -22,7 +22,7 @@ t_cmd	*make_dammy2(t_infos *info, t_cmd *strdammy)
 	if (strdammy == NULL)
 		errtext_exit("making dammy failed\n");
 	strdammy->start_env = info->start_env;
-	strdammy->args = ft_split("wc -l", ' ');
+	strdammy->args = ft_split("cat", ' ');
 	strdammy->fd_in = 0;
 	strdammy->fd_out = 1;
 	strdammy->infile = NULL;
@@ -38,7 +38,7 @@ t_cmd	*make_dammy3(t_infos *info, t_cmd *strdammy)
 	if (strdammy == NULL)
 		errtext_exit("making dammy failed\n");
 	strdammy->start_env = info->start_env;
-	strdammy->args = ft_split("cat", ' ');
+	strdammy->args = ft_split("wc", ' ');
 	strdammy->fd_in = 0;
 	strdammy->fd_out = 1;
 	strdammy->infile = NULL;
@@ -148,6 +148,7 @@ int	run_cmd(t_infos *info, t_cmd *str)
 				close(current->fd_in);
 			}
 			path = ft_findshell_pass(current->args[0], envs);
+			
 			execve(path, current->args, envs);
 		}
 		else
@@ -162,6 +163,10 @@ int	run_cmd(t_infos *info, t_cmd *str)
 		current = current->next;
 	}
 	dup2(old_in, 0);
+	dup2(old_out, 1);
+	close(old_in);
+	close(old_out);
+	printf("run cmd finished!\n");
 	return(0);
 }
 
@@ -202,13 +207,12 @@ int	main(int argc, char *argv[], char *envp[])
 	str2->next = str3;
 	str3->prev = str2;
 	str_start = str1;
-	line = readline(info.prompt);
-	while (line)
+	while ((line = readline(info.prompt)))
 	{
 		line = check_expand(&info, line);
 		if (ft_strlen(line) > 0)
 		{
-			printf("%s\n", line);
+			// printf("%s\n", line);
 			add_history(line);
 		}
 		run_cmd(&info, str1);
@@ -218,13 +222,12 @@ int	main(int argc, char *argv[], char *envp[])
 		// if (run_cmd(&info, str_start) < 0)
 		// 	errtext_exit("executing failed\n");
 		free(line);
-		line = readline(info.prompt);
-		printf("readline again %s\n", line);
 	}
 	printf("exit!\n");
 	rl_clear_history();
 	free_envlist(&info);
 	free_tcmd(str1);
 	free(line);
+	tcsetattr(0, 0, &info.termios_save);
 	return (0);
 }

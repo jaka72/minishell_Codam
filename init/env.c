@@ -104,7 +104,6 @@ char	**get_env_array(t_env *start_env)
 	int		i;
 
 	i = 0;
-	printf("envs is %d\n", count_env(start_env));
 	envs = malloc(sizeof(char **) * (count_env(start_env) + 1));
 	if (envs == NULL)
 		errtext_exit("malloc for envs failed\n");
