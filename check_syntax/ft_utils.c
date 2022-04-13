@@ -1,6 +1,6 @@
 #include "syntax_header.h"
 
-int	print_err_msg(t_source *src, char *err_msg)
+int	print_err_msg(char *err_msg)
 {
 	printf("\nMinishell: %s\n", err_msg);
 	return (SYNTAX_ERROR);
@@ -21,8 +21,6 @@ int	is_allowed_char(int c)
 	else
 		return (0);
 }
-
-
 
 char get_next_char(t_source *src)
 {

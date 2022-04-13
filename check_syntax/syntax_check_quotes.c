@@ -15,13 +15,13 @@ int check_quotes(t_source *src)
 			nr_quotes++;
 
 		else if (c == '\\' || c == ';' || c == '(' || c == ')')
-			print_err_msg(src, MSG_QUOTES);
+			print_err_msg(MSG_QUOTES);
 		src->currpos++;
 		c = src->inputline[src->currpos];
 	}
 
 	if (nr_quotes % 2 != 0)
-		print_err_msg(src, MSG_QUOTES);
+		print_err_msg(MSG_QUOTES);
 
 	src->currpos = 0;
 	return (0);

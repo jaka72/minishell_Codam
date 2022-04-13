@@ -53,7 +53,7 @@ int		check_quotes(t_source *src);
 
 // UTILS //////////////////////////
 int		is_allowed_char(int c);
-int		print_err_msg(t_source *src, char *err_msg);
+int		print_err_msg(char *err_msg);
 
 
 // FROM LIBFT //////////////////
