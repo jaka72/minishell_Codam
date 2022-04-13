@@ -6,7 +6,7 @@ gcc syntax_main.c ft_utils.c syntax_check_pipes.c syntax_check_quotes.c syntax_c
 
 // NEED TO FREE BEFORE EXIT AND BEFORE REPEATING LOOP
 // MAYBE NOT NEEDED TO EXIT BECAUSE IT EXITS ALREADY BEFORE
-int	start_checking(t_source *src, int is_tester)
+int	start_checking(t_source *src)
 {
 	if (check_quotes(src) != 0)
 	{
@@ -38,7 +38,7 @@ int	check_syntax_errors(t_source *src, int is_tester, char **argv)
 	if ((src->inputline == NULL || src->inputline[0] == '\0') && is_tester == 1)
 		exit(EXIT_SUCCESS);
 	src->inputline_size = strlen(src->inputline);
-	if (start_checking(src, is_tester) != 0)
+	if (start_checking(src) != 0)
 		return (1);
 	return (0);
 }

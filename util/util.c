@@ -15,3 +15,9 @@ char	*make_malloc_str(char *text)
 	str[i] = '\0';
 	return (str);
 }
+
+char	*free_return_null(char *text)
+{
+	free(text);
+	return (NULL);
+}
