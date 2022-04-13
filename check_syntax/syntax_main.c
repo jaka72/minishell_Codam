@@ -10,17 +10,17 @@ int	start_checking(t_source *src)
 {
 	if (check_quotes(src) != 0)
 	{
-		print_err_msg(src, MSG_QUOTES);
+		print_err_msg(MSG_QUOTES);
 		return (1);
 	}
 	if (check_pipes(src) != 0)
 	{
-		print_err_msg(src, MSG_PIPES);
+		print_err_msg(MSG_PIPES);
 		return (1);
 	}
 	if (check_redirects(src) != 0)
 	{
-		print_err_msg(src, MSG_REDIRECTS);
+		print_err_msg(MSG_REDIRECTS);
 		return (1);
 	}
 	return (0);
