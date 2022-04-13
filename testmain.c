@@ -1,17 +1,16 @@
 #include "minishell.h"
 
-
 t_cmd	*make_dammy1(t_infos *info, t_cmd *strdammy)
 {
 	strdammy = malloc(sizeof(t_cmd) * 1);
 	if (strdammy == NULL)
 		errtext_exit("making dammy failed\n");
 	strdammy->start_env = info->start_env;
-	strdammy->args = ft_split("cat ", ' ');
+	strdammy->args = ft_split("cat", ' ');
 	strdammy->fd_in = -2;
 	strdammy->fd_out = 1;
-	strdammy->infile = make_malloc_str("infile");
-	strdammy->outfile = make_malloc_str(NULL);
+	strdammy->infile = ft_split("infile", ' ');
+	strdammy->outfile = NULL;
 	strdammy->next = NULL;
 	strdammy->prev = NULL;
 	return (strdammy);
@@ -26,8 +25,24 @@ t_cmd	*make_dammy2(t_infos *info, t_cmd *strdammy)
 	strdammy->args = ft_split("wc -l", ' ');
 	strdammy->fd_in = 0;
 	strdammy->fd_out = 1;
-	strdammy->infile = make_malloc_str(NULL);
-	strdammy->outfile = make_malloc_str(NULL);
+	strdammy->infile = NULL;
+	strdammy->outfile = NULL;
+	strdammy->next = NULL;
+	strdammy->prev = NULL;
+	return (strdammy);
+}
+
+t_cmd	*make_dammy3(t_infos *info, t_cmd *strdammy)
+{
+	strdammy = malloc(sizeof(t_cmd) * 1);
+	if (strdammy == NULL)
+		errtext_exit("making dammy failed\n");
+	strdammy->start_env = info->start_env;
+	strdammy->args = ft_split("cat", ' ');
+	strdammy->fd_in = 0;
+	strdammy->fd_out = 1;
+	strdammy->infile = NULL;
+	strdammy->outfile = NULL;
 	strdammy->next = NULL;
 	strdammy->prev = NULL;
 	return (strdammy);
@@ -40,11 +55,17 @@ t_cmd	*manage_in_out(t_cmd *str)
 	i = 0;
 	if (str->fd_in == -2)
 	{
-		if (access(str->infile, F_OK) != 0)
-			errtext_exit("infile not exist\n");
-		if (access(str->infile, F_OK) == 0 && access(str->infile, R_OK) < 0)
+		while (str->infile[i])
+		{
+			if (str->infile[i] == NULL || access(str->infile[i], F_OK) != 0)
+				errtext_exit("infile not exist\n");
+			// printf("%s\n", str->infile[i]);
+			i++;
+		}
+		i--;
+		if (access(str->infile[i], F_OK) == 0 && access(str->infile[i], R_OK) < 0)
 			errtext_exit("can't access infile\n");
-		str->fd_in = open(str->infile, O_RDONLY);	
+		str->fd_in = open(str->infile[i], O_RDONLY);	
 		if (str->fd_in < 0)
 			errtext_exit("file open failed\n");
 	}
@@ -52,19 +73,29 @@ t_cmd	*manage_in_out(t_cmd *str)
 	{
 		printf("here doc function!\n");
 	}
+	i = 0;
 	if (str->fd_out == -2)
 	{
-		if (access(str->outfile, F_OK) == 0 && access(str->outfile, W_OK) < 0)
-			errtext_exit("outfile exist but not accessible\n");
-		str->fd_out = open(str->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		while (str->outfile[i])
+		{
+			if (access(str->outfile[i], F_OK) == 0 && access(str->outfile[i], W_OK) < 0)
+				errtext_exit("outfile exist but not accessible\n");
+			i++;
+		}
+		str->fd_out = open(str->outfile[i], O_WRONLY | O_CREAT | O_TRUNC, 0666);
 		if (str->fd_out < 0)
 			errtext_exit("output file open failed\n");
 	}
+	i = 0;
 	if (str->fd_out == -3)
 	{
-		if (access(str->outfile, F_OK) == 0 && access(str->outfile, W_OK) < 0)
-			errtext_exit("outfile exist but not accessible\n");
-		str->fd_out = open(str->outfile, O_WRONLY | O_CREAT, 0666);
+		while (str->outfile[i])
+		{
+			if (access(str->outfile[i], F_OK) == 0 && access(str->outfile[i], W_OK) < 0)
+				errtext_exit("outfile exist but not accessible\n");
+			i++;
+		}
+		str->fd_out = open(str->outfile[i], O_WRONLY | O_CREAT, 0666);
 		if (str->fd_out < 0)
 			errtext_exit("output file open failed\n");
 	}
@@ -78,109 +109,122 @@ int	run_cmd(t_infos *info, t_cmd *str)
 	char	**envs;
 	char	*path;
 	int		old_in = 0;
+	int		old_out = 1;
+	int		newpipe[2];
 
 	current = str;
 	envs = get_env_array(info->start_env);
-	str = manage_in_out(str);
-	if (current->next == NULL) //if no pipe
+	old_in = dup(0);
+	old_out = dup(1);
+	while (current)
 	{
+		if (current->next)
+		{
+			pipe(newpipe);
+			if (current->next->fd_in == 0)
+				current->next->fd_in = dup(newpipe[0]);
+			dup2(newpipe[1], 1);
+			close(newpipe[1]);
+			close(newpipe[0]);
+		}
+		else
+		{
+			dup2(old_out, 1);
+		}
+		if (current->fd_out > 1)
+		{
+			dup2(current->fd_out, 1);
+			close(current->fd_out);
+		}
+
+		current = manage_in_out(current);
 		//check if that is the builtin
-		if (current->fd_in != 0)
-		{
-			old_in = dup(0);
-			dup2(current->fd_in, 0);
-			close(current->fd_in);
-		}
-		if (current->fd_out != 1)
-		{
-			// dup2(current->fd_out, 1);
-			// close(current->fd_out);
-		}
 		pid = fork();
 		if (pid == 0)
 		{
-			path = ft_findshell_pass(str->args[0], envs);
-			printf("path is %s\n", path);
-			exit(0);
-			execve(path, str->args, envs);
+			if (current->fd_in != 0)
+			{
+				dup2(current->fd_in, 0);
+				close(current->fd_in);
+			}
+			path = ft_findshell_pass(current->args[0], envs);
+			execve(path, current->args, envs);
+		}
+		else
+		{
+			if (current->fd_in != 0)
+			{
+				close(current->fd_in);
+			}
 		}
 		wait(0);
-		dup2(old_in, 0);
 
+		current = current->next;
 	}
+	dup2(old_in, 0);
 	return(0);
 }
 
-int	main()
-{
-	int	pid;
-	int	pipe1[2];
-	int	std_in;
-
-
-	std_in = dup(0);
-	pipe(pipe1);
-	pid = fork();
-	if (pid == 0)
-	{
-		dup2(pipe1[1], 1);
-		close(pipe1[0]);
-		close(pipe1[1]);
-		write(pipe1[1], "Hi\n", 3);
-		// ft_file_heredoc("hello", std_in, 1);
-	}
-	else
-	{
-		dup2(pipe1[0], 0);
-		close(pipe1[0]);
-		close(pipe1[1]);
-		sleep(5);
-		wait(0);
-		printf("now parents");
-
-	}
-	return (0);
-}
-
-// int	main(int argc, char *argv[], char *envp[])
+// int	main() // main for heredoc test
 // {
-// 	t_infos	info;
-// 	char	*line;
-// 	t_cmd	*str1 = NULL;
-// 	t_cmd	*str2 = NULL;
-// 	t_cmd	*str_start = NULL;
+// 	int	next_read_fd;
+// 	char	buf[1];
 
-
-// 	(void) argc;
-// 	(void) argv;
-// 	ms_init(&info, envp);
-// 	str1 = make_dammy1(&info, str1);
-// 	str2 = make_dammy2(&info, str2);
-// 	str1->next = NULL;
-// 	str2->prev = str1;
-// 	str_start = str1;
-// 	line = readline(info.prompt);
-// 	while (line)
+// 	next_read_fd = ft_heredoc("hello"); //give delimiter and it returns the fd to read
+// 	while (read(next_read_fd, buf, 1))
 // 	{
-// 		line = check_expand(&info, line);
-// 		if (ft_strlen(line) > 0)
-// 		{
-// 			printf("%s\n", line);
-// 			add_history(line);
-// 		}
-// 		run_cmd(&info, str1);
-// 		printf("command finished\n");
-// 		// here parsing and make a linkedlist of t_cmd
-// 		// after making t_cmd list, fork and execute
-// 		// if (run_cmd(&info, str_start) < 0)
-// 		// 	errtext_exit("executing failed\n");
-// 		free(line);
-// 		line = readline(info.prompt);
-// 		printf("readline again %s\n", line);
+// 		write(1, "!", 1);
+// 		write(1, buf, 1);
 // 	}
-// 	printf("exit!\n");
-// 	rl_clear_history();
-// 	free_envlist(&info);
-// 	free(line);
+// 	close(next_read_fd);
 // 	return (0);
 // }
+
+
+int	main(int argc, char *argv[], char *envp[])
+{
+	t_infos	info;
+	char	*line;
+	t_cmd	*str1 = NULL;
+	t_cmd	*str2 = NULL;
+	t_cmd	*str3 = NULL;
+	t_cmd	*str_start = NULL;
+
+
+	(void) argc;
+	(void) argv;
+	ms_init(&info, envp);
+	str1 = make_dammy1(&info, str1);
+	str2 = make_dammy2(&info, str2);
+	str3 = make_dammy3(&info, str3);
+	str1->next = str2;
+	str2->prev = str1;
+	str2->next = str3;
+	str3->prev = str2;
+	str_start = str1;
+	line = readline(info.prompt);
+	while (line)
+	{
+		line = check_expand(&info, line);
+		if (ft_strlen(line) > 0)
+		{
+			printf("%s\n", line);
+			add_history(line);
+		}
+		run_cmd(&info, str1);
+		printf("\ncommand finished\n");
+		// here parsing and make a linkedlist of t_cmd
+		// after making t_cmd list, fork and execute
+		// if (run_cmd(&info, str_start) < 0)
+		// 	errtext_exit("executing failed\n");
+		free(line);
+		line = readline(info.prompt);
+		printf("readline again %s\n", line);
+	}
+	printf("exit!\n");
+	rl_clear_history();
+	free_envlist(&info);
+	free_tcmd(str1);
+	free(line);
+	return (0);
+}

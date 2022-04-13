@@ -42,18 +42,15 @@ FILE_SRC		= 	$(FILE_DIR)/heredoc.c
 # 					$(FILE_DIR)/outfile_append.c
 FILE_OBJ		=	$(FILE_SRC:%.c=%.o)
 
-
-# ADDED JAKA: SYNTAX ERRORS #######################################
-FILE_DIR		= 	./check_syntax
-FILE_SRC		= 	$(FILE_DIR)/syntax_main.c				\
-					$(FILE_DIR)/syntax_check_quotes.c		\
-					$(FILE_DIR)/syntax_check_pipes.c		\
-					$(FILE_DIR)/syntax_check_redirects.c	\
-					$(FILE_DIR)/ft_utils.c	\
-					$(FILE_DIR)/libft_functions.c
-FILE_OBJ		=	$(FILE_SRC:%.c=%.o)
-###################################################################
-
+# ADDED JAKA: SYNTAX ERRORS (name changed)
+SYNTAX_DIR		= 	./check_syntax
+SYNTAX_SRC		= 	$(SYNTAX_DIR)/syntax_main.c				\
+					$(SYNTAX_DIR)/syntax_check_quotes.c		\
+					$(SYNTAX_DIR)/syntax_check_pipes.c		\
+					$(SYNTAX_DIR)/syntax_check_redirects.c	\
+					$(SYNTAX_DIR)/ft_utils.c	\
+					$(SYNTAX_DIR)/libft_functions.c
+SYNTAX_OBJ		=	$(SYNTAX_SRC:%.c=%.o)
 
 # For parsing from a line
 # If there is(are) pipe(s), divide line
@@ -83,11 +80,12 @@ OBJ			=	$(UTIL_OBJ)		\
 				$(INIT_OBJ)		\
 				$(EXEC_OBJ)		\
 				$(FILE_OBJ)		\
+				$(SYNTAX_OBJ)	\
 				$(MAIN_OBJ)
 
 HEADER		=	minishell.h
 
-CFLAGS		=	#-Wall -Wextra -Werror 
+CFLAGS		=	-Wall -Wextra -Werror 
 
 all:		$(NAME)
 
@@ -104,3 +102,14 @@ $(NAME):	$(LIBFT_A) $(OBJ) $(HEADER)
 
 # if compile doesn't work, check 'brew info readline' and add 2 flags of LDFLAGS and CPPFLAGS
 # for example "-L/usr/local/lib -I/usr/local/include"
+
+clean:
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
+
+libftclean:
+	cd $(DIR_LIBFT); make fclean; cd ../
+
+re: fclean all
