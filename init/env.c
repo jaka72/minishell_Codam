@@ -104,7 +104,7 @@ char	**get_env_array(t_env *start_env)
 	int		i;
 
 	i = 0;
-	envs = malloc(sizeof(char **) * (count_env(start_env) + 1));
+	envs = malloc(sizeof(char **) * 1);
 	if (envs == NULL)
 		errtext_exit("malloc for envs failed\n");
 	temp = NULL;
@@ -116,7 +116,6 @@ char	**get_env_array(t_env *start_env)
 		ft_memcpy(&temp[ft_strlen(current->name)], "=", 1);
 		ft_memcpy(&temp[ft_strlen(current->name) + 1], current->value, ft_strlen(current->value) + 1);
 		envs[i] = temp;
-		// printf("envs[%d] is %s\n", i, envs[i]);
 		current = current->next;
 		i++; 
 	}

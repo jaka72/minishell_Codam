@@ -259,7 +259,7 @@ t_cmd	*make_dammy1(t_infos *info, t_cmd *strdammy)
 	strdammy->infile = make_malloc_str("infile");
 	strdammy->outfile = make_malloc_str(NULL);
 	strdammy->next = NULL;
-	strdammy->prev = NULL;
+
 	return (strdammy);
 }
 
@@ -275,7 +275,7 @@ t_cmd	*make_dammy2(t_infos *info, t_cmd *strdammy)
 	strdammy->infile = make_malloc_str(NULL);
 	strdammy->outfile = make_malloc_str(NULL);
 	strdammy->next = NULL;
-	strdammy->prev = NULL;
+
 	return (strdammy);
 }
 
@@ -355,7 +355,6 @@ int	main(int argc, char *argv[], char *envp[])
 	str1 = make_dammy1(&info, str1);
 	str2 = make_dammy2(&info, str2);
 	str1->next = str2;
-	str2->prev = str1;
 	str_start = str1;
 	line = readline(info.prompt);
 	while (line)
