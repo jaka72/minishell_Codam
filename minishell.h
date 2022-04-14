@@ -35,6 +35,7 @@ struct	s_infos
 	struct termios	termios_save;
 	struct termios	termios_new;
 	char			prompt[13];
+	int				ini_fd[2];
 };
 
 typedef struct s_cmd
@@ -45,8 +46,12 @@ typedef struct s_cmd
 	int				fd_out;		// fd_out : default is 1, if ">" -2, if ">>" -3.
 	char			**infile;
 	char			**outfile;
+	char			**heredoc;
+	int				count_args;			// NEEDED TO KEEP TRACK OF NR OF ELEMENTS,
+	int				count_infiles;		// TO BE ABLE TO realloc(), EACH TIME: nr + 1
+	int				count_outfiles;
+	int				count_heredocs;
 	struct s_cmd	*next;
-	struct s_cmd	*prev;
 }	t_cmd;
 
 // util/error.c

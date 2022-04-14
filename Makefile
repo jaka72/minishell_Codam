@@ -4,6 +4,8 @@ BONUS	=	minishell_bonus
 LIBFT_DIR	= 	./libft
 LIBFT_SRC	= 	$(LIBFT_DIR)/ft_memset.c					\
 				$(LIBFT_DIR)/ft_strlen.c					\
+				$(LIBFT_DIR)/ft_isalpha.c					\
+				$(LIBFT_DIR)/ft_isspace.c					\
 				$(LIBFT_DIR)/ft_memcpy.c					\
 				$(LIBFT_DIR)/ft_memccpy.c					\
 				$(LIBFT_DIR)/ft_strchr.c					\

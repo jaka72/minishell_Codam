@@ -6,7 +6,7 @@
 /*   By: kito <kito@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 18:39:53 by kito          #+#    #+#                 */
-/*   Updated: 2022/04/07 16:27:50 by kito          ########   odam.nl         */
+/*   Updated: 2022/04/14 16:35:34 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(const char *s);
+int		ft_isalpha(int c);
+int		ft_isspace(int c);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n);
 char	*ft_strchr(const char *s, int c);

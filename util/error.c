@@ -41,6 +41,7 @@ int	free_strings(char **strs)
 		free(strs[i]);
 		i++;
 	}
+	free(strs);
 	return (0);
 }
 

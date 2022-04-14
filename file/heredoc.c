@@ -103,7 +103,6 @@ int	make_heredoc(char *limiter)
 	}
 	else
 	{
-		dup2(newpipe[0], 0);
 		close(newpipe[1]);
 		wait(0);
 	}
