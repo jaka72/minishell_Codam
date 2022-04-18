@@ -15,7 +15,9 @@
 # include <termios.h>
 # include "libft/libft.h"
 
-# include "check_syntax/syntax_header.h"
+
+
+
 
 typedef struct s_env		t_env;
 typedef struct s_infos		t_infos;
@@ -53,6 +55,21 @@ typedef struct s_cmd
 	int				count_heredocs;
 	struct s_cmd	*next;
 }	t_cmd;
+
+
+// JAKA
+typedef struct s_source
+{
+	char	*inputline;
+	long	inputline_size;	// Length of the input text
+	long	currpos;		// index of char position in src->inputline
+} t_source;
+
+# include "jaka_utils/utils.h"
+# include "check_syntax/check_syntax.h"
+# include "parsing/make_commands.h"
+# include "builtins/builtins.h"
+
 
 // util/error.c
 void	errtext_exit(char *text);

@@ -222,8 +222,8 @@ int	main(int argc, char *argv[], char *envp[])
 	str1->next = str2;
 	str2->next = str3;
 	line = readline(info.prompt);
-	while (line)
-	{
+	// while (line)
+	// {
 		line = check_expand(&info, line);
 		if (ft_strlen(line) > 0)
 			add_history(line);
@@ -231,8 +231,8 @@ int	main(int argc, char *argv[], char *envp[])
 		// after making t_cmd list, fork and execute
 		run_cmd(&info, str1);
 		free(line);
-		line = readline(info.prompt);
-	}
+		// line = readline(info.prompt);
+	// }
 	printf("exit!\n");
 	rl_clear_history();
 	free_envlist(&info);

@@ -49,11 +49,8 @@ SYNTAX_DIR		= 	./check_syntax
 SYNTAX_SRC		= 	$(SYNTAX_DIR)/check_syntax.c			\
 					$(SYNTAX_DIR)/check_syntax_quotes.c		\
 					$(SYNTAX_DIR)/check_syntax_pipes.c		\
-					$(SYNTAX_DIR)/check_syntax_redirects.c	\
-					$(SYNTAX_DIR)/ft_utils.c	\
-					$(SYNTAX_DIR)/libft_functions.c
+					$(SYNTAX_DIR)/check_syntax_redirects.c
 SYNTAX_OBJ		=	$(SYNTAX_SRC:%.c=%.o)
-
 
 # ADDED JAKA: PARSING
 PARSING_DIR		= 	./parsing
@@ -62,13 +59,15 @@ PARSING_SRC		= 	$(PARSING_DIR)/make_commands.c \
 					$(PARSING_DIR)/print_commands_info.c
 PARSING_OBJ		=	$(PARSING_SRC:%.c=%.o)
 
-
 # ADDED JAKA: BUILTINS
 BUILTINS_DIR		= 	./builtins
-BUILTINS_SRC		= 	$(SYNTAX_DIR)/builtins.c
-BUILTINS_OBJ		=	$(SYNTAX_SRC:%.c=%.o)
+BUILTINS_SRC		= 	$(BUILTINS_DIR)/echo.c
+BUILTINS_OBJ		=	$(BUILTINS_SRC:%.c=%.o)
 
-
+# JAKA_UTILS
+JAKA_UTILS_DIR		= 	./jaka_utils
+JAKA_UTILS_SRC		= 	$(JAKA_UTILS_DIR)/utils.c
+JAKA_UTILS_OBJ		=	$(JAKA_UTILS_SRC:%.c=%.o)
 
 # For parsing from a line
 # If there is(are) pipe(s), divide line
@@ -91,7 +90,7 @@ BUILTINS_OBJ		=	$(SYNTAX_SRC:%.c=%.o)
 # BULTIN_OBJ	=	$(BUILTIN_SRC:%.c=%.o)
 
 #for main and running commands (fork and execte)
-MAIN_SRC	=	main.c
+MAIN_SRC	=	testmain_jaka.c
 MAIN_OBJ	=	$(MAIN_SRC:%.c=%.o)
 
 OBJ			=	$(UTIL_OBJ)		\
@@ -101,11 +100,14 @@ OBJ			=	$(UTIL_OBJ)		\
 				$(SYNTAX_OBJ)	\
 				$(PARSING_OBJ)	\
 				$(BUILTINS_OBJ)	\
+				$(JAKA_UTILS_OBJ)	\
 				$(MAIN_OBJ)
 
 HEADER		=	minishell.h
 
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror 
+
+RLFLAG = $(shell brew --prefix readline)
 
 all:		$(NAME)
 
@@ -115,10 +117,12 @@ $(LIBFT_A):	$(LIBFT_OBJ) $(LIBFT_DIR)/libft.h
 	cd $(LIBFT_DIR); make ; cd ../
 
 %.o:		%.c $(HEADER)
-	gcc -c $(CFLAGS) -o $@ $<
+	gcc -c $(CFLAGS) -I$(RLFLAG)/include -o $@ $<
 
 $(NAME):	$(LIBFT_A) $(OBJ) $(HEADER)
-	gcc $(CFLAGS) $(OBJ) -lreadline $(LIBFT_A) -o $(NAME)
+	gcc $(CFLAGS) $(OBJ) -I$(RLFLAG)/include -L$(RLFLAG)/lib -lreadline $(LIBFT_A) -o $(NAME)
+# -I$(RLFLAG)/include 		# headers 	inside /Users/jmurovec/.brew/opt/readline/include/readline
+# -L$(RLFLAG)/lib 			# libraries	inside /Users/jmurovec/.brew/opt/readline/lib
 
 # if compile doesn't work, check 'brew info readline' and add 2 flags of LDFLAGS and CPPFLAGS
 # for example "-L/usr/local/lib -I/usr/local/include"

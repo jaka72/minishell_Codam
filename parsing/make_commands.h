@@ -1,7 +1,9 @@
 #ifndef MAKE_COMMAND_H
 #define MAKE_COMMAND_H
 
-#include "../jaka_utils/utils.h"
+# include "../minishell.h"
+
+//# include "../jaka_utils/utils.h"
 
 typedef struct s_temporary_array
 {
