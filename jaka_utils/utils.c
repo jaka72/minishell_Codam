@@ -1,4 +1,8 @@
-#include "syntax_header.h"
+#include "utils.h"
+
+
+//  BOTH SYNTAX AND MAKECOMMANDS NEED TO HAVE ACCESS TO FOLDER jaka_utils TO READ
+//	THE FILE utils.c, WITH FUNCTIONS SUCH AS get_next_char()
 
 int	print_err_msg(char *err_msg)
 {
@@ -10,17 +14,33 @@ int	print_err_msg(char *err_msg)
 
 // IF IT FINDS \ ) ( OR ; 
 // IT ALREADY EXITS IN CHECK FOR QUOTES
-int	is_allowed_char(int c)
+///// PROBABLY HERE NOT NEEDED TO CHECK FOR INVLAID  CHARS \ ( )
+///// BECAUSE IF THEY APEAR INSIDE QUOTES, THEY SHOULD BE VALID
+///// IT IS ALREADY CHECKED WHEN CHECKING FOR CORRECT "QUOTES" 
+int	is_allowed_char(int c) // CHANGE TO "SUPORTED CHAR"
 {
 	if (c >= 33 && c <= 126)
 	{	
-		if (c == '(' || c == ')' || c == ';' || c == '\\')
-			return (0); // 0 == error
+//		if (c == '(' || c == ')' || c == ';' || c == '\\')
+//			return (0); // 0 == error
 		return (1);		// 1 == valid
 	}
 	else
 		return (0);
 }
+
+
+int	is_valid_filename_char(int c)
+{
+	if (c >= 33 && c <= 126)
+	{
+		if (c == '<' || c == '>' || c == '|')
+			return (0); // 0 == invalid
+	}
+	//printf("Valid [%d]\n", c);
+	return (1);	// 1== valid
+}
+
 
 char get_next_char(t_source *src)
 {

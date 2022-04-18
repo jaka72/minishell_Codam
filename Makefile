@@ -46,13 +46,29 @@ FILE_OBJ		=	$(FILE_SRC:%.c=%.o)
 
 # ADDED JAKA: SYNTAX ERRORS (name changed)
 SYNTAX_DIR		= 	./check_syntax
-SYNTAX_SRC		= 	$(SYNTAX_DIR)/syntax_main.c				\
-					$(SYNTAX_DIR)/syntax_check_quotes.c		\
-					$(SYNTAX_DIR)/syntax_check_pipes.c		\
-					$(SYNTAX_DIR)/syntax_check_redirects.c	\
+SYNTAX_SRC		= 	$(SYNTAX_DIR)/check_syntax.c			\
+					$(SYNTAX_DIR)/check_syntax_quotes.c		\
+					$(SYNTAX_DIR)/check_syntax_pipes.c		\
+					$(SYNTAX_DIR)/check_syntax_redirects.c	\
 					$(SYNTAX_DIR)/ft_utils.c	\
 					$(SYNTAX_DIR)/libft_functions.c
 SYNTAX_OBJ		=	$(SYNTAX_SRC:%.c=%.o)
+
+
+# ADDED JAKA: PARSING
+PARSING_DIR		= 	./parsing
+PARSING_SRC		= 	$(PARSING_DIR)/make_commands.c \
+					$(PARSING_DIR)/free_commands_list.c \
+					$(PARSING_DIR)/print_commands_info.c
+PARSING_OBJ		=	$(PARSING_SRC:%.c=%.o)
+
+
+# ADDED JAKA: BUILTINS
+BUILTINS_DIR		= 	./builtins
+BUILTINS_SRC		= 	$(SYNTAX_DIR)/builtins.c
+BUILTINS_OBJ		=	$(SYNTAX_SRC:%.c=%.o)
+
+
 
 # For parsing from a line
 # If there is(are) pipe(s), divide line
@@ -75,7 +91,7 @@ SYNTAX_OBJ		=	$(SYNTAX_SRC:%.c=%.o)
 # BULTIN_OBJ	=	$(BUILTIN_SRC:%.c=%.o)
 
 #for main and running commands (fork and execte)
-MAIN_SRC	=	testmain.c
+MAIN_SRC	=	main.c
 MAIN_OBJ	=	$(MAIN_SRC:%.c=%.o)
 
 OBJ			=	$(UTIL_OBJ)		\
@@ -83,11 +99,13 @@ OBJ			=	$(UTIL_OBJ)		\
 				$(EXEC_OBJ)		\
 				$(FILE_OBJ)		\
 				$(SYNTAX_OBJ)	\
+				$(PARSING_OBJ)	\
+				$(BUILTINS_OBJ)	\
 				$(MAIN_OBJ)
 
 HEADER		=	minishell.h
 
-CFLAGS		=	-Wall -Wextra -Werror 
+CFLAGS		=	-Wall -Wextra -Werror
 
 all:		$(NAME)
 
