@@ -5,6 +5,9 @@
 
 # include "../jaka_utils/utils.h"
 
+# include "../minishell.h"
+
+
 int	echo_builtin(t_cmd *cmd);
 
 
