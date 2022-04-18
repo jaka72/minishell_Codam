@@ -1,4 +1,4 @@
-#include "syntax_header.h"
+#include "check_syntax.h"
 
 
 void skip_alphas_spaces_pipes(t_source *src)
@@ -66,7 +66,7 @@ int	is_second_arrow(t_source *src, int *c, int arrow)
 }
 
 
-int	is_space_after_arrow(t_source *src, int *c)
+int	is_space_after_arrow(t_source *src, int *c/*, int arrow*/)
 {
 	int	ret;
 
@@ -112,7 +112,7 @@ int	check_redirects(t_source *src)
 			{
 				if (c == arrow)					// < at start
 				{
-					if (is_space_after_arrow(src, &c) != 0)
+					if (is_space_after_arrow(src, &c/*, arrow*/) != 0)
 						return (1);
 				}
 			}

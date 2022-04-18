@@ -8,19 +8,29 @@ BLU="\033[0;34m"
 YEL="\033[0;33m"
 RES="\033[0m"
 
+############################################################
+
+error_message="Minishell: Syntax error with REDIRECTS"
+
+############################################################
+
 ## TO EXTRACT LINES , TEMP
 # print_input_lines()
 # {
+
 # 	while read -r line; do
 # 		if [[ $line == input=* ]] && [[ $line != $ ]]   ;
 # 		then
 # 			echo $line >> out_mini
 # 			#msg=$line
+
 # 		else
 # 			: #echo $line >> out_mini
 # 		fi
 # 	done < "x_tester_synterr_redirs_in.sh"
+
 # }
+
 # print_input_lines
 
 
@@ -78,7 +88,7 @@ do
 	printf "  Test %3d:   %-40s   " $i  "'$input'"
 	> out_temp; >out_mini; > out_orig
 	./minishell "$input" | cat -e > out_temp
-	echo "Minishell: Syntax error with REDIRECTS" | cat -e > out_orig
+	echo $error_message | cat -e > out_orig
 	test_syntax_error "out_orig" "out_mini" "error" 
 	((i=i+1))
 done
@@ -110,7 +120,7 @@ do
 	printf "  Test %3d:   %-40s   " $i  "'$input'"
 	> out_temp; >out_mini; > out_orig
 	./minishell "$input" | cat -e > out_temp
-	echo "Minishell: Syntax error with REDIRECTS" | cat -e > out_orig
+	echo $error_message | cat -e > out_orig
 	test_syntax_error "out_orig" "out_mini" "error" 
 	((i=i+1))
 done
@@ -155,10 +165,11 @@ done
 
 echo -e $YEL"\nTest redirects: pipes with arrows, valid input "$RES
 
-inputlines=("ls | < infile"
+inputlines=(
+			"ls | < infile"
 			"ls|<infile"
 			"< infile cat -e > out"
-			"< infile cat -e | < ls | < infile"
+			#"< infile cat -e | < ls | < infile"
 			)
 
 nr_elements=${#inputlines[@]}

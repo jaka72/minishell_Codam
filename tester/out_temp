@@ -1,0 +1,21 @@
+^[[2;33mA) [< infile cat -e > out] len: 21$
+^[[0m^[[0;34mis > outfile (-2)$
+^[[0m$
+^[[0;34mCOMMAND 0$
+^[[0m^[[2;37m  Command  array: [^[[0m^[[2;33m cat ^[[0m^[[2;33m -e ^[[0m^[[2;37m]$
+^[[0m^[[2;37m  Command  fd_in: ^[[2;33m-2$
+^[[0m^[[2;37m  Command fd_out: ^[[2;33m-2$
+$
+^[[0m^[[2;37m  Infile   array: [^[[0m^[[2;33m infile ^[[0m^[[2;37m]$
+^[[0m^[[2;37m  Outfile  array: [^[[0m^[[2;33m out ^[[0m^[[2;37m]$
+^[[0m^[[2;37m  Heredocs array: [^[[0m^[[2;37m]$
+^[[0m^[[0;33mFree struct[0]$
+^[[0m^[[2;37m Free command array$
+^[[0m^[[2;33m    Free command[0]$
+^[[0m^[[2;33m    Free command[1]$
+^[[0m^[[2;37m Free infile array$
+^[[0m^[[2;33m    Free infile[0]$
+^[[0m^[[2;37m Free outfile array$
+^[[0m^[[2;33m    Free outfile[0]$
+^[[0m^[[2;37m Free heredocs array$
+^[[0m

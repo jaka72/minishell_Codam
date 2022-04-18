@@ -14,5 +14,9 @@ make
 cp minishell ./tester/minishell
 cd ./tester
 
+bash test_unsupported_chars.sh
+bash test_syntax_quotes.sh
 bash test_syntax_pipes.sh
 bash test_syntax_redirs.sh
+bash test_syntax_redirs.sh
+# bash test_builtin_echo.sh

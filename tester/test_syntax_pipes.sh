@@ -11,10 +11,13 @@ RES="\033[0m"
 
 
 ############################################################
+
+error_message="Minishell: Syntax error with PIPES"
+
 ############################################################
 
 
-make
+#make
 
 test_syntax_error()
 {
@@ -66,7 +69,7 @@ do
 	printf "  Test %3d:   %-30s   " $i "'$input'"
 	> out_temp; >out_mini; > out_orig
 	./minishell "$input" | cat -e > out_temp
-	echo "Minishell: Syntax error with PIPES" | cat -e > out_orig
+	echo $error_message | cat -e > out_orig
 	test_syntax_error "out_orig" "out_mini" "error"
 	((i=i+1))
 done
@@ -82,6 +85,10 @@ echo -e $YEL"\nTest syntax error: PIPES with words"$RES
 			"< infile cat < | | outfile"
 			"< infile cat < | | outfile |"
 			"| cat infile | wc > outfile"
+			"ls||wc"	# TWO PIPES || APPARENTLY ALLOWED. LINUX ???
+			"ls|||wc"	# Issue, now this is stil valid, should be error.
+			"ls || wc"	# TWO PIPES || APPARENTLY ALLOWED. LINUX ???
+			"ls ||| wc"	# Issue, now this is stil valid, should be error.
 			)
 
 nr_elements=${#inputlines[@]}
@@ -93,7 +100,7 @@ do
 	printf "  Test %3d:   %-30s   " $i "'$input'"
 	> out_temp; >out_mini; > out_orig
 	./minishell "$input" | cat -e > out_temp
-	echo "Minishell: Syntax error with PIPES" | cat -e > out_orig	
+	echo $error_message | cat -e > out_orig	
 	test_syntax_error "out_orig" "out_mini" "error"
 	((i=i+1))
 done
@@ -115,8 +122,6 @@ echo -e $YEL"\nTest valid input"$RES
 			"<< here cat | wc | > outfile"
 			"<< here | cat infile"
 			"ls | ls | ls > outfile"
-			"ls||wc"	# TWO PIPES || APPARENTLY ALLOWED. LINUX ???
-			"ls || wc"	# TWO PIPES || APPARENTLY ALLOWED. LINUX ???
 			)
 
 nr_elements=${#inputlines[@]}
@@ -136,8 +141,6 @@ done
 
 
 echo ""
-
-
 
 
 ##################################################################################
