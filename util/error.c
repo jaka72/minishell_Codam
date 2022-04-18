@@ -66,5 +66,6 @@ void	err_free_env_exit(t_infos *infos, char *text)
 {
 	perror(text);
 	free_envlist(infos);
+	tcsetattr(0, 0, &infos->termios_save);
 	exit(ERROR_RETURN);
 }

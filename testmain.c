@@ -26,11 +26,12 @@ t_cmd	*make_dammy2(t_infos *info, t_cmd *strdammy)
 	if (strdammy == NULL)
 		errtext_exit("making dammy failed\n");
 	strdammy->start_env = info->start_env;
-	strdammy->args = ft_split("wc -l", ' ');
-	strdammy->fd_in = 0;
-	strdammy->fd_out = -2;
+	strdammy->args = ft_split("cat", ' ');
+	strdammy->fd_in = -3;
+	strdammy->fd_out = -3;
 	strdammy->infile = NULL;
 	strdammy->outfile = ft_split("file7 file8", ' ');
+	strdammy->heredoc = NULL;
 	strdammy->heredoc = ft_split("here heredoc", ' ');
 	strdammy->count_args = 0;
 	strdammy->count_infiles = 0;
@@ -46,7 +47,7 @@ t_cmd	*make_dammy3(t_infos *info, t_cmd *strdammy)
 	if (strdammy == NULL)
 		errtext_exit("making dammy failed\n");
 	strdammy->start_env = info->start_env;
-	strdammy->args = ft_split("cd ../", ' ');
+	strdammy->args = ft_split("cat", ' ');
 	strdammy->fd_in = 0;
 	strdammy->fd_out = 1;
 	strdammy->infile = NULL;
@@ -127,7 +128,7 @@ void	check_outfile_fd(t_cmd *str)
 			str->fd_out = open(str->outfile[i],
 					O_WRONLY | O_CREAT | O_TRUNC, 0666);
 		if (str->fd_out == -3)
-			str->fd_out = open(str->outfile[i], O_WRONLY | O_CREAT, 0666);
+			str->fd_out = open(str->outfile[i], O_WRONLY | O_CREAT | O_APPEND, 0666);
 		if (str->fd_out < 0)
 			errtext_exit("output file open failed\n");
 	}
@@ -221,8 +222,8 @@ int	main(int argc, char *argv[], char *envp[])
 	str1->next = str2;
 	str2->next = str3;
 	line = readline(info.prompt);
-	while (line)
-	{
+	// while (line)
+	// {
 		line = check_expand(&info, line);
 		if (ft_strlen(line) > 0)
 			add_history(line);
@@ -230,13 +231,13 @@ int	main(int argc, char *argv[], char *envp[])
 		// after making t_cmd list, fork and execute
 		run_cmd(&info, str1);
 		free(line);
-		line = readline(info.prompt);
-	}
+		// line = readline(info.prompt);
+	// }
 	printf("exit!\n");
 	rl_clear_history();
 	free_envlist(&info);
 	free_tcmd(str1);
-	free(line);
+	// free(line);
 	tcsetattr(0, 0, &info.termios_save);
 	return (0);
 }
