@@ -13,9 +13,7 @@ void	handle_sigint(int num)
 void	ms_init(t_infos *info, char *envp[])
 {
 	int	rc;
-	int	i;
 
-	i = 0;
 	rc = tcgetattr(0, &info->termios_save);
 	if (rc)
 		errtext_exit("get termios failed\n");
@@ -30,3 +28,4 @@ void	ms_init(t_infos *info, char *envp[])
 	info->ini_fd[0] = dup(0);
 	info->ini_fd[1] = dup(1);
 }
+
