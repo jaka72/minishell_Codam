@@ -7,7 +7,7 @@ int	check_unsuported_chars(t_source *src)
 	c = src->inputline[src->currpos];
 	//while (c != '\0')
 	//{
-		if (c == '\\' || c == ';' || c == '(' || c == ')')
+		if (/* c == '\\' || */ c == ';' || c == '(' || c == ')')
 		{
 			// print_err_msg(MSG_UNSUPPORTED);
 			return (1);
@@ -40,16 +40,21 @@ int	skip_till_end_quote(t_source *src, int c_open)
 
 int	check_quotes(t_source *src)
 {
+	//printf("\n"BLU"   a check quotes, currpos %ld\n"RES, src->currpos);
+	printf(CYN"line [%s]\n"RES, src->inputline);
+
 	int	c;
 
 
 	c = src->inputline[src->currpos];
 	while (src->currpos < src->inputline_size)
 	{
+		//printf("\n"BLU"   b check quotes, currpos %ld\n"RES, src->currpos);
 		if (check_unsuported_chars(src) != 0)
 			return (1);
 		if (c == '"' || c == '\'')
 		{
+			//printf("\n"BLU"   Found a quote, start skipping \n"RES);
 			if (skip_till_end_quote(src, c) != 0)
 				return (2);
 		}

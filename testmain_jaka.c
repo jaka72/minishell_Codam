@@ -169,15 +169,23 @@ int	main(int argc, char *argv[], char *envp[])
 	ms_init(&info, envp);
 
 	src.inputline = NULL;
-	if (argc == 2)
+	if (argc == 2)	// JUST FOR TESTING
 	{
 		src.inputline = argv[1];
+		src.inputline_size = strlen(src.inputline);
 		//printf(CYN"line len: %ld\n"RES, src.inputline_size);
 		if (check_syntax_errors(&src) != 0)
 				return (SYNTAX_ERROR);
+		//line = src.inputline;	// maybe not needed
 		cmd_list = make_commands(&src);
-		// FREE AFTER EXECUTION /////////////////////////////////////////////////////
+
+		run_cmd(&info, cmd_list);
 		free_commands_list(cmd_list);
+		//rl_clear_history();
+		free_envlist(&info);
+		tcsetattr(0, 0, &info.termios_save);
+		printf(WHT"exit! (tester mode)\n"RES);
+		return (0);
 	}
 	else
 	{

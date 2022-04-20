@@ -6,12 +6,12 @@ void free_arrays(t_cmd *cmd)
 	int i;
 	
 	i = 0;
-	printf(WHT2" Free command array\n"RES);
+	//printf(WHT2" Free command array\n"RES);
 	if (cmd->args != NULL)
 	{
 		while (i < cmd->count_args)
 		{
-			printf(DYEL"    Free command[%d]\n"RES, i);
+			//printf(DYEL"    Free command[%d]\n"RES, i);
 			free(cmd->args[i]);
 			i++;
 		}
@@ -22,12 +22,12 @@ void free_arrays(t_cmd *cmd)
 
 	// printf(GRE"nr outfiles: %d \n"RES, cmd->count_outfiles);
 	i = 0;
-	printf(WHT2" Free infile array\n"RES);
+	//printf(WHT2" Free infile array\n"RES);
 	if (cmd->infile != NULL)
 	{
 		while (i < cmd->count_infiles)
 		{
-			printf(DYEL"    Free infile[%d]\n"RES, i);
+			//printf(DYEL"    Free infile[%d]\n"RES, i);
 			free(cmd->infile[i]);
 			i++;
 		}
@@ -40,12 +40,12 @@ void free_arrays(t_cmd *cmd)
 
 	// printf(GRE"nr_infiles: %d \n"RES, cmd->count_outfiles);
 	i = 0;
-	printf(WHT2" Free outfile array\n"RES);
+	//printf(WHT2" Free outfile array\n"RES);
 	if (cmd->outfile != NULL)
 	{
 		while (i < cmd->count_outfiles)
 		{
-			printf(DYEL"    Free outfile[%d]\n"RES, i);
+			//printf(DYEL"    Free outfile[%d]\n"RES, i);
 			free(cmd->outfile[i]);
 			i++;
 		}
@@ -56,12 +56,12 @@ void free_arrays(t_cmd *cmd)
 
 	// printf(GRE"count_heredocs: %d \n"RES, cmd->count_outfiles);
 	i = 0;
-	printf(WHT2" Free heredocs array\n"RES);
+	//printf(WHT2" Free heredocs array\n"RES);
 	if (cmd->heredoc != NULL)
 	{
 		while (i < cmd->count_heredocs)
 		{
-			printf(DYEL"    Free heredoc[%d]\n"RES, i);
+			//printf(DYEL"    Free heredoc[%d]\n"RES, i);
 			free(cmd->heredoc[i]);
 			i++;
 		}
@@ -79,7 +79,7 @@ int	free_commands_list(t_cmd *first_cmd)
 	temp = first_cmd;
 	while (temp)
 	{
-		printf(YEL"Free struct[%d]\n"RES, i);
+		//printf(YEL"Free struct[%d]\n"RES, i);
 		free_arrays(temp);
 		temp = temp->next;
 		free(first_cmd);

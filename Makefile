@@ -55,6 +55,7 @@ SYNTAX_OBJ		=	$(SYNTAX_SRC:%.c=%.o)
 # ADDED JAKA: PARSING
 PARSING_DIR		= 	./parsing
 PARSING_SRC		= 	$(PARSING_DIR)/make_commands.c \
+					$(PARSING_DIR)/make_commands_utils.c \
 					$(PARSING_DIR)/free_commands_list.c \
 					$(PARSING_DIR)/print_commands_info.c
 PARSING_OBJ		=	$(PARSING_SRC:%.c=%.o)
