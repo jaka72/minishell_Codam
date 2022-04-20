@@ -7,11 +7,12 @@ t_cmd	*make_dammy1(t_infos *info, t_cmd *strdammy)
 		errtext_exit("making dammy failed\n");
 	strdammy->start_env = info->start_env;
 	strdammy->args = ft_split("cat", ' ');
-	strdammy->fd_in = -2;
+	strdammy->fd_in = -3;
 	strdammy->fd_out = 1;
 	strdammy->infile = 	ft_split("infile outfile", ' ');
+	// strdammy->infile = 	NULL;
 	strdammy->outfile = NULL;
-	strdammy->heredoc = NULL;
+	strdammy->heredoc = ft_split("here", ' ');
 	strdammy->count_args = 0;
 	strdammy->count_infiles = 0;
 	strdammy->count_outfiles = 0;
@@ -27,12 +28,13 @@ t_cmd	*make_dammy2(t_infos *info, t_cmd *strdammy)
 		errtext_exit("making dammy failed\n");
 	strdammy->start_env = info->start_env;
 	strdammy->args = ft_split("cat", ' ');
-	strdammy->fd_in = -3;
-	strdammy->fd_out = -3;
+	strdammy->fd_in = 0;
+	strdammy->fd_out = -2;
 	strdammy->infile = NULL;
-	strdammy->outfile = ft_split("file7 file8", ' ');
+	strdammy->outfile = ft_split("out1 out2 out3", ' ');
+	// strdammy->outfile = NULL;
 	strdammy->heredoc = NULL;
-	strdammy->heredoc = ft_split("here heredoc", ' ');
+	// strdammy->heredoc = ft_split("here heredoc", ' ');
 	strdammy->count_args = 0;
 	strdammy->count_infiles = 0;
 	strdammy->count_outfiles = 0;
@@ -47,7 +49,7 @@ t_cmd	*make_dammy3(t_infos *info, t_cmd *strdammy)
 	if (strdammy == NULL)
 		errtext_exit("making dammy failed\n");
 	strdammy->start_env = info->start_env;
-	strdammy->args = ft_split("cat", ' ');
+	strdammy->args = ft_split("wc", ' ');
 	strdammy->fd_in = 0;
 	strdammy->fd_out = 1;
 	strdammy->infile = NULL;
@@ -80,11 +82,14 @@ void	check_infile_fd(t_cmd *str)
 		}
 		if (i > 0)
 			i--;
-		j = open(str->infile[i], O_RDONLY);
-		if (j < 0)
-			errtext_exit("file open failed\n");
 		if (str->fd_in == -2)
+		{
+			j = open(str->infile[i], O_RDONLY);
+			if (j < 0)
+				errtext_exit("file open failed\n");
 			str->fd_in = j;
+		}
+			
 	}
 }
 
@@ -121,6 +126,13 @@ void	check_outfile_fd(t_cmd *str)
 			if (access(str->outfile[i], F_OK) == 0
 				&& access(str->outfile[i], W_OK) < 0)
 				errtext_exit("outfile exist but not accessible\n");
+			if (access(str->outfile[i], F_OK) != 0)
+			{
+				str->fd_out = open(str->outfile[i], O_CREAT, 0666);
+				if (str->fd_out < 0)
+					errtext_exit("couldn't make output file\n");
+				close(str->fd_out);
+			}
 			i++;
 		}
 		i--;
@@ -220,11 +232,11 @@ int	main(int argc, char *argv[], char *envp[])
 	str2 = make_dammy2(&info, str2);
 	str3 = make_dammy3(&info, str3);
 	str1->next = str2;
-	str2->next = str3;
+	str2->next = NULL;
 	line = readline(info.prompt);
 	// while (line)
 	// {
-		line = check_expand(&info, line);
+		// line = check_expand(&info, line);
 		if (ft_strlen(line) > 0)
 			add_history(line);
 		// here parsing and make a linkedlist of t_cmd
