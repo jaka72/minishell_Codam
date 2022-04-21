@@ -104,11 +104,11 @@ echo -e $YEL"\nTest INPUT redirects: syntax errors, arrow with pipe"$RES
 inputlines=(
 			"ls | < | outfile"
 			"< infile cat | < | outfile"
-			"<< here >< outfile"
-			"<< here cat | wc >< outfile"
-			"<> here cat | wc > outfile"
-			"<< here > < outfile"
-			"<< here >> < outfile"
+			# "<< here >< outfile"
+			# "<< here cat | wc >< outfile"
+			# "<> here cat | wc > outfile"
+			# "<< here > < outfile"
+			# "<< here >> < outfile"
 			)
 
 nr_elements=${#inputlines[@]}
@@ -137,12 +137,12 @@ inputlines=(
 			"< abc"
 			"< abc < abc"
 			"<abc"
-			"<<abc"
-			"<< abc"
-			"<< abc << abc"
-			"<< abc < abc"
-			"<< here cat | wc > outfile"
-			"<< here cat | wc >> outfile"
+			# "<<abc"
+			# "<< abc"
+			# "<< abc << abc"
+			# "<< abc < abc"
+			# "<< here cat | wc > outfile"
+			# "<< here cat | wc >> outfile"
 	 		)
 
 
@@ -169,7 +169,7 @@ inputlines=(
 			"ls | < infile"
 			"ls|<infile"
 			"< infile cat -e > out"
-			#"< infile cat -e | < ls | < infile"
+			"< infile cat -e | < ls | < infile"
 			)
 
 nr_elements=${#inputlines[@]}

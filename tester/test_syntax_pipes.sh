@@ -25,7 +25,8 @@ test_syntax_error()
 	while read -r line; do
 		if [[ $line != ^[[* ]] && [[ $line != $ ]]   ;
 		then
-			echo $line >> out_mini
+			# echo "$line" >> out_mini
+			printf '%b\n' "${line}" >> out_mini
 		else
 			: echo $line >> out_else
 		fi
@@ -111,16 +112,16 @@ done
 ##############################################################################
 
 
-echo -e $YEL"\nTest valid input"$RES
+echo -e $YEL"\nTest PIPES: valid input"$RES
 
  inputlines=(
 	 		"ls|wc"
 	 		"ls | wc"
 	 		"   ls | wc   "
 	 		"< infile cat | < outfile"
-			"<< here cat | wc > outfile"
-			"<< here cat | wc | > outfile"
-			"<< here | cat infile"
+			# "<< here cat | wc > outfile"
+			# "<< here cat | wc | > outfile"
+			# "<< here | cat infile"
 			"ls | ls | ls > outfile"
 			)
 
@@ -135,6 +136,9 @@ do
 	> out_temp; >out_mini; > out_orig
 	./minishell "$input" | cat -e > out_temp
 	#echo "syntax error from initial check: pipes; exit" | cat -e > out_orig
+
+	eval "$input" | cat -e > out_orig
+
 	test_syntax_error "out_orig" "out_mini" "valid"
 	((i=i+1))
 done
