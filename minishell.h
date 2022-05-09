@@ -81,6 +81,7 @@ void	err_free_env_exit(t_infos *infos, char *text);
 // util/util.c
 char	*make_malloc_str(char *text);
 char	*free_return_null(char *text);
+char	*ft_add_c_free(char *s1, char c);
 
 // init/init.c
 void	handle_sigint(int num);

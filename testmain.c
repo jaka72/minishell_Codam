@@ -217,39 +217,77 @@ int	run_cmd(t_infos *info, t_cmd *str)
 	return(0);
 }
 
+// int	main(int argc, char *argv[], char *envp[])
+// {
+// 	t_infos	info;
+// 	char	*line;
+// 	t_cmd	*str1 = NULL;
+// 	t_cmd	*str2 = NULL;
+// 	t_cmd	*str3 = NULL;
+
+// 	(void) argc;
+// 	(void) argv;
+// 	ms_init(&info, envp);
+// 	str1 = make_dammy1(&info, str1);
+// 	str2 = make_dammy2(&info, str2);
+// 	str3 = make_dammy3(&info, str3);
+// 	str1->next = str2;
+// 	str2->next = NULL;
+// 	line = readline(info.prompt);
+// 	// while (line)
+// 	// {
+// 		// line = check_expand(&info, line);
+// 		if (ft_strlen(line) > 0)
+// 			add_history(line);
+// 		// here parsing and make a linkedlist of t_cmd
+// 		// after making t_cmd list, fork and execute
+// 		run_cmd(&info, str1);
+// 		free(line);
+// 		// line = readline(info.prompt);
+// 	// }
+// 	printf("exit!\n");
+// 	rl_clear_history();
+// 	free_envlist(&info);
+// 	free_tcmd(str1);
+// 	// free(line);
+// 	tcsetattr(0, 0, &info.termios_save);
+// 	return (0);
+// }
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_infos	info;
-	char	*line;
-	t_cmd	*str1 = NULL;
-	t_cmd	*str2 = NULL;
-	t_cmd	*str3 = NULL;
+	char	*tx;
+	t_env	*env;
 
 	(void) argc;
 	(void) argv;
+	tx = NULL;
 	ms_init(&info, envp);
-	str1 = make_dammy1(&info, str1);
-	str2 = make_dammy2(&info, str2);
-	str3 = make_dammy3(&info, str3);
-	str1->next = str2;
-	str2->next = NULL;
-	line = readline(info.prompt);
-	// while (line)
+	env = info.start_env;
+	// while (env)
 	// {
-		// line = check_expand(&info, line);
-		if (ft_strlen(line) > 0)
-			add_history(line);
-		// here parsing and make a linkedlist of t_cmd
-		// after making t_cmd list, fork and execute
-		run_cmd(&info, str1);
-		free(line);
-		// line = readline(info.prompt);
+	// 	printf("%s : %s \n", env->name, env->value);
+	// 	env = env->next;
 	// }
-	printf("exit!\n");
-	rl_clear_history();
+	printf("\'hello$PWD\' : %s\n", tx = check_expand(&info, "\'hello$PWD\'"));
+	free (tx);
+	printf("\"hello$PWD\" : %s\n", tx = check_expand(&info, "\"hello$PWD\""));
+	free (tx);
+	printf("hello$PWD : %s\n", tx = check_expand(&info, "hello$PWD"));
+	free (tx);
+	printf("hello $PWD : %s\n", tx = check_expand(&info, "hello $PWD"));
+	free (tx);
+	printf("$5 : %s\n", tx = check_expand(&info, "$5"));
+	free (tx);
+	printf("$a : %s\n", tx = check_expand(&info, "$a"));
+	free (tx);
+	printf("$pp : %s\n", tx = check_expand(&info, "$pp"));
+	free (tx);
+	printf("hello$PWD123 : %s\n", tx = check_expand(&info, "hello$PWD123"));
+	free (tx);
+	printf("\"hello$PWD $PWD\" : %s\n", tx = check_expand(&info, "\"hello$PWD $PWD\""));
+	free (tx);
 	free_envlist(&info);
-	free_tcmd(str1);
-	// free(line);
-	tcsetattr(0, 0, &info.termios_save);
 	return (0);
 }

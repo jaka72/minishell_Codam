@@ -90,7 +90,7 @@ JAKA_UTILS_OBJ		=	$(JAKA_UTILS_SRC:%.c=%.o)
 # BULTIN_OBJ	=	$(BUILTIN_SRC:%.c=%.o)
 
 #for main and running commands (fork and execte)
-MAIN_SRC	=	testmain_jaka.c
+MAIN_SRC	=	testmain.c
 MAIN_OBJ	=	$(MAIN_SRC:%.c=%.o)
 
 OBJ			=	$(UTIL_OBJ)		\
