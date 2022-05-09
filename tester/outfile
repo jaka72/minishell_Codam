@@ -1,1 +1,17 @@
-aaa aaa
+infile
+minishell
+out
+out_else
+outfile
+out_mini
+out_orig
+out_orig2
+out_temp
+readme
+run_tester.sh
+test_builtin_echo_UNUSED.sh
+test_output_cat.sh
+test_syntax_pipes.sh
+test_syntax_quotes.sh
+test_syntax_redirs.sh
+test_unsupported_chars.sh

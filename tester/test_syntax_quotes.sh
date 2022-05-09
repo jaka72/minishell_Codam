@@ -50,13 +50,12 @@ echo -e $YEL"\nTest syntax error: QUOTES"$RES
 	 		'abc"efg'
 	 		'abc"""""efg'
 	 		'abc"e"fg   "'
-	 		"abc'efg"
+	 		 "abc'efg"
 	 		"abc'''efg"
 	 		"abc'e'f'g"
 	 		"  ' abc efg"
 	 		"  abc '  efg "
 	 		"  abc ' ' '  efg "
-
 			)
 
 nr_elements=${#inputlines[@]}
@@ -82,11 +81,12 @@ done
 echo -e $YEL"\nTest QUOTES: valid input"$RES
 
  inputlines=(
-	 		'abc""efg'
-	 		'abc "" efg'
-	 		'abc " " efg'
-	 		'abc"x"efg'
-	 		'abc"d"e"f"g'
+	 		#'abc""efg'
+	 		'ca""t infile'
+	 		# 'abc "" efg'
+	 		# 'abc " " efg'
+	 		# 'abc"x"efg'
+	 		# 'abc"d"e"f"g'
 			)
 
 nr_elements=${#inputlines[@]}
@@ -100,6 +100,8 @@ do
 	> out_temp; >out_mini; > out_orig
 	./minishell "$input" | cat -e > out_temp
 	#echo "syntax error from initial check: pipes; exit" | cat -e > out_orig
+
+	eval "$input" | cat -e > out_orig
 	test_syntax_error "out_orig" "out_mini" "valid"
 	((i=i+1))
 done
