@@ -46,3 +46,11 @@ char	*ft_add_c_free(char *s1, char c)
 	free(s1);
 	return (str);
 }
+
+void	cleandata(t_infos *info)
+{
+	printf("exit\n");
+	rl_clear_history();
+	free_envlist(info);
+	tcsetattr(0, 0, &info->termios_save);
+}

@@ -135,3 +135,16 @@ char	*check_expand(t_infos *info, char *tx)
 	}
 	return (expanded);
 }
+
+char	**expand_array(char **args, t_infos *info)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		args[i] = check_expand(info, args[i]); 
+		i++;
+	}
+	return (args);
+}

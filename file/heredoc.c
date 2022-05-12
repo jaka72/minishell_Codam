@@ -59,15 +59,17 @@ char	*write_free(int fd, char *checklimit)
 	return (free_return_null(checklimit));
 }
 
-int	get_heredoc(char *limiter, int fd_out)
+int	get_heredoc(char *limiter, int fd_out, t_infos *info)
 {
 	char	*checklimit;
 	char	buff_last[2];
 	int		rd;
+	char	*exp;
 
 	buff_last[1] = '\n';
 	checklimit = NULL;
 	rd = 1;
+	exp = NULL;
 	while (rd == 1)
 	{
 		rd = read(STDIN_FILENO, buff_last, 1);
@@ -78,15 +80,40 @@ int	get_heredoc(char *limiter, int fd_out)
 			checklimit = check_limiter(buff_last, limiter);
 			if (checklimit == NULL)
 				break ;
+			checklimit = check_expand(info, checklimit);
 			checklimit = write_free(fd_out, checklimit);
 		}
-		write(fd_out, buff_last, 1);
+		// if $ shows up, check the env
+		if (buff_last[0] == '$')
+		{
+			exp = malloc(sizeof(char) * 2);
+			if (exp == NULL)
+				errtext_exit("malloc failed\n");
+			exp[0] = '$';
+			exp[1] = '\0';
+		}
+		else if (exp != NULL)
+		{
+			if (buff_last[0] == '\n' || buff_last[0] == ' ' || buff_last[0] == '\0')
+			{
+				exp = check_expand(info, exp);
+				write(fd_out, exp, ft_strlen(exp));
+				free(exp);
+				exp = NULL;
+				if (buff_last[0] == '\n' || buff_last[0] == ' ')
+					write(fd_out, buff_last, 1);
+			}
+			else
+				exp = ft_add_c_free(exp, buff_last[0]);
+		}
+		else if (exp == NULL)
+			write(fd_out, buff_last, 1);
 		buff_last[1] = buff_last[0];
 	}
 	return (0);
 }
 
-int	make_heredoc(char *limiter)
+int	make_heredoc(char *limiter, t_infos *info)
 {
 	int	pid;
 	int	newpipe[2];
@@ -97,7 +124,7 @@ int	make_heredoc(char *limiter)
 	{
 		dup2(newpipe[1], 1);
 		close(newpipe[0]);
-		get_heredoc(limiter, newpipe[1]);
+		get_heredoc(limiter, newpipe[1], info);
 		close(newpipe[1]);
 		exit(1);
 	}
@@ -108,3 +135,5 @@ int	make_heredoc(char *limiter)
 	}
 	return (newpipe[0]);
 }
+
+// check! if "<< here" and no argument, it causes segmentation fault
