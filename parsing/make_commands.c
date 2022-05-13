@@ -167,13 +167,17 @@ int	select_and_store_words(t_source *src, t_cmd *cmd)
 //////////////////////////////////////////////////////////////////
 
 
-t_cmd	*make_commands(t_source *src)
+t_cmd	*make_commands(t_source *src, t_infos *info)
 {
 	int		i;			// just for printing
 	int		ret;
 	t_cmd	*first_cmd;
 	t_cmd	*new_cmd;
 	
+	if (src->inputline_size == 0)
+		return (0);
+
+
 	src->currpos = -1;
 	first_cmd = NULL;
 	i = 0;
@@ -194,7 +198,17 @@ t_cmd	*make_commands(t_source *src)
 		i++;
 	}
 
-	check_if_builtin(first_cmd);
+	// printf(MAG"From make_commands\n"RES);
+	// t_env *temp;
+	// temp = info->start_env;
+	// while (temp)
+	// {
+	// 	printf(MAG"   %s\n"RES, temp->name);
+	// 	temp = temp->next;
+	// }
+
+
+	check_if_builtin(first_cmd, info);
 
 	return (first_cmd);
 }

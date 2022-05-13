@@ -19,6 +19,42 @@ error_message="Minishell: Syntax error with PIPES"
 
 #make
 
+# test_syntax_error()
+# {
+# 	filename="out_orig"
+# 	while read -r line; do
+# 		# if [[ $line != ^[[* ]] && [[ $line != $ ]]   ;
+# 		if [[ $line != ^[[* ]] && [[ $line != $ ]]   ;
+# 		then
+# 			echo $line >> out_orig2
+# 		else
+# 			: echo $line >> out_else
+# 		fi
+# 	done < "$filename"
+
+
+
+# 	filename="out_temp"
+# 	while read -r line; do
+# 		if [[ $line != ^[[* ]] && [[ $line != $ ]]   ;
+# 		then
+# 			 echo "$line" >> out_mini
+# 			# printf '%b\n' "${line}" >> out_mini
+# 		else
+# 			: echo $line >> out_else
+# 		fi
+# 	done < "$filename"
+# 	msg=$3
+# 	DIFF=$(diff $1 $2)
+# 	if [ "$DIFF" == "" ] 
+# 	then
+# 		echo -e $GRN"[ OK ] " $GRE $msg $RES 
+# 	else
+# 		echo -e $RED"[ KO ]"$RES 
+# 	fi
+# }
+
+
 test_syntax_error()
 {
 	filename="out_orig"
@@ -33,14 +69,12 @@ test_syntax_error()
 	done < "$filename"
 
 
-
 	filename="out_temp"
 	while read -r line; do
+		# if [[ $line != ^[[* ]] && [[ $line != $ ]]   ;
 		if [[ $line != ^[[* ]] && [[ $line != $ ]]   ;
 		then
-			 echo $line >> out_mini
-			 # echo "$line" >> out_mini		$line VS "$line"  ???
-			# printf '%b\n' "${line}" >> out_mini
+			echo $line >> out_mini
 		else
 			: echo $line >> out_else
 		fi
@@ -54,6 +88,7 @@ test_syntax_error()
 		echo -e $RED"[ KO ]"$RES 
 	fi
 }
+
 
 
 #############################################################################
@@ -147,18 +182,30 @@ echo -e $BLU"  ( valid input with wc is KO, because tabs are displayed different
 nr_elements=${#inputlines[@]}
 
 
+# i=0
+# while (( $i < $nr_elements ))
+# do
+# 	input=${inputlines[$i]}
+# 	printf "  Test %3d:   %-30s   " $i "'$input'"
+# 	> out_temp; >out_mini; > out_orig; > out_orig2
+# 	./minishell "$input" | cat -e > out_temp
+# 	#echo "syntax error from initial check: pipes; exit" | cat -e > out_orig
+
+# 	# eval "$input" | cat -e > out_orig
+# 	eval $input | cat -e > out_orig
+
+# 	test_syntax_error "out_orig2" "out_mini" "valid"
+# 	((i=i+1))
+# done
+
 i=0
 while (( $i < $nr_elements ))
 do
 	input=${inputlines[$i]}
 	printf "  Test %3d:   %-30s   " $i "'$input'"
-	> out_temp; >out_mini; > out_orig; > out_orig2
+	> out_temp; >out_mini; > out_orig; > out_orig2 
 	./minishell "$input" | cat -e > out_temp
-	#echo "syntax error from initial check: pipes; exit" | cat -e > out_orig
-
-	# eval "$input" | cat -e > out_orig
 	eval $input | cat -e > out_orig
-
 	test_syntax_error "out_orig2" "out_mini" "valid"
 	((i=i+1))
 done

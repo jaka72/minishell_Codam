@@ -104,6 +104,8 @@ echo -e $YEL"\nTest INPUT redirects: syntax errors, arrow with pipe"$RES
 inputlines=(
 			"ls | < | outfile"
 			"< infile cat | < | outfile"
+
+			### HEREDOC not handled yet
 			# "<< here >< outfile"
 			# "<< here cat | wc >< outfile"
 			# "<> here cat | wc > outfile"
@@ -137,6 +139,8 @@ inputlines=(
 			"< abc"
 			"< abc < abc"
 			"<abc"
+
+			### HEREDOC not handled yet
 			# "<<abc"
 			# "<< abc"
 			# "<< abc << abc"

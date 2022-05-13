@@ -1,18 +1,19 @@
-^[[36mline [ca""t infile]$
+     20      20     280$
+$
+^[[0;34m        check rdrs$
 ^[[0m$
 ^[[0;34mCOMMAND 0$
-^[[0m^[[2;37m  Command  array: [^[[0m^[[2;33m ca""t ^[[0m^[[2;33m infile ^[[0m^[[2;37m]$
+^[[0m^[[2;37m  Command  array: [^[[0m^[[2;33m ls ^[[0m^[[2;37m]$
 ^[[0m^[[2;37m  Command  fd_in: ^[[2;33m 0$
 ^[[0m^[[2;37m  Command fd_out: ^[[2;33m 1$
 $
 ^[[0m^[[2;37m  Infile   array: [^[[0m^[[2;37m]$
 ^[[0m^[[2;37m  Outfile  array: [^[[0m^[[2;37m]$
 ^[[0m^[[2;37m  Heredocs array: [^[[0m^[[2;37m]$
-^[[0m^[[37mexit! (tester mode)$
-^[[0m^[[36mline [ca""t infile]$
+^[[0m^[[0;34mFound pipe: Start new cycle.$
 ^[[0m$
-^[[0;34mCOMMAND 0$
-^[[0m^[[2;37m  Command  array: [^[[0m^[[2;33m ca""t ^[[0m^[[2;33m infile ^[[0m^[[2;37m]$
+^[[0;34mCOMMAND 1$
+^[[0m^[[2;37m  Command  array: [^[[0m^[[2;33m wc ^[[0m^[[2;37m]$
 ^[[0m^[[2;37m  Command  fd_in: ^[[2;33m 0$
 ^[[0m^[[2;37m  Command fd_out: ^[[2;33m 1$
 $

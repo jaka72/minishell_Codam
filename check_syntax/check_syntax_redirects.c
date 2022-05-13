@@ -92,8 +92,10 @@ int	check_redirects(t_source *src)
 	int	arrow;
 
 	c = src->inputline[src->currpos];
-	while (src->currpos <= src->inputline_size)
+	while (src->currpos <= src->inputline_size) // NOT SURE IF GOOD <= MAYBE JUST <
 	{
+		printf("\n"BLU"        check rdrs\n"RES);
+
 		if (c == '<' || c == '>')		// < at start
 		{
 			arrow = c;

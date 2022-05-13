@@ -38,6 +38,7 @@ struct	s_infos
 	struct termios	termios_new;
 	char			prompt[13];
 	int				ini_fd[2];
+	int				exit_code;	// added jaka
 };
 
 typedef struct s_cmd
@@ -54,6 +55,7 @@ typedef struct s_cmd
 	int				count_outfiles;
 	int				count_heredocs;
 	struct s_cmd	*next;
+	int				temp;		// just for testing
 }	t_cmd;
 
 

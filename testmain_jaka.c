@@ -168,18 +168,23 @@ int	main(int argc, char *argv[], char *envp[])
 	(void) argv;
 	ms_init(&info, envp);
 
+
 	src.inputline = NULL;
-	if (argc == 2)	// JUST FOR TESTING
+	if (argc == 2)	// JUST FOR TESTING ////////////////////////
 	{
 		src.inputline = argv[1];
 		src.inputline_size = strlen(src.inputline);
 		//printf(CYN"line len: %ld\n"RES, src.inputline_size);
-		if (check_syntax_errors(&src) != 0)
+		if (check_syntax_errors(&src, &info) != 0)
 				return (SYNTAX_ERROR);
 		//line = src.inputline;	// maybe not needed
-		cmd_list = make_commands(&src);
+		cmd_list = make_commands(&src, &info);
 
+		//run_cd_builtin(cmd_list, &info);
+				
 		run_cmd(&info, cmd_list);
+		//printf("From main: after run builtin\n");
+
 		free_commands_list(cmd_list);
 		//rl_clear_history();
 		free_envlist(&info);
@@ -190,31 +195,36 @@ int	main(int argc, char *argv[], char *envp[])
 	else
 	{
 		line = readline(info.prompt);
+		//printf(RED"Line: [%s]\n", line);
 		if (line)
 		{
 			src.inputline = line;
 			src.inputline_size = strlen(src.inputline);
-			if (src.inputline[0] == '\0')
-				return (0);
+			//if (src.inputline[0] == '\0')
+			//	return (0);
 		}
 		while (line)
 		{
+			// printf(RED"main a)\n"RES);
 			if (ft_strlen(line) > 0)
 				add_history(line);
-			if (check_syntax_errors(&src) != 0)
-				return (SYNTAX_ERROR);
-			cmd_list = make_commands(&src);
-			run_cmd(&info, cmd_list);
-			// FREE AFTER EXECUTION /////////////////////////////////////////////////////
-			free_commands_list(cmd_list);
+			if (check_syntax_errors(&src, &info) == 0)
+			{
+				cmd_list = make_commands(&src, &info);
+
+				//run_cmd(&info, cmd_list);
+				// FREE AFTER EXECUTION /////////////////////////////////////////////////////
+				free_commands_list(cmd_list);
+			}
+
 			free(line);
 			line = readline(info.prompt);
 			if (line)
 			{
 				src.inputline = line;
 				src.inputline_size = strlen(src.inputline);
-				if (src.inputline[0] == '\0')
-					return (0);
+				// if (src.inputline[0] == '\0')
+				// 	return (0);
 			}
 		}
 	}
