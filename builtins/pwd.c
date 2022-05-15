@@ -10,7 +10,7 @@ int	run_pwd_builtin(void)
 		return (1);
 	else
 	{
-		printf("%s\n", current_path);
+		printf(BLU"%s\n"RES, current_path);
 		return (0);
 	}
 }

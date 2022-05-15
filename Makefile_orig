@@ -49,7 +49,9 @@ SYNTAX_DIR		= 	./check_syntax
 SYNTAX_SRC		= 	$(SYNTAX_DIR)/check_syntax.c			\
 					$(SYNTAX_DIR)/check_syntax_quotes.c		\
 					$(SYNTAX_DIR)/check_syntax_pipes.c		\
-					$(SYNTAX_DIR)/check_syntax_redirects.c
+					$(SYNTAX_DIR)/check_syntax_redirects.c	\
+					$(SYNTAX_DIR)/check_syntax_redirects_utils.c
+
 SYNTAX_OBJ		=	$(SYNTAX_SRC:%.c=%.o)
 
 # ADDED JAKA: PARSING

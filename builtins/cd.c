@@ -83,24 +83,32 @@
 // }
 
 
-char	*get_path(t_infos *info, char *name)
+int	get_path(t_infos *info, char *name, char *newpath)
 {
-	char	*path;
+//	char	*path;
 	t_env	*temp;
 
 	temp = info->start_env;
 	while (temp)
 	{
-		if (strcmp(temp->name, name) == 0) // must be ft_strcmp
+		//if (strcmp(temp->name, name) == 0) // must be ft_strcmp
+		if (ft_strcmp(temp->name, name) == 0)
 		{
-			path = ft_strdup(temp->value);
-				// check ret, if malloced
-			return (path);	
+			newpath = ft_strdup(temp->value);
+			if (newpath == NULL)
+			{
+				printf("Minishell: Error with mallocing\n");
+				return (1);
+			}
+			return (0);	
 		}
 		temp = temp->next;
 	}
-	return (NULL);	
+	printf(BLU"get path, not found\n"RES);
+	return (2); // path not found
 }
+
+
 
 
 
@@ -109,34 +117,44 @@ int	run_cd_builtin(t_cmd *cmd, t_infos *info)
 	printf("From run_cd_builtin\n");
 
 	char	*newpath;
-	char	*oldpath;
-	char	buff[PATH_MAX];
+	//char	*oldpath;	MAYBE NOT NECESSARY, IF "cd -" IS NOT MANDATORY
+	//char	buff[PATH_MAX];
+	int		ret;
 	//t_env	*temp;
 
-	oldpath = getcwd(buff, PATH_MAX);
-	printf(YEL"From cd: found oldpath: %s\n"RES, oldpath);
+	//oldpath = getcwd(buff, PATH_MAX);
+	newpath = NULL;
+	//printf(YEL"From cd: found oldpath: %s\n"RES, oldpath);
 		// check ret, maybe needs to free
 	//temp = info->start_env;
-	if (cmd->count_args > 2)
-	{
-		printf("Error CD, too many arguments\n");
-		return (1);
-	}
 	if (cmd->count_args == 1)			// only cd
 	{
-		newpath = get_path(info, "HOME");
-		printf(YEL"From cd: found Home: %s\n"RES, newpath);
-			// check ret, if NULL ...
+		ret = get_path(info, "HOME", newpath);
+		//printf(YEL"From cd: found Home: %s\n"RES, newpath);
+		if (ret == 1)
+			return (1);
 		chdir(newpath);
+		free(newpath);
 		return (0);
 	}
 	else if (cmd->count_args == 2)
 	{
 		// if (cmd->args[1] == '-') // maybe not needed in subject
-		chdir(cmd->args[1]);
+		// ret = get_path(info, "HOME", newpath);
+		//printf(YEL"From cd: found some path: %s\n"RES, newpath);
+		ret = chdir(cmd->args[1]);
+		if (ret == -1)
+		{
+			printf("Minishell: cd: No such file or directory\n");
+			return (1);
+		}
+		//printf(BLU"Ret from chdir(): %d\n"RES, ret);
+		//return (0);
 	}
-
-
-
+	else if (cmd->count_args > 2)
+	{
+		printf("Minishell: cd: too many arguments\n");
+		return (1);
+	}
 	return (0);
-}	
+}

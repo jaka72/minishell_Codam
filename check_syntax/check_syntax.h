@@ -17,4 +17,9 @@ int	check_pipes(t_source *src);
 int	check_redirects(t_source *src);
 int	check_quotes(t_source *src);
 
+void skip_alphas_spaces_pipes(t_source *src);
+int	is_space_alpha_or_pipe(t_source *src, int *c);
+int	check_char_after_space(t_source *src, int *c);
+
+
 #endif

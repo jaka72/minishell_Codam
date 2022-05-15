@@ -54,7 +54,8 @@ SYNTAX_DIR		= 	./check_syntax
 SYNTAX_SRC		= 	$(SYNTAX_DIR)/check_syntax.c			\
 					$(SYNTAX_DIR)/check_syntax_quotes.c		\
 					$(SYNTAX_DIR)/check_syntax_pipes.c		\
-					$(SYNTAX_DIR)/check_syntax_redirects.c
+					$(SYNTAX_DIR)/check_syntax_redirects.c	\
+					$(SYNTAX_DIR)/check_syntax_redirects_utils.c
 SYNTAX_OBJ		=	$(patsubst %, $(OBJ_DIR)/%, $(SYNTAX_SRC:.c=.o))
 
 
@@ -92,7 +93,8 @@ BUILTINS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(BUILTINS_SRC:.c=.o))
 
 # JAKA_UTILS
 JAKA_UTILS_DIR		= 	./jaka_utils
-JAKA_UTILS_SRC		= 	$(JAKA_UTILS_DIR)/utils.c
+JAKA_UTILS_SRC		= 	$(JAKA_UTILS_DIR)/utils.c \
+						$(JAKA_UTILS_DIR)/from_libft.c
 JAKA_UTILS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(JAKA_UTILS_SRC:.c=.o))
 
 
@@ -136,8 +138,8 @@ libft:		$(LIBFT_A)
 $(LIBFT_A):	$(LIBFT_OBJ) $(LIBFT_DIR)/libft.h
 	cd $(LIBFT_DIR); make ; cd ../
 
-%.o:		%.c $(HEADER)
-	gcc -c $(CFLAGS) -I$(RLFLAG)/include -o $@ $<
+# %.o:		%.c $(HEADER)
+# 	gcc -c $(CFLAGS) -I$(RLFLAG)/include -o $@ $<
 
 # duplicated Jaka
 $(OBJ_DIR)/%.o:		%.c $(HEADER)

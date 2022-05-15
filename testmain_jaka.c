@@ -198,7 +198,7 @@ int	main(int argc, char *argv[], char *envp[])
 		//printf(RED"Line: [%s]\n", line);
 		if (line)
 		{
-			src.inputline = line;
+			src.inputline = line;	// Can be moved into the while (line) ...
 			src.inputline_size = strlen(src.inputline);
 			//if (src.inputline[0] == '\0')
 			//	return (0);
@@ -212,7 +212,7 @@ int	main(int argc, char *argv[], char *envp[])
 			{
 				cmd_list = make_commands(&src, &info);
 
-				//run_cmd(&info, cmd_list);
+				run_cmd(&info, cmd_list);
 				// FREE AFTER EXECUTION /////////////////////////////////////////////////////
 				free_commands_list(cmd_list);
 			}

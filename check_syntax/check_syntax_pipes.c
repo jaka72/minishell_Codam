@@ -2,7 +2,7 @@
 
 int	check_if_pipe_at_start(t_source *src, int *c, int is_start)
 {
-	src->inputline_size = strlen(src->inputline);
+//	src->inputline_size = strlen(src->inputline);
 	*c = src->inputline[src->currpos];
 	if (*c == '|' && is_start == 1)
 		return (1);
@@ -13,19 +13,20 @@ int	check_if_pipe_at_start(t_source *src, int *c, int is_start)
 
 // RETURNS WITH THE NEW currpos ON THE
 // LAST SPACE BEFORE THE NEXT CHAR
-int	skip_alphas_spaces_arrows(t_source *src)
+int	skip_allowed_chars(t_source *src)
 {
 	char c;
 
 	if (src == NULL || src->inputline == NULL)
 		return (1);
-	while (((c = peek_next_char(src)) != ENDOFLINE)
-		&& is_allowed_char(c) && c != '|') // ! maybe also is_space needed
+	c = peek_next_char(src);
+	while (is_allowed_char(c) && c != '|' && c != ENDOFLINE) // ! maybe also is_space needed
 	{
 		// printf(GRN"   check pipes: loop, skip alphas ...\n"RES);
-		get_next_char(src);
+		//	get_next_char(src);		// probably can just be currpos++
+		src->currpos++;
+		c = peek_next_char(src);
 	}
-	// printf(GRN"      return ...\n"RES);
 	return (0);
 }
 
@@ -37,11 +38,13 @@ static int	skip_till_first_pipe(t_source *src, int *is_start, int *c)
 	*c = src->inputline[src->currpos + 1];
 	if (*c == '|' && *is_start == 1)
 		return (1);
-	else if (is_allowed_char(*c) || *c == '<' || *c == '>') // <> are alrady included, can erase
+	else if (is_allowed_char(*c) /*|| *c == '<' || *c == '>' */) // <> are alrady included, can erase
 	{
 		*is_start = 0;
-		if (skip_alphas_spaces_arrows(src) != 0) // if line == NULL
+		if (skip_allowed_chars(src) != 0) // if line == NULL
+		{
 			return (1);
+		}
 	}
 	*c = src->inputline[src->currpos + 1];
 	//printf(GRN"   end skip till first pipe:\n"RES);
@@ -90,7 +93,7 @@ int check_pipes(t_source *src)
 	is_start = 1;
 	if (check_if_pipe_at_start(src, &c, is_start) != 0)
 		return (1);
-	while (src->currpos < src->inputline_size - 1) // maybe not - 1 ???
+	while (src->currpos < src->inputline_size - 1) // -1 because it looks one ahead
 	{
 		if (skip_till_first_pipe(src, &is_start, &c) != 0)
 			return  (1);

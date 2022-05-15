@@ -1,4 +1,19 @@
-LATEST CHANGES:
+Current issues:
+
+- No error when command is wrong, ie: catxxx
+    Also, no error when wrong option, ie:  cat -xxx
+
+- Built-in is executed twice: one mine and one original.
+    Needs some kind of a flag to avoid skip the original
+
+- Each call of 'cd' is causing that ctrl-d needs to be called more times to really exit.
+    This comes from run_cmd(). Apparently when builtin is called, then run_cmd() must not execute 
+    the same command again.
+
+
+-------------------------------------------------------------------------
+
+LATEST CHANGES - pushed 13 may:
 
 - In the testmain_jaka.c:
     I fixed the endless loop in my check_syntax.c, so now the condition
