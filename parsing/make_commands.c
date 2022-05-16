@@ -187,6 +187,7 @@ t_cmd	*make_commands(t_source *src, t_infos *info)
 		ret = select_and_store_words(src, new_cmd);
 		printf("\n"BLU"COMMAND %d\n"RES, i);
 		print_command_info(new_cmd);
+
 		if (ret == 1)
 		{
 			ft_lstadd_back(&first_cmd, new_cmd);

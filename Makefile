@@ -38,8 +38,14 @@ INIT_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(INIT_SRC:.c=.o))
 
 #for excute the command
 EXEC_DIR	=	./exec
-EXEC_SRC	=	$(EXEC_DIR)/exec.c
+EXEC_SRC	=	$(EXEC_DIR)/exec.c	\
+				$(EXEC_DIR)/fd.c	
 EXEC_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(EXEC_SRC:.c=.o))
+
+# EXEC_SRC	=	$(EXEC_DIR)/exec.c					\
+# 				$(EXEC_DIR)/fd.c	
+# EXEC_OBJ	= 	$(EXEC_SRC:%.c=%.o)
+# >>>>>>> main
 
 #for setting file information to cmd-struct from (<, <<, > , >>)
 FILE_DIR		= 	./file
@@ -100,7 +106,11 @@ JAKA_UTILS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(JAKA_UTILS_SRC:.c=.o))
 
 #for main and running commands (fork and execte)
 MAIN_SRC	=	testmain_jaka.c
+#MAIN_SRC	=	testmain.c
 MAIN_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(MAIN_SRC:.c=.o))
+
+
+
 
 
 OBJ			=	$(UTIL_OBJ)		\
@@ -162,6 +172,6 @@ fclean: clean
 	rm -f $(NAME)
 
 libftclean:
-	cd $(DIR_LIBFT); make fclean; cd ../
+	cd $(LIBFT_DIR); make fclean; cd ../
 
 re: fclean all
