@@ -16,7 +16,7 @@ typedef struct s_temporary_array
 
 
 // MAKE COMMANDS
-t_cmd	*make_commands(t_source *src, t_infos *info);
+t_cmd	*make_commands(t_source *src /*, t_infos *info */);
 int		free_commands_list(t_cmd *first_cmd);
 void	print_command_info(t_cmd *cmd);
 //void	free_arrays(t_cmd *cmd);

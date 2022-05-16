@@ -167,7 +167,7 @@ int	select_and_store_words(t_source *src, t_cmd *cmd)
 //////////////////////////////////////////////////////////////////
 
 
-t_cmd	*make_commands(t_source *src, t_infos *info)
+t_cmd	*make_commands(t_source *src /*, t_infos *info */)
 {
 	int		i;			// just for printing
 	int		ret;
@@ -209,7 +209,7 @@ t_cmd	*make_commands(t_source *src, t_infos *info)
 	// }
 
 
-	check_if_builtin(first_cmd, info);
+	//check_if_builtin(first_cmd, info);
 
 	return (first_cmd);
 }
