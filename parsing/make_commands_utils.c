@@ -28,20 +28,24 @@ int	check_each_command(t_cmd *cmd, t_infos *info)
 	if (strcmp("echo", cmd->args[0]) == 0)
 	{
 		run_echo_builtin(cmd, info);
+		return (1);
 	}
 	else if (strcmp("pwd", cmd->args[0]) == 0)
 	{
 		if (cmd->temp == 1) // just for testing
 			run_pwd_builtin();
+		return (1);
 	}
 	else if (strcmp("cd", cmd->args[0]) == 0)
 	{
 		if (cmd->temp == 1) // just for testing
 			run_cd_builtin(cmd, info);
+		return (1);
 	}
 	else if (strcmp("export", cmd->args[0]) == 0)
 	{
-		; //run_export_builtin(cmd);
+		//run_export_builtin(cmd);
+		return (1);
 	}
 	//printf("from check each command\n");
 
@@ -54,11 +58,11 @@ int	check_if_builtin(t_cmd *cmd, t_infos *info)
 	t_cmd *temp;
 
 	temp = cmd;
-
 	while (temp)
 	{
 		//printf(MAG"cmd: [%s]\n"RES, temp->args[0]);
-		check_each_command(temp, info);
+		if (check_each_command(temp, info) == 1)
+			return (1);
 		temp = temp->next;
 	}
 	return (0);
