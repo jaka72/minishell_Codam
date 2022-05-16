@@ -18,10 +18,10 @@ int	main(int argc, char *argv[], char *envp[])
 		src.inputline_size = strlen(src.inputline);
 		if (ft_strlen(line) > 0)
 		{
-			if (check_syntax_errors(&src) != 0)
+			if (check_syntax_errors(&src, &info) != 0)
 				return (SYNTAX_ERROR);
 			add_history(line);
-			cmd_list = make_commands(&src);
+			cmd_list = make_commands(&src, &info);
 			run_cmd(&info, cmd_list);
 			// FREE AFTER EXECUTION /////////////////////////////////////////////////////
 			free_commands_list(cmd_list);

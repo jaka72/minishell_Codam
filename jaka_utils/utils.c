@@ -14,8 +14,8 @@ int	print_err_msg(char *err_msg)
 
 // IF IT FINDS \ ) ( OR ; 
 // IT ALREADY EXITS IN CHECK FOR QUOTES
-///// PROBABLY HERE NOT NEEDED TO CHECK FOR INVLAID  CHARS \ ( )
-///// BECAUSE IF THEY APEAR INSIDE QUOTES, THEY SHOULD BE VALID
+///// PROBABLY HERE NOT NEEDED TO CHECK FOR INVALID  CHARS \ ( )
+///// BECAUSE IF THEY APPEAR INSIDE QUOTES, THEY SHOULD BE VALID
 ///// IT IS ALREADY CHECKED WHEN CHECKING FOR CORRECT "QUOTES" 
 int	is_allowed_char(int c) // CHANGE TO "SUPORTED CHAR"
 {
@@ -42,20 +42,21 @@ int	is_valid_filename_char(int c)
 }
 
 
-char get_next_char(t_source *src)
-{
-	if (!src || !src->inputline)
-	{
-		return (NOINPUT);
-	}
-	src->currpos++;
-	if (src->currpos >= src->inputline_size)
-	{
-		src->currpos = src->inputline_size;
-		return ENDOFLINE;
-	}
-	return src->inputline[src->currpos];
-}
+// APPARENTLY NOT USED ANYMORE. REPLACED BY currpos++
+// char get_next_char(t_source *src)
+// {
+// 	if (!src || !src->inputline)
+// 	{
+// 		return (NOINPUT);
+// 	}
+// 	src->currpos++;
+// 	if (src->currpos >= src->inputline_size)
+// 	{
+// 		src->currpos = src->inputline_size;
+// 		return ENDOFLINE;
+// 	}
+// 	return src->inputline[src->currpos];
+// }
 
 
 char peek_next_char(t_source *src)
@@ -87,5 +88,7 @@ void skip_white_spaces(t_source *src)
 		return;
 
 	while (((c = peek_next_char(src)) != ENDOFLINE) && (isspace(c)))
-		get_next_char(src);
+		//get_next_char(src);		// probably can just be currpos++
+		src->currpos++;
+
 }
