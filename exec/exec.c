@@ -138,13 +138,13 @@ int	run_cmd(t_infos *info, t_cmd *str)
 		current = current->next;
 	}
 	waitpid(pid, &status, WUNTRACED | WCONTINUED);
-	printf("child process exit status is %d\n", status);
+	printf(BLU"child process exit status is %d\n"RES, status);
 	if (WIFEXITED(status)) {
-        printf("child process ended with status %d\n", WEXITSTATUS(status));
+        printf(BLU"child process ended with status %d\n"RES, WEXITSTATUS(status));
       }
     if (WIFSIGNALED(status))
 	{
-		printf("child process ended with signal %d status %d\n", WTERMSIG(status),  WEXITSTATUS(status));
+		printf(BLU"child process ended with signal %d status %d\n"RES, WTERMSIG(status),  WEXITSTATUS(status));
 	}
 	reset_fd(info);	
 	return(0);

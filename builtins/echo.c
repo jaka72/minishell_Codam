@@ -110,8 +110,6 @@ If invalid char is inside " ", do I still print it?
 		echo "aaa\bbb"
 		cat "infile"
 
-
-
 aaa bbb
 
 */

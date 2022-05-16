@@ -14,10 +14,10 @@ int	check_syntax_errors(t_source *src, t_infos *info)
 	ret = check_quotes(src);
 	if (ret == 1) // MAYBE THIS IS NOT USED ANYMORE, ALL CHARS CAN BE VALID
 	{
-		printf("\n"BLU"        unsuported char\n"RES);
-		print_err_msg(MSG_UNSUPPORTED);
-		info->exit_code = 258;
-		return (SYNTAX_ERROR);
+		// printf("\n"BLU"        unsuported char\n"RES);
+		// print_err_msg(MSG_UNSUPPORTED);
+		// info->exit_code = 258;
+		// return (SYNTAX_ERROR);
 	}
 	else if (ret == 2)
 	{
