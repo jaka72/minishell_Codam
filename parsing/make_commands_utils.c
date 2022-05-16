@@ -1,5 +1,5 @@
 #include "make_commands.h"
-
+#define FLAG1 1
 
 void	init_values(t_cmd *cmd)
 {
@@ -19,8 +19,10 @@ void	init_values(t_cmd *cmd)
 
 
 
-int	check_each_command(t_cmd *cmd)
+int	check_each_command(t_cmd *cmd) // kito changed 12 May : added the NULL checker
 {
+	if (cmd->args == NULL)
+		return (1);
 	if (strcmp("echo", cmd->args[0]) == 0)
 	{
 		run_echo_builtin(cmd);
@@ -38,6 +40,7 @@ int	check_if_builtin(t_cmd *cmd)
 	t_cmd *temp;
 
 	temp = cmd;
+
 	while (temp)
 	{
 		//printf(MAG"cmd: [%s]\n"RES, temp->args[0]);
@@ -68,18 +71,32 @@ void	ft_lstadd_back(t_cmd **list, t_cmd *newnode)
 }
 
 
-int	get_length_of_word(t_source *src)
+int	get_length_of_word(t_source *src) //kito changed 12 May : ignore spaces when it is in quotes 
 {
 	int	len;
+	int	s_flag;
+	int	d_flag;
 
 	len = 0;
+	s_flag = 0;
+	d_flag = 0;
 	while (src->inputline[src->currpos] != '|' && 
 			src->inputline[src->currpos] != '<' &&
 			src->inputline[src->currpos] != '>' &&
 			src->inputline[src->currpos] != '\0' &&
-			!ft_isspace(src->inputline[src->currpos]))
+			!(src->inputline[src->currpos] == ' ' && s_flag + d_flag == 0))
 	{
 		//printf(LGRE"     len%d pos%ld[%c]\n", len, src->currpos, src->inputline[src->currpos]); // store rdr_in
+		if (src->inputline[src->currpos] == '\'' )
+		{
+			s_flag ^= FLAG1;
+			// printf("s_flag is %d\n", (s_flag & FLAG1));
+		}			
+		if (src->inputline[src->currpos] == '\"' )
+		{
+			d_flag ^= FLAG1;
+			// printf("d_flag is %d\n", (d_flag & FLAG1));
+		}		
 		len++;
 		src->currpos++;
 	}

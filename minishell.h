@@ -15,10 +15,6 @@
 # include <termios.h>
 # include "libft/libft.h"
 
-
-
-
-
 typedef struct s_env		t_env;
 typedef struct s_infos		t_infos;
 
@@ -42,7 +38,7 @@ struct	s_infos
 
 typedef struct s_cmd
 {
-	t_env			*start_env;
+	// t_env			*start_env;   kito delated at 12 May(because no used)
 	char			**args;
 	int				fd_in;		// fd_in  : default is 0, if "<" -2, if "<<" -3.
 	int				fd_out;		// fd_out : default is 1, if ">" -2, if ">>" -3.
@@ -55,7 +51,6 @@ typedef struct s_cmd
 	int				count_heredocs;
 	struct s_cmd	*next;
 }	t_cmd;
-
 
 // JAKA
 typedef struct s_source
@@ -70,7 +65,6 @@ typedef struct s_source
 # include "parsing/make_commands.h"
 # include "builtins/builtins.h"
 
-
 // util/error.c
 void	errtext_exit(char *text);
 void	free_envlist(t_infos *infos);
@@ -81,6 +75,8 @@ void	err_free_env_exit(t_infos *infos, char *text);
 // util/util.c
 char	*make_malloc_str(char *text);
 char	*free_return_null(char *text);
+char	*ft_add_c_free(char *s1, char c);
+void	cleandata(t_infos *info);
 
 // init/init.c
 void	handle_sigint(int num);
@@ -97,17 +93,27 @@ char	**get_env_array(t_env *start_env);
 void	print_env(t_infos *info);
 char	*name_expand(t_infos *info, char *tx);
 char	*check_expand(t_infos *info, char *tx);
+char	**expand_array(char **args, t_infos *info);
 
 // file/heredoc.c
 char	*addtext_free(char *s1, char *s2, int *num);
 char	*check_limiter(char *buff, char *limiter);
 char	*write_free(int fd, char *checklimit);
-int		get_heredoc(char *limiter, int fd_out);
-int		make_heredoc(char *limiter);
+int		get_heredoc(char *limiter, int fd_out, t_infos *info);
+int		make_heredoc(char *limiter, t_infos *info);
+
+// exec/fd.c
+void	check_infile_fd(t_cmd *str, t_infos *info);
+void	check_heredoc_fd(t_cmd *str, t_infos *info);
+void	check_outfile_fd(t_cmd *str, t_infos *info);
+t_cmd	*manage_in_out(t_cmd *str, t_infos *info);
+void	reset_fd(t_infos *info);
 
 // exec/exec.c
 char	*ft_find_env_passnum(char *envp[]);
 char	*ft_make_binpass(int i, char *pass, char *cmd);
 char	*ft_findshell_pass(char *cmd, char *envp[]);
+void	ms_execve(t_infos *info, t_cmd *str);
+int		run_cmd(t_infos *info, t_cmd *str);
 
 #endif

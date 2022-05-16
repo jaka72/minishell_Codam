@@ -33,7 +33,8 @@ INIT_OBJ	= 	$(INIT_SRC:%.c=%.o)
 
 #for excute the command
 EXEC_DIR	=	./exec
-EXEC_SRC	=	$(EXEC_DIR)/exec.c	
+EXEC_SRC	=	$(EXEC_DIR)/exec.c					\
+				$(EXEC_DIR)/fd.c	
 EXEC_OBJ	= 	$(EXEC_SRC:%.c=%.o)
 
 #for setting file information to cmd-struct from (<, <<, > , >>)
@@ -91,7 +92,7 @@ JAKA_UTILS_OBJ		=	$(JAKA_UTILS_SRC:%.c=%.o)
 # BULTIN_OBJ	=	$(BUILTIN_SRC:%.c=%.o)
 
 #for main and running commands (fork and execte)
-MAIN_SRC	=	testmain_jaka.c
+MAIN_SRC	=	testmain.c
 MAIN_OBJ	=	$(MAIN_SRC:%.c=%.o)
 
 OBJ			=	$(UTIL_OBJ)		\
@@ -135,6 +136,6 @@ fclean: clean
 	rm -f $(NAME)
 
 libftclean:
-	cd $(DIR_LIBFT); make fclean; cd ../
+	cd $(LIBFT_DIR); make fclean; cd ../
 
 re: fclean all
