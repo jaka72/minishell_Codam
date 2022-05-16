@@ -26,16 +26,18 @@ char	*addtext_free(char *s1, char *s2, int *num)
 
 char	*check_limiter(char *buff, char *limiter)
 {
-	char	buff_temp[1];
+	char	buff_temp[2];
 	char	*limitcheck;
 	int		i;
 	int		rd;
 
 	i = 1;
 	rd = 1;
+	buff_temp[1] = '\0';
 	limitcheck = malloc(2);
 	if (limitcheck == NULL)
 		errtext_exit("malloc for limit check failed\n");
+	limitcheck[1] = '\0';
 	ft_strlcpy(limitcheck, buff, 2);
 	while (rd > 0 && i <= (int)ft_strlen(limiter))
 	{
@@ -70,11 +72,14 @@ int	get_heredoc(char *limiter, int fd_out, t_infos *info)
 	checklimit = NULL;
 	rd = 1;
 	exp = NULL;
+	write(info->ini_fd[1], "> ", 2);
 	while (rd == 1)
 	{
-		rd = read(STDIN_FILENO, buff_last, 1);
+		rd = read(info->ini_fd[0], buff_last, 1);
 		if (rd < 0)
 			errtext_exit("read heredoc failed\n");
+		if (rd > 0 && buff_last[0] == '\n')
+			write(info->ini_fd[1], "> ", 2);
 		if (buff_last[1] == '\n' && buff_last[0] == limiter[0])
 		{
 			checklimit = check_limiter(buff_last, limiter);
