@@ -209,7 +209,7 @@ t_cmd	*make_commands(t_source *src, t_infos *info)
 	// }
 
 
-	// check_if_builtin(first_cmd, info);
+	check_if_builtin(first_cmd, info);
 
 	return (first_cmd);
 }
