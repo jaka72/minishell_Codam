@@ -74,8 +74,6 @@ void	check_outfile_fd(t_cmd *str, t_infos *info)
 			i++;
 		}
 		i--;
-		if (str->outfile != NULL)
-			printf("outfile is %s\n", str->outfile[i]);
 		if (str->fd_out == -2)
 			str->fd_out = open(str->outfile[i],
 					O_WRONLY | O_CREAT | O_TRUNC, 0666);
@@ -83,7 +81,6 @@ void	check_outfile_fd(t_cmd *str, t_infos *info)
 			str->fd_out = open(str->outfile[i], O_WRONLY | O_CREAT | O_APPEND, 0666);
 		if (str->fd_out < 0)
 			errtext_exit("output file open failed\n");
-		printf("str->fd_out is %d\n", str->fd_out);
 	}
 }
 
