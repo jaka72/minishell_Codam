@@ -41,7 +41,8 @@ int	skip_till_end_quote(t_source *src, int c_open)
 int	check_quotes(t_source *src)
 {
 	//printf("\n"BLU"   a check quotes, currpos %ld\n"RES, src->currpos);
-	printf(CYN"line [%s]\n"RES, src->inputline);
+	//printf(CYN"line [%s]\n"RES, src->inputline);
+	//printf(CYN"line c[%d]\n"RES, src->inputline[0]);
 
 	int	c;
 
