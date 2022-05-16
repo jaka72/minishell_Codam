@@ -1,0 +1,40 @@
+Current issues:
+
+- No error when command is wrong, ie: catxxx
+    Also, no error when wrong option, ie:  cat -xxx
+
+- Built-in is executed twice: one mine and one original.
+    Needs some kind of a flag to avoid skip the original
+
+- Each call of 'cd' is causing that ctrl-d needs to be called more times to really exit.
+    This comes from run_cmd(). Apparently when builtin is called, then run_cmd() must not execute 
+    the same command again.
+
+
+-------------------------------------------------------------------------
+
+LATEST CHANGES - pushed 13 may:
+
+- In the testmain_jaka.c:
+    I fixed the endless loop in my check_syntax.c, so now the condition
+        if (src.inputline[0] == '\0')
+    can be removed in main().
+
+
+
+- I made a version of Makefile, with small changes: now all the object-files go to the folder 'obj_dir'
+    The copy is called Makefile_jaka.
+
+
+
+- Something about the 'echo':
+    Echo needs to recognize the option -n
+    But if option -n comes in quotes, it must be ignored and just print -n 
+    So maybe, when you remove the quotes during expansion, there can be 
+    some kind of a Flag, or something.
+
+
+
+- In the struct t_cmd:
+    I added 1 new variable 'exit_code', to be able to return 258 in case of 
+    syntax error.

@@ -1,0 +1,8 @@
+a="ls | wc"
+# $a
+
+eval $a > outfile
+eval "$a" >> outfile
+eval "$a" | cat >> outfile
+eval "$a" | cat -e >> outfile
+

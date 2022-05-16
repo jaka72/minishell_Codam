@@ -60,11 +60,17 @@ test_syntax_error()
 echo -e $YEL"\nTest output CAT"$RES
 
  inputlines=(
-	 		"cat run_tester.sh"
-	 		"cat -n run_tester.sh"
-	 		"cat -e run_tester.sh"
-	 		"cat -e -n run_tester.sh"
-	 		"cat -en run_tester.sh"
+	 		"cat infile"
+	 		"cat -n infile"
+	 		"cat -e infile"
+	 		"cat -e -n infile"
+	 		"cat -en infile"
+
+			# "env"	# first few lines are different, random string
+			
+			"ls | grep a"
+			"ls | grep a | wc"
+			"ls | wc"
 			)
 
 nr_elements=${#inputlines[@]}
@@ -76,7 +82,7 @@ do
 	printf "  Test %3d:   %-30s   " $i "'$input'"
 	> out_temp; >out_mini; > out_orig; > out_orig2 
 	./minishell "$input" | cat -e > out_temp
-	$input | cat -e > out_orig
+	eval $input | cat -e > out_orig
 	test_syntax_error "out_orig2" "out_mini" "valid"
 	((i=i+1))
 done
