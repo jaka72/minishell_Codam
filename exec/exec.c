@@ -126,6 +126,7 @@ int	run_cmd(t_infos *info, t_cmd *str)
 				close(current->fd_out);
 			}
 			//check if that is the builtin
+			// if(check_if_builtin(str, info) == 0)
 			ms_execve(info, current);
 		}
 		else
