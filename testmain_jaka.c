@@ -59,7 +59,14 @@ int	main(int argc, char *argv[], char *envp[])
 				if (check_syntax_errors(&src, &info) == 0)
 				{
 					cmd_list = make_commands(&src /*, &info */);
-					run_cmd(&info, cmd_list);
+					// run_cmd(&info, cmd_list);
+					printf(WHT"Main: cmd[0]: [%s]\n"RES, cmd_list->args[0]);
+					if (run_cmd(&info, cmd_list) == 222)	// changed jaka
+					{
+						free_commands_list(cmd_list);	// added jaka
+						free(line);						// added jaka
+						break ;							// added jaka
+					}
 					// FREE AFTER EXECUTION /////////////////////////////////////////////////////
 					free_commands_list(cmd_list);
 				}

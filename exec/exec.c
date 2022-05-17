@@ -76,34 +76,33 @@ char	*ft_findshell_pass(char *cmd, char *envp[])
 }
 
 // void	ms_execve(t_infos *info, t_cmd *str)
-int	ms_execve(t_infos *info, t_cmd *str) // added jaka: if exit, return 2
+int	ms_execve(t_infos *info, t_cmd *str, t_cmd *list) // added jaka: if exit, return 2
 {										 //				if other builtin, return 1
 	char	**envs;						 // 			if normal cmd, run execve
 	char	*path;
 	int		ret;	// added jaka
 
+
+
 	envs = get_env_array(info->start_env);
 	str->args = expand_array(str->args, info);
-	path = ft_findshell_pass(str->args[0], envs);
+	path = ft_findshell_pass(str->args[0], envs); // path is NULL when command is 'exit', 'export', 'unset',
 
-	// write(2, "ms_execve: ", 11);	// added jaka
-	// write (2, path, 10);	// added jaka: path is NULL when command is 'exit', 'export', 'unset',
-	// write (2, "\n", 1);		// added jaka
 
-	ret = check_if_builtin(str, info); // added jaka: returns 0, 1 or 2
-	printf(MAG"   RET is %d\n"RES, ret);
-	if (path == NULL)	// jaka: path is NULL when command is 'exit', 'export', 'unset'
+	printf(MAG"ms_execve(): str[0]: [%s] ?????? \n"RES, str->args[0]);
+
+	ret = check_if_builtin(str, info, list); // added jaka: returns 0, 1 or 222
+
+	if (path == NULL)	// jaka: path is NULL when command is 'exit', 'export', 'unset', 'cd'
 	{
-		printf(MAG"   PATH is NULL\n"RES);
+
 		if (ret == 1) // added jaka: other builtin found (not exit)
 		{
-			printf(MAG"      Other builtin is found (not exit)\n"RES);
 			return (1); // added jaka
 		}
-		else if (ret == 2) // added jaka: EXIT builtin found
+		else if (ret == 222) // added jaka: EXIT builtin found, and only 1 command: must exit
 		{
-			printf(MAG"      Builtin EXIT is found\n"RES);
-			return (2); // added jaka
+			return (222); // added jaka
 		}
 		write(3, "command not found\n", 19);
 		exit(127);
@@ -112,11 +111,13 @@ int	ms_execve(t_infos *info, t_cmd *str) // added jaka: if exit, return 2
 	{	// added jaka
 		if (ret == 0) // added jaka: Command is not a builtin
 		{
-			printf(MAG"    Cmd is NOT a builtin\n"RES);
 			execve(path, str->args, envs);
 		}
 	}
-	printf(MAG"    Cmd IS a builtin\n"RES);
+	if (ret == 1)
+	{
+		return (1);
+	}
 	return (0);
 }
 
@@ -127,7 +128,7 @@ int	run_cmd(t_infos *info, t_cmd *str)
 	int		newpipe[2];
 	int		status;
 
-	current = str; // THIS IS THE WHOLE CMD LIST, IT CAN BE USED IN EXIT TO COUNT HOW MANY COMMANDS
+	current = str;
 	status = 0;
 	while (current)
 	{
@@ -142,7 +143,6 @@ int	run_cmd(t_infos *info, t_cmd *str)
 		pid = fork();
 		if (pid == 0)
 		{
-			printf(RED"run_cmd: start new child\n"RES);
 			current = manage_in_out(current, info);
 			if (current->fd_in > 0)
 			{
@@ -154,13 +154,16 @@ int	run_cmd(t_infos *info, t_cmd *str)
 				dup2(current->fd_out, 1);
 				close(current->fd_out);
 			}
-			//check if that is the builtin
+
 			//if (check_if_builtin(str, info) == 0) 	// removed jaka
-			if (ms_execve(info, current) == 2)			// changed jaka: found EXIT, must exit the program
+			printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
+			
+			if (ms_execve(info, current, str) == 222)			// changed jaka: added str, to count nr of commands, needed for exit
 			{
 				printf(RED"run_cmd: ms_execve returned 2 (exit builtin)\n"RES);
 				exit (222);								// added jaka: random value 222
 			}
+			
 			printf(RED"run_cmd: execve was not called, because it is builtin\n"RES);
 			
 			exit (0);	// added jaka: if builtin was called, then this child process has to exit.
