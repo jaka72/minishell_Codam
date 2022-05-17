@@ -110,7 +110,7 @@ int	get_path(t_infos *info, char *name, char *newpath)
 
 
 
-
+// 	CD without a path does not go to HOME ????
 
 int	run_cd_builtin(t_cmd *cmd, t_infos *info)
 {

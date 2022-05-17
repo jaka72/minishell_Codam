@@ -23,7 +23,7 @@ int	main(int argc, char *argv[], char *envp[])
 		if (check_syntax_errors(&src, &info) != 0)
 				return (SYNTAX_ERROR);
 		//line = src.inputline;	// maybe not needed
-		cmd_list = make_commands(&src, &info);
+		cmd_list = make_commands(&src  /*, &info  */);
 
 		//run_cd_builtin(cmd_list, &info);
 				
@@ -58,7 +58,7 @@ int	main(int argc, char *argv[], char *envp[])
 			{
 				if (check_syntax_errors(&src, &info) == 0)
 				{
-					cmd_list = make_commands(&src, &info);
+					cmd_list = make_commands(&src /*, &info */);
 					run_cmd(&info, cmd_list);
 					// FREE AFTER EXECUTION /////////////////////////////////////////////////////
 					free_commands_list(cmd_list);

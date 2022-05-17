@@ -47,6 +47,11 @@ int	check_each_command(t_cmd *cmd, t_infos *info)
 		//run_export_builtin(cmd);
 		return (1);
 	}
+	else if (strcmp("exit", cmd->args[0]) == 0)
+	{
+		return (run_exit_builtin(cmd, info));
+		// return (1);
+	}
 	//printf("from check each command\n");
 
 	return (0);
@@ -55,14 +60,18 @@ int	check_each_command(t_cmd *cmd, t_infos *info)
 
 int	check_if_builtin(t_cmd *cmd, t_infos *info)
 {
-	t_cmd *temp;
+	t_cmd	*temp;
+	int		ret;
 
 	temp = cmd;
 	while (temp)
 	{
 		//printf(MAG"cmd: [%s]\n"RES, temp->args[0]);
-		if (check_each_command(temp, info) == 1)
+		ret = check_each_command(temp, info);
+		if (ret == 1)
 			return (1);
+		else if (ret == 2)
+			return (2);
 		temp = temp->next;
 	}
 	return (0);
