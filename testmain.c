@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+int	g_status;
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_source	src;		// jaka
@@ -9,6 +11,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void) argc;
 	(void) argv;
+
 	ms_init(&info, envp);
 	// src.inputline = NULL;
 	line = readline(info.prompt);
@@ -21,8 +24,8 @@ int	main(int argc, char *argv[], char *envp[])
 			if (check_syntax_errors(&src, &info) != 0)
 				return (SYNTAX_ERROR);
 			add_history(line);
-			cmd_list = make_commands(&src, &info);
-			run_cmd(&info, cmd_list);
+			cmd_list = make_commands(&src /*, &info */);
+			g_status = run_cmd(&info, cmd_list);
 			// FREE AFTER EXECUTION /////////////////////////////////////////////////////
 			free_commands_list(cmd_list);
 			free(line);

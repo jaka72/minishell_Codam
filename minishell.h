@@ -20,6 +20,8 @@ typedef struct s_infos		t_infos;
 
 sig_atomic_t	g_flag;
 
+extern int	g_status;
+
 struct s_env
 {
 	char	*name;
@@ -109,15 +111,14 @@ void	check_infile_fd(t_cmd *str, t_infos *info);
 void	check_heredoc_fd(t_cmd *str, t_infos *info);
 void	check_outfile_fd(t_cmd *str, t_infos *info);
 t_cmd	*manage_in_out(t_cmd *str, t_infos *info);
+void	connect_fd(t_cmd *current, t_infos *info);
 void	reset_fd(t_infos *info);
 
 // exec/exec.c
 char	*ft_find_env_passnum(char *envp[]);
 char	*ft_make_binpass(int i, char *pass, char *cmd);
 char	*ft_findshell_pass(char *cmd, char *envp[]);
-//void	ms_execve(t_infos *info, t_cmd *str);	// changed jaka
-// int		ms_execve(t_infos *info, t_cmd *str);	// changed jaka
-int		ms_execve(t_infos *info, t_cmd *current, t_cmd *str);	// changed jaka
+int		ms_execve(t_infos *info, t_cmd *str);	// changed jaka
 int		run_cmd(t_infos *info, t_cmd *str);
 
 #endif

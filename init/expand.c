@@ -99,6 +99,20 @@ char	*add_expanded(char *dst, char *src, t_infos *info)
 	return (dst);
 }
 
+char	*add_laststatus(char *dst, int g_status)
+{
+	char	*stat;
+
+	stat = NULL;
+	stat = ft_itoa(g_status);
+	if (stat == NULL)
+		errtext_exit("malloc failed");
+	dst = ft_strjoin(dst, stat);
+	if (dst == NULL)
+		errtext_exit("malloc failed");
+	return (dst);
+}
+
 char	*check_expand(t_infos *info, char *tx)
 {
 	int		i;
@@ -123,6 +137,13 @@ char	*check_expand(t_infos *info, char *tx)
 		{
 			expanded = add_singlequote(expanded, &tx[i + 1]);
 			i = i + count_single_length(&tx[i + 1]);
+		}
+		else if (tx[i] == '$' && tx[i + 1] == '?' )
+		{
+			printf("now $? is called, g_status is %d\n", g_status);
+			expanded = add_laststatus(expanded, g_status);
+			printf("expanded is %s\n", expanded);
+			i++;
 		}
 		else if (tx[i] == '$')
 		{
