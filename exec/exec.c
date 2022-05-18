@@ -85,7 +85,8 @@ void	ms_execve(t_infos *info, t_cmd *str)
 	path = ft_findshell_pass(str->args[0], envs);
 	if (path == NULL)
 	{
-		write(3, "command not found\n", 19);
+		write(3, str->args[0], ft_strlen(str->args[0]));
+		write(3, ": command not found\n", 21);
 		exit(127);
 	}		
 	else
@@ -137,16 +138,19 @@ int	run_cmd(t_infos *info, t_cmd *str)
 				close(current->fd_in);
 		}
 		current = current->next;
+		waitpid(pid, &status, WUNTRACED | WCONTINUED);
+		printf("child process exit status is %d\n", status);
+		if (WIFEXITED(status)) {
+			g_status = WEXITSTATUS(status); 
+			printf("child process ended with status %d\n", g_status);
+		}
+		if (WIFSIGNALED(status))
+		{
+			g_status = WEXITSTATUS(status); 
+			printf("child process ended with signal %d status %d\n", WTERMSIG(status), g_status);	
+		}
 	}
-	waitpid(pid, &status, WUNTRACED | WCONTINUED);
-	printf("child process exit status is %d\n", status);
-	if (WIFEXITED(status)) {
-        printf("child process ended with status %d\n", WEXITSTATUS(status));
-      }
-    if (WIFSIGNALED(status))
-	{
-		printf("child process ended with signal %d status %d\n", WTERMSIG(status),  WEXITSTATUS(status));
-	}
+
 	reset_fd(info);	
-	return(0);
+	return(g_status);
 }

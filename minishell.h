@@ -20,6 +20,8 @@ typedef struct s_infos		t_infos;
 
 sig_atomic_t	g_flag;
 
+extern int	g_status;
+
 struct s_env
 {
 	char	*name;
