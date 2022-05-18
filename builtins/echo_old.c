@@ -48,7 +48,7 @@ void	check_line_and_print(t_cmd *cmd, int *flagw, int *flagl, int *i, t_infos *i
 			while (word[j] != '\0')
 			{
 				//if (word[j] != '"')
-					printf(GRN"%c"RES, word[j]);
+					printf(YEL"%c"RES, word[j]);
 				j++;
 			}
 		}
@@ -71,16 +71,13 @@ void	check_line_and_print(t_cmd *cmd, int *flagw, int *flagl, int *i, t_infos *i
 	}
 }
 
-
-
-
 // - STILL NEEDS TO HANDLE OPTION -n IF IT IS IN QUOTES
 // - HANDLE BOTH ""  INSIDE '' AND VICE VERSA
 
 int	run_echo_builtin(t_cmd *cmd, t_infos *info)
 {
-	//printf(RED"Start builtin echo()\n"RES);
-	//printf(RED"PATH_MAX %d\n"RES, PATH_MAX);
+	printf(RED"Start builtin echo()\n"RES);
+	printf(RED"PATH_MAX %d\n"RES, PATH_MAX);
 	//printf(RED"MAXPATHLEN %d\n"RES, MAXPATHLEN);
 
 	int	i;
@@ -102,6 +99,7 @@ int	run_echo_builtin(t_cmd *cmd, t_infos *info)
 
 	// TESTING CD
 	//store_old_pwd();	
+
 
 	return (0);
 }

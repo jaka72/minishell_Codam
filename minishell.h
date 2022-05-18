@@ -115,7 +115,9 @@ void	reset_fd(t_infos *info);
 char	*ft_find_env_passnum(char *envp[]);
 char	*ft_make_binpass(int i, char *pass, char *cmd);
 char	*ft_findshell_pass(char *cmd, char *envp[]);
-void	ms_execve(t_infos *info, t_cmd *str);
+//void	ms_execve(t_infos *info, t_cmd *str);	// changed jaka
+// int		ms_execve(t_infos *info, t_cmd *str);	// changed jaka
+int		ms_execve(t_infos *info, t_cmd *current, t_cmd *str);	// changed jaka
 int		run_cmd(t_infos *info, t_cmd *str);
 
 #endif
