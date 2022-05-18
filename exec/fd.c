@@ -92,6 +92,21 @@ t_cmd	*manage_in_out(t_cmd *str, t_infos *info)
 	return (str);
 }
 
+void	connect_fd(t_cmd *current, t_infos *info)
+{
+	current = manage_in_out(current, info);
+	if (current->fd_in > 0)
+	{
+		dup2(current->fd_in, 0);
+		close(current->fd_in);
+	}
+	if (current->fd_out > 1)
+	{
+		dup2(current->fd_out, 1);
+		close(current->fd_out);
+	}	
+}
+
 void	reset_fd(t_infos *info)
 {
 	int	fd0;
