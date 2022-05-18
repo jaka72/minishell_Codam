@@ -117,7 +117,7 @@ char *get_path(t_infos *info, char *name)
 
 int	run_cd_builtin(t_cmd *cmd, t_infos *info)
 {
-	printf("From run_cd_builtin\n");
+	printf(YEL"From run_cd_builtin\n"RES);
 
 	char	*newpath;
 	//char	*oldpath;	MAYBE NOT NECESSARY, IF "cd -" IS NOT MANDATORY

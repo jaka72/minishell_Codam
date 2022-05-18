@@ -47,6 +47,9 @@ int check_if_numeric(char *arg)
 }
 
 
+// IT WILL NEED THE *list	STRUCT FOR COUNTING NR OF COMMANDS,
+// UNLESS THERE IS ANOTHER WAY OF DOING IT
+
 int	run_exit_builtin(t_cmd *cmd /*, t_infos *info */ , t_cmd *list)
 {
 	int	nr_commands;

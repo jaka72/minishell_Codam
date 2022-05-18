@@ -94,7 +94,7 @@ int	check_if_builtin(t_cmd *cmd)
 
 int	exec_builtin(t_cmd *cmd, t_infos *info)
 {
-	printf(GRN" doing builtin START of check each command: cmd[0]: [%s]\n"RES, cmd->args[0]);
+	printf(GRN" exec_builtin: run each command: cmd[0]: [%s], exitcode: %d\n"RES, cmd->args[0], info->exit_code);
 
 	if (cmd->args == NULL)
 		return (1);
@@ -102,11 +102,11 @@ int	exec_builtin(t_cmd *cmd, t_infos *info)
 		run_echo_builtin(cmd /*, info */);
 	else if (strcmp("pwd", cmd->args[0]) == 0)
 		run_pwd_builtin();
-	// else if (strcmp("cd", cmd->args[0]) == 0)
-	// {
-	// 	printf(GRN"   Found CD\n"RES);
-	// 	run_cd_builtin(cmd, info);
-	// }
+	else if (strcmp("cd", cmd->args[0]) == 0)
+	{
+		//printf(GRN"   Found CD\n"RES);
+		run_cd_builtin(cmd, info);
+	}
 	// else if (strcmp("export", cmd->args[0]) == 0)
 	// 	run_export_builtin(cmd);
 	// else if (strcmp("unset", cmd->args[0]) == 0)
