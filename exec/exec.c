@@ -82,7 +82,7 @@ int	ms_execve(t_infos *info, t_cmd *str)
 	char	*path;
 
 	envs = get_env_array(info->start_env);
-	str->args = expand_array(str->args, info);
+	// str->args = expand_array(str->args, info);
 	path = ft_findshell_pass(str->args[0], envs);
 
 	printf(MAG"ms_execve(): str[0]: [%s] ?????? \n"RES, str->args[0]);
@@ -106,6 +106,7 @@ int	run_cmd(t_infos *info, t_cmd *str)
 
 	current = str;
 	status = 0;
+	current->args = expand_array(current->args, info);
 	if (current->next == NULL) // the case of no pipe
 	{
 		connect_fd(current, info);
