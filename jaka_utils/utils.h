@@ -64,7 +64,9 @@ void	skip_white_spaces(t_source *src);
 //int		ft_isspace(int c);
 //size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 
-int		ft_strcmp(char *s1, char *s2);
+int	ft_strcmp(char *s1, char *s2);
+int	ft_isdigit(int c);
+
 
 //char	**ft_split(char	const *s, char c);
 //char	*ft_strjoin(char const *s1, char const *s2);
