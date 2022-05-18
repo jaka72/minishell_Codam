@@ -83,9 +83,9 @@
 // }
 
 
-int	get_path(t_infos *info, char *name, char *newpath)
+char *get_path(t_infos *info, char *name)
 {
-//	char	*path;
+	char	*newpath;
 	t_env	*temp;
 
 	temp = info->start_env;
@@ -94,23 +94,26 @@ int	get_path(t_infos *info, char *name, char *newpath)
 		//if (strcmp(temp->name, name) == 0) // must be ft_strcmp
 		if (ft_strcmp(temp->name, name) == 0)
 		{
+			printf(YEL"temp->name: [%s]\n"RES, temp->name);
+			printf(YEL"temp->value: [%s]\n"RES, temp->value);
 			newpath = ft_strdup(temp->value);
+			printf(YEL"newpath: [%s]\n"RES, newpath);
 			if (newpath == NULL)
 			{
 				printf("Minishell: Error with mallocing\n");
-				return (1);
+				return (NULL);
 			}
-			return (0);	
+			return (newpath);	
 		}
 		temp = temp->next;
 	}
 	printf(BLU"get path, not found\n"RES);
-	return (2); // path not found
+	return (NULL); // path not found
 }
 
+/////////////////////////////////////////////////////////////
 
-
-
+// 	CD without a path does not go to HOME ????
 
 int	run_cd_builtin(t_cmd *cmd, t_infos *info)
 {
@@ -123,29 +126,40 @@ int	run_cd_builtin(t_cmd *cmd, t_infos *info)
 	//t_env	*temp;
 
 	//oldpath = getcwd(buff, PATH_MAX);
-	newpath = NULL;
+	//newpath = NULL;
 	//printf(YEL"From cd: found oldpath: %s\n"RES, oldpath);
 		// check ret, maybe needs to free
 	//temp = info->start_env;
 	if (cmd->count_args == 1)			// only cd
 	{
-		ret = get_path(info, "HOME", newpath);
-		//printf(YEL"From cd: found Home: %s\n"RES, newpath);
-		if (ret == 1)
+		newpath = get_path(info, "HOME");
+		printf(YEL"From cd: found Home: %s\n"RES, newpath);
+		if (newpath == NULL)
 			return (1);
-		chdir(newpath);
+		// ret = chdir(newpath);
+		run_pwd_builtin();		// for testing
+		ret = chdir("/home/jaka");
+		run_pwd_builtin();		// for testing
+
 		free(newpath);
-		return (0);
+		printf(GRN"ret from chdir(newpath): %d\n"RES, ret);
+		if (ret == -1)
+		{
+			printf("minishell: cd: No such file or directory\n");
+			return (1);
+		}
+		return (1);
 	}
+
+
 	else if (cmd->count_args == 2)
 	{
 		// if (cmd->args[1] == '-') // maybe not needed in subject
-		// ret = get_path(info, "HOME", newpath);
-		//printf(YEL"From cd: found some path: %s\n"RES, newpath);
 		ret = chdir(cmd->args[1]);
+		printf(YEL"From cd: found some path: %s, ret: %d\n"RES, cmd->args[1], ret);
 		if (ret == -1)
 		{
-			printf("Minishell: cd: No such file or directory\n");
+			printf("minishell: cd: No such file or directory\n");
 			return (1);
 		}
 		//printf(BLU"Ret from chdir(): %d\n"RES, ret);
@@ -153,8 +167,9 @@ int	run_cd_builtin(t_cmd *cmd, t_infos *info)
 	}
 	else if (cmd->count_args > 2)
 	{
-		printf("Minishell: cd: too many arguments\n");
+		printf("minishell: cd: too many arguments\n");
 		return (1);
 	}
-	return (0);
+	run_pwd_builtin();		// for testing
+	return (1);
 }

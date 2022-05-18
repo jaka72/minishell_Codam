@@ -1,0 +1,26 @@
+[31mrun_cmd(): current[0]: [ls]
+[0m[0;35mms_execve(): str[0]: [ls] ?????? 
+Makefile
+Makefile_orig
+builtins
+check_syntax
+exec
+experiment
+file
+infile
+init
+jaka_utils
+libft
+main.c
+minishell
+minishell.dSYM
+minishell.h
+obj_dir
+parsing
+test2
+test3
+test4
+tester
+testmain.c
+testmain_jaka.c
+util

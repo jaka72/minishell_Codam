@@ -1,5 +1,11 @@
 Current issues:
 
+- exit: it will probably need some return value to the ms_execve, so it must know, 
+    that it has to exit the whole program, not just the child process.
+
+- case: wc | ls
+    then try ctrl-d, it gives error: wc: stdin: read: input/output error
+
 - No error when command is wrong, ie: catxxx
     Also, no error when wrong option, ie:  cat -xxx
 
@@ -10,7 +16,7 @@ Current issues:
     This comes from run_cmd(). Apparently when builtin is called, then run_cmd() must not execute 
     the same command again.
 
-
+- env is printing strange first 5 lines
 -------------------------------------------------------------------------
 
 LATEST CHANGES - pushed 13 may:

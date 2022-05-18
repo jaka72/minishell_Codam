@@ -24,7 +24,7 @@ int	main(int argc, char *argv[], char *envp[])
 			if (check_syntax_errors(&src, &info) != 0)
 				return (SYNTAX_ERROR);
 			add_history(line);
-			cmd_list = make_commands(&src, &info);
+			cmd_list = make_commands(&src /*, &info */);
 			g_status = run_cmd(&info, cmd_list);
 			// FREE AFTER EXECUTION /////////////////////////////////////////////////////
 			free_commands_list(cmd_list);
