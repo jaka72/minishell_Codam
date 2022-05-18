@@ -28,7 +28,7 @@ int	check_each_command(t_cmd *cmd, t_infos *info, t_cmd *list)
 		return (1);
 	if (strcmp("echo", cmd->args[0]) == 0)
 	{
-		run_echo_builtin(cmd, info);
+		run_echo_builtin(cmd /*, info */);
 		return (1);
 	}
 	else if (strcmp("pwd", cmd->args[0]) == 0)
