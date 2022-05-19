@@ -82,6 +82,8 @@ int	ms_execve(t_infos *info, t_cmd *str)
 	char	*path;
 
 	envs = get_env_array(info->start_env);
+	if (envs == NULL)
+		return (-1);
 	// str->args = expand_array(str->args, info);
 	path = ft_findshell_pass(str->args[0], envs);
 

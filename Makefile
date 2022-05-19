@@ -19,7 +19,8 @@ LIBFT_SRC	= 	$(LIBFT_DIR)/ft_memset.c					\
 				$(LIBFT_DIR)/ft_strjoin_free.c				\
 				$(LIBFT_DIR)/ft_strlcpy.c					\
 				$(LIBFT_DIR)/ft_itoa.c						\
-				$(LIBFT_DIR)/ft_split.c
+				$(LIBFT_DIR)/ft_split.c						\
+				$(LIBFT_DIR)/ft_add_str.c
 LIBFT_OBJ	=	$(LIBFT_SRC:%.c=%.o)
 LIBFT_A		=	$(LIBFT_DIR)/libft.a
 

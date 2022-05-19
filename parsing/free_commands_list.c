@@ -11,7 +11,7 @@ void free_arrays(t_cmd *cmd)
 	{
 		while (i < cmd->count_args)
 		{
-			//printf(DYEL"    Free command[%d]\n"RES, i);
+			printf(DYEL"    Free command[%d] %s\n"RES, i, cmd->args[i]);
 			free(cmd->args[i]);
 			i++;
 		}
@@ -79,7 +79,7 @@ int	free_commands_list(t_cmd *first_cmd)
 	temp = first_cmd;
 	while (temp)
 	{
-		//printf(YEL"Free struct[%d]\n"RES, i);
+		printf(YEL"Free struct[%d]\n"RES, i);
 		free_arrays(temp);
 		temp = temp->next;
 		free(first_cmd);
