@@ -2,17 +2,23 @@
 
 int	check_n_option(char *str)
 {
+	printf(YEL"echo checknoption\n"RES); // IT DOES NOT PRINT IF ONLY 1-char WORD
 	int	i;
 
-	i = 1;		// '-n' skip dash, start at first 'n'
-	while (str[i])
+	i = 0;		// '-n' skip dash, start at first 'n'
+	if (str == NULL || str[0] != '-')
+		return (0);
+	else
 	{
-		if (str[i] != 'n')
+		while (str[i])
 		{
-			//printf(YEL"   No option -n\n"RES);
-			return (0);
+			if (str[i] != 'n')
+			{
+				//printf(YEL"   No option -n\n"RES);
+				return (0);
+			}
+			i++;
 		}
-		i++;
 	}
 	//printf(YEL"    Option -n is ON (ignore new line)\n"RES);
 	return (1);
@@ -49,7 +55,6 @@ int	run_echo_builtin(t_cmd *cmd /*, t_infos *info */)
 
 	flag_first_word = 0;
 	
-	// CHECK 1st ARG IF IT IS -n
 	flag_newline = check_n_option(cmd->args[1]);
 
 	i = 1;
@@ -66,10 +71,3 @@ int	run_echo_builtin(t_cmd *cmd /*, t_infos *info */)
 	return (0);
 }
 
-
-/*
-If invalid char is inside " ", do I still print it?
-		echo "aaa\bbb"
-		cat "infile"
-aaa bbb
-*/

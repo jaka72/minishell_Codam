@@ -22,48 +22,24 @@ void	init_values(t_cmd *cmd)
 // int	check_each_command(t_cmd *cmd, t_infos *info)
 int	check_each_command(t_cmd *cmd)
 {
-	printf(GRN" START of check each command: cmd[0]: [%s]\n"RES, cmd->args[0]);
+	//printf(GRN" START of check each command: cmd[0]: [%s]\n"RES, cmd->args[0]);
 
 	if (cmd->args == NULL)
 		return (1);
 	if (strcmp("echo", cmd->args[0]) == 0)
-	{
-		// run_echo_builtin(cmd, info);
 		return (1);
-	}
 	else if (strcmp("pwd", cmd->args[0]) == 0)
-	{
-		// run_pwd_builtin();
 		return (1);
-	}
 	else if (strcmp("cd", cmd->args[0]) == 0)
-	{
-		printf(GRN"   Found CD\n"RES);
-		// return (run_cd_builtin(cmd, info));
 		return (1);
-	}
 	else if (strcmp("export", cmd->args[0]) == 0)
-	{
-		//run_export_builtin(cmd);
 		return (1);
-	}
 	else if (strcmp("unset", cmd->args[0]) == 0)
-	{
-		//run_unset_builtin(cmd);
 		return (1);
-	}
 	else if (strcmp("env", cmd->args[0]) == 0)
-	{
-		//run_env_builtin(cmd);
 		return (1);
-	}
 	else if (strcmp("exit", cmd->args[0]) == 0)
-	{
-		// return (run_exit_builtin(cmd /*, info */ , list));
-		return (222);
-	}
-	printf(GRN" END of check each command\n"RES);
-
+		return (1);
 	return (0);
 }
 
@@ -75,18 +51,18 @@ int	check_if_builtin(t_cmd *cmd)
 
 	// printf(GRN"START of check_if_builtin: list[0]: [%s]\n"RES, list->args[0]);
 	temp = cmd;
-	printf(GRN"START of check_if_builtin: temp[0]: [%s]\n"RES, temp->args[0]);
+	//printf(GRN"START of check_if_builtin: temp[0]: [%s]\n"RES, temp->args[0]);
 	while (temp)
 	{
 		//printf(MAG"cmd: [%s]\n"RES, temp->args[0]);
 		// ret = check_each_command(temp, info);
 		ret = check_each_command(temp);
-		printf(GRN"   ret from check_each_command: %d\n"RES, ret);
+		//printf(GRN"   ret from check_each_command: %d\n"RES, ret);
 
 		if (ret == 1)
 			return (1);
-		else if (ret == 222)	// must exit!
-			return (222);
+		// else if (ret == 222)	// must exit!
+		// 	return (222);
 		temp = temp->next;
 	}
 	return (0);
@@ -94,7 +70,7 @@ int	check_if_builtin(t_cmd *cmd)
 
 int	exec_builtin(t_cmd *cmd, t_infos *info)
 {
-	printf(GRN" exec_builtin: run each command: cmd[0]: [%s], exitcode: %d\n"RES, cmd->args[0], info->exit_code);
+	//printf(GRN" exec_builtin: run each command: cmd[0]: [%s], exitcode: %d\n"RES, cmd->args[0], info->exit_code);
 
 	if (cmd->args == NULL)
 		return (1);
@@ -107,19 +83,23 @@ int	exec_builtin(t_cmd *cmd, t_infos *info)
 		//printf(GRN"   Found CD\n"RES);
 		run_cd_builtin(cmd, info);
 	}
+	else if (strcmp("exit", cmd->args[0]) == 0)
+		run_exit_builtin(cmd /*, info */ /*, list */);
+
+	//printf(GRN" END of check each command\n"RES);
 	else if (strcmp("export", cmd->args[0]) == 0)
 		g_status = run_export_builtin(cmd, info);
 	else if (strcmp("unset", cmd->args[0]) == 0)
 		g_status = run_unset_builtin(cmd, info);
 	else if (strcmp("env", cmd->args[0]) == 0)
 		g_status = run_env_builtin(info);
-	// else if (strcmp("exit", cmd->args[0]) == 0)
-	// 	run_exit_builtin(cmd /*, info */ , list);
-	printf(GRN" END of check each command\n"RES);
+
+	//printf(GRN" END of check each command\n"RES);
+
 	return (0);	
 }
 
-
+	// HERE PROBABLY NEEDS TO FREE AND CLEAN ALL, BEFORE EXITING?
 
 void	ft_lstadd_back(t_cmd **list, t_cmd *newnode)
 {

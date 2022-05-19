@@ -66,6 +66,8 @@ void	skip_white_spaces(t_source *src);
 
 int	ft_strcmp(char *s1, char *s2);
 int	ft_isdigit(int c);
+int ft_atoi(const char *str);
+
 
 
 //char	**ft_split(char	const *s, char c);
