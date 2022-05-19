@@ -117,7 +117,7 @@ char *get_path(t_infos *info, char *name)
 
 int	run_cd_builtin(t_cmd *cmd, t_infos *info)
 {
-	printf("From run_cd_builtin\n");
+	printf(YEL"From run_cd_builtin\n"RES);
 
 	char	*newpath;
 	//char	*oldpath;	MAYBE NOT NECESSARY, IF "cd -" IS NOT MANDATORY
@@ -133,16 +133,18 @@ int	run_cd_builtin(t_cmd *cmd, t_infos *info)
 	if (cmd->count_args == 1)			// only cd
 	{
 		newpath = get_path(info, "HOME");
-		printf(YEL"From cd: found Home: %s\n"RES, newpath);
+		printf(YEL"From cd: found Home path: %s\n"RES, newpath);
 		if (newpath == NULL)
 			return (1);
-		// ret = chdir(newpath);
-		run_pwd_builtin();		// for testing
-		ret = chdir("/home/jaka");
+		ret = chdir(newpath);
+		//run_pwd_builtin();		// for testing
+		//ret = chdir("/home/jaka");
+		//ret = chdir("/users/jmurovec");
+		printf(GRN"ret A from chdir(newpath): %d\n"RES, ret);
 		run_pwd_builtin();		// for testing
 
 		free(newpath);
-		printf(GRN"ret from chdir(newpath): %d\n"RES, ret);
+		printf(GRN"ret B from chdir(newpath): %d\n"RES, ret);
 		if (ret == -1)
 		{
 			printf("minishell: cd: No such file or directory\n");
