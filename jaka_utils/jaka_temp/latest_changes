@@ -1,5 +1,11 @@
 Current issues:
 
+- Realloc not allowed: think of something
+    THERE WAS MALLOC ERRROR. After calling various times something like: ls | wc | echo aaa
+
+- Echo:  escape character, ie:   "  \"    "
+    In bash it prints just   "  
+
 - exit: it will probably need some return value to the ms_execve, so it must know, 
     that it has to exit the whole program, not just the child process.
 
