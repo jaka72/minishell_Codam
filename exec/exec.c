@@ -143,6 +143,9 @@ int	run_cmd(t_infos *info, t_cmd *str)
 	{
 		while (current)
 		{
+			if (current != str)
+				g_status = 0;
+			current->args = expand_array(current->args, info);
 			if (current->next)
 			{
 				pipe(newpipe);
@@ -159,7 +162,7 @@ int	run_cmd(t_infos *info, t_cmd *str)
 				if (check_if_builtin(current) != 0) 	// if builtin
 				{
 					printf("this is builtin!\n");
-					exec_builtin(current, info);
+					g_status = exec_builtin(current, info);
 				}
 				else // if library
 				{
