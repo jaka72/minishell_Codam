@@ -107,12 +107,12 @@ int	exec_builtin(t_cmd *cmd, t_infos *info)
 		//printf(GRN"   Found CD\n"RES);
 		run_cd_builtin(cmd, info);
 	}
-	// else if (strcmp("export", cmd->args[0]) == 0)
-	// 	run_export_builtin(cmd);
-	// else if (strcmp("unset", cmd->args[0]) == 0)
-	// 	run_unset_builtin(cmd);
-	// else if (strcmp("env", cmd->args[0]) == 0)
-	// 	run_env_builtin(cmd);
+	else if (strcmp("export", cmd->args[0]) == 0)
+		g_status = run_export_builtin(cmd, info);
+	else if (strcmp("unset", cmd->args[0]) == 0)
+		g_status = run_unset_builtin(cmd, info);
+	else if (strcmp("env", cmd->args[0]) == 0)
+		g_status = run_env_builtin(info);
 	// else if (strcmp("exit", cmd->args[0]) == 0)
 	// 	run_exit_builtin(cmd /*, info */ , list);
 	printf(GRN" END of check each command\n"RES);
