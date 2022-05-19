@@ -162,6 +162,8 @@ char	**expand_array(char **args, t_infos *info)
 	int	i;
 
 	i = 0;
+	if (args == NULL)
+		return (args);
 	while (args[i])
 	{
 		args[i] = check_expand(info, args[i]); 

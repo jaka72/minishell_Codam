@@ -1,12 +1,7 @@
-[0mno pipe and this is builtin!
-aaa
-[0mno pipe and this is builtin!
-aaa
-[0mno pipe and this is builtin!
-aaa
-[0mno pipe and this is builtin!
-aaa
-[0mno pipe and this is builtin!
-aaa
-[0mno pipe and this is builtin!
-aaa
+[0mno pipe and this is library!
+[31mrun_cmd(): current[0]: [cat]
+[0m[0;35mms_execve(): str[0]: [cat] ?????? 
+hello
+world
+111minishell > [0;34mchild process exit status is 2
+[0m[0;34mchild process ended with signal 2 status 0

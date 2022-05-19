@@ -75,6 +75,7 @@ void	free_envlist(t_infos *infos);
 int		free_strings(char **strs);
 void	free_tcmd(t_cmd *cmds);
 void	err_free_env_exit(t_infos *infos, char *text);
+void	err_all_free_exit(t_infos *infos, t_cmd *cmds, char *text);
 
 // util/util.c
 char	*make_malloc_str(char *text);

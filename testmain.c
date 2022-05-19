@@ -33,6 +33,6 @@ int	main(int argc, char *argv[], char *envp[])
 		line = readline(info.prompt);
 	}
 	cleandata(&info);
-	// system("leaks minishell");
+	system("leaks minishell");
 	return (0);
 }
