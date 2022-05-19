@@ -91,10 +91,10 @@ BUILTINS_DIR		= 	./builtins
 BUILTINS_SRC		= 	$(BUILTINS_DIR)/echo.c \
 						$(BUILTINS_DIR)/pwd.c \
 						$(BUILTINS_DIR)/cd.c \
-						$(BUILTINS_DIR)/exit.c
-#		 				$(BUILTINS_DIR)/export.c				
-# 						$(BUILTINS_DIR)/unset.c				
-# 						$(BUILTINS_DIR)/env.c				
+						$(BUILTINS_DIR)/exit.c \
+		 				$(BUILTINS_DIR)/export.c	\
+						$(BUILTINS_DIR)/unset.c	 \
+						$(BUILTINS_DIR)/env.c				
 BUILTINS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(BUILTINS_SRC:.c=.o))
 
 

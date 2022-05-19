@@ -89,8 +89,8 @@ int	ms_execve(t_infos *info, t_cmd *str)
 
 	if (path == NULL)	// check the command is exist
 	{
-		write(3, str->args[0], ft_strlen(str->args[0]));
-		write(3, ": command not found\n", 21);
+		write(2, str->args[0], ft_strlen(str->args[0]));
+		write(2, ": command not found\n", 21);
 		exit(127);
 	}
 	execve(path, str->args, envs);
