@@ -25,6 +25,7 @@ int	main(int argc, char *argv[], char *envp[])
 				return (SYNTAX_ERROR);
 			add_history(line);
 			cmd_list = make_commands(&src /*, &info */);
+			//exec_builtin(cmd_list, &info); // added jaka - just for testing
 			g_status = run_cmd(&info, cmd_list);
 			// FREE AFTER EXECUTION /////////////////////////////////////////////////////
 			free_commands_list(cmd_list);

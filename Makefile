@@ -68,7 +68,7 @@ SYNTAX_OBJ		=	$(patsubst %, $(OBJ_DIR)/%, $(SYNTAX_SRC:.c=.o))
 
 # ADDED JAKA: PARSING
 PARSING_DIR		= 	./parsing
-# PARSING_SRC		= 	$(PARSING_DIR)/make_commands.c
+#  PARSING_SRC		= 	$(PARSING_DIR)/make_commands.c
 PARSING_SRC		= 	$(PARSING_DIR)/make_commands_removing_realloc.c \
 					$(PARSING_DIR)/make_commands_utils.c \
 					$(PARSING_DIR)/free_commands_list.c \
@@ -94,8 +94,8 @@ BUILTINS_SRC		= 	$(BUILTINS_DIR)/echo.c \
 						$(BUILTINS_DIR)/cd.c \
 						$(BUILTINS_DIR)/exit.c \
 		 				$(BUILTINS_DIR)/export.c	\
-						$(BUILTINS_DIR)/unset.c	 \
-						$(BUILTINS_DIR)/env.c				
+						$(BUILTINS_DIR)/env.c		\
+						$(BUILTINS_DIR)/unset.c	 
 BUILTINS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(BUILTINS_SRC:.c=.o))
 
 

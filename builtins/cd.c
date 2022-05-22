@@ -1,86 +1,90 @@
 #include "builtins.h"
 
-
-
-// int			env_add(const char *value, t_env *env)
-// {
-// 	t_env	*new;
-// 	t_env	*tmp;
-
-// 	if (env && env->value == NULL)
-// 	{
-// 		env->value = ft_strdup(value);
-// 		return (0);
-// 	}
-// 	if (!(new = malloc(sizeof(t_env))))
-// 		return (-1);
-
-// 	new->value = ft_strdup(value);
-// 	while (env && env->next && env->next->next)
-// 		env = env->next;
-// 	tmp = env->next;
-// 	env->next = new;
-// 	new->next = tmp;
-// 	return (0);
-// }
-
-
-// char		*get_env_name(char *dest, const char *src)
+// char	*get_env_name(char *name, const char *src)
 // {
 // 	int		i;
 
 // 	i = 0;
 // 	while (src[i] && src[i] != '=' && ft_strlen(src) < 4096) //buff_size = 4096
 // 	{
-// 		dest[i] = src[i];
+// 		name[i] = src[i];
 // 		i++;
 // 	}
-// 	dest[i] = '\0';
-// 	return (dest);
-// }
-
-
-// int			is_in_env(t_env *env, char *args)
-// {
-// 	char	var_name[4096];	// # define BUFF_SIZE 4096
-// 	char	env_name[4096];
-
-// 	get_env_name(var_name, args);
-// 	while (env && env->next)
-// 	{
-// 		get_env_name(env_name, env->value);
-// 		if (ft_strcmp(var_name, env_name) == 0)
-// 		{
-// 			ft_memdel(env->value);
-// 			env->value = ft_strdup(args);
-// 			return (1);
-// 		}
-// 		env = env->next;
-// 	}
-// 	return (0);
+// 	name[i] = '\0';
+// 	return (name);
 // }
 
 
 
-// int	store_old_pwd(void)
-// {
-// 	char	buff[PATH_MAX];
-// 	char	*cur_pwd;
-// 	char 	*old_pwd;
+int	insert_into_list(t_env *env, const char *value)
+{
+	printf(YEL"Start insert into list\n"RES);
 
-// 	cur_pwd = getcwd(buff, PATH_MAX);
-// 	if (cur_pwd == NULL)
-// 		return (1);
-	
-// 	old_pwd = ft_strjoin("OLDPWD=", cur_pwd);
-// 	if (old_pwd == NULL)
-// 		return (1);
+	t_env	*new;
+	t_env	*temp;
 
-// 	printf(YEL"Store_old_pwd [%s]\n", old_pwd);
+	new = malloc(sizeof(t_env));
+	if (new == NULL)
+		return (-1); // MUST EXIT  ???
+	new->value = ft_strdup(value);
+	new->name = ft_strdup("OLDPWD");
+	new->next = NULL;
+	if (new->value == NULL || new->name == NULL)
+		return (1);  // MUST EXIT ???
+	temp = env;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new;
+	//printf(GRN"   name %s\n"RES, temp->name);
+	return (0);
+}
 
 
-// 	return (0);
-// }
+
+int		find_name_and_replace_value(t_env *env, char *old_pwd)
+{
+	t_env *temp;
+
+	temp = env;
+	while (temp)
+	{
+		//printf(RED"temp->name: [%s], value: [%s]\n", temp->name, temp->value);
+		if (ft_strcmp("OLDPWD", temp->name) == 0)	// OLDPWD name exists, only change name
+		{
+			if (temp->value != NULL)
+				free(temp->value);
+			temp->value = ft_strdup(old_pwd);
+			if (temp->value == NULL)
+			{
+				write(2, "minishell: error allocating memory\n", 35);
+				exit (0); // which code to exit?
+				//free_all_and_exit();
+			}
+			return (0); // name found and value replaced
+		}
+		temp = temp->next;
+	}
+	printf(YEL"OLDPWD DOES NOT EXIST YET, CALL insert()\n"RES);
+	insert_into_list(env, old_pwd);  // variable does not exist yet, insert name and value (while struct)
+	return (0); 
+}
+
+
+
+
+int	store_current_into_old_pwd(t_env *env, char *current_pwd)
+{
+	//char	buff[PATH_MAX];
+	// char 	*old_pwd;
+
+	// old_pwd = getcwd(buff, PATH_MAX);
+	if (current_pwd == NULL)
+		return (1); // DOES IT NEED TO EXIT THE PROGRAM ???
+	find_name_and_replace_value(env, current_pwd);	// put current into $OLDPWD
+	return (0);
+}
+
+
 
 
 char *get_path(t_infos *info, char *name)
@@ -111,67 +115,63 @@ char *get_path(t_infos *info, char *name)
 	return (NULL); // path not found
 }
 
+
+
+
+
 /////////////////////////////////////////////////////////////
 
-// 	CD without a path does not go to HOME ????
 
+
+int	get_path_and_change_dir(t_infos *info, char *current_pwd)
+{
+	int	ret;
+	char *newpath;
+
+	store_current_into_old_pwd(info->start_env, current_pwd);
+	newpath = get_path(info, "HOME");
+	if (newpath == NULL)
+		return (1);
+	ret = chdir(newpath);
+	free(newpath);
+	if (ret == -1)
+		printf("minishell: cd: No such file or directory\n");
+	return (0);
+}
+
+
+
+// Oldpwd must not change if cd path is incorrect: cd xxxx
 int	run_cd_builtin(t_cmd *cmd, t_infos *info)
 {
-	printf(YEL"From run_cd_builtin\n"RES);
+	//int		ret;
+	char	buff[PATH_MAX];
+	char	*current_pwd;
 
-	char	*newpath;
-	//char	*oldpath;	MAYBE NOT NECESSARY, IF "cd -" IS NOT MANDATORY
-	//char	buff[PATH_MAX];
-	int		ret;
-	//t_env	*temp;
-
-	//oldpath = getcwd(buff, PATH_MAX);
-	//newpath = NULL;
-	//printf(YEL"From cd: found oldpath: %s\n"RES, oldpath);
-		// check ret, maybe needs to free
-	//temp = info->start_env;
+	current_pwd = getcwd(buff, PATH_MAX);
 	if (cmd->count_args == 1)			// only cd
-	{
-		newpath = get_path(info, "HOME");
-		printf(YEL"From cd: found Home path: %s\n"RES, newpath);
-		if (newpath == NULL)
-			return (1);
-		ret = chdir(newpath);
-		//run_pwd_builtin();		// for testing
-		//ret = chdir("/home/jaka");
-		//ret = chdir("/users/jmurovec");
-		printf(GRN"ret A from chdir(newpath): %d\n"RES, ret);
-		run_pwd_builtin();		// for testing
-
-		free(newpath);
-		printf(GRN"ret B from chdir(newpath): %d\n"RES, ret);
-		if (ret == -1)
-		{
-			printf("minishell: cd: No such file or directory\n");
-			return (1);
-		}
-		return (1);
-	}
-
-
+		get_path_and_change_dir(info, current_pwd);
 	else if (cmd->count_args == 2)
 	{
-		// if (cmd->args[1] == '-') // maybe not needed in subject
-		ret = chdir(cmd->args[1]);
-		printf(YEL"From cd: found some path: %s, ret: %d\n"RES, cmd->args[1], ret);
-		if (ret == -1)
+		if (ft_strcmp(cmd->args[1], "~") == 0) // maybe not needed in subject
+			get_path_and_change_dir(info, current_pwd);
+		else if (ft_strcmp(cmd->args[1], "-") == 0) // maybe not needed in subject
 		{
-			printf("minishell: cd: No such file or directory\n");
-			return (1);
+			// store_old_pwd(info->start_env);
+			//oldpath = getcwd(buff, PATH_MAX);
+			//printf(BLU"   found dash, old path [%s]\n"RES, oldpath);
+			//ret = chdir(oldpath);
+			//return (1);
 		}
-		//printf(BLU"Ret from chdir(): %d\n"RES, ret);
-		//return (0);
+		else	// found other path
+		{
+			if (chdir(cmd->args[1]) == -1)
+				printf("minishell: cd: No such file or directory\n");
+			else
+				store_current_into_old_pwd(info->start_env, current_pwd);
+		}
 	}
 	else if (cmd->count_args > 2)
-	{
 		printf("minishell: cd: too many arguments\n");
-		return (1);
-	}
-	run_pwd_builtin();		// for testing
-	return (1);
+	return (0);
 }

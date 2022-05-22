@@ -10,7 +10,7 @@ typedef struct s_temporary_array
 	int		arrow;
 	int		len;
 	int		start;
-	char	**rdr_array;
+	char	**temp_arr;
 	int		count;
 } t_tmp;
 

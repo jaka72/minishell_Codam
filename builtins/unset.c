@@ -29,16 +29,16 @@ int	find_name_delate(char *targetname, t_infos *info)
 int	run_unset_builtin(t_cmd *cmd, t_infos *info)
 {
 	int	i;
-	t_env	*env;
-	t_env	*prev;
+	//t_env	*env;
+	//t_env	*prev;
 
 	i = 1;
-	env = info->start_env;
-	prev = NULL;
+	//env = info->start_env;
+	//prev = NULL;
 	while (cmd->args[i])
 	{
 		find_name_delate(cmd->args[i], info);
-		env = info->start_env;
+		//env = info->start_env;
 		i++;
 	}
 	return (0);

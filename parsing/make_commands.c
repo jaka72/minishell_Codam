@@ -14,7 +14,7 @@ int	store_into_command_arr(t_source *src, t_cmd *cmd)
 	}
 	else
 	{
-		//printf(RED"Malloced command_array OTHERS\n"RES);
+		printf(RED"Realloced command_array OTHERS\n"RES);
 		cmd->args = realloc(cmd->args, sizeof(char*) * (cmd->count_args + 1)); // +1 for NULL
 		if (cmd->args == NULL)
 			return (1); // HERE MAKE SURE THAT IT EXITS, FREES, GIVES MESSAGE ETC ... !!!!!!!!

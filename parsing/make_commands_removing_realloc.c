@@ -1,12 +1,42 @@
 #include "make_commands.h"
 
+
+int	realloc_array(t_cmd *cmd, char **temp)
+{
+	int	i = 0;
+
+	i = 0;
+	while (cmd->args[i])
+	{
+		//printf(MAG"   word%d: [%s], "RES, i, cmd->args[i]);
+		temp[i] = ft_strdup(cmd->args[i]);
+		i++;
+	}
+	//printf(MAG"\n"RES);
+	i = 0;
+	// FREE ALL OLD ARGS ELEMENTS
+	while (cmd->args[i])
+	{
+		//printf(MAG" free%d [%s]"RES, i, cmd->args[i]);
+		free(cmd->args[i]);
+		i++;
+	}
+	//printf(MAG"\n"RES);
+	free(cmd->args);
+	cmd->args = temp;
+	return (0);
+}
+
+
+
 int	store_into_command_arr(t_source *src, t_cmd *cmd)
 {
+	//int		i;
 	int		len;
 	int		start;
 	char	**temp;
 	
-	printf(MAG"store into arr\n"RES);
+	//printf(MAG"store into arr\n"RES);
 	// ALLOCATE CORRECT NR OF PLACES IN **args
 	if (cmd->count_args == 1)	// just started, still empty; Create space for 1st and NULL 
 	{
@@ -16,28 +46,19 @@ int	store_into_command_arr(t_source *src, t_cmd *cmd)
 	}
 	else
 	{
-		// NEW CODE
+		// NEW CODE - REALLOCING THE ARGS ARRAY
 		temp = malloc(sizeof(char*) * (cmd->count_args + 1));
 		if (temp == NULL)
 			return (1);
 
-		int i = 0;
-		while (cmd->args[i])
-		{
-			printf(MAG"   word [%s]\n"RES, cmd->args[i]);
-			temp[i] = cmd->args[i];
-			i++;
-		}
-		free(cmd->args);
-		cmd->args = temp;
+		// NEW CODE
+		realloc_array(cmd, temp);
 
 		// OLD CODE
-		// OLD cmd->args = realloc(cmd->args, sizeof(char*) * (cmd->count_args + 1)); // +1 for NULL
-		//if (cmd->args == NULL) // maybe not necessary, it already checks temp above
+		// cmd->args = realloc(cmd->args, sizeof(char*) * (cmd->count_args + 1)); // +1 for NULL
+		// if (cmd->args == NULL) // maybe not necessary, it already checks temp above
 		//	return (1); // HERE MAKE SURE THAT IT EXITS, FREES, GIVES MESSAGE ETC ... !!!!!!!!
 	}
-
-
 
 	len = get_length_of_word(src);
 		// check return
@@ -51,6 +72,8 @@ int	store_into_command_arr(t_source *src, t_cmd *cmd)
 
 	// COPY DIRECTLY FROM INPUT LINE, AT CORRECT CURSOR ///////////// HERE
 	ft_strlcpy(cmd->args[cmd->count_args - 1], &src->inputline[start], len + 1);
+	
+	//printf(GRN" terminate the array, countargs[%d]\n"RES, cmd->count_args);
 	cmd->args[cmd->count_args] = NULL;  // TERMINATE THE ARRAY
 	return (0);
 }
@@ -61,14 +84,14 @@ void	choose_correct_array(t_source *src, t_cmd *cmd, t_tmp *t)
 {
 	if (t->arrow == '<' && src->inputline[src->currpos + 1] != '<')		// INFILE <
 	{
-		t->rdr_array = cmd->infile;
+		t->temp_arr = cmd->infile;
 		cmd->count_infiles++;
 		t->count = cmd->count_infiles;
 		cmd->fd_in = -2;
 	}
 	else if (t->arrow == '<' && src->inputline[src->currpos + 1] == '<') // HEREDOC >>
 	{
-		t->rdr_array = cmd->heredoc;
+		t->temp_arr = cmd->heredoc;
 		cmd->count_heredocs++;
 		t->count = cmd->count_heredocs;
 		cmd->fd_in = -3;
@@ -77,7 +100,7 @@ void	choose_correct_array(t_source *src, t_cmd *cmd, t_tmp *t)
 	else if (t->arrow == '>') 											// OUTFILE >
 	{
 		//printf(BLU"is > outfile (-2)\n"RES);
-		t->rdr_array = cmd->outfile;
+		t->temp_arr = cmd->outfile;
 		cmd->count_outfiles++;
 		t->count = cmd->count_outfiles;
 		cmd->fd_out = -2;
@@ -96,7 +119,7 @@ int	store_into_redirect_arr(t_source *src, t_cmd *cmd)
 	t_tmp	t;
 
 	t.count = 0;
-	t.rdr_array = NULL;
+	t.temp_arr = NULL;
 	t.arrow = src->inputline[src->currpos];  // '<' OR '>'
 
 	// CHOOSE IN / OUT ARRAY. OR HEREDOC ARRAY
@@ -106,14 +129,18 @@ int	store_into_redirect_arr(t_source *src, t_cmd *cmd)
 	if (t.count == 1)	// just started, still empty; Create space for 1st and NULL
 	{
 		//printf(YEL"Malloced rdr_array FIRST\n"RES);
-		t.rdr_array = malloc(sizeof(char*) * 2);
-		if (t.rdr_array == NULL)
+		t.temp_arr = malloc(sizeof(char*) * 2);
+		if (t.temp_arr == NULL)
 			return (1); // HERE MAKE SURE THAT IT EXITS, FREES, GIVES MESSAGE ETC ... !!!!!!!!
 	}
 	else
 	{
+		// NEW CODE
+		realloc_array(cmd, t.temp_arr);
+
+		// OLD CODE
 		//printf(YEL"Malloced rdr_array OTHER\n"RES);
-		t.rdr_array = realloc(t.rdr_array, sizeof(char*) * (t.count + 1)); // +1 for NULL
+		t.temp_arr = realloc(t.temp_arr, sizeof(char*) * (t.count + 1)); // +1 for NULL
 	}
 	//printf(GRN"    pos%ld[%c]\n"RES, src->currpos, src->inputline[src->currpos]);
 	skip_white_spaces(src);
@@ -127,19 +154,19 @@ int	store_into_redirect_arr(t_source *src, t_cmd *cmd)
 	t.start = src->currpos - t.len + 1;
 
 	// ALLOCATE SPACE FOR A WORD
-	t.rdr_array[t.count - 1] = malloc(sizeof(char) * (t.len + 1));
+	t.temp_arr[t.count - 1] = malloc(sizeof(char) * (t.len + 1));
 		// check return
 
 	// COPY DIRECTLY FROM INPUT LINE, AT CORRECT CURSOR ///////////// HERE
-	ft_strlcpy(t.rdr_array[t.count - 1], &src->inputline[t.start], t.len + 1);
+	ft_strlcpy(t.temp_arr[t.count - 1], &src->inputline[t.start], t.len + 1);
 
 	if (t.arrow == '<' && cmd->fd_in == -2)			// INFILE <
-		cmd->infile = &t.rdr_array[0];
+		cmd->infile = &t.temp_arr[0];
 	else if (t.arrow == '<' && cmd->fd_in == -3)	// HEREDOC <<
-		cmd->heredoc = &t.rdr_array[0];
+		cmd->heredoc = &t.temp_arr[0];
 	else if (t.arrow == '>')						// OUTFILE > OR >>
-		cmd->outfile = &t.rdr_array[0];
-	t.rdr_array[t.count] = NULL;  // TERMINATE THE ARRAY
+		cmd->outfile = &t.temp_arr[0];
+	t.temp_arr[t.count] = NULL;  // TERMINATE THE ARRAY
 	return (0);
 }
 
