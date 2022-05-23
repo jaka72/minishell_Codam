@@ -11,10 +11,15 @@ void free_arrays(t_cmd *cmd)
 	{
 		while (i < cmd->count_args)
 		{
-			printf(DYEL"    Free command[%d] %s\n"RES, i, cmd->args[i]);
+			//printf(DYEL"    Free command[%d]\n"RES, i);
+			//printf(DYEL" free%d [%s]"RES, i, cmd->args[i]);
+
 			free(cmd->args[i]);
 			i++;
 		}
+
+		//free(cmd->args[i]); // MAYBE THIS ONE NEEDED FOR THE LAST ELEMENT, WHICH IS NULL
+
 		free(cmd->args);
 		cmd->args = NULL;
 	}
