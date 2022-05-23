@@ -1,21 +1,5 @@
 #include "builtins.h"
 
-// char	*get_env_name(char *name, const char *src)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	while (src[i] && src[i] != '=' && ft_strlen(src) < 4096) //buff_size = 4096
-// 	{
-// 		name[i] = src[i];
-// 		i++;
-// 	}
-// 	name[i] = '\0';
-// 	return (name);
-// }
-
-
-
 int	insert_into_list(t_env *env, const char *value)
 {
 	printf(YEL"Start insert into list\n"RES);
@@ -38,7 +22,6 @@ int	insert_into_list(t_env *env, const char *value)
 	//printf(GRN"   name %s\n"RES, temp->name);
 	return (0);
 }
-
 
 
 int		find_name_and_replace_value(t_env *env, char *old_pwd)
@@ -86,7 +69,6 @@ int	store_current_into_old_pwd(t_env *env, char *current_pwd)
 
 
 
-
 char *get_path(t_infos *info, char *name)
 {
 	char	*newpath;
@@ -118,51 +100,42 @@ char *get_path(t_infos *info, char *name)
 
 
 
-
 /////////////////////////////////////////////////////////////
 
 
 
-int	get_path_and_change_dir(t_infos *info, char *current_pwd)
+int	get_path_and_change_dir(t_infos *info, char *current_pwd, char *name)
 {
 	int	ret;
 	char *newpath;
 
-	store_current_into_old_pwd(info->start_env, current_pwd);
-	newpath = get_path(info, "HOME");
+	newpath = get_path(info, name);
 	if (newpath == NULL)
 		return (1);
 	ret = chdir(newpath);
 	free(newpath);
+	store_current_into_old_pwd(info->start_env, current_pwd);
 	if (ret == -1)
 		printf("minishell: cd: No such file or directory\n");
 	return (0);
 }
 
 
-
 // Oldpwd must not change if cd path is incorrect: cd xxxx
 int	run_cd_builtin(t_cmd *cmd, t_infos *info)
 {
-	//int		ret;
 	char	buff[PATH_MAX];
 	char	*current_pwd;
 
 	current_pwd = getcwd(buff, PATH_MAX);
 	if (cmd->count_args == 1)			// only cd
-		get_path_and_change_dir(info, current_pwd);
+		get_path_and_change_dir(info, current_pwd, "HOME");
 	else if (cmd->count_args == 2)
 	{
 		if (ft_strcmp(cmd->args[1], "~") == 0) // maybe not needed in subject
-			get_path_and_change_dir(info, current_pwd);
+			get_path_and_change_dir(info, current_pwd, "HOME");
 		else if (ft_strcmp(cmd->args[1], "-") == 0) // maybe not needed in subject
-		{
-			// store_old_pwd(info->start_env);
-			//oldpath = getcwd(buff, PATH_MAX);
-			//printf(BLU"   found dash, old path [%s]\n"RES, oldpath);
-			//ret = chdir(oldpath);
-			//return (1);
-		}
+			get_path_and_change_dir(info, current_pwd, "OLDPWD");
 		else	// found other path
 		{
 			if (chdir(cmd->args[1]) == -1)

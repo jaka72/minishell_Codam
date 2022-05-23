@@ -1,0 +1,6 @@
+[0mno pipe and this is builtin!
+[31mStart echo 
+[0m[0;33mEcho, arg[1]: [cat lol.c cat ]
+[0m[0;33m   No option -n
+[0m[0;33m    flag_newline: 0: 
+[0mcat lol.c cat 
