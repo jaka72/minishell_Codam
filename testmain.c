@@ -15,14 +15,15 @@ int	main(int argc, char *argv[], char *envp[])
 	line = readline(info.prompt);
 	while (line)
 	{
-		src.inputline = line;
-		src.inputline_size = strlen(src.inputline);
 		if (ft_strlen(line) > 0)
 		{
-			if (check_syntax_errors(&src, &info) != 0)
+			if (check_syntax_errors(line, &src, &info) != 0)
 				return (SYNTAX_ERROR);
+			printf("test\n");	
 			add_history(line);
+			printf("src.corrpos is %ld, size is %ld, line is %s \n", src.currpos , src.inputline_size, src.inputline);		
 			cmd_list = make_commands(&src);
+			printf("test3\n");		
 			g_status = run_cmd(&info, cmd_list);
 			free_commands_list(cmd_list);	
 		}
@@ -30,6 +31,6 @@ int	main(int argc, char *argv[], char *envp[])
 		line = readline(info.prompt);
 	}
 	cleandata(&info);
-	system("leaks minishell");
+	// system("leaks minishell");
 	return (0);
 }

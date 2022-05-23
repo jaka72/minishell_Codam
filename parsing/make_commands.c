@@ -138,7 +138,7 @@ int	select_and_store_words(t_source *src, t_cmd *cmd)
 		ch = src->inputline[src->currpos];
 		if (ch == '<' || ch == '>')
 		{	
-			//printf(CYN"    pos%ld[%c]\n"RES, src->currpos, src->inputline[src->currpos]);
+			printf(CYN"    pos%ld[%c]\n"RES, src->currpos, src->inputline[src->currpos]);
 			store_into_redirect_arr(src, cmd);
 		}
 		else if (is_valid_filename_char(ch) && ch != '\0') // MUST BE is_allowed_char()
@@ -173,16 +173,19 @@ t_cmd	*make_commands(t_source *src /*, t_infos *info */)
 	int		ret;
 	t_cmd	*first_cmd;
 	t_cmd	*new_cmd;
-	
+
+	printf("!!!!!!\n");	
 	if (src->inputline_size == 0)
 		return (0);
-
+	printf("hello test2\n");
 
 	src->currpos = -1;
 	first_cmd = NULL;
 	i = 0;
+	printf("hello test3\n");
 	while (1)
 	{
+		printf("hello\n");
 		new_cmd = malloc(sizeof(t_cmd));
 		ret = select_and_store_words(src, new_cmd);
 		printf("\n"BLU"COMMAND %d\n"RES, i);
