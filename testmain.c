@@ -19,11 +19,8 @@ int	main(int argc, char *argv[], char *envp[])
 		{
 			if (check_syntax_errors(line, &src, &info) != 0)
 				return (SYNTAX_ERROR);
-			printf("test\n");	
 			add_history(line);
-			printf("src.corrpos is %ld, size is %ld, line is %s \n", src.currpos , src.inputline_size, src.inputline);		
 			cmd_list = make_commands(&src);
-			printf("test3\n");		
 			g_status = run_cmd(&info, cmd_list);
 			free_commands_list(cmd_list);	
 		}

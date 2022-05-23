@@ -29,13 +29,10 @@ int	store_into_command_arr(t_source *src, t_cmd *cmd)
 	cmd->args[cmd->count_args - 1] = malloc(sizeof(char) * (len + 1));
 		// check return
 
-	// COPY DIRECTLY FROM INPUT LINE, AT CORRECT CURSOR ///////////// HERE
 	ft_strlcpy(cmd->args[cmd->count_args - 1], &src->inputline[start], len + 1);
 	cmd->args[cmd->count_args] = NULL;  // TERMINATE THE ARRAY
 	return (0);
 }
-
-
 
 void	choose_correct_array(t_source *src, t_cmd *cmd, t_tmp *t)
 {
@@ -98,7 +95,6 @@ int	store_into_redirect_arr(t_source *src, t_cmd *cmd)
 	//printf(GRN"    pos%ld[%c]\n"RES, src->currpos, src->inputline[src->currpos]);
 	skip_white_spaces(src);
 	src->currpos++;
-	///////////////////
 
 	t.len = get_length_of_word(src);
 		// check return
@@ -122,8 +118,6 @@ int	store_into_redirect_arr(t_source *src, t_cmd *cmd)
 	t.rdr_array[t.count] = NULL;  // TERMINATE THE ARRAY
 	return (0);
 }
-
-
 
 
 int	select_and_store_words(t_source *src, t_cmd *cmd)
@@ -162,12 +156,7 @@ int	select_and_store_words(t_source *src, t_cmd *cmd)
 	return (0);
 }
 
-
-
-//////////////////////////////////////////////////////////////////
-
-
-t_cmd	*make_commands(t_source *src /*, t_infos *info */)
+t_cmd	*make_commands(t_source *src)
 {
 	int		i;			// just for printing
 	int		ret;
