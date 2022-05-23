@@ -2,7 +2,6 @@
 
 int	check_n_option(char *str)
 {
-	printf(YEL"echo checknoption\n"RES); // IT DOES NOT PRINT IF ONLY 1-char WORD
 	int	i;
 
 	i = 0;		// '-n' skip dash, start at first 'n'
@@ -14,18 +13,16 @@ int	check_n_option(char *str)
 		{
 			if (str[i] != 'n')
 			{
-				//printf(YEL"   No option -n\n"RES);
 				return (0);
 			}
 			i++;
 		}
 	}
-	//printf(YEL"    Option -n is ON (ignore new line)\n"RES);
 	return (1);
 }
 
 
-void	check_line_and_print(t_cmd *cmd, int *flagw, /* int *flagl,*/ int *i  /*, t_infos *info */)
+void	check_line_and_print(t_cmd *cmd, int *flagw, int *i)
 {
 	int	j;
 	char *word;
@@ -45,9 +42,7 @@ void	check_line_and_print(t_cmd *cmd, int *flagw, /* int *flagl,*/ int *i  /*, t
 }
 
 
-// - STILL NEEDS TO HANDLE OPTION -n IF IT IS IN QUOTES
-// - HANDLE BOTH ""  INSIDE '' AND VICE VERSA
-int	run_echo_builtin(t_cmd *cmd /*, t_infos *info */)
+int	run_echo_builtin(t_cmd *cmd)
 {
 	int	i;
 	int	flag_newline;
@@ -70,4 +65,3 @@ int	run_echo_builtin(t_cmd *cmd /*, t_infos *info */)
 
 	return (0);
 }
-
