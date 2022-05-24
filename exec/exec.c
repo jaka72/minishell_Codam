@@ -80,13 +80,15 @@ int	ms_execve(t_infos *info, t_cmd *str)
 {
 	char	**envs;
 	char	*path;
+	char	**arg;
 
 	envs = get_env_array(info->start_env);
 	if (envs == NULL)
 		return (-1);
 	// str->args = expand_array(str->args, info);
+	
 	path = ft_findshell_pass(str->args[0], envs);
-
+	arg = str->args; 
 	printf(MAG"ms_execve(): str[0]: [%s] ?????? \n"RES, str->args[0]);
 
 	if (path == NULL)	// check the command is exist
@@ -95,7 +97,8 @@ int	ms_execve(t_infos *info, t_cmd *str)
 		write(2, ": command not found\n", 21);
 		exit(127);
 	}
-	execve(path, str->args, envs);
+
+	execve(path, arg, envs);
 	return (0);
 }
 

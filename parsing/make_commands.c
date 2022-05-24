@@ -15,7 +15,7 @@ int	store_into_command_arr(t_source *src, t_cmd *cmd)
 	else
 	{
 		printf(RED"Realloced command_array OTHERS\n"RES);
-		cmd->args = realloc(cmd->args, sizeof(char*) * (cmd->count_args + 1)); // +1 for NULL
+		cmd->args = ft_add_str(cmd->args); // +1 for NULL
 		if (cmd->args == NULL)
 			return (1); // HERE MAKE SURE THAT IT EXITS, FREES, GIVES MESSAGE ETC ... !!!!!!!!
 	}
@@ -90,7 +90,7 @@ int	store_into_redirect_arr(t_source *src, t_cmd *cmd)
 	else
 	{
 		//printf(YEL"Malloced rdr_array OTHER\n"RES);
-		t.rdr_array = realloc(t.rdr_array, sizeof(char*) * (t.count + 1)); // +1 for NULL
+		t.rdr_array = ft_add_str(cmd->args); // +1 for NULL
 	}
 	//printf(GRN"    pos%ld[%c]\n"RES, src->currpos, src->inputline[src->currpos]);
 	skip_white_spaces(src);

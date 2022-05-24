@@ -154,6 +154,7 @@ char	*check_expand(t_infos *info, char *tx)
 			expanded = ft_add_c_free(expanded, tx[i]);
 		i++;
 	}
+	free(tx);
 	return (expanded);
 }
 
