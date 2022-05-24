@@ -1,7 +1,5 @@
 #include "../minishell.h"
 
-sig_atomic_t	g_flag;
-
 void	errtext_exit(char *text)
 {
 	perror(text);
@@ -41,7 +39,6 @@ void	err_free_env_exit(t_infos *infos, char *text)
 void	handle_sigint(int num)
 {
 	(void) num;
-	g_flag = 1;
 	write(STDIN_FILENO, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();

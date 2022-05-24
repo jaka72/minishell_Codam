@@ -64,8 +64,7 @@ int	store_into_command_arr(t_source *src, t_cmd *cmd)
 	if (cmd->count_args == 1)	// just started, still empty; Create space for 1st and NULL 
 		cmd->args = malloc(sizeof(char*) * 2);
 	else
-		// cmd->args = realloc(cmd->args, sizeof(char*) * (cmd->count_args + 1)); // +1 for NULL
-		cmd->args = ft_add_str(cmd->args);
+		cmd->args = realloc(cmd->args, sizeof(char*) * (cmd->count_args + 1)); // +1 for NULL
 
 	len = get_length_of_word(src);
 		// check return
@@ -156,8 +155,7 @@ int	store_into_redirect_arr(t_source *src, t_cmd *cmd)
 	if (t.count == 1)	// just started, still empty; Create space for 1st and NULL 
 		t.rdr_array = malloc(sizeof(char*) * 2);
 	else
-		// t.rdr_array = realloc(t.rdr_array, sizeof(char*) * (t.count + 1)); // +1 for NULL
-		t.rdr_array = ft_add_str(t.rdr_array);
+		t.rdr_array = realloc(t.rdr_array, sizeof(char*) * (t.count + 1)); // +1 for NULL
 
 	src->currpos++;
 	skip_white_spaces(src);

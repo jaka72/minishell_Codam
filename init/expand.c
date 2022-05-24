@@ -13,7 +13,6 @@ void	print_env(t_infos *info)
 	}
 	printf("%s=%s\n", env->name, env->value);
 }
-// function to print env (not necessary)
 
 char	*name_expand(t_infos *info, char *tx)
 {

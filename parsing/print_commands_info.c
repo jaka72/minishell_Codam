@@ -5,15 +5,11 @@ void print_command_info(t_cmd *cmd)
 {
 	int i = 0;
 	printf(WHT2"  Command  array: ["RES);
-	if (cmd->args != NULL)
+	while (i < cmd->count_args)
 	{
-		while (i < cmd->count_args)
-		{
-			printf(DYEL" %s "RES, cmd->args[i]);
-			i++;
-		}
+		printf(DYEL" %s "RES, cmd->args[i]);
+		i++;
 	}
-
 	printf(WHT2"]\n"RES);
 
 	printf(WHT2"  Command  fd_in: "DYEL"%2d\n"RES, cmd->fd_in);
@@ -44,13 +40,12 @@ void print_command_info(t_cmd *cmd)
 		//printf(YEL" %i "RES, i);
 		i++;
 	}
-	printf(WHT2"]!\n"RES);
+	printf(WHT2"]\n"RES);
 
 
 	// printf(GRE"count_heredocs: %d \n"RES, cmd->count_outfiles);
 	i = 0;
 	printf(WHT2"  Heredocs array: ["RES);
-	printf("cmd->count_heredoc is %d\n", cmd->count_heredocs);
 	while (i < cmd->count_heredocs)
 	{
 		printf(DYEL" %s "RES, cmd->heredoc[i]);

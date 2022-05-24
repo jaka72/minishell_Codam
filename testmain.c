@@ -1,6 +1,12 @@
 #include "minishell.h"
 
-int	g_status;
+char	*free_and_read(char *line, t_infos *info)
+{
+	if (line != NULL)
+		free(line);
+	line = readline(info->prompt);
+	return (line);
+}
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -11,8 +17,10 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void) argc;
 	(void) argv;
+	cmd_list = NULL;
+	line = NULL;
 	ms_init(&info, envp);
-	line = readline(info.prompt);
+	line = free_and_read(line, &info);
 	while (line)
 	{
 		if (ft_strlen(line) > 0)
@@ -24,10 +32,7 @@ int	main(int argc, char *argv[], char *envp[])
 			g_status = run_cmd(&info, cmd_list);
 			free_commands_list(cmd_list);	
 		}
-		free(line);
-		line = readline(info.prompt);
+		line = free_and_read(line, &info);
 	}
-	cleandata(&info);
-	// system("leaks minishell");
-	return (0);
+	return (clean_data(&info, "exit\n"));
 }

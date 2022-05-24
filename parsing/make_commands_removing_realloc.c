@@ -1,42 +1,42 @@
 #include "make_commands.h"
 
 
-int	realloc_array(char **str, char **temp)
+char **realloc_array(/*t_cmd *cmd*/ /*, char **temp, */ char **arr, int count)
 {
-	int	i = 0;
+	int		i;
+	char	**temp;
 
+	temp = malloc(sizeof(char*) * (count + 1));
+	if (temp == NULL)
+		return (NULL);
 	i = 0;
-	while (str[i])
+	while (arr[i])
 	{
-		printf(MAG"   word%d: [%s], "RES, i, str[i]);
-		temp[i] = ft_strdup(str[i]);
+		temp[i] = ft_strdup(arr[i]);
 		i++;
 	}
-	//printf(MAG"\n"RES);
 	i = 0;
 	// FREE ALL OLD ARGS ELEMENTS
-	while (str[i])
+	while (arr[i])
 	{
-		printf(MAG" free%d [%s]"RES, i, str[i]);
-		free(str[i]);
+		free(arr[i]);
 		i++;
 	}
-	printf(MAG"\n"RES);
-	free(str);
-	str = temp;
-	return (0);
+	free(arr);
+	arr = temp;
+	return (arr);
 }
 
-
+////////////////// ///////////////////////////////////////////////
 
 int	store_into_command_arr(t_source *src, t_cmd *cmd)
 {
 	//int		i;
 	int		len;
 	int		start;
-	// char	**temp;
+	char	**temp;
 	
-	//printf(MAG"store into arr\n"RES);
+	//printf(MAG"store into command arr, count_args: %d\n"RES, cmd->count_args);
 	// ALLOCATE CORRECT NR OF PLACES IN **args
 	if (cmd->count_args == 1)	// just started, still empty; Create space for 1st and NULL 
 	{
@@ -46,17 +46,12 @@ int	store_into_command_arr(t_source *src, t_cmd *cmd)
 	}
 	else
 	{
-		// NEW CODE - REALLOCING THE ARGS ARRAY
-		// temp = malloc(sizeof(char*) * (cmd->count_args + 1));
-		// if (temp == NULL)
-		// 	return (1);
-
 		// NEW CODE
-		// realloc_array(cmd->args, temp);
+		temp = realloc_array(cmd->args, /*temp*/ cmd->count_args);
+		cmd->args = temp;
 
 		// OLD CODE
 		// cmd->args = realloc(cmd->args, sizeof(char*) * (cmd->count_args + 1)); // +1 for NULL
-		cmd->args = ft_add_str(cmd->args);
 		// if (cmd->args == NULL) // maybe not necessary, it already checks temp above
 		//	return (1); // HERE MAKE SURE THAT IT EXITS, FREES, GIVES MESSAGE ETC ... !!!!!!!!
 	}
@@ -100,7 +95,6 @@ void	choose_correct_array(t_source *src, t_cmd *cmd, t_tmp *t)
 	}
 	else if (t->arrow == '>') 											// OUTFILE >
 	{
-		//printf(BLU"is > outfile (-2)\n"RES);
 		t->temp_arr = cmd->outfile;
 		cmd->count_outfiles++;
 		t->count = cmd->count_outfiles;
@@ -118,18 +112,19 @@ void	choose_correct_array(t_source *src, t_cmd *cmd, t_tmp *t)
 int	store_into_redirect_arr(t_source *src, t_cmd *cmd)
 {
 	t_tmp	t;
+	char	**temp;
 
 	t.count = 0;
 	t.temp_arr = NULL;
 	t.arrow = src->inputline[src->currpos];  // '<' OR '>'
 
 	// CHOOSE IN / OUT ARRAY. OR HEREDOC ARRAY
-	printf("checking array src->currpos is %ld\n", src->currpos);
 	choose_correct_array(src, cmd, &t);
+
 	// ALLOCATE CORRECT NR OF PLACES IN **args
 	if (t.count == 1)	// just started, still empty; Create space for 1st and NULL
 	{
-		printf(YEL"Malloced rdr_array FIRST\n"RES);
+		//printf(YEL"Malloced rdr_array FIRST\n"RES);
 		t.temp_arr = malloc(sizeof(char*) * 2);
 		if (t.temp_arr == NULL)
 			return (1); // HERE MAKE SURE THAT IT EXITS, FREES, GIVES MESSAGE ETC ... !!!!!!!!
@@ -137,17 +132,17 @@ int	store_into_redirect_arr(t_source *src, t_cmd *cmd)
 	else
 	{
 		// NEW CODE
-		printf(YEL"Malloced rdr_array OTHER\n"RES);
-		realloc_array(cmd->heredoc, t.temp_arr);
+		temp = realloc_array(t.temp_arr, t.count);
+		t.temp_arr = temp;
 
 		// OLD CODE
-		
+		// printf(YEL"Malloced rdr_array OTHER\n"RES);
 		// t.temp_arr = realloc(t.temp_arr, sizeof(char*) * (t.count + 1)); // +1 for NULL
 	}
-	printf(GRN"    pos%ld[%c]\n"RES, src->currpos, src->inputline[src->currpos]);
+	//printf(GRN"    pos%ld[%c]\n"RES, src->currpos, src->inputline[src->currpos]);
 	skip_white_spaces(src);
 	src->currpos++;
-	printf("iiiii\n");
+	///////////////////
 
 	t.len = get_length_of_word(src);
 		// check return
@@ -174,7 +169,7 @@ int	store_into_redirect_arr(t_source *src, t_cmd *cmd)
 
 
 
-
+// MAYBE A FLAG, THAT DETECTS IF | OR < IS INSIDE THE QUOTE ???
 int	select_and_store_words(t_source *src, t_cmd *cmd)
 {
 	int	ch;
@@ -183,19 +178,17 @@ int	select_and_store_words(t_source *src, t_cmd *cmd)
 	while (1)
 	{
 		skip_white_spaces(src);
-		printf("WWWWW\n");
 		src->currpos++;
 		ch = src->inputline[src->currpos];
 		if (ch == '<' || ch == '>')
 		{	
-			//printf(CYN"    pos%ld[%c]\n"RES, src->currpos, src->inputline[src->currpos]);
+			//printf(CYN"    Found redirection at pos%ld[%c]\n"RES, src->currpos, src->inputline[src->currpos]);
 			store_into_redirect_arr(src, cmd);
 		}
 		else if (is_valid_filename_char(ch) && ch != '\0') // MUST BE is_allowed_char()
 		{
-			//printf(CYN"  found alpha %ld[%c]\n"RES, src->currpos, ch); // store rdr_in
+			//printf(CYN"    found alpha %ld[%c]\n"RES, src->currpos, ch); // store rdr_in
 			cmd->count_args++;
-			printf("1\n");
 			store_into_command_arr(src, cmd); 	// store command name
 		}
 		else if (ch == '|')
@@ -205,12 +198,11 @@ int	select_and_store_words(t_source *src, t_cmd *cmd)
 		}
 		else if (ch == '\0')
 		{
-			printf(MAG"Found End of line: return 1\n"RES); // store rdr_in
+			// printf(MAG"Found End of line: return 1\n"RES); // store rdr_in
 			return (1);
 		}
 		//printf("Loop end: pos%ld[%d]\n", src->currpos, src->inputline[src->currpos]);
 	}
-	printf("DDDDD\n");
 	return (0);
 }
 
@@ -226,7 +218,6 @@ t_cmd	*make_commands(t_source *src /*, t_infos *info */)
 	t_cmd	*first_cmd;
 	t_cmd	*new_cmd;
 	
-	printf("!!!!!!\n");	
 	if (src->inputline_size == 0)
 		return (0);
 
@@ -239,7 +230,7 @@ t_cmd	*make_commands(t_source *src /*, t_infos *info */)
 		new_cmd = malloc(sizeof(t_cmd));
 		ret = select_and_store_words(src, new_cmd);
 		printf("\n"BLU"COMMAND %d\n"RES, i);
-		// print_command_info(new_cmd);
+		print_command_info(new_cmd);
 
 		if (ret == 1)
 		{

@@ -18,9 +18,9 @@
 typedef struct s_env		t_env;
 typedef struct s_infos		t_infos;
 
-sig_atomic_t	g_flag;
-
 extern int	g_status;
+
+int	g_status;
 
 struct s_env
 {
@@ -81,10 +81,12 @@ void	err_all_free_exit(t_infos *infos, t_cmd *cmds, char *text);
 char	*make_malloc_str(char *text);
 char	*free_return_null(char *text);
 char	*ft_add_c_free(char *s1, char c);
-void	cleandata(t_infos *info);
+int		clean_data(t_infos *info, char *text);
 
 // init/init.c
 void	handle_sigint(int num);
+void	handle_sigquit(int num);
+void	handle_sigquit_instd(int num);
 void	ms_init(t_infos *info, char *envp[]);
 
 // init/env.c

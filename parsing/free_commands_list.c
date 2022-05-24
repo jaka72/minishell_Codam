@@ -66,7 +66,7 @@ void free_arrays(t_cmd *cmd)
 	{
 		while (i < cmd->count_heredocs)
 		{
-			printf(DYEL"    Free heredoc[%d]\n"RES, i);
+			//printf(DYEL"    Free heredoc[%d]\n"RES, i);
 			free(cmd->heredoc[i]);
 			i++;
 		}

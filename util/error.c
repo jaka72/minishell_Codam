@@ -72,6 +72,9 @@ void	err_free_env_exit(t_infos *infos, char *text)
 
 void	err_all_free_exit(t_infos *infos, t_cmd *cmds, char *text)
 {
-	free_tcmd(cmds);	
-	err_free_env_exit(infos, text);	
+	if (cmds != NULL)
+		free_tcmd(cmds);
+	perror(text);
+	clean_data(infos, NULL);
+	exit(ERROR_RETURN);
 }

@@ -17,6 +17,7 @@ minishell
 minishell.dSYM
 minishell.h
 obj_dir
+out
 outfile
 parsing
 tester
