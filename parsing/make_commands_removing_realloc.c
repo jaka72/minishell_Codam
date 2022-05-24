@@ -58,6 +58,7 @@ int	store_into_command_arr(t_source *src, t_cmd *cmd)
 
 	len = get_length_of_word(src);
 		// check return
+	printf(RED"Length of word: %d\n"RES, len);
 	
 	// CALCULATE CORRECT CURR POSITION TO START COPYING THE WORD INTO STRING args[i]
 	start = src->currpos - len + 1;
@@ -169,7 +170,61 @@ int	store_into_redirect_arr(t_source *src, t_cmd *cmd)
 
 
 
-// MAYBE A FLAG, THAT DETECTS IF | OR < IS INSIDE THE QUOTE ???
+
+// // NEW,, TRYING IGNORING PIPE OR REDIR INSIDE QUOTES !! 
+// int	select_and_store_words_NEW(t_source *src, t_cmd *cmd)
+// {
+// 	int	ch;
+// 	// int	inside_quote;
+
+// 	// inside_quote = 0;
+
+// 	init_values(cmd);
+// 	while (1)
+// 	{
+// 		skip_white_spaces(src);
+// 		src->currpos++;
+// 		ch = src->inputline[src->currpos];
+
+// 		// if (ch == '"')	// turn the flag on/off
+// 		// {
+// 		// 	if (inside_quote == 0)
+// 		// 		inside_quote = 1;
+// 		// 	else
+// 		// 		inside_quote = 0;
+// 		// 	printf(CYN"Found quote: ch[%c]flag is %d\n"RES, ch, inside_quote);
+// 		// }
+
+// 		if (ch == '<' || ch == '>')
+// 		{	
+// 			printf(CYN"    Found redirection at pos%ld[%c]\n"RES, src->currpos, src->inputline[src->currpos]);
+// 			store_into_redirect_arr(src, cmd);
+// 		}
+// 		else if (is_valid_filename_char(ch) && ch != '\0') // MUST BE is_allowed_char()
+// 		{
+// 			printf(CYN"    Found char: %ld[%c]\n"RES, src->currpos, ch); // store rdr_in
+// 			cmd->count_args++;
+// 			store_into_command_arr(src, cmd); 	// store command name
+// 		}
+// 		else if (ch == '|')
+// 		{
+// 			printf(MAG"Found pipe: Start new cycle.\n"RES); // store rdr_in
+// 			break ;
+// 		}
+// 		else if (ch == '\0')
+// 		{
+// 			// printf(MAG"Found End of line: return 1\n"RES); // store rdr_in
+// 			return (1);
+// 		}
+// 		//printf("Loop end: pos%ld[%d]\n", src->currpos, src->inputline[src->currpos]);
+// 	}
+// 	return (0);
+// }
+
+
+
+// ORIG ////////////////////////////////////////////
+// // MAYBE A FLAG, THAT DETECTS IF | OR < IS INSIDE THE QUOTE ???
 int	select_and_store_words(t_source *src, t_cmd *cmd)
 {
 	int	ch;
@@ -180,6 +235,7 @@ int	select_and_store_words(t_source *src, t_cmd *cmd)
 		skip_white_spaces(src);
 		src->currpos++;
 		ch = src->inputline[src->currpos];
+
 		if (ch == '<' || ch == '>')
 		{	
 			//printf(CYN"    Found redirection at pos%ld[%c]\n"RES, src->currpos, src->inputline[src->currpos]);
@@ -257,4 +313,3 @@ t_cmd	*make_commands(t_source *src /*, t_infos *info */)
 
 	return (first_cmd);
 }
-

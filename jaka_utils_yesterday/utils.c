@@ -30,15 +30,12 @@ int	is_allowed_char(int c) // CHANGE TO "SUPORTED CHAR"
 }
 
 
-
-// HERE, IF I BLOCK THE if, THEN I CORRUPT PIPES: ls | wc
 int	is_valid_filename_char(int c)
 {
 	if (c >= 33 && c <= 126)
 	{
 		if (c == '<' || c == '>' || c == '|')
 			return (0); // 0 == invalid
-	;
 	}
 	//printf("Valid [%d]\n", c);
 	return (1);	// 1== valid

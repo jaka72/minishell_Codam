@@ -1,6 +1,5 @@
 Current issues:
 
-<<<<<<< HEAD
 - If pipe or redir is inside quotes, I dont ignore the pipe and redir!!
 
 - Strange behaviour of Bash:
@@ -20,11 +19,6 @@ Current issues:
 
 - If just pressed tab twice, it prints content from ls ???
 
-=======
-- syntax error with pipes, exits, instead of going back to minishell
-
-- checking between quotes, for double || or  > >  =>> probably also needs to check between single quotes
->>>>>>> main
 
 - issue with command ls option -la:  ls: cannot access ''$'\260\b''x*8V': Invalid or incomplete multibyte or wide character
 
@@ -53,36 +47,3 @@ If you try in main() blocking the line: g_status = run_cmd(&info, cmd_list), the
 -------------------------------------------------------------------------
 
 LATEST CHANGES - pushed 13 may:
-<<<<<<< HEAD
-=======
-
-- In the testmain_jaka.c:
-    I fixed the endless loop in my check_syntax.c, so now the condition
-        if (src.inputline[0] == '\0')
-    can be removed in main().
-
-
-
-- I made a version of Makefile, with small changes: now all the object-files go to the folder 'obj_dir'
-    The copy is called Makefile_jaka.
-
-
-
-- Something about the 'echo':
-    Echo needs to recognize the option -n
-    But if option -n comes in quotes, it must be ignored and just print -n 
-    So maybe, when you remove the quotes during expansion, there can be 
-    some kind of a Flag, or something.
-
-
-
-- In the struct t_cmd:
-    I added 1 new variable 'exit_code', to be able to return 258 in case of 
-    syntax error.
-
-// INFO ABOUT KEY BINDING SETTINGS
-stty -a
-    interupt    ctrl-C      SIGINT
-    quit        ctrl-\      SIGQUIT
-    send oef    ctrl-D
->>>>>>> main

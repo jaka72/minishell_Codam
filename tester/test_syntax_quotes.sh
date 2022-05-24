@@ -78,15 +78,25 @@ done
 ##############################################################################
 
 
-echo -e $YEL"\nTest QUOTES: valid input"$RES
+echo -e $YEL"\nTest QUOTES: valid input: Should print error into stderr: Command not found"$RES
 echo -e $YEL"\n ( Not handled yet )"$RES
 
  inputlines=(
-	 		#'abc""efg'
-	 		'ca""t infile'
+	 		'cat in""file'
+	 		# 'abc""efg'
+
+	 		# 'ca""t infile'
+			'ca""t infile'
+
 	 		# 'abc "" efg'
+			'cat "" infile'		# prints both stderror and output content into outfile
+
 	 		# 'abc " " efg'
+
 	 		# 'abc"x"efg'
+			'cat in"f"ile'
+
+
 	 		# 'abc"d"e"f"g'
 			)
 
@@ -102,7 +112,9 @@ do
 	./minishell "$input" | cat -e > out_temp
 	#echo "syntax error from initial check: pipes; exit" | cat -e > out_orig
 
-	eval "$input" | cat -e > out_orig
+	## eval "$input" | cat -e 2> out_orig ==> CAT get's no input after pipe
+	eval "$input" > out_orig2
+	cat -e out_orig2 > out_orig
 	test_syntax_error "out_orig" "out_mini" "valid"
 	((i=i+1))
 done
@@ -112,9 +124,6 @@ echo ""
 
 
 ##################################################################################
-
-
-
 
 
 

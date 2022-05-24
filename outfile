@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [0mno pipe and this is library!
 [31mrun_cmd(): current[0]: [ls]
 [0m[0;35mms_execve(): str[0]: [ls] ?????? 
@@ -26,3 +27,6 @@ testmain_jaka.c
 util
 [0;34mchild process exit status is 0
 [0m[0;34mchild process ended with status 0
+=======
+[0maaa
+>>>>>>> main

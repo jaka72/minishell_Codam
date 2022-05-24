@@ -1,0 +1,8 @@
+[0m[0;34mno pipe and this is library!
+[0m[31mrun_cmd(): current[0]: [cat]
+[0m[0;35mms_execve(): command: str[0]: [cat] 
+abc
+def
+ghj
+[0m[0;34mchild process exit status is 0
+[0m[0;34mchild process ended with status 0

@@ -106,18 +106,22 @@ int exec_no_pipe(t_infos *info, t_cmd *current)
 	connect_fd(current, info);
 	if (check_if_builtin(current) != 0) 	// if builtin
 	{
+		//printf(BLU"no pipe and this is builtin!\n"RES);
 		exec_builtin(current, info);
 	}
 	else // if library
 	{
+		printf(BLU"no pipe and this is library!\n"RES);
 		pid = fork();
 		if (pid == 0)
 		{
+			printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
 			ms_execve(info, current);	
 		}
 		waitpid(pid, &status, WUNTRACED | WCONTINUED);
+		printf(BLU"child process exit status is %d\n"RES, status);
 		printf("WIFEXITED(status) || WIFSIGNALED(status), WEXITSTATUS(status), WSTOPSIG(status), SIGINT, SIGQUIT %d %d %d %d %d %d \n", WIFEXITED(status), WIFSIGNALED(status), WEXITSTATUS(status), WSTOPSIG(status), SIGINT, SIGQUIT);
 		if (WIFEXITED(status))
 			g_status = WEXITSTATUS(status);
@@ -160,6 +164,7 @@ int	run_cmd(t_infos *info, t_cmd *str)
 				signal(SIGINT, SIG_DFL);
 				signal(SIGQUIT, SIG_DFL);
 				connect_fd(current, info);
+				printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
 				if (check_if_builtin(current) != 0) 	// if builtin
 					g_status = exec_builtin(current, info);
 				else // if library
@@ -180,6 +185,7 @@ int	run_cmd(t_infos *info, t_cmd *str)
 		}
 		current = str;
 		waitpid(last_pid, &status, WUNTRACED | WCONTINUED);
+		printf(BLU"child process exit status is %d\n"RES, status);
 		if (WIFEXITED(status))
 			g_status = WEXITSTATUS(status);
 		if (WIFSIGNALED(status))
