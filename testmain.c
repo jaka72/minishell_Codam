@@ -21,6 +21,7 @@ int	main(int argc, char *argv[], char *envp[])
 				return (SYNTAX_ERROR);
 			add_history(line);
 			cmd_list = make_commands(&src);
+			//exec_builtin(cmd_list, &info); // added jaka, for testing
 			g_status = run_cmd(&info, cmd_list);
 			free_commands_list(cmd_list);	
 		}
@@ -28,6 +29,6 @@ int	main(int argc, char *argv[], char *envp[])
 		line = readline(info.prompt);
 	}
 	cleandata(&info);
-	// system("leaks minishell");
+	//system("leaks minishell");
 	return (0);
 }

@@ -114,12 +114,12 @@ int	run_cmd(t_infos *info, t_cmd *str)
 		connect_fd(current, info);
 		if (check_if_builtin(current) != 0) 	// if builtin
 		{
-			printf("no pipe and this is builtin!\n");
+			//printf(BLU"no pipe and this is builtin!\n"RES);
 			exec_builtin(current, info);
 		}
 		else // if library
 		{
-			printf("no pipe and this is library!\n");
+			printf(BLU"no pipe and this is library!\n"RES);
 			pid = fork();
 			if (pid == 0)
 			{

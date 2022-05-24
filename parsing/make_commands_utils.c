@@ -122,35 +122,112 @@ void	ft_lstadd_back(t_cmd **list, t_cmd *newnode)
 }
 
 
+
+
+
+
+
+// ORIG //////////////////
+// int	get_length_of_word(t_source *src) //kito changed 12 May : ignore spaces when it is in quotes 
+// {
+// 	printf(BLU"Start get len: \n"RES);
+
+
+// 	int	len;
+// 	int	s_flag;
+// 	int	d_flag;
+
+// 	len = 0;
+// 	s_flag = 0;
+// 	d_flag = 0;
+// 	while (src->inputline[src->currpos] != '|' && 
+// 			src->inputline[src->currpos] != '<' &&
+// 			src->inputline[src->currpos] != '>' &&
+// 			src->inputline[src->currpos] != '\0' &&
+// 			!(src->inputline[src->currpos] == ' ' && s_flag + d_flag == 0))
+// 	{
+// 		//printf(LGRE"     len%d pos%ld[%c]\n", len, src->currpos, src->inputline[src->currpos]); // store rdr_in
+// 		if (src->inputline[src->currpos] == '\'' )
+// 		{
+// 			s_flag ^= FLAG1;
+// 			// printf("s_flag is %d\n", (s_flag & FLAG1));
+// 		}			
+// 		if (src->inputline[src->currpos] == '\"' )
+// 		{
+// 			d_flag ^= FLAG1;
+// 			// printf("d_flag is %d\n", (d_flag & FLAG1));
+// 		}		
+// 		len++;
+// 		src->currpos++;
+// 	}
+// 	src->currpos -= 1;
+// 	return (len);
+// }
+
+
+
+
+// NEW, TRYING TO IGNORE PIPES, WHEN INSIDE QUOTES /////////////////
+// IF AFTER " IS NOT SPACE, BUT SOMETHING ELSE, IT HAS TO BE GLUED TO THE " AND BE ONE WORD: aaa"b
 int	get_length_of_word(t_source *src) //kito changed 12 May : ignore spaces when it is in quotes 
 {
 	int	len;
 	int	s_flag;
 	int	d_flag;
 
+	//printf(GRN"getlenghtofword: cd[%c]\n"RES, src->inputline[src->currpos]);
+
 	len = 0;
 	s_flag = 0;
 	d_flag = 0;
-	while (src->inputline[src->currpos] != '|' && 
-			src->inputline[src->currpos] != '<' &&
-			src->inputline[src->currpos] != '>' &&
-			src->inputline[src->currpos] != '\0' &&
-			!(src->inputline[src->currpos] == ' ' && s_flag + d_flag == 0))
+	if (src->inputline[src->currpos] != '\"' && src->inputline[src->currpos] != '\'')
 	{
-		//printf(LGRE"     len%d pos%ld[%c]\n", len, src->currpos, src->inputline[src->currpos]); // store rdr_in
-		if (src->inputline[src->currpos] == '\'' )
+		while (src->inputline[src->currpos] != '|' && 
+				src->inputline[src->currpos] != '<' &&
+				src->inputline[src->currpos] != '>' &&
+				src->inputline[src->currpos] != '\0' &&
+				!(src->inputline[src->currpos] == ' ' && s_flag + d_flag == 0))
 		{
-			s_flag ^= FLAG1;
-			// printf("s_flag is %d\n", (s_flag & FLAG1));
-		}			
-		if (src->inputline[src->currpos] == '\"' )
-		{
-			d_flag ^= FLAG1;
-			// printf("d_flag is %d\n", (d_flag & FLAG1));
-		}		
+			//printf(LGRE"     len%d pos%ld[%c]\n", len, src->currpos, src->inputline[src->currpos]); // store rdr_in
+			if (src->inputline[src->currpos] == '\'' )
+			{
+				s_flag ^= FLAG1;
+				// printf("s_flag is %d\n", (s_flag & FLAG1));
+			}			
+			if (src->inputline[src->currpos] == '\"' )
+			{
+				d_flag ^= FLAG1;
+				// printf("d_flag is %d\n", (d_flag & FLAG1));
+			}		
+			len++;
+			src->currpos++;
+		}
+	}
+	//else if (src->inputline[src->currpos] == '"')
+	else if (src->inputline[src->currpos] == '"' || src->inputline[src->currpos] == '\'')
+	{
+		//printf(YEL" curpos: %ld, c[%c], len: %d\n"RES, src->currpos, src->inputline[src->currpos] ,len);
 		len++;
 		src->currpos++;
+		//printf(YEL" curpos: %ld, c[%c]\n"RES, src->currpos, src->inputline[src->currpos]);
+		//exit(0);
+		// IT MUST LOOP UNTIL 2nd QUOTE, WHICH MUST BE FOLLOWED BY SPACE OR \0
+		//while (src->inputline[src->currpos] != '\"')
+		//while (!ft_isspace(src->inputline[src->currpos]) && src->inputline[src->currpos] != '\0')
+		while (src->inputline[src->currpos] != '\"' && src->inputline[src->currpos] != '\'')
+		{
+			//printf(YEL" c[%c]"RES, src->inputline[src->currpos]);
+			len++;
+			src->currpos++;
+			// if (len > 15)
+			// 	exit(0);
+		}
+		len++;
+		src->currpos++;
+		//printf(YEL"\n len after quote: %d\n"RES, len);
+		//exit(0);
 	}
+
 	src->currpos -= 1;
 	return (len);
 }

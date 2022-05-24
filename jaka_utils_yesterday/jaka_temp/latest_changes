@@ -1,0 +1,49 @@
+Current issues:
+
+- If pipe or redir is inside quotes, I dont ignore the pipe and redir!!
+
+- Strange behaviour of Bash:
+    lsx              command not found           code 127
+    /bin/lsx         no such file                code 127        right code but wrong message ???
+    cat infilexx     no such file                code 1
+
+
+
+
+
+- If first cmd includes slash: (xxx/xxx), it will give error: No such file
+    lsxxx       "command not found"
+    /bin/lsxxx  "no such file"
+    So, with slash, it needs to extract the last word before the slash /
+
+
+- If just pressed tab twice, it prints content from ls ???
+
+
+- issue with command ls option -la:  ls: cannot access ''$'\260\b''x*8V': Invalid or incomplete multibyte or wide character
+
+- Leaks in Valgrind: coming from run_cmd -> ms_execve
+                                        -> get_env_array
+                                        -> ft_find_env_passnum -> ft_strncmp
+
+If you try in main() blocking the line: g_status = run_cmd(&info, cmd_list), then leaks are gone
+
+
+- Echo:  escape character, ie:   "  \"    "
+    In bash it prints just   "  
+
+- exit: it will probably need some return value to the ms_execve, so it must know, 
+    that it has to exit the whole program, not just the child process.
+
+- case: wc | ls    or     cat | ls
+    does not give ls, just waits.
+    then try ctrl-d, it gives error: wc: stdin: read: input/output error
+
+- No error when command is wrong, ie: catxxx
+    Also, no error when wrong option, ie:  cat -xxx
+
+
+
+-------------------------------------------------------------------------
+
+LATEST CHANGES - pushed 13 may:

@@ -1,24 +1,8 @@
 Current issues:
 
-- If pipe or redir is inside quotes, I dont ignore the pipe and redir!!
+- syntax error with pipes, exits, instead of going back to minishell
 
-- Strange behaviour of Bash:
-    lsx              command not found           code 127
-    /bin/lsx         no such file                code 127        right code but wrong message ???
-    cat infilexx     no such file                code 1
-
-
-
-
-
-- If first cmd includes slash: (xxx/xxx), it will give error: No such file
-    lsxxx       "command not found"
-    /bin/lsxxx  "no such file"
-    So, with slash, it needs to extract the last word before the slash /
-
-
-- If just pressed tab twice, it prints content from ls ???
-
+- checking between quotes, for double || or  > >  =>> probably also needs to check between single quotes
 
 - issue with command ls option -la:  ls: cannot access ''$'\260\b''x*8V': Invalid or incomplete multibyte or wide character
 
@@ -28,6 +12,8 @@ Current issues:
 
 If you try in main() blocking the line: g_status = run_cmd(&info, cmd_list), then leaks are gone
 
+- Realloc not allowed: think of something
+    THERE WAS MALLOC ERRROR. After calling various times something like: ls | wc | echo aaa
 
 - Echo:  escape character, ie:   "  \"    "
     In bash it prints just   "  
@@ -35,15 +21,50 @@ If you try in main() blocking the line: g_status = run_cmd(&info, cmd_list), the
 - exit: it will probably need some return value to the ms_execve, so it must know, 
     that it has to exit the whole program, not just the child process.
 
-- case: wc | ls    or     cat | ls
-    does not give ls, just waits.
+- case: wc | ls
     then try ctrl-d, it gives error: wc: stdin: read: input/output error
 
 - No error when command is wrong, ie: catxxx
     Also, no error when wrong option, ie:  cat -xxx
 
+- Built-in is executed twice: one mine and one original.
+    Needs some kind of a flag to avoid skip the original
 
+- Each call of 'cd' is causing that ctrl-d needs to be called more times to really exit.
+    This comes from run_cmd(). Apparently when builtin is called, then run_cmd() must not execute 
+    the same command again.
 
+- env is printing strange first 5 lines
 -------------------------------------------------------------------------
 
 LATEST CHANGES - pushed 13 may:
+
+- In the testmain_jaka.c:
+    I fixed the endless loop in my check_syntax.c, so now the condition
+        if (src.inputline[0] == '\0')
+    can be removed in main().
+
+
+
+- I made a version of Makefile, with small changes: now all the object-files go to the folder 'obj_dir'
+    The copy is called Makefile_jaka.
+
+
+
+- Something about the 'echo':
+    Echo needs to recognize the option -n
+    But if option -n comes in quotes, it must be ignored and just print -n 
+    So maybe, when you remove the quotes during expansion, there can be 
+    some kind of a Flag, or something.
+
+
+
+- In the struct t_cmd:
+    I added 1 new variable 'exit_code', to be able to return 258 in case of 
+    syntax error.
+
+// INFO ABOUT KEY BINDING SETTINGS
+stty -a
+    interupt    ctrl-C      SIGINT
+    quit        ctrl-\      SIGQUIT
+    send oef    ctrl-D
