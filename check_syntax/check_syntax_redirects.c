@@ -82,15 +82,40 @@ int	check_redirects(t_source *src)
 	c = src->inputline[src->currpos];
 	while (src->currpos <= src->inputline_size) // NOT SURE IF GOOD <= MAYBE JUST <
 	{
+		//printf(BLU" !%c"RES, c);
+		
+		
 		if (c == '<' || c == '>')		// < at start
 		{
 			arrow = c;
 			if (check_chars_after_arrow(src, &c, arrow) != 0)
 				return (1);
 		}
-		if ((c == ' ' || is_allowed_char(c) || c == '|') /*&& c != '<' && c != '>'*/)
+		//if ((c == ' ' || is_allowed_char(c) || c == '|') /*&& c != '<' && c != '>'*/)
+		if (c == ' ' || is_allowed_char(c) || c == '|')
+		{
+
+			// printf(BLU" =%c"RES, c);
+			
+			// if (c == '"' || c == '\'') //	 new jaka, skip all chars between quotes
+			// {
+			// 	src->currpos++;
+			// 	// while (src->inputline[src->currpos] != '"')
+			// 	while (src->inputline[src->currpos] != c)
+			// 	{
+			// 		printf(BLU" %c"RES, c);
+			// 		src->currpos++;
+			// 	}
+			// 	src->currpos++;
+			// 	c = src->inputline[src->currpos];
+			// }
+			// printf(BLU"\n"RES);
+
+
+
 			if (is_space_alpha_or_pipe(src, &c) == 1)
 				return (0);
+		}
 	}
 	src->currpos = -1;
 	return (0);

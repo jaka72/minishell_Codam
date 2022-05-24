@@ -84,12 +84,12 @@ done
 echo -e $YEL"\nTest valid input"$RES
 
  inputlines=(
-	 		"hello"
+	 		 "hello"
 	 		# "    hello"
 	 		# "    hello   "
 	 		# "hello world"
 	 		# "    hello    world   "
-			
+			# "\\n"
 			# "single quotes"
 			)
 
@@ -115,7 +115,11 @@ echo ""
 
 ##################################################################################
 
+# input="hello"
 
+# echo $input
+# echo $input | cat -e > out_temp
+# exit
 
 
 

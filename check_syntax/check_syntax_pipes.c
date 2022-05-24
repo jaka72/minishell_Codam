@@ -38,6 +38,14 @@ static int	skip_till_first_pipe(t_source *src, int *is_start, int *c)
 	*c = src->inputline[src->currpos + 1];
 	if (*c == '|' && *is_start == 1)
 		return (1);
+
+	else if (*c == '"' || *c == '\'') //	 new jaka, skip all chars between quotes
+	{
+		src->currpos += 2;
+		while (src->inputline[src->currpos] != *c)
+			src->currpos++;
+	}
+
 	else if (is_allowed_char(*c) /*|| *c == '<' || *c == '>' */) // <> are alrady included, can erase
 	{
 		*is_start = 0;

@@ -134,6 +134,9 @@ echo -e $BLU"  ( valid input with wc is KO, because tabs are displayed different
 	 		"ls | wc"
 	 		"   ls | wc   "
 
+			### EXAMPLES WITH PIPES INSIDE QUOTES
+			'echo "aaa | bbb" '
+
 			### NO OUTPUT EXAMPLE
 	 		#"< infile cat | < readme"
 			#"ls | ls | ls > outfile"
