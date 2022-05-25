@@ -121,12 +121,12 @@ int exec_no_pipe(t_infos *info, t_cmd *current)
 			ms_execve(info, current);	
 		}
 		waitpid(pid, &status, WUNTRACED | WCONTINUED);
-		printf(BLU"child process exit status is %d\n"RES, status);
-		printf("WIFEXITED(status) || WIFSIGNALED(status), WEXITSTATUS(status), WSTOPSIG(status), SIGINT, SIGQUIT %d %d %d %d %d %d \n", WIFEXITED(status), WIFSIGNALED(status), WEXITSTATUS(status), WSTOPSIG(status), SIGINT, SIGQUIT);
 		if (WIFEXITED(status))
 			g_status = WEXITSTATUS(status);
-		if (WIFSIGNALED(status))
+		if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
 			g_status = 128 + WTERMSIG(status);
+		printf(BLU"s child process exit status is %d\n"RES, status);
+		printf(BLU"s WIFEXITED(status) || WIFSIGNALED(status), WEXITSTATUS(status), WTERMSIG(status) %d %d %d %d\n"RES, WIFEXITED(status), WIFSIGNALED(status), WEXITSTATUS(status), WTERMSIG(status));
 	}
 	return (0);
 }
@@ -174,7 +174,11 @@ int	run_cmd(t_infos *info, t_cmd *str)
 			else
 			{
 				if (current->next == NULL)
+				{
 					last_pid = pid;
+					printf(RED"last_pid is [%d]\n"RES, last_pid);
+				}
+					
 				if (current->fd_out > 1)
 					close(current->fd_out);
 				if (current->fd_in > 0)
@@ -183,14 +187,14 @@ int	run_cmd(t_infos *info, t_cmd *str)
 
 			current = current->next;
 		}
-		current = str;
 		waitpid(last_pid, &status, WUNTRACED | WCONTINUED);
-		printf(BLU"child process exit status is %d\n"RES, status);
 		if (WIFEXITED(status))
 			g_status = WEXITSTATUS(status);
-		if (WIFSIGNALED(status))
+		if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
 			g_status = 128 + WTERMSIG(status);
-		printf("WIFEXITED(status) || WIFSIGNALED(status), WEXITSTATUS(status) %d %d %d \n", WIFEXITED(status), WIFSIGNALED(status), WEXITSTATUS(status));
+		printf(BLU"child process exit status is %d, g_status %d, last_pid is %d\n"RES, status, g_status, last_pid);
+		printf(BLU"WIFEXITED(status) || WIFSIGNALED(status), WEXITSTATUS(status), WSTOPSIG(status), SIGINT, SIGQUIT %d %d %d %d %d %d \n"RES, WIFEXITED(status), WIFSIGNALED(status), WEXITSTATUS(status), WSTOPSIG(status), SIGINT, SIGQUIT);
+		current = str;
 		while (current->next)
 		{
 			wait(0);
