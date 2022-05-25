@@ -71,7 +71,7 @@ int	count_expand_length(char *src)
 	int	i;
 
 	i = 0;
-	while (src[i] != '\0' && src[i] != '\'' && src[i] != '\"' && src[i] != '$' && src[i] != ' ')
+	while (src[i] != '\0' && src[i] != '\'' && src[i] != '\"' && src[i] != '$' && src[i] != ' ' && src[i] != '=' && src[i] != '/')
 		i++;
 	return (i);
 }
@@ -85,13 +85,13 @@ char	*add_expanded(char *dst, char *src, t_infos *info)
 	i = 0;
 	temp = NULL;
 	expanded = NULL;
-	while (src[i] != '\0' && src[i] != '\'' && src[i] != '\"' && src[i] != '$' && src[i] != ' ')
+	while (src[i] != '\0' && src[i] != '\'' && src[i] != '\"' && src[i] != '$' && src[i] != ' ' && src[i] != '=' && src[i] != '/')
 		i++;
 	temp = malloc(i + 1);
 	if (temp == NULL)
 		errtext_exit("malloc failed");
 	ft_strlcpy(temp, src, i + 1);
-	expanded = name_expand(info, temp);		
+	expanded = name_expand(info, temp);
 	dst = ft_strjoin_free(dst, expanded);
 	if (dst == NULL)
 		errtext_exit("malloc failed");
@@ -137,9 +137,11 @@ char	*check_expand(t_infos *info, char *tx)
 			expanded = add_singlequote(expanded, &tx[i + 1]);
 			i = i + count_single_length(&tx[i + 1]);
 		}
+		else if (tx[i] == '$' && tx[i + 1] == '\0' )
+			return (tx);
 		else if (tx[i] == '$' && tx[i + 1] == '?' )
 		{
-			printf("now $? is called, g_status is %d\n", g_status);
+			// printf("now $? is called, g_status is %d\n", g_status);
 			expanded = add_laststatus(expanded, g_status);
 			printf("expanded is %s\n", expanded);
 			i++;
@@ -148,6 +150,7 @@ char	*check_expand(t_infos *info, char *tx)
 		{
 			expanded = add_expanded(expanded, &tx[i + 1], info);
 			i = i + count_expand_length(&tx[i + 1]);
+			// printf("tx[i] is %c\n", tx[i]);
 		}
 		else
 			expanded = ft_add_c_free(expanded, tx[i]);
