@@ -13,7 +13,6 @@ void	print_env(t_infos *info)
 	}
 	printf("%s=%s\n", env->name, env->value);
 }
-// function to print env (not necessary)
 
 char	*name_expand(t_infos *info, char *tx)
 {
@@ -154,6 +153,7 @@ char	*check_expand(t_infos *info, char *tx)
 			expanded = ft_add_c_free(expanded, tx[i]);
 		i++;
 	}
+	free(tx);
 	return (expanded);
 }
 

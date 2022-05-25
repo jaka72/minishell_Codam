@@ -1,11 +1,32 @@
 Current issues:
 
+
 - echo tilda, should display home path
 - echo "a"  does not print !!!!!! THIS I REPAIRED ONCE !!!
 
 - syntax error with pipes, exits, instead of going back to minishell
 
 - checking between quotes, for double || or  > >  =>> probably also needs to check between single quotes
+
+
+
+
+
+- If pipe or redir is inside quotes, I dont ignore the pipe and redir!!
+
+- Strange behaviour of Bash:
+    lsx              command not found           code 127
+    /bin/lsx         no such file                code 127        right code but wrong message ???
+    cat infilexx     no such file                code 1
+
+- If first cmd includes slash: (xxx/xxx), it will give error: No such file
+    lsxxx       "command not found"
+    /bin/lsxxx  "no such file"
+    So, with slash, it needs to extract the last word before the slash /
+
+
+- If just pressed tab twice, it prints content from ls ???
+
 
 
 
@@ -19,23 +40,19 @@ Current issues:
 - exit: it will probably need some return value to the ms_execve, so it must know, 
     that it has to exit the whole program, not just the child process.
 
-- case: wc | ls
+- case: wc | ls    or     cat | ls
+    does not give ls, just waits.
     then try ctrl-d, it gives error: wc: stdin: read: input/output error
 
 - No error when command is wrong, ie: catxxx
     Also, no error when wrong option, ie:  cat -xxx
 
-- Built-in is executed twice: one mine and one original.
-    Needs some kind of a flag to avoid skip the original
 
-- Each call of 'cd' is causing that ctrl-d needs to be called more times to really exit.
-    This comes from run_cmd(). Apparently when builtin is called, then run_cmd() must not execute 
-    the same command again.
 
-- env is printing strange first 5 lines
 -------------------------------------------------------------------------
 
 LATEST CHANGES - pushed 13 may:
+
 
 - In the testmain_jaka.c:
     I fixed the endless loop in my check_syntax.c, so now the condition

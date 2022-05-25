@@ -155,7 +155,7 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 	}
 
-	cleandata(&info);
+	// cleandata(&info);
 	//system("leaks minishell");
-	return (0);
+	return (clean_data(&info, "exit\n"));
 }

@@ -313,4 +313,3 @@ t_cmd	*make_commands(t_source *src /*, t_infos *info */)
 
 	return (first_cmd);
 }
-
