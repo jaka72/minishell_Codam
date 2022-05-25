@@ -1,1 +1,0 @@
-[[ $- == *i* ]] && echo ‘Interactive’ || echo ‘not-interactive’

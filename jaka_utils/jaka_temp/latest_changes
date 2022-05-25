@@ -1,19 +1,17 @@
 Current issues:
 
+- echo tilda, should display home path
+- echo "a"  does not print !!!!!! THIS I REPAIRED ONCE !!!
+
 - syntax error with pipes, exits, instead of going back to minishell
 
 - checking between quotes, for double || or  > >  =>> probably also needs to check between single quotes
 
-- issue with command ls option -la:  ls: cannot access ''$'\260\b''x*8V': Invalid or incomplete multibyte or wide character
 
-- Leaks in Valgrind: coming from run_cmd -> ms_execve
-                                        -> get_env_array
-                                        -> ft_find_env_passnum -> ft_strncmp
 
-If you try in main() blocking the line: g_status = run_cmd(&info, cmd_list), then leaks are gone
 
-- Realloc not allowed: think of something
-    THERE WAS MALLOC ERRROR. After calling various times something like: ls | wc | echo aaa
+
+
 
 - Echo:  escape character, ie:   "  \"    "
     In bash it prints just   "  
