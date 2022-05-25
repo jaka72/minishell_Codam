@@ -1,16 +1,23 @@
 Current issues:
 
-<<<<<<< HEAD
+
+- echo tilda, should display home path
+- echo "a"  does not print !!!!!! THIS I REPAIRED ONCE !!!
+
+- syntax error with pipes, exits, instead of going back to minishell
+
+- checking between quotes, for double || or  > >  =>> probably also needs to check between single quotes
+
+
+
+
+
 - If pipe or redir is inside quotes, I dont ignore the pipe and redir!!
 
 - Strange behaviour of Bash:
     lsx              command not found           code 127
     /bin/lsx         no such file                code 127        right code but wrong message ???
     cat infilexx     no such file                code 1
-
-
-
-
 
 - If first cmd includes slash: (xxx/xxx), it will give error: No such file
     lsxxx       "command not found"
@@ -20,19 +27,11 @@ Current issues:
 
 - If just pressed tab twice, it prints content from ls ???
 
-=======
-- syntax error with pipes, exits, instead of going back to minishell
 
-- checking between quotes, for double || or  > >  =>> probably also needs to check between single quotes
->>>>>>> main
 
-- issue with command ls option -la:  ls: cannot access ''$'\260\b''x*8V': Invalid or incomplete multibyte or wide character
 
-- Leaks in Valgrind: coming from run_cmd -> ms_execve
-                                        -> get_env_array
-                                        -> ft_find_env_passnum -> ft_strncmp
 
-If you try in main() blocking the line: g_status = run_cmd(&info, cmd_list), then leaks are gone
+
 
 
 - Echo:  escape character, ie:   "  \"    "
@@ -53,8 +52,7 @@ If you try in main() blocking the line: g_status = run_cmd(&info, cmd_list), the
 -------------------------------------------------------------------------
 
 LATEST CHANGES - pushed 13 may:
-<<<<<<< HEAD
-=======
+
 
 - In the testmain_jaka.c:
     I fixed the endless loop in my check_syntax.c, so now the condition
@@ -85,4 +83,3 @@ stty -a
     interupt    ctrl-C      SIGINT
     quit        ctrl-\      SIGQUIT
     send oef    ctrl-D
->>>>>>> main
