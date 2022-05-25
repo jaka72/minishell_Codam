@@ -85,6 +85,7 @@ echo -e $YEL"\nTest valid input"$RES
 
  inputlines=(
 	 		 "hello"
+			  "A"
 	 		# "    hello"
 	 		# "    hello   "
 	 		# "hello world"

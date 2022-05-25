@@ -56,15 +56,20 @@ int	run_echo_builtin(t_cmd *cmd /*, t_infos *info */)
 	}
 	flag_first_word = 0;
 	// CHECK FIRST ARG IF IT IS -n
-	//printf(YEL"Echo, arg[1]: [%s]\n"RES, cmd->args[1]);
-	flag_newline = check_n_option(cmd->args[1]);
+
+
+	// ADDED
+	flag_newline = 0;
+	if (cmd->args[1][0] == '-')
+		flag_newline = check_n_option(cmd->args[1]);
 	//printf(YEL"    flag_newline: %d: \n"RES, flag_newline);
 	i = 1;
 	if (flag_newline == 1)
 		i = 2;
+	printf(YEL"Echo, arg[1]: [%s], i=%d, flag=%d\n"RES, cmd->args[1], i, flag_newline);
 	while (cmd->args[i])
 	{
-		// printf(YEL"loop [%s]\n"RES, cmd->args[i]);
+		//printf(YEL"loop [%s], i=%d\n"RES, cmd->args[i], i);
 		check_line_and_print(cmd, &flag_first_word, /*&flag_newline, */ &i /*, info */);
 		i++;
 	}
