@@ -2,7 +2,6 @@
 
 void skip_alphas_spaces_pipes(t_source *src)
 {
-	//printf(BLU" Start skip alphas ..."RES);
 	int	 i = 0; // just or testing
 
 	char c;
@@ -10,6 +9,8 @@ void skip_alphas_spaces_pipes(t_source *src)
 	if (src == NULL || src->inputline == NULL)
 		return;
 
+	//printf(BLU" Start skip alphas ..."RES);
+	
 	while (((c = peek_next_char(src)) != ENDOFLINE)
 		&& (is_allowed_char(c) || ft_isspace(c) || c == '|')
 		&& c != '<' && c != '>')
@@ -19,12 +20,22 @@ void skip_alphas_spaces_pipes(t_source *src)
 		
 		if (c == '"' || c == '\'') //	 new jaka, skip all chars between quotes
 		{
+
+			//printf(GRN"    skip till pipe, pos %ld, [%c]\n"RES, src->currpos, src->inputline[src->currpos]);
+			// if (src->inputline[src->currpos + 1] == c) // added to handle "" // NO THIS IS MESSING: echo "aaa < < bbb"
+			// {
+			// 	src->currpos += 1;
+			// 	return;
+			// }
+
+
+
 			//printf(GRN" %c"RES, c);
 			src->currpos += 2;
 			// while (src->inputline[src->currpos] != '"')
 			while (src->inputline[src->currpos] != c)
 			{
-				//printf(BLU" %c"RES, c);
+				printf(BLU" %c"RES, c);			// THIS REPEATEDLY PRINTS  " " " " ...
 				src->currpos++;
 			}
 			//printf(GRN" +%c"RES, c);
@@ -35,12 +46,14 @@ void skip_alphas_spaces_pipes(t_source *src)
 		i++;
 		// if (i > 20)
 		// 	exit(0);
-		//printf(RED" %c"RES, c);
+		printf(RED" %c"RES, c);
 
 		//printf(BLU"\n"RES);
 
 		src->currpos++;
 	}
+	printf(YEL" %d[%c]"RES, c, c);			// THIS IS -1, STRANGE CHARACTER
+	printf(YEL"\n"RES);
 }
 
 

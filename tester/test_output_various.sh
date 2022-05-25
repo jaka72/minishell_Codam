@@ -57,26 +57,26 @@ test_syntax_error()
 #############################################################################
 
 
-echo -e $YEL"\nTest output VARIOUS"$RES
+echo -e $YEL"\nTest output VARIOUS EXAMPLES"$RES
 
  inputlines=(
-	 		"ls | wc"
-			# "cat infile > out1"
-			# "cat infile > out1 > out2"
+			"cat infile > out1"
+			"cat infile > out1 > out2"
 
-			# 'cat "aaa > > bbb"'
-			# 'cat "aaa < < < bbb"'
-	 		# "cat infile"
-	 		# "cat -n infile"
-	 		# "cat -e infile"
-	 		# "cat -e -n infile"
-	 		# "cat -en infile"
+	 		"cat infile"
+	 		"cat -n infile"
+	 		"cat -e infile"
+	 		"cat -e -n infile"
+	 		"cat -en infile"
 
-			# # "env"	# first few lines are different, random string
+			# "env"	# issue with colors, they are messing the output
 			
-			# "ls | grep a"
-			# "ls | grep a | wc"
-			# "ls | wc"
+	 		"ls | wc"
+			"ls | grep a"
+			"ls | grep a | wc"
+			
+			'cat "aaa > > bbb"'		# should be error, but message does not match with orig
+			# 'cat "aaa < < < bbb"'
 			)
 
 nr_elements=${#inputlines[@]}

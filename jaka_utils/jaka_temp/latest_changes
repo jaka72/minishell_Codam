@@ -1,8 +1,18 @@
 Current issues:
 
+- !!! Handeling double quotes ""in all three syntax check, is now messing checking double pipes inside "aaa | | bbb"
+    LOOK INSIDE redirect_utils
+
+- In case < ls  ,message twice: infile not exist + no such file ...
+        Then it exists minishell
+
+- single . or double dot ..  does not report 'command not found'
+    should be:   .   filename argument required     exit code 2
+                ..   command not found              exit code 127
 
 - echo tilda, should display home path
-- echo "a"  does not print !!!!!! THIS I REPAIRED ONCE !!!
+- echo "a"  now working, now the other issue is back:   "aaa"b  KO
+                                                        aaa"b"  ok
 
 - syntax error with pipes, exits, instead of going back to minishell
 

@@ -86,7 +86,7 @@ int	ms_execve(t_infos *info, t_cmd *str)
 		return (-1);
 	path = ft_findshell_pass(str->args[0], envs);
 
-	printf(MAG"ms_execve(): command: str[0]: [%s] \n"RES, str->args[0]);
+	printf(MAG"ms_execve(): command: str[0]: [%s], path: [%s]\n"RES, str->args[0], path);
 	if (path == NULL)	// check the command is exist
 	{
 		write(2, str->args[0], ft_strlen(str->args[0]));

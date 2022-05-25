@@ -30,11 +30,15 @@ void	check_line_and_print(t_cmd *cmd, int *flagw, int *i)
 	while (word[j] != '\0')
 	{
 		//if (word[j] != '"')
-			printf("%c", word[j]);
+			//printf("%c", word[j]);
+			write(1, &word[j], 1);
 		j++;
 	}
 	if (cmd->args[*i + 1] != NULL)
-			printf(" ");
+	{
+		//printf(" ");
+		write(1, " ", 1);
+	}
 	if (*flagw == 0)
 		*flagw = 1;
 }

@@ -41,6 +41,15 @@ static int	skip_till_first_pipe(t_source *src, int *is_start, int *c)
 
 	else if (*c == '"' || *c == '\'') //	 new jaka, skip all chars between quotes
 	{
+		
+		//printf(GRN"    skip till pipe, pos %ld, [%c]\n"RES, src->currpos, src->inputline[src->currpos]);
+		// THIS IS MESSING WITH SKIPPING TILL NEXT QUOTE, IN CASE THERE ARE MULTIPLE PIPES, ETX ...
+		// if (src->inputline[src->currpos + 1] == *c) // added to handle ""
+		// {
+		// 	src->currpos += 2;
+		// 	return (0);
+		// }
+		
 		src->currpos += 2;
 		while (src->inputline[src->currpos] != *c)
 			src->currpos++;
@@ -101,6 +110,7 @@ int check_pipes(t_source *src)
 	is_start = 1;
 	if (check_if_pipe_at_start(src, &c, is_start) != 0)
 		return (1);
+	//printf(GRN"    a)\n"RES);
 	while (src->currpos < src->inputline_size - 1) // -1 because it looks one ahead
 	{
 		if (skip_till_first_pipe(src, &is_start, &c) != 0)
@@ -115,5 +125,6 @@ int check_pipes(t_source *src)
 	}
 	c = src->inputline[src->currpos];	
 	src->currpos = 0;
+	//printf(GRN"    c)\n"RES);
 	return (0);
 }
