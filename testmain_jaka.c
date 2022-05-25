@@ -131,7 +131,7 @@ int	main(int argc, char *argv[], char *envp[])
 		//rl_clear_history();
 		// free_envlist(&info);
 		// tcsetattr(0, 0, &info.termios_save);
-		cleandata(&info);
+		clean_data(&info, NULL);
 		printf(WHT"exit! (tester mode)\n"RES);
 		return (0);
 	}

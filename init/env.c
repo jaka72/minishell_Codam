@@ -158,6 +158,8 @@ char	**get_env_array(t_env *start_env)
 		if (envs == NULL)
 			return (NULL);
 		temp = malloc((ft_strlen(current->name) + ft_strlen(current->value) + 2));
+		if (temp == NULL)
+			errtext_exit("malloc for envs failed\n");
 		ft_memcpy(temp, current->name, ft_strlen(current->name));
 		ft_memcpy(&temp[ft_strlen(current->name)], "=", 1);
 		ft_memcpy(&temp[ft_strlen(current->name) + 1], current->value, ft_strlen(current->value) + 1);

@@ -61,11 +61,11 @@ echo -e $YEL"\nTest output VARIOUS"$RES
 
  inputlines=(
 	 		"ls | wc"
-			"cat infile > out1"
-			"cat infile > out1 > out2"
+			# "cat infile > out1"
+			# "cat infile > out1 > out2"
 
-			'cat "aaa > > bbb"'
-			'cat "aaa < < < bbb"'
+			# 'cat "aaa > > bbb"'
+			# 'cat "aaa < < < bbb"'
 	 		# "cat infile"
 	 		# "cat -n infile"
 	 		# "cat -e infile"

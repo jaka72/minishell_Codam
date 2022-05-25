@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 ^[[0;33mTESTER STARTED$
 ^[[0m^[[31mLength of word: 3$
 ^[[0m^[[31mLength of word: 15$
@@ -17,3 +19,4 @@ $
 ^[[0mexit$
 ^[[37mexit! (tester mode)$
 ^[[0m
+>>>>>>> main
