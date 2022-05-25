@@ -57,9 +57,7 @@ int	run_export_builtin(t_cmd *cmd, t_infos *info)
 	t_env	*end_env;
 
 	i = 1;
-	temp_env = malloc(sizeof(t_env) * 1);
-	if (temp_env == NULL)
-		errtext_exit("for temp_env malloc failed");
+
 	if (cmd->args[1] == NULL)
 	{
 		print_env_export(info);
@@ -67,7 +65,7 @@ int	run_export_builtin(t_cmd *cmd, t_infos *info)
 	else{
 		while(cmd->args[i])
 		{
-			printf("%s\n", cmd->args[i]);
+			printf("!! %s\n", cmd->args[i]);
 			if (cmd->args[1][0] == '=')
 			{
 				printf("%s : not a valid identifier\n", cmd->args[i]);
@@ -75,6 +73,9 @@ int	run_export_builtin(t_cmd *cmd, t_infos *info)
 			}
 			if (ft_strchr(cmd->args[i], '=') != NULL)
 			{
+				temp_env = malloc(sizeof(t_env) * 1);
+				if (temp_env == NULL)
+					errtext_exit("for temp_env malloc failed");
 				temp_env = find_and_split(cmd->args[i], '=', temp_env);
 				find_name_delate(temp_env->name, info); // to find if the same name variable is exist 
 				end_env = last_env(info->start_env);

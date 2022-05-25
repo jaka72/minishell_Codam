@@ -84,9 +84,11 @@ int	ms_execve(t_infos *info, t_cmd *str)
 	envs = get_env_array(info->start_env);
 	if (envs == NULL)
 		return (-1);
+	// str->args = expand_array(str->args, info);
 	path = ft_findshell_pass(str->args[0], envs);
 
 	printf(MAG"ms_execve(): command: str[0]: [%s] \n"RES, str->args[0]);
+
 	if (path == NULL)	// check the command is exist
 	{
 		write(2, str->args[0], ft_strlen(str->args[0]));
@@ -97,52 +99,48 @@ int	ms_execve(t_infos *info, t_cmd *str)
 	return (0);
 }
 
-int exec_no_pipe(t_infos *info, t_cmd *current)
-{
-	pid_t	pid;
-	int		status;
-
-	current->args = expand_array(current->args, info);
-	connect_fd(current, info);
-	if (check_if_builtin(current) != 0) 	// if builtin
-	{
-		//printf(BLU"no pipe and this is builtin!\n"RES);
-		exec_builtin(current, info);
-	}
-	else // if library
-	{
-		printf(BLU"no pipe and this is library!\n"RES);
-		pid = fork();
-		if (pid == 0)
-		{
-			printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
-			ms_execve(info, current);	
-		}
-		waitpid(pid, &status, WUNTRACED | WCONTINUED);
-		if (WIFEXITED(status))
-			g_status = WEXITSTATUS(status);
-		if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
-			g_status = 128 + WTERMSIG(status);
-		printf(BLU"s child process exit status is %d\n"RES, status);
-		printf(BLU"s WIFEXITED(status) || WIFSIGNALED(status), WEXITSTATUS(status), WTERMSIG(status) %d %d %d %d\n"RES, WIFEXITED(status), WIFSIGNALED(status), WEXITSTATUS(status), WTERMSIG(status));
-	}
-	return (0);
-}
-
 int	run_cmd(t_infos *info, t_cmd *str)
 {
 	t_cmd	*current;
 	pid_t	pid;
 	int		newpipe[2];
 	int		status;
-	pid_t	last_pid;
 
 	current = str;
 	status = 0;
-	if (current->next == NULL)
-		exec_no_pipe(info, current);
+	current->args = expand_array(current->args, info);
+	if (current->next == NULL) // the case of no pipe
+	{
+		connect_fd(current, info);
+		if (check_if_builtin(current) != 0) 	// if builtin
+		{
+			//printf(BLU"no pipe and this is builtin!\n"RES);
+			exec_builtin(current, info);
+		}
+		else // if library
+		{
+			printf(BLU"no pipe and this is library!\n"RES);
+			pid = fork();
+			if (pid == 0)
+			{
+				printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
+				ms_execve(info, current);	
+			}
+			waitpid(pid, &status, WUNTRACED | WCONTINUED);
+			printf(BLU"child process exit status is %d\n"RES, status);
+			if (WIFEXITED(status))
+			{
+				g_status = WEXITSTATUS(status); 
+				printf(BLU"child process ended with status %d\n"RES, WEXITSTATUS(status));
+			}
+			if (WIFSIGNALED(status))
+			{
+				g_status = WEXITSTATUS(status); 
+				printf(BLU"child process ended with signal %d status %d\n"RES, WTERMSIG(status), WEXITSTATUS(status));
+			}
+			current = current->next;	
+		}
+	}
 	else  // with pipe
 	{
 		while (current)
@@ -161,52 +159,43 @@ int	run_cmd(t_infos *info, t_cmd *str)
 			pid = fork();
 			if (pid == 0)
 			{
-				signal(SIGINT, SIG_DFL);
-				signal(SIGQUIT, SIG_DFL);
 				connect_fd(current, info);
 				printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
 				if (check_if_builtin(current) != 0) 	// if builtin
+				{
+					printf("this is builtin!\n");
 					g_status = exec_builtin(current, info);
+				}
 				else // if library
-					ms_execve(info, current);
+				{
+					printf("this is library!\n");
+					ms_execve(info, current);	
+				}
 				exit (0);  // in case of builtin, it should be quit
 			}
 			else
 			{
-				if (current->next == NULL)
-				{
-					last_pid = pid;
-					printf(RED"last_pid is [%d]\n"RES, last_pid);
-				}
-					
 				if (current->fd_out > 1)
 					close(current->fd_out);
 				if (current->fd_in > 0)
 					close(current->fd_in);
 			}
-
+			waitpid(pid, &status, WUNTRACED | WCONTINUED);
+			printf(BLU"child process exit status is %d\n"RES, status);
+			if (WIFEXITED(status))
+			{
+				g_status = WEXITSTATUS(status); 
+				printf(BLU"child process ended with status %d\n"RES, WEXITSTATUS(status));
+			}
+			if (WIFSIGNALED(status))
+			{
+				g_status = WEXITSTATUS(status); 
+				printf(BLU"child process ended with signal %d status %d\n"RES, WTERMSIG(status), WEXITSTATUS(status));
+			}
 			current = current->next;
+			//printf(YEL"jaka: after the child ended\n"RES);
 		}
-		waitpid(last_pid, &status, WUNTRACED | WCONTINUED);
-		if (WIFEXITED(status))
-			g_status = WEXITSTATUS(status);
-		if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
-			g_status = 128 + WTERMSIG(status);
-		printf(BLU"child process exit status is %d, g_status %d, last_pid is %d\n"RES, status, g_status, last_pid);
-		printf(BLU"WIFEXITED(status) || WIFSIGNALED(status), WEXITSTATUS(status), WSTOPSIG(status), SIGINT, SIGQUIT %d %d %d %d %d %d \n"RES, WIFEXITED(status), WIFSIGNALED(status), WEXITSTATUS(status), WSTOPSIG(status), SIGINT, SIGQUIT);
-		current = str;
-		while (current->next)
-		{
-			wait(0);
-			current = current->next;
-		}
-		
-	// while (wait(0))
-	// 	;
-
 	}
-	reset_fd(info);
-	// signal(SIGINT, handle_sigint);
-	// signal(SIGQUIT, handle_sigquit);
+	reset_fd(info);	
 	return(g_status);
 }
