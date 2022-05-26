@@ -1,0 +1,20 @@
+echo ' \' ' \'
+echo "aaa" b
+echo aaa"b"
+echo "aaa"b
+echo ""
+echo "aaa | | bbb"
+echo '"'
+echo '" '
+echo '" ' aaa
+echo "'"
+echo "' "
+echo "'" aaa
+echo "' " aaa
+echo "aa'aa"
+echo "aa''aa"
+echo 'aa"aa'
+echo 'aa""aa'
+echo "aa'bb'aa"
+echo 'aa"bb"aa'
+echo 123"hello"456

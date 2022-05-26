@@ -4,13 +4,13 @@
 void print_command_info(t_cmd *cmd)
 {
 	int i = 0;
-	printf(WHT2"  Command  array: ["RES);
+	printf(WHT2"  Command  array: "RES);
 	while (i < cmd->count_args)
 	{
-		printf(DYEL" %s "RES, cmd->args[i]);
+		printf(DYEL" [%s%s%s] "RES, MAG, cmd->args[i], DYEL);
 		i++;
 	}
-	printf(WHT2"]\n"RES);
+	printf(WHT2"\n"RES);
 
 	printf(WHT2"  Command  fd_in: "DYEL"%2d\n"RES, cmd->fd_in);
 	printf(WHT2"  Command fd_out: "DYEL"%2d\n\n"RES, cmd->fd_out);

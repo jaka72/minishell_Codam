@@ -1,8 +1,35 @@
 Current issues:
 
+- Redirects: This is allowed in bash:
+    aaa<<<asdf     just prints aaa
+    aaa <<< asdf     just prints aaa
+
+
+
+
+- Add such cases to tester:
+    <" "
+    <""
+    <  ""
+    <""  | 
+    <"" | echo | | 
+    ...etc
+
+- Syntax error must continue, not exit. Internal Exit code must be set to 258, so " echo $?" must be 258 
+
+- !!! Handeling double quotes ""in all three syntax check, is now messing checking double pipes inside "aaa | | bbb"
+    LOOK INSIDE redirect_utils
+
+- In case < ls  ,message twice: infile not exist + no such file ...
+        Then it exists minishell
+
+- single . or double dot ..  does not report 'command not found'
+    should be:   .   filename argument required     exit code 2
+                ..   command not found              exit code 127
 
 - echo tilda, should display home path
-- echo "a"  does not print !!!!!! THIS I REPAIRED ONCE !!!
+- echo "a"  now working, now the other issue is back:   "aaa"b  KO
+                                                        aaa"b"  ok
 
 - syntax error with pipes, exits, instead of going back to minishell
 

@@ -14,15 +14,20 @@ make
 cp minishell ./tester/minishell
 cd ./tester
 
+
+
+
 bash test_syntax_quotes.sh 				# quotes with expansion not working yet
 
-#bash test_syntax_pipes.sh
+bash test_syntax_pipes.sh
+
+# bash test_output_cat.sh
+
+bash test_output_echo.sh
 
 bash test_syntax_redirs.sh
 
-
-# bash test_output_cat.sh
- bash test_output_various.sh
+bash test_output_various.sh
 
 
 

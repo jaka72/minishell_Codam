@@ -1,6 +1,5 @@
 #include "check_syntax.h"
 
-
 int	is_second_arrow(t_source *src, int *c, int arrow)
 {
 	int	ret;
@@ -79,12 +78,11 @@ int	check_redirects(t_source *src)
 	int	c;
 	int	arrow;
 
+	//printf(BLU"Start check redirs\n"RES);
 	c = src->inputline[src->currpos];
 	while (src->currpos <= src->inputline_size) // NOT SURE IF GOOD <= MAYBE JUST <
 	{
-		//printf(BLU" !%c"RES, c);
-		
-		
+		//printf(BLU"   loop\n"RES);
 		if (c == '<' || c == '>')		// < at start
 		{
 			arrow = c;
@@ -94,9 +92,6 @@ int	check_redirects(t_source *src)
 		//if ((c == ' ' || is_allowed_char(c) || c == '|') /*&& c != '<' && c != '>'*/)
 		if (c == ' ' || is_allowed_char(c) || c == '|')
 		{
-
-			// printf(BLU" =%c"RES, c);
-			
 			// if (c == '"' || c == '\'') //	 new jaka, skip all chars between quotes
 			// {
 			// 	src->currpos++;
@@ -109,10 +104,6 @@ int	check_redirects(t_source *src)
 			// 	src->currpos++;
 			// 	c = src->inputline[src->currpos];
 			// }
-			// printf(BLU"\n"RES);
-
-
-
 			if (is_space_alpha_or_pipe(src, &c) == 1)
 				return (0);
 		}

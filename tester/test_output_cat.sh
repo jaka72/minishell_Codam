@@ -65,13 +65,11 @@ echo -e $YEL"\nTest output CAT"$RES
 	 		"cat -e infile"
 	 		"cat -e -n infile"
 	 		"cat -en infile"
+			"cat infile > out1"
+			"cat infile > out1 > out2"
 
 			# "env"	# first few lines are different, random string
-			
-			"ls | grep a"
-			"ls | grep a | wc"
-			"ls | wc"
-			)
+						)
 
 nr_elements=${#inputlines[@]}
 

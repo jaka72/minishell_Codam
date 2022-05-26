@@ -24,6 +24,14 @@ int	skip_till_end_quote(t_source *src, int c_open)
 {
 	int	c_curr;
 
+
+	if (src->inputline[src->currpos + 1] == c_open) // added to handle ""
+	{
+		src->currpos++;
+		//printf(RED"    found empty quotation [\"\"]\n"RES);
+		return (0);
+	}
+
 	src->currpos++;
 	c_curr = src->inputline[src->currpos];
 	while (c_curr != c_open && c_curr != '\0')
@@ -40,15 +48,10 @@ int	skip_till_end_quote(t_source *src, int c_open)
 
 int	check_quotes(t_source *src)
 {
-	//printf("\n"BLU"   a check quotes, currpos %ld\n"RES, src->currpos);
-	//printf(CYN"line [%s]\n"RES, src->inputline);
-	//printf(CYN"line c[%d]\n"RES, src->inputline[0]);
-
 	int	c;
 
-
 	c = src->inputline[src->currpos];
-	while (src->currpos < src->inputline_size)
+	while (c)
 	{
 		//printf("\n"BLU"   b check quotes, currpos %ld\n"RES, src->currpos);
 		if (check_unsuported_chars(src) != 0)
@@ -60,12 +63,10 @@ int	check_quotes(t_source *src)
 				return (2);
 		}
 		//printf("a)  %ld[%c]\n", src->currpos, c);
-
 		src->currpos++;
 		c = src->inputline[src->currpos];
+		//printf("\n"BLU"   c check quotes, currpos %ld, c[%d]\n"RES, src->currpos, c);
 	}
-
-	//printf("a) END %ld[%c]\n", src->currpos, c);
 	src->currpos = 0;
 	return (0);
 }

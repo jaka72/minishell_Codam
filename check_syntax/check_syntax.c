@@ -1,19 +1,13 @@
 #include "check_syntax.h"
 
-//int	start_checking(t_source *src)
 int	check_syntax_errors(char *line, t_source *src, t_infos *info)
 {
-	// printf("\n"BLU"TEEST\n"RES);
-
 	int	ret;
 	src->inputline = line;
 	src->currpos = 0;
 	src->inputline_size = ft_strlen(src->inputline);
-
 	if (src->inputline_size == 0)
 		return (0);
-
-
 	ret = check_quotes(src);
 	if (ret == 1) // MAYBE THIS IS NOT USED ANYMORE, ALL CHARS CAN BE VALID
 	{
@@ -24,12 +18,10 @@ int	check_syntax_errors(char *line, t_source *src, t_infos *info)
 	}
 	else if (ret == 2)
 	{
-		printf("\n"BLU"        bad quotes\n"RES);
 		print_err_msg(MSG_QUOTES);
 		info->exit_code = 258;
 		return (SYNTAX_ERROR);
 	}
-
 	if (check_pipes(src) != 0)
 	{
 		print_err_msg(MSG_PIPES);
@@ -42,5 +34,6 @@ int	check_syntax_errors(char *line, t_source *src, t_infos *info)
 		info->exit_code = 258;
 		return (SYNTAX_ERROR);
 	}
+	//printf("\n"BLU"After check redirects\n"RES);
 	return (0);
 }

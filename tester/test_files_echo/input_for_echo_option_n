@@ -1,0 +1,9 @@
+echo -n bonjour
+echo -nn bonjour
+echo -n -n -n bonjour
+echo -n -n -n bonjour
+echo "-n" bonjour
+echo "-nnnn" bonjour
+echo -n"-n" bonjour
+echo "-n -n -n"-n bonjour
+echo "-n '-n'" bonjour
