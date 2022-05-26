@@ -25,12 +25,11 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		if (ft_strlen(line) > 0)
 		{
-			if (check_syntax_errors(line, &src, &info) != 0)
-				return (SYNTAX_ERROR);
+			check_syntax_errors(line, &src, &info);
 			add_history(line);
 			cmd_list = make_commands(&src);
 			g_status = run_cmd(&info, cmd_list);
-			free_commands_list(cmd_list);	
+			free_commands_list(cmd_list);
 		}
 		line = free_and_read(line, &info);
 	}
