@@ -1,5 +1,22 @@
 Current issues:
 
+- Redirects: This is allowed in bash:
+    aaa<<<asdf     just prints aaa
+    aaa <<< asdf     just prints aaa
+
+
+
+
+- Add such cases to tester:
+    <" "
+    <""
+    <  ""
+    <""  | 
+    <"" | echo | | 
+    ...etc
+
+- Syntax error must continue, not exit. Internal Exit code must be set to 258, so " echo $?" must be 258 
+
 - !!! Handeling double quotes ""in all three syntax check, is now messing checking double pipes inside "aaa | | bbb"
     LOOK INSIDE redirect_utils
 

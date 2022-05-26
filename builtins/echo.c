@@ -1,5 +1,6 @@
 #include "builtins.h"
 
+
 int	check_n_option(char *str)
 {
 	int	i;
@@ -78,6 +79,6 @@ int	run_echo_builtin(t_cmd *cmd /*, t_infos *info */)
 		i++;
 	}
 	if (flag_newline == 0)
-		printf("\n");
+		write(1, "\n", 1);
 	return (0);
 }

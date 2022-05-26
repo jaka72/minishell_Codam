@@ -6,6 +6,7 @@ int	g_status;
 // ORIGINAL FROM testmain.c
 int	main(int argc, char *argv[], char *envp[])
 {
+	printf("\n");
 	t_source	src;
 	t_cmd		*cmd_list;
 	t_infos		info;
@@ -19,7 +20,7 @@ int	main(int argc, char *argv[], char *envp[])
 	src.inputline = NULL;
 	if (argc == 2)	// JUST FOR TESTING ////////////////////////
 	{
-		printf(YEL"TESTER STARTED\n"RES);
+		// printf(YEL"TESTER STARTED, argc=%d = [%s]\n"RES, argc, argv[1]);
 		src.inputline = argv[1];
 		src.inputline_size = strlen(src.inputline);
 		//printf(CYN"line len: %ld\n"RES, src.inputline_size);
@@ -50,7 +51,13 @@ int	main(int argc, char *argv[], char *envp[])
 			if (ft_strlen(line) > 0)
 			{
 				if (check_syntax_errors(line, &src, &info) != 0)
-					return (SYNTAX_ERROR);
+				{
+					add_history(line);				// ADDED JAKA: INCASE OF ERROR MUST NOT EXIT, BUT LOOP AGAIN
+					free(line);
+					line = readline(info.prompt);
+					//return (SYNTAX_ERROR);		// MUST SET ERROR: echo $? == 258
+					continue ;
+				}
 				add_history(line);
 				cmd_list = make_commands(&src);
 				//printf(GRN"A)  main\n"RES);

@@ -1,19 +1,9 @@
-^[[0;33mTESTER STARTED$
-^[[0m^[[31m a^[[0m^[[31m t^[[0m^[[31m  ^[[0m^[[0;34m "^[[0m^[[0;34m "^[[0m^[[0;34m "^[[0m^[[0;34m "^[[0m^[[0;34m "^[[0m^[[0;34m "^[[0m^[[0;34m "^[[0m^[[0;34m "^[[0m^[[0;34m "^[[0m^[[0;34m "^[[0m^[[0;34m "^[[0m^[[31m "^[[0m^[[0;33m -1[ÿ]^[[0m^[[0;33m$
-^[[0m^[[31mLength of word: 3$
-^[[0m^[[31mLength of word: 13$
-^[[0m$
-^[[0;34mCOMMAND 0$
-^[[0m^[[2;37m  Command  array: [^[[0m^[[2;33m cat ^[[0m^[[2;33m "aaa > > bbb" ^[[0m^[[2;37m]$
-^[[0m^[[2;37m  Command  fd_in: ^[[2;33m 0$
-^[[0m^[[2;37m  Command fd_out: ^[[2;33m 1$
 $
-^[[0m^[[2;37m  Infile   array: [^[[0m^[[2;37m]$
-^[[0m^[[2;37m  Outfile  array: [^[[0m^[[2;37m]$
-^[[0m^[[2;37m  Heredocs array: [^[[0m^[[2;37m]$
-^[[0m^[[0;34mno pipe and this is library!$
-^[[0m^[[0;34ms child process exit status is 256$
-^[[0m^[[0;34ms WIFEXITED(status) || WIFSIGNALED(status), WEXITSTATUS(status), WTERMSIG(status) 1 0 1 0$
-^[[0m^[[0;33mFree struct[0]$
-^[[0m^[[37mexit! (tester mode)$
-^[[0m
+$
+^[[0;34mAfter check pipes$
+^[[0m^[[0;34mStart skip alphas$
+^[[0m^[[0;34m  0[a]^[[0m^[[31m a^[[0m^[[0;34m  1[t]^[[0m^[[31m t^[[0m^[[0;34m  2[ ]^[[0m^[[31m  ^[[0m^[[0;34m  3["]^[[0m^[[0;34m   FOUND EMPTY "" QUOTE $
+^[[0m^[[0;34mStart skip alphas$
+^[[0m^[[0;34m  0[a]^[[0m^[[31m a^[[0m^[[0;34m  1[a]^[[0m^[[31m a^[[0m^[[0;34m  2[a]^[[0m^[[31m a^[[0m^[[0;34m  3[ ]^[[0m^[[31m  ^[[0m^[[0;33m 62[>]^[[0m^[[0;33m$
+^[[0m$
+Minishell: Syntax error with REDIRECTS$

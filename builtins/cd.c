@@ -68,7 +68,7 @@ int	store_current_into_old_pwd(t_env *env, char *current_pwd)
 }
 
 
-
+// THERE IS A DUPLICATE OF THIS FUNCITON IN ECHO BUILTIN
 char *get_path(t_infos *info, char *name)
 {
 	char	*newpath;
@@ -86,7 +86,8 @@ char *get_path(t_infos *info, char *name)
 			printf(YEL"newpath: [%s]\n"RES, newpath);
 			if (newpath == NULL)
 			{
-				printf("Minishell: Error with mallocing\n");
+				// printf("Minishell: Error with mallocing\n");
+				write(2, "Minishell: Error with mallocing\n", 32);
 				return (NULL);
 			}
 			return (newpath);	
