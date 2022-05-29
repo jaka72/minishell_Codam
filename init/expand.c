@@ -137,8 +137,16 @@ char	*check_expand(t_infos *info, char *tx)
 			expanded = add_singlequote(expanded, &tx[i + 1]);
 			i = i + count_single_length(&tx[i + 1]);
 		}
-		else if (tx[i] == '$' && tx[i + 1] == '\0' )
-			return (tx);
+		// else if (tx[i] == '$' && tx[i + 1] == '\0')
+		// 	return (tx);
+		else if (tx[i] == '$' && tx[i + 1] == '\"' && d_flag == 1)
+		{
+			expanded = ft_add_c_free(expanded, '$');
+			d_flag ^= FLAG1;
+			i++;
+		}
+		else if ((tx[i] == '$' && tx[i + 1] == ' ') || (tx[i] == '$' && tx[i + 1] == '\0'))
+			expanded = ft_add_c_free(expanded, '$');
 		else if (tx[i] == '$' && tx[i + 1] == '?' )
 		{
 			// printf("now $? is called, g_status is %d\n", g_status);

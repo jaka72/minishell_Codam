@@ -89,7 +89,7 @@ int	ms_execve(t_infos *info, t_cmd *str)
 
 	printf(MAG"ms_execve(): command: str[0]: [%s], path: [%s]\n"RES, str->args[0], path);
 
-	if (path == NULL)	// check the command is exist
+	if (path == NULL || str->args[0][0] == '\0')	// check the command is exist
 	{
 		write(2, str->args[0], ft_strlen(str->args[0]));
 		write(2, ": command not found\n", 21);

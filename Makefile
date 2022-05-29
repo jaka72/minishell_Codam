@@ -138,7 +138,7 @@ all:		make_obj_dir	$(NAME)  # added Jaka
 ### added Jaka: folders for temporary object files
 make_obj_dir:
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/util/
-	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/init/
+	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/init/ 
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/exec/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/file/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/check_syntax/
@@ -171,7 +171,7 @@ clean:
 	rm -f $(OBJ)
 	rm -rf $(OBJ_DIR)	# added Jaka
 
-fclean: clean
+fclean: libftclean clean
 	rm -f $(NAME)
 
 libftclean:
