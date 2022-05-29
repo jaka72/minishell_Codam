@@ -6,7 +6,7 @@
 #    By: kito <kito@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/12/01 17:08:43 by kito          #+#    #+#                  #
-#    Updated: 2022/05/19 18:29:10 by kito          ########   odam.nl          #
+#    Updated: 2022/05/29 14:40:29 by kito          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC			=	ft_memset.c			\
 				ft_strjoin.c		\
 				ft_strjoin_free.c	\
 				ft_strlcpy.c		\
+				ft_atoi.c			\
 				ft_itoa.c			\
 				ft_split.c			\
 				ft_add_str.c

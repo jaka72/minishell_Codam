@@ -6,7 +6,7 @@
 /*   By: kito <kito@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 18:39:53 by kito          #+#    #+#                 */
-/*   Updated: 2022/05/19 18:28:39 by kito          ########   odam.nl         */
+/*   Updated: 2022/05/29 14:40:09 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strjoin_free(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
 char	**ft_split(char const *s, char c);
 char	**ft_add_str(char **str);

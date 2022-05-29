@@ -54,6 +54,8 @@ int	run_echo_builtin(t_cmd *cmd /*, t_infos *info */)
 	int	flag_newline;
 	int	flag_first_word;
 
+	if (cmd->args[1] == NULL)
+		return (0);
 	if (cmd->count_args == 1)
 	{
 		write(1, "\n", 1);

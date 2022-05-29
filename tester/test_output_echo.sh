@@ -166,7 +166,7 @@ echo -e $RED"   Incorrect output from tester !!!"$RES
 FILE="test_files_echo/input_for_echo_escape_char"
 i=0
 while read line; do
-  ARRAY04[$i]=$line
+  #ARRAY04[$i]=$line
   i=$((i+1))
 done < $FILE
 
@@ -195,7 +195,7 @@ echo -e $YEL"\nTest output ECHO - WITH QUOTES"$RES
 FILE="test_files_echo/input_for_echo_with_quotes"
 i=0
 while read line; do
-  ARRAY04[$i]=$line
+ # ARRAY04[$i]=$line
   i=$((i+1))
 done < $FILE
 

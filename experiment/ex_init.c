@@ -357,7 +357,7 @@ int	main(int argc, char *argv[], char *envp[])
 	while (line)
 	{
 		line = check_expand(&info, line);
-		if (ft_strlen(line) > 0)
+		if (line && ft_strlen(line) > 0)
 		{
 			printf("%s\n", line);
 			add_history(line);
