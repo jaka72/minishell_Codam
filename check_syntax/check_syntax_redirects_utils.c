@@ -13,7 +13,7 @@ void skip_alphas_spaces_pipes(t_source *src)
 		&& c != '<' && c != '>')
 		// get_next_char(src);		// probably can just be currpos++
 	{
-		printf(BLU"  %d[%c]"RES, i, c);
+		//printf(BLU"  %d[%c]"RES, i, c);
 		
 		if (c == '"' || c == '\'') //	 new jaka, skip all chars between quotes
 		{
@@ -27,7 +27,7 @@ void skip_alphas_spaces_pipes(t_source *src)
 			src->currpos += 2;
 			while (src->inputline[src->currpos] != c)
 			{
-				printf(BLU" %c"RES, c);
+				//printf(BLU" %c"RES, c);
 				src->currpos++;
 			}
 			src->currpos++;

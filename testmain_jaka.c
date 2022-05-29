@@ -39,7 +39,7 @@ int	main(int argc, char *argv[], char *envp[])
 		//rl_clear_history();
 		// free_envlist(&info);
 		// tcsetattr(0, 0, &info.termios_save);
-		clean_data(&info, NULL);
+		clean_data(g_status, &info, NULL);
 		printf(WHT"exit! (tester mode)\n"RES);
 		return (0);
 	}

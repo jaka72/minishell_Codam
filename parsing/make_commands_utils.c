@@ -144,7 +144,7 @@ int	get_length_of_word(t_source *src) //kito changed 26 May : ignore delimiter w
 			// !(src->inputline[src->currpos] == ' ' && s_flag + d_flag == 0))  // skip delimiter if some flag is on
 	{
 
-		printf(CYN"Glow: loop [%c]\n"RES, src->inputline[src->currpos]);
+		//printf(CYN"Glow: loop [%c]\n"RES, src->inputline[src->currpos]);
 
 		if (src->inputline[src->currpos] == '\'' )
 		{
