@@ -19,7 +19,7 @@ int	check_syntax_errors(char *line, t_source *src, t_infos *info)
 	else if (ret == 2)
 	{
 		print_err_msg(MSG_QUOTES);
-		info->exit_code = 258;
+		info->exit_code = 258;			// exit_code: no longer needed, delete all of these
 		return (SYNTAX_ERROR);
 	}
 	if (check_pipes(src) != 0)

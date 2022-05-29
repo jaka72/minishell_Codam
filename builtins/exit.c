@@ -56,11 +56,11 @@ int check_if_numeric(char *arg)
 int	run_exit_builtin(t_cmd *cmd /*, t_infos *info */ /*, t_cmd *list */)
 {
 	int	dont_exit;
-	int	exit_code;
+	//int	exit_code;
 
-	exit_code = 0;
-	if (cmd->args[1])
-		exit_code = ft_atoi(cmd->args[1]);
+	//exit_code = 0;
+	//if (cmd->args[1])
+	//	exit_code = ft_atoi(cmd->args[1]);
 	dont_exit = 0;
 	if (cmd->count_args == 1)
 	{

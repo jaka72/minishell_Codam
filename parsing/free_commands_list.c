@@ -84,7 +84,7 @@ int	free_commands_list(t_cmd *first_cmd)
 	temp = first_cmd;
 	while (temp)
 	{
-		printf(YEL"Free struct[%d]\n"RES, i);
+		//printf(YEL"Free struct[%d]\n"RES, i);
 		free_arrays(temp);
 		temp = temp->next;
 		free(first_cmd);
