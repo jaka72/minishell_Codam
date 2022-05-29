@@ -10,7 +10,9 @@ int	run_pwd_builtin(void)
 		return (1);
 	else
 	{
-		printf("%s\n", current_path);
+		write(1, current_path, ft_strlen(current_path));
+		write(1, "\n", 1);
+		// free(current_path); // DOES IT NEED TO BE FREED ???
 		return (0);
 	}
 }
