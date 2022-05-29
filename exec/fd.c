@@ -61,10 +61,10 @@ void	check_outfile_fd(t_cmd *str, t_infos *info)
 		while (str->outfile[i])
 		{
 			str->outfile[i] = check_expand(info, str->outfile[i]);
-			if (access(str->outfile[i], F_OK) == 0
+			if (str->outfile[i] && access(str->outfile[i], F_OK) == 0
 				&& access(str->outfile[i], W_OK) < 0)
 				errtext_exit("outfile exist but not accessible\n");
-			if (access(str->outfile[i], F_OK) != 0)
+			if (str->outfile[i] && access(str->outfile[i], F_OK) != 0)
 			{
 				j = open(str->outfile[i], O_CREAT, 0666);
 				if (j < 0)
@@ -104,7 +104,7 @@ void	connect_fd(t_cmd *current, t_infos *info)
 	{
 		dup2(current->fd_out, 1);
 		close(current->fd_out);
-	}	
+	}
 }
 
 void	reset_fd(t_infos *info)

@@ -164,6 +164,12 @@ char	*check_expand(t_infos *info, char *tx)
 			expanded = ft_add_c_free(expanded, tx[i]);
 		i++;
 	}
+	if ((tx[0] != '\'' && tx[0] != '\"') && expanded[0] == '\0')
+	{
+		free(expanded);
+		free(tx);
+		return (NULL);
+	}
 	free(tx);
 	return (expanded);
 }
@@ -171,13 +177,26 @@ char	*check_expand(t_infos *info, char *tx)
 char	**expand_array(char **args, t_infos *info)
 {
 	int	i;
+	int	temp;
 
 	i = 0;
+	temp = 0;
 	if (args == NULL)
 		return (args);
 	while (args[i])
 	{
-		args[i] = check_expand(info, args[i]); 
+		args[i] = check_expand(info, args[i]);
+		if (args[i] == NULL)
+		{
+			temp = i;
+			while (args[temp + 1])
+			{
+				args[temp] =  args[temp + 1];
+				temp++;
+			}
+			args[temp] =  NULL;
+			i--;
+		}
 		i++;
 	}
 	return (args);

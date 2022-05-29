@@ -18,6 +18,7 @@ LIBFT_SRC	= 	$(LIBFT_DIR)/ft_memset.c					\
 				$(LIBFT_DIR)/ft_strjoin.c					\
 				$(LIBFT_DIR)/ft_strjoin_free.c				\
 				$(LIBFT_DIR)/ft_strlcpy.c					\
+				$(LIBFT_DIR)/ft_atoi.c						\
 				$(LIBFT_DIR)/ft_itoa.c						\
 				$(LIBFT_DIR)/ft_split.c						\
 				$(LIBFT_DIR)/ft_add_str.c
@@ -108,8 +109,8 @@ JAKA_UTILS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(JAKA_UTILS_SRC:.c=.o))
 
 
 #for main and running commands (fork and execte)
-#MAIN_SRC	=	testmain_jaka.c	# JUST FOR TESTING
-MAIN_SRC	=	testmain.c
+MAIN_SRC	=	testmain_jaka.c	# JUST FOR TESTING
+# MAIN_SRC	=	testmain.c
 MAIN_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(MAIN_SRC:.c=.o))
 
 
