@@ -64,12 +64,12 @@ int	run_exit_builtin(t_cmd *cmd /*, t_infos *info */ /*, t_cmd *list */)
 	dont_exit = 0;
 	if (cmd->count_args == 1)
 	{
-		write(2, "exit\n", 5);
+		write(cmd->fd_out, "exit\n", 5);
 		dont_exit = 0;
 	}
 	else if (cmd->count_args > 1)
 	{
-		write(2, "exit\n", 5); // WRITE EXIT, ONLY IF NO PIPES !!!!
+		write(1, "exit\n", 5); // WRITE EXIT, ONLY IF NO PIPES !!!!
 		if (check_if_numeric(cmd->args[1]) != 0)
 		{
 			write(2, "minishell: exit: ", 17);
@@ -85,7 +85,8 @@ int	run_exit_builtin(t_cmd *cmd /*, t_infos *info */ /*, t_cmd *list */)
 
 	if (dont_exit == 1)
 		return (0);
-	exit (exit_code);
+	// exit (exit_code);
+	return (2);
 }
 
 /////////////////////////////////////////////////////////

@@ -25,13 +25,22 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		if (ft_strlen(line) > 0)
 		{
+			if (check_syntax_errors(line, &src, &info) != 0)
+			{
+				add_history(line);
+				free(line);
+				line = readline(info.prompt);
+				continue ;
+			}
 			check_syntax_errors(line, &src, &info);
 			add_history(line);
 			cmd_list = make_commands(&src);
 			g_status = run_cmd(&info, cmd_list);
 			free_commands_list(cmd_list);
+			if (g_status == 2)
+				break;
 		}
 		line = free_and_read(line, &info);
 	}
-	return (clean_data(&info, "exit\n"));
+	return (clean_data(g_status, &info, "exit\n"));
 }

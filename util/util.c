@@ -47,7 +47,7 @@ char	*ft_add_c_free(char *s1, char c)
 	return (str);
 }
 
-int	clean_data(t_infos *info, char *text)
+int	clean_data(int status, t_infos *info, char *text)
 {
 	if (text != NULL)
 		printf("%s", text);
@@ -59,5 +59,5 @@ int	clean_data(t_infos *info, char *text)
 		close(info->ini_fd[1]);
 	tcsetattr(0, 0, &info->termios_save);
 	rl_clear_history();
-	return (0);
+	return (status);
 }

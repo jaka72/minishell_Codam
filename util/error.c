@@ -75,6 +75,6 @@ void	err_all_free_exit(t_infos *infos, t_cmd *cmds, char *text)
 	if (cmds != NULL)
 		free_tcmd(cmds);
 	perror(text);
-	clean_data(infos, NULL);
+	clean_data(g_status, infos, NULL);
 	exit(ERROR_RETURN);
 }
