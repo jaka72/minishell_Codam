@@ -84,7 +84,7 @@ int	exec_builtin(t_cmd *cmd, t_infos *info)
 		run_cd_builtin(cmd, info);
 	}
 	else if (strcmp("exit", cmd->args[0]) == 0)
-		run_exit_builtin(cmd /*, info */ /*, list */);
+		g_status = run_exit_builtin(cmd /*, info */ /*, list */);
 
 	//printf(GRN" END of check each command\n"RES);
 	else if (strcmp("export", cmd->args[0]) == 0)

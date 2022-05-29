@@ -81,7 +81,7 @@ void	err_all_free_exit(t_infos *infos, t_cmd *cmds, char *text);
 char	*make_malloc_str(char *text);
 char	*free_return_null(char *text);
 char	*ft_add_c_free(char *s1, char c);
-int		clean_data(t_infos *info, char *text);
+int	clean_data(int status, t_infos *info, char *text);
 
 // init/init.c
 void	handle_sigint(int num);
