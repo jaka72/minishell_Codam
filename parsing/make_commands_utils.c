@@ -22,10 +22,13 @@ void	init_values(t_cmd *cmd)
 // int	check_each_command(t_cmd *cmd, t_infos *info)
 int	check_each_command(t_cmd *cmd)
 {
-	//printf(GRN" START of check each command: cmd[0]: [%s]\n"RES, cmd->args[0]);
+	// printf(GRN" START of check each command: cmd[0]: [%s]\n"RES, cmd->args[0]);
 
 	if (cmd->args == NULL)
 		return (1);
+	printf(GRN" START of check each command: cmd[0]: [%s]\n"RES, cmd->args[0]);
+	if (cmd->args[0] == NULL)
+		return (-1);
 	if (strcmp("echo", cmd->args[0]) == 0)
 		return (1);
 	else if (strcmp("pwd", cmd->args[0]) == 0)
@@ -43,34 +46,42 @@ int	check_each_command(t_cmd *cmd)
 	return (0);
 }
 
-
 int	check_if_builtin(t_cmd *cmd)
 {
-	t_cmd	*temp;
-	int		ret;
+	int	ret;
 
-	// printf(GRN"START of check_if_builtin: list[0]: [%s]\n"RES, list->args[0]);
-	temp = cmd;
-	//printf(GRN"START of check_if_builtin: temp[0]: [%s]\n"RES, temp->args[0]);
-	while (temp)
-	{
-		//printf(MAG"cmd: [%s]\n"RES, temp->args[0]);
-		// ret = check_each_command(temp, info);
-		ret = check_each_command(temp);
-		//printf(GRN"   ret from check_each_command: %d\n"RES, ret);
-
-		if (ret == 1)
-			return (1);
-		// else if (ret == 222)	// must exit!
-		// 	return (222);
-		temp = temp->next;
-	}
-	return (0);
+	ret = 0;
+	ret = check_each_command(cmd);
+	return(ret);
 }
+
+// int	check_if_builtin(t_cmd *cmd)
+// {
+// 	t_cmd	*temp;
+// 	int		ret;
+
+// 	// printf(GRN"START of check_if_builtin: list[0]: [%s]\n"RES, list->args[0]);
+// 	temp = cmd;
+// 	//printf(GRN"START of check_if_builtin: temp[0]: [%s]\n"RES, temp->args[0]);
+// 	while (temp)
+// 	{
+// 		//printf(MAG"cmd: [%s]\n"RES, temp->args[0]);
+// 		// ret = check_each_command(temp, info);
+// 		ret = check_each_command(temp);
+// 		//printf(GRN"   ret from check_each_command: %d\n"RES, ret);
+
+// 		if (ret == 1)
+// 			return (1);
+// 		// else if (ret == 222)	// must exit!
+// 		// 	return (222);
+// 		temp = temp->next;
+// 	}
+// 	return (0);
+// }
 
 int	exec_builtin(t_cmd *cmd, t_infos *info)
 {
-	//printf(GRN" exec_builtin: run each command: cmd[0]: [%s], exitcode: %d\n"RES, cmd->args[0], info->exit_code);
+	printf(GRN" exec_builtin: run each command: cmd[0]: [%s], exitcode: %d\n"RES, cmd->args[0], info->exit_code);
 
 	if (cmd->args == NULL)
 		return (1);
@@ -84,7 +95,7 @@ int	exec_builtin(t_cmd *cmd, t_infos *info)
 		run_cd_builtin(cmd, info);
 	}
 	else if (strcmp("exit", cmd->args[0]) == 0)
-		g_status = run_exit_builtin(cmd /*, info */ /*, list */);
+		run_exit_builtin(cmd /*, info */ /*, list */);
 
 	//printf(GRN" END of check each command\n"RES);
 	else if (strcmp("export", cmd->args[0]) == 0)

@@ -23,15 +23,15 @@ bash test_syntax_pipes.sh
 
 # bash test_output_cat.sh
 
-bash test_output_echo.sh
 
 bash test_syntax_redirs.sh
 
 bash test_output_various.sh
 
+bash test_output_echo.sh
 
 
 
 # NOT USED
 # bash test_builtin_echo.sh		# SOME COLOR IS BLOCKING IT FROM GOING INTO out_mini
-#bash test_unsupported_chars_not_used.sh  	# All chars are supported, without special meaning
+kito   

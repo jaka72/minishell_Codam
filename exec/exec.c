@@ -111,10 +111,11 @@ int	run_cmd(t_infos *info, t_cmd *str)
 	current->args = expand_array(current->args, info);
 	if (current->next == NULL) // the case of no pipe
 	{
+		printf(BLU"no pipe and this is builtin\n"RES);
 		connect_fd(current, info);
-		if (check_if_builtin(current) != 0) 	// if builtin
+		if (check_if_builtin(current) == 1) 	// if builtin
 		{
-			//printf(BLU"no pipe and this is builtin!\n"RES);
+			printf(BLU"no pipe and this is builtin!\n"RES);
 			exec_builtin(current, info);
 		}
 		else // if library
