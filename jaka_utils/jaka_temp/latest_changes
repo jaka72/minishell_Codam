@@ -1,10 +1,23 @@
 Current issues:
 
+- endless loop with ' "
+
+- exit 32 | exit w3e2 | exit   => should not print "exit"
+- ls | ls | exit   ==> it should not exit
+    
+- Such arguments: 2> or 1> ... should be recognized? They would change the stdout:
+        echo hello 1> outfile        
+        cd xxxyyy  1> outfile        
+        cd xxxyyy  2> outfile        
+
+
+- cd and pwd: Shall I always at start of minishell erase the OLDPWD, even if it already exists in Bash?
+- cd: is such case necessary?
+        cd "blabla" "blabla" 2>/dev/null        (IT SENDS ERROR MESSAGE TO BIN)
+
 - Redirects: This is allowed in bash:
     aaa<<<asdf     just prints aaa
     aaa <<< asdf     just prints aaa
-
-
 
 
 - Add such cases to tester:

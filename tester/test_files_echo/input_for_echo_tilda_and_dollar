@@ -1,10 +1,7 @@
-echo ~
 echo "~"
 echo '~'
 echo ~123
 echo 123~
-echo ~/123
-echo ~/123/456
 echo $USER
 echo "$USER"
 echo "'$USER'"
@@ -29,11 +26,9 @@ echo "$USER""Users/$USER/file""'$USER'"'$USER'
 echo "$USER$USER$USER"
 echo '$USER'"$USER"'$USER'
 echo '"$USER"' '$USER'"""$USER"
-echo " $USER  "'$PWD'
-echo " $USER  \$ "'$PWD'
-echo $USER=4
 echo $USER=thallard
 echo $?
+<<<<<<< HEAD
 echo $USER213
 echo $12USER
 echo $USER$12USER$USER=4$USER12
@@ -42,8 +37,18 @@ echo $USER $9999USER $8888USER $7777USE
 echo $USER $USER9999 $USER8888 $USER7777 "$USER"
 echo "$USER=12$USER"
 ### HANGING echo "$9USER" "'$USER=12$SOMETHING'"  ### HANGING
+=======
+>>>>>>> main
 echo $PWD/file
 echo "$PWD/file"
 echo "text" "text$USER" ... "$USER"
 echo $PWD
+<<<<<<< HEAD
 echo $USER $USER9999 $USER8888 $USER7777
+=======
+echo " $USER    "'$PWD'
+echo "aaa $ bbb"
+echo "aaa $ $ bbb"
+echo "aaa $ $ $ bbb"
+echo " $USER  $ "'$PWD'
+>>>>>>> main
