@@ -26,7 +26,7 @@ int	check_each_command(t_cmd *cmd)
 
 	if (cmd->args == NULL)
 		return (1);
-	printf(GRN" START of check each command: cmd[0]: [%s]\n"RES, cmd->args[0]);
+	// printf(GRN" START of check each command: cmd[0]: [%s]\n"RES, cmd->args[0]);
 	if (cmd->args[0] == NULL)
 		return (-1);
 	if (strcmp("echo", cmd->args[0]) == 0)
@@ -81,7 +81,7 @@ int	check_if_builtin(t_cmd *cmd)
 
 int	exec_builtin(t_cmd *cmd, t_infos *info)
 {
-	printf(GRN" exec_builtin: run each command: cmd[0]: [%s], exitcode: %d\n"RES, cmd->args[0], info->exit_code);
+	// printf(GRN" exec_builtin: run each command: cmd[0]: [%s], exitcode: %d\n"RES, cmd->args[0], info->exit_code);
 
 	if (cmd->args == NULL)
 		return (1);

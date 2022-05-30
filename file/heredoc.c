@@ -102,8 +102,11 @@ int	get_heredoc(char *limiter, int fd_out, t_infos *info)
 			if (buff_last[0] == '\n' || buff_last[0] == ' ' || buff_last[0] == '\0')
 			{
 				exp = check_expand(info, exp);
-				write(fd_out, exp, ft_strlen(exp));
-				free(exp);
+				if (exp)
+				{
+					write(fd_out, exp, ft_strlen(exp));
+					free(exp);
+				}
 				exp = NULL;
 				if (buff_last[0] == '\n' || buff_last[0] == ' ')
 					write(fd_out, buff_last, 1);
