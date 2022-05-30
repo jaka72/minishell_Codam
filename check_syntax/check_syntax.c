@@ -1,9 +1,9 @@
 #include "check_syntax.h"
 
-int	check_syntax_errors(char *line, t_source *src, t_infos *info)
+int	check_syntax_errors(t_source *src)
 {
 	int	ret;
-	src->inputline = line;
+	// src->inputline = line;
 	src->currpos = 0;
 	src->inputline_size = ft_strlen(src->inputline);
 	if (src->inputline_size == 0)
@@ -19,19 +19,19 @@ int	check_syntax_errors(char *line, t_source *src, t_infos *info)
 	else if (ret == 2)
 	{
 		print_err_msg(MSG_QUOTES);
-		info->exit_code = 258;			// exit_code: no longer needed, delete all of these
+		// info->exit_code = 258;			// exit_code: no longer needed, delete all of these
 		return (SYNTAX_ERROR);
 	}
 	if (check_pipes(src) != 0)
 	{
 		print_err_msg(MSG_PIPES);
-		info->exit_code = 258;
+		// info->exit_code = 258;
 		return (SYNTAX_ERROR);
 	}
 	if (check_redirects(src) != 0)
 	{
 		print_err_msg(MSG_REDIRECTS);
-		info->exit_code = 258;
+		// info->exit_code = 258;
 		return (SYNTAX_ERROR);
 	}
 	//printf("\n"BLU"After check redirects\n"RES);

@@ -24,7 +24,7 @@ int	main(int argc, char *argv[], char *envp[])
 		src.inputline = argv[1];
 		src.inputline_size = strlen(src.inputline);
 		//printf(CYN"line len: %ld\n"RES, src.inputline_size);
-		if (check_syntax_errors(src.inputline, &src, &info) != 0)
+		if (check_syntax_errors(&src) != 0)
 			return (SYNTAX_ERROR);
 		//line = src.inputline;	// maybe not needed
 		cmd_list = make_commands(&src  /*, &info  */);
@@ -50,7 +50,7 @@ int	main(int argc, char *argv[], char *envp[])
 		{
 			if (ft_strlen(line) > 0)
 			{
-				if (check_syntax_errors(line, &src, &info) != 0)
+				if (check_syntax_errors(&src) != 0)
 				{
 					add_history(line);				// ADDED JAKA: INCASE OF ERROR MUST NOT EXIT, BUT LOOP AGAIN
 					free(line);

@@ -36,7 +36,6 @@ struct	s_infos
 	struct termios	termios_new;
 	char			prompt[13];
 	int				ini_fd[2];
-	int				exit_code;	// added jaka
 };
 
 typedef struct s_cmd
@@ -123,5 +122,8 @@ char	*ft_make_binpass(int i, char *pass, char *cmd);
 char	*ft_findshell_pass(char *cmd, char *envp[]);
 int		ms_execve(t_infos *info, t_cmd *str);	// changed jaka
 int		run_cmd(t_infos *info, t_cmd *str);
+
+// main.c
+// char	*free_and_read(char *line, t_infos *info);
 
 #endif

@@ -2,7 +2,7 @@
 
 int	insert_into_list(t_env *env, const char *value)
 {
-	printf(YEL"Start insert into list\n"RES);
+	// printf(YEL"Start insert into list\n"RES);
 
 	t_env	*new;
 	t_env	*temp;
@@ -49,7 +49,7 @@ int	update_path(t_env *env, char *old_pwd, char *name)
 		}
 		temp = temp->next;
 	}
-	printf(YEL"IF $NAME DOES NOT EXIST YET, CALL insert() - should only happen with OLDWPD\n"RES);
+	// printf(YEL"IF $NAME DOES NOT EXIST YET, CALL insert() - should only happen with OLDWPD\n"RES);
 	insert_into_list(env, old_pwd);  // variable does not exist yet, insert name and value (while struct)
 	return (0); 
 }
@@ -69,10 +69,10 @@ char *get_path(t_infos *info, char *name)
 		//if (strcmp(temp->name, name) == 0) // must be ft_strcmp
 		if (ft_strcmp(temp->name, name) == 0)
 		{
-			printf(YEL"temp->name: [%s]\n"RES, temp->name);
-			printf(YEL"temp->value: [%s]\n"RES, temp->value);
+			// printf(YEL"temp->name: [%s]\n"RES, temp->name);
+			// printf(YEL"temp->value: [%s]\n"RES, temp->value);
 			newpath = ft_strdup(temp->value);
-			printf(YEL"newpath: [%s]\n"RES, newpath);
+			// printf(YEL"newpath: [%s]\n"RES, newpath);
 			if (newpath == NULL)
 			{
 				// printf("Minishell: Error with mallocing\n");
@@ -83,7 +83,7 @@ char *get_path(t_infos *info, char *name)
 		}
 		temp = temp->next;
 	}
-	printf(BLU"get path, not found\n"RES);
+	// printf(BLU"get path, not found\n"RES);
 	return (NULL); // path not found
 }
 

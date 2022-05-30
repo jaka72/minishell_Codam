@@ -58,7 +58,7 @@ int	store_into_command_arr(t_source *src, t_cmd *cmd)
 
 	len = get_length_of_word(src);
 		// check return
-	printf(RED"Length of word: %d\n"RES, len);
+	// printf(RED"Length of word: %d\n"RES, len);
 	
 	// CALCULATE CORRECT CURR POSITION TO START COPYING THE WORD INTO STRING args[i]
 	start = src->currpos - len + 1;
@@ -285,8 +285,8 @@ t_cmd	*make_commands(t_source *src /*, t_infos *info */)
 	{
 		new_cmd = malloc(sizeof(t_cmd));
 		ret = select_and_store_words(src, new_cmd);
-		printf("\n"BLU"COMMAND %d\n"RES, i);
-		print_command_info(new_cmd);
+		// printf("\n"BLU"COMMAND %d\n"RES, i);
+		// print_command_info(new_cmd);
 
 		if (ret == 1)
 		{
@@ -294,7 +294,7 @@ t_cmd	*make_commands(t_source *src /*, t_infos *info */)
 			//printf(BLU"Found End of line: return 1\n"RES); // store rdr_in
 			break ;
 		}
-		printf(BLU"Found pipe: Start new cycle.\n"RES); // store rdr_in
+		// printf(BLU"Found pipe: Start new cycle.\n"RES); // store rdr_in
 		ft_lstadd_back(&first_cmd, new_cmd);
 		i++;
 	}

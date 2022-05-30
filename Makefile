@@ -1,8 +1,7 @@
 NAME	=	minishell
 BONUS	=	minishell_bonus
 
-
-# added jaka: a temporary folder, only for object files
+# for temporary folder, only for object files
 OBJ_DIR = obj_dir
 
 LIBFT_DIR	= 	./libft
@@ -38,17 +37,11 @@ INIT_SRC	=	$(INIT_DIR)/init.c					\
 				$(INIT_DIR)/expand.c	
 INIT_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(INIT_SRC:.c=.o))
 
-
 #for excute the command
 EXEC_DIR	=	./exec
 EXEC_SRC	=	$(EXEC_DIR)/exec.c	\
 				$(EXEC_DIR)/fd.c	
 EXEC_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(EXEC_SRC:.c=.o))
-
-# EXEC_SRC	=	$(EXEC_DIR)/exec.c					\
-# 				$(EXEC_DIR)/fd.c	
-# EXEC_OBJ	= 	$(EXEC_SRC:%.c=%.o)
-# >>>>>>> main
 
 #for setting file information to cmd-struct from (<, <<, > , >>)
 FILE_DIR		= 	./file
@@ -58,7 +51,7 @@ FILE_SRC		= 	$(FILE_DIR)/heredoc.c
 # 					$(FILE_DIR)/outfile_append.c
 FILE_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(FILE_SRC:.c=.o))
 
-# ADDED JAKA: SYNTAX ERRORS (name changed)
+# for SYNTAX ERRORS 
 SYNTAX_DIR		= 	./check_syntax
 SYNTAX_SRC		= 	$(SYNTAX_DIR)/check_syntax.c			\
 					$(SYNTAX_DIR)/check_syntax_quotes.c		\
@@ -68,28 +61,15 @@ SYNTAX_SRC		= 	$(SYNTAX_DIR)/check_syntax.c			\
 SYNTAX_OBJ		=	$(patsubst %, $(OBJ_DIR)/%, $(SYNTAX_SRC:.c=.o))
 
 
-# ADDED JAKA: PARSING
+# for PARSING
 PARSING_DIR		= 	./parsing
-#  PARSING_SRC		= 	$(PARSING_DIR)/make_commands.c
 PARSING_SRC		= 	$(PARSING_DIR)/make_commands_removing_realloc.c \
 					$(PARSING_DIR)/make_commands_utils.c \
 					$(PARSING_DIR)/free_commands_list.c \
 					$(PARSING_DIR)/print_commands_info.c
 PARSING_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(PARSING_SRC:.c=.o))
 
-# For parsing from a line
-# If there is(are) pipe(s), divide line
-# If there is <, <<, > , >>, pass that with next word to the file command (above)
-# make strings array with rest of words and complete each cmd-struct 
-# PARSING_DIR	=	./parsing
-# PARSING_SRC	=	$(PARSING_DIR)/parsing.c					
-# 				$(PARSING_DIR)/parsing_util.c
-# PARSING_OBJ	=	$(PARSING_SRC:%.c=%.0)
-
-
-
-
-# ADDED JAKA: BUILTINS
+# for BUILTINS
 BUILTINS_DIR		= 	./builtins
 BUILTINS_SRC		= 	$(BUILTINS_DIR)/echo.c \
 						$(BUILTINS_DIR)/pwd.c \
@@ -109,14 +89,8 @@ JAKA_UTILS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(JAKA_UTILS_SRC:.c=.o))
 
 
 #for main and running commands (fork and execte)
-# MAIN_SRC	=	testmain_jaka.c	# JUST FOR TESTING
-MAIN_SRC	=	testmain.c
-
+MAIN_SRC	=	main.c
 MAIN_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(MAIN_SRC:.c=.o))
-
-
-
-
 
 OBJ			=	$(UTIL_OBJ)		\
 				$(INIT_OBJ)		\
@@ -137,7 +111,7 @@ RLFLAG = $(shell brew --prefix readline)
 # all:		$(NAME)
 all:		make_obj_dir	$(NAME)  # added Jaka
 
-### added Jaka: folders for temporary object files
+### for folders for temporary object files
 make_obj_dir:
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/util/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/init/ 
@@ -156,22 +130,20 @@ $(LIBFT_A):	$(LIBFT_OBJ) $(LIBFT_DIR)/libft.h
 # %.o:		%.c $(HEADER)
 # 	gcc -c $(CFLAGS) -I$(RLFLAG)/include -o $@ $<
 
-# duplicated Jaka
 $(OBJ_DIR)/%.o:		%.c $(HEADER)
 	gcc -c $(CFLAGS) -I$(RLFLAG)/include -o $@ $<
 
-
 $(NAME):	$(LIBFT_A) $(OBJ) $(HEADER)
 	gcc $(CFLAGS) $(OBJ) -I$(RLFLAG)/include -L$(RLFLAG)/lib -lreadline $(LIBFT_A) -o $(NAME)
+
 # -I$(RLFLAG)/include 		# headers 	inside /Users/jmurovec/.brew/opt/readline/include/readline
 # -L$(RLFLAG)/lib 			# libraries	inside /Users/jmurovec/.brew/opt/readline/lib
-
 # if compile doesn't work, check 'brew info readline' and add 2 flags of LDFLAGS and CPPFLAGS
 # for example "-L/usr/local/lib -I/usr/local/include"
 
 clean:
 	rm -f $(OBJ)
-	rm -rf $(OBJ_DIR)	# added Jaka
+	rm -rf $(OBJ_DIR)
 
 fclean: libftclean clean
 	rm -f $(NAME)
