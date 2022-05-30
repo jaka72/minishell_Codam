@@ -101,9 +101,12 @@ int	ms_execve(t_infos *info, t_cmd *str)
 		}
 		exit(127);
 	}
+	printf("first!\n");
 	execve(path, str->args, envs);
-	return (0);
-}
+	printf("hier!\n");
+	// return (0)/;
+	exit(127);
+	}
 
 int exec_no_pipe(t_infos *info, t_cmd *current)
 {
