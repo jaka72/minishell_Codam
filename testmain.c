@@ -25,7 +25,7 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		if (ft_strlen(line) > 0)
 		{
-			if (check_syntax_errors(line, &src, &info) != 0)
+			if (check_syntax_errors(&src) != 0)
 			{
 				add_history(line);
 				free(line);

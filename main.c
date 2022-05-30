@@ -1,54 +1,39 @@
-# include <stdlib.h>
-# include <stdio.h>
-# include <signal.h>
-# include <string.h>
-# include <unistd.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#include "minishell.h"
 
-# include "check_syntax/syntax_header.h"
-
-
-int	 main(int argc, char **argv) // ADDED JAKA, NEED argv FOR THE TESTER
+void	free_and_read(t_source *src, t_infos *info, int history)
 {
-	char		*prompt;
-	char		*line = NULL;
+	if (history == 1)
+		add_history(src->inputline);	
+	if (src->inputline != NULL)
+		free(src->inputline);
+	src->inputline = readline(info->prompt);
+}
 
-
-	// ADDED JAKA: INITIAL CHECKING FOR SYNTAX ERRORS/////////////// 
+int	main(int argc, char *argv[], char *envp[])
+{
 	t_source	src;
-	int			is_tester; // just for tester.sh
-	src.inputline = NULL;
-	is_tester = 0;
-	if (argc == 2)
-		is_tester = 1;
-	/////////////////////////////////////////////////////////////////
+	t_cmd		*cmd_list;
+	t_infos		info;
 
-
-//	prompt = getenv("PS1");
-//	if (prompt == NULL)
-		prompt = "minishell > ";
-	// before while loop, get env
-	while ((line = readline(prompt)))
+	(void) argc;
+	(void) argv;
+	ms_init(&info, envp);
+	free_and_read(&src, &info, 0);
+	while (src.inputline)
 	{
-
-		// ADDED JAKA: INITIAL CHECKING FOR SYNTAX ERRORS/////////////
-		src.inputline = line;
-		check_syntax_errors(&src, is_tester, argv);
-		if (is_tester == 1)
-			exit(0);
-		else
-			continue ;
-		/////////////////////////////////////////////////////////////
-
-
-		printf("%s\n", line);
-		add_history(line);
-
-		// here parsing and make a linkedlist of t_cmd
-		// after makint t_cmd list, fork and execute
-		free(line);
+		if (ft_strlen(src.inputline) > 0)
+		{
+			if (check_syntax_errors(&src) != 0)
+			{
+				free_and_read(&src, &info, 1);
+				continue ;
+			}
+			add_history(src.inputline);
+			cmd_list = make_commands(&src);
+			g_status = run_cmd(&info, cmd_list);
+			free_commands_list(cmd_list);
+		}
+		free_and_read(&src, &info, 0);
 	}
-	rl_clear_history();
-	return (0);
+	return (clean_data(g_status, &info, "exit\n"));
 }

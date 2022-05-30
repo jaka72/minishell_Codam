@@ -86,12 +86,11 @@ int	ms_execve(t_infos *info, t_cmd *str)
 		return (-1);
 	path = ft_findshell_pass(str->args[0], envs);
 
-	printf(MAG"ms_execve(): command: str[0]: [%s] \n"RES, str->args[0]);
+	// printf(MAG"ms_execve(): command: str[0]: [%s] \n"RES, str->args[0]);
 	if (path == NULL || str->args[0][0] == '\0')	// check the command is exist
 	{
 		if (ft_strchr(str->args[0], '/') != NULL)
 		{
-			printf("found!!\n");
 			write(2, str->args[0], ft_strlen(str->args[0]));
 			write(2, ": No such file or directory\n", 28);	
 		}
@@ -102,9 +101,12 @@ int	ms_execve(t_infos *info, t_cmd *str)
 		}
 		exit(127);
 	}
+	printf("first!\n");
 	execve(path, str->args, envs);
-	return (0);
-}
+	printf("hier!\n");
+	// return (0)/;
+	exit(127);
+	}
 
 int exec_no_pipe(t_infos *info, t_cmd *current)
 {
@@ -120,11 +122,11 @@ int exec_no_pipe(t_infos *info, t_cmd *current)
 	}
 	else // if library
 	{
-		printf(BLU"no pipe and this is library!\n"RES);
+		// printf(BLU"no pipe and this is library!\n"RES);
 		pid = fork();
 		if (pid == 0)
 		{
-			printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
+			// printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
 			ms_execve(info, current);	
@@ -134,8 +136,8 @@ int exec_no_pipe(t_infos *info, t_cmd *current)
 			g_status = WEXITSTATUS(status);
 		if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
 			g_status = 128 + WTERMSIG(status);
-		printf(BLU"s child process exit status is %d\n"RES, status);
-		printf(BLU"s WIFEXITED(status) || WIFSIGNALED(status), WEXITSTATUS(status), WTERMSIG(status) %d %d %d %d\n"RES, WIFEXITED(status), WIFSIGNALED(status), WEXITSTATUS(status), WTERMSIG(status));
+		// printf(BLU"s child process exit status is %d\n"RES, status);
+		// printf(BLU"s WIFEXITED(status) || WIFSIGNALED(status), WEXITSTATUS(status), WTERMSIG(status) %d %d %d %d\n"RES, WIFEXITED(status), WIFSIGNALED(status), WEXITSTATUS(status), WTERMSIG(status));
 	}
 	return (0);
 }
@@ -173,7 +175,7 @@ int	run_cmd(t_infos *info, t_cmd *str)
 				signal(SIGINT, SIG_DFL);
 				signal(SIGQUIT, SIG_DFL);
 				connect_fd(current, info);
-				printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
+				// printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
 				if (check_if_builtin(current) == 1) 	// if builtin
 					g_status = exec_builtin(current, info);
 				else // if library
@@ -185,7 +187,7 @@ int	run_cmd(t_infos *info, t_cmd *str)
 				if (current->next == NULL)
 				{
 					last_pid = pid;
-					printf(RED"last_pid is [%d]\n"RES, last_pid);
+					// printf(RED"last_pid is [%d]\n"RES, last_pid);
 				}
 					
 				if (current->fd_out > 1)
@@ -201,8 +203,8 @@ int	run_cmd(t_infos *info, t_cmd *str)
 			g_status = WEXITSTATUS(status);
 		if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
 			g_status = 128 + WTERMSIG(status);
-		printf(BLU"child process exit status is %d, g_status %d, last_pid is %d\n"RES, status, g_status, last_pid);
-		printf(BLU"WIFEXITED(status) || WIFSIGNALED(status), WEXITSTATUS(status), WSTOPSIG(status), SIGINT, SIGQUIT %d %d %d %d %d %d \n"RES, WIFEXITED(status), WIFSIGNALED(status), WEXITSTATUS(status), WSTOPSIG(status), SIGINT, SIGQUIT);
+		// printf(BLU"child process exit status is %d, g_status %d, last_pid is %d\n"RES, status, g_status, last_pid);
+		// printf(BLU"WIFEXITED(status) || WIFSIGNALED(status), WEXITSTATUS(status), WSTOPSIG(status), SIGINT, SIGQUIT %d %d %d %d %d %d \n"RES, WIFEXITED(status), WIFSIGNALED(status), WEXITSTATUS(status), WSTOPSIG(status), SIGINT, SIGQUIT);
 		current = str;
 		while (current->next)
 		{

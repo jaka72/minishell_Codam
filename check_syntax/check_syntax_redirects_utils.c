@@ -37,8 +37,6 @@ void skip_alphas_spaces_pipes(t_source *src)
 	}
 }
 
-
-
 int	is_space_alpha_or_pipe(t_source *src, int *c)
 {
 	skip_alphas_spaces_pipes(src);
@@ -53,13 +51,13 @@ int	is_space_alpha_or_pipe(t_source *src, int *c)
 	return (0);
 }
 
-
 int	check_char_after_space(t_source *src, int *c)
 {
 	src->currpos += 2;
 	skip_white_spaces(src);
 	if (src->inputline[src->currpos + 1] == '<'
-		|| src->inputline[src->currpos + 1] == '>')	//  <<  < 
+		|| src->inputline[src->currpos + 1] == '>'	//  <<  < 
+		|| src->inputline[src->currpos + 1] == '\0')
 		return (1);
 	else if (ft_isalpha(src->inputline[src->currpos + 1]))	//  <<  abc
 	{
