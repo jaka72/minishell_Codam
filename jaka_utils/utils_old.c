@@ -6,7 +6,7 @@
 
 int	print_err_msg(char *err_msg)
 {
-	//printf("\nMinishell: %s\n", err_msg);
+	// printf("\nMinishell: %s\n", err_msg);
 	write(2, "\nMinishel: ", 11);
 	write(2, err_msg, ft_strlen(err_msg));
 	write(2, "\n", 1);
@@ -25,9 +25,12 @@ int	is_allowed_char(int c) // CHANGE TO "SUPORTED CHAR"
 {
 	if (c >= 33 && c <= 126)
 	{	
+//		if (c == '(' || c == ')' || c == ';' || c == '\\')
+//			return (0); // 0 == error
 		return (1);		// 1 == valid
 	}
-	return (0);		// 0 == error
+	else
+		return (0);
 }
 
 
@@ -39,9 +42,29 @@ int	is_valid_filename_char(int c)
 	{
 		if (c == '<' || c == '>' || c == '|')
 			return (0); // 0 == invalid
+	;
 	}
+	//printf("Valid [%d]\n", c);
 	return (1);	// 1== valid
 }
+
+
+// APPARENTLY NOT USED ANYMORE. REPLACED BY currpos++
+// char get_next_char(t_source *src)
+// {
+// 	if (!src || !src->inputline)
+// 	{
+// 		return (NOINPUT);
+// 	}
+// 	src->currpos++;
+// 	if (src->currpos >= src->inputline_size)
+// 	{
+// 		src->currpos = src->inputline_size;
+// 		return ENDOFLINE;
+// 	}
+// 	return src->inputline[src->currpos];
+// }
+
 
 char peek_next_char(t_source *src)
 {
@@ -70,6 +93,9 @@ void skip_white_spaces(t_source *src)
 
 	if (src == NULL || src->inputline == NULL)
 		return;
+
 	while (((c = peek_next_char(src)) != ENDOFLINE) && (isspace(c)))
+		//get_next_char(src);		// probably can just be currpos++
 		src->currpos++;
+
 }

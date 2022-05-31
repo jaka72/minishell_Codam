@@ -108,6 +108,7 @@ int	ms_execve(t_infos *info, t_cmd *str)
 	exit(127);
 	}
 
+// int exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
 int exec_no_pipe(t_infos *info, t_cmd *current)
 {
 	pid_t	pid;
@@ -118,7 +119,8 @@ int exec_no_pipe(t_infos *info, t_cmd *current)
 	if (check_if_builtin(current) == 1) 	// if builtin
 	{
 		//printf(BLU"no pipe and this is builtin!\n"RES);
-		exec_builtin(current, info);
+		//g_status = exec_builtin(current, info, str);	// jaka: added third arg, to fix exit
+		g_status = exec_builtin(current, info);	// jaka: added third arg, to fix exit
 	}
 	else // if library
 	{
@@ -153,6 +155,7 @@ int	run_cmd(t_infos *info, t_cmd *str)
 	current = str;
 	status = 0;
 	if (current->next == NULL)
+		// exec_no_pipe(info, current, str);	// jaka: added third arg, to fix exit
 		exec_no_pipe(info, current);
 	else  // with pipe
 	{
@@ -177,7 +180,8 @@ int	run_cmd(t_infos *info, t_cmd *str)
 				connect_fd(current, info);
 				// printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
 				if (check_if_builtin(current) == 1) 	// if builtin
-					g_status = exec_builtin(current, info);
+					//g_status = exec_builtin(current, info, str);	// jaka: added third arg, to fix exit
+					g_status = exec_builtin(current, info);	// jaka: added third arg, to fix exit
 				else // if library
 					ms_execve(info, current);
 				exit (0);  // in case of builtin, it should be quit
