@@ -1,0 +1,5 @@
+echo ~
+echo ~/123
+echo ~/123/456
+echo " $USER  \$  "'$PWD'
+echo " $USER  \\$ "'$PWD'

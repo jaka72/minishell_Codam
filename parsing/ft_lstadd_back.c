@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pwd.c                                              :+:    :+:            */
+/*   ft_lstadd_back.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/05/31 12:43:45 by jaka          #+#    #+#                 */
-/*   Updated: 2022/05/31 12:44:29 by jaka          ########   odam.nl         */
+/*   Created: 2022/05/31 13:18:57 by jaka          #+#    #+#                 */
+/*   Updated: 2022/06/01 10:06:19 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+// #include "../minishell.h"
+#include "make_commands.h"
 
-// free(current_path); // DOES IT NEED TO BE FREED ???
-int	run_pwd_builtin(void)
+void	ft_lstadd_back(t_cmd **list, t_cmd *newnode)
 {
-	char	buff[PATH_MAX];
-	char	*current_path;
+	t_cmd	*temp;
 
-	current_path = getcwd(buff, PATH_MAX);
-	if (current_path == NULL)
-		return (1);
-	else
+	if (!*list)
 	{
-		write(1, current_path, ft_strlen(current_path));
-		write(1, "\n", 1);
-		return (0);
+		newnode->next = NULL;
+		*list = newnode;
+		return ;
 	}
+	temp = *list;
+	while (temp->next)
+	{
+		temp = temp->next;
+	}
+	temp->next = newnode;
+	newnode->next = NULL;
 }

@@ -17,6 +17,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void) argc;
 	(void) argv;
+	src.inputline = NULL;
 	ms_init(&info, envp);
 	free_and_read(&src, &info, 0);
 	while (src.inputline)

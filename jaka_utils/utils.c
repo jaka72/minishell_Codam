@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   utils.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/01 10:42:48 by jmurovec      #+#    #+#                 */
+/*   Updated: 2022/06/01 10:44:21 by jmurovec      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "utils.h"
 
-
-//  BOTH SYNTAX AND MAKECOMMANDS NEED TO HAVE ACCESS TO FOLDER jaka_utils TO READ
+//  BOTH SYNTAX AND MAKECOMMANDS NEED TO HAVE ACCESS TO 
+//							FOLDER jaka_utils TO READ
 //	THE FILE utils.c, WITH FUNCTIONS SUCH AS get_next_char()
-
 int	print_err_msg(char *err_msg)
 {
 	//printf("\nMinishell: %s\n", err_msg);
@@ -14,23 +25,20 @@ int	print_err_msg(char *err_msg)
 	return (SYNTAX_ERROR);
 }
 
-
-
 // IF IT FINDS \ ) ( OR ; 
 // IT ALREADY EXITS IN CHECK FOR QUOTES
 ///// PROBABLY HERE NOT NEEDED TO CHECK FOR INVALID  CHARS \ ( )
 ///// BECAUSE IF THEY APPEAR INSIDE QUOTES, THEY SHOULD BE VALID
-///// IT IS ALREADY CHECKED WHEN CHECKING FOR CORRECT "QUOTES" 
-int	is_allowed_char(int c) // CHANGE TO "SUPORTED CHAR"
+///// IT IS ALREADY CHECKED WHEN CHECKING FOR CORRECT "QUOTES"
+// 1 == valid, 0== invalid
+int	is_allowed_char(int c)
 {
 	if (c >= 33 && c <= 126)
 	{	
-		return (1);		// 1 == valid
+		return (1);
 	}
-	return (0);		// 0 == error
+	return (0);
 }
-
-
 
 // HERE, IF I BLOCK THE if, THEN I CORRUPT PIPES: ls | wc
 int	is_valid_filename_char(int c)
@@ -60,7 +68,6 @@ char peek_next_char(t_source *src)
 	}
 	return src->inputline[pos];
 }
-
 
 // RETURNS THE NEW currpos ON THE
 // LAST WHITE SPACE BEFORE THE NEXT CHAR
