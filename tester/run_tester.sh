@@ -24,11 +24,11 @@ cd ./tester
 # bash test_output_cat.sh
 
 
-bash test_syntax_redirs.sh
+# bash test_syntax_redirs.sh		## some issues with output, neeed to check
 
 #bash test_output_various.sh
 
-#bash test_output_echo.sh
+bash test_output_echo.sh
 
 
 

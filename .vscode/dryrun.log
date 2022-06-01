@@ -1,5 +1,5 @@
 make --dry-run --keep-going --print-directory
-make: Entering directory '/media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_main_cleaning_00'
+make: Entering directory '/media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_01_jun_00'
 mkdir -p obj_dir/ obj_dir/util/
 mkdir -p obj_dir/ obj_dir/init/ 
 mkdir -p obj_dir/ obj_dir/exec/
@@ -9,5 +9,5 @@ mkdir -p obj_dir/ obj_dir/parsing/
 mkdir -p obj_dir/ obj_dir/builtins/
 mkdir -p obj_dir/ obj_dir/jaka_utils/
  
-make: Leaving directory '/media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_main_cleaning_00'
+make: Leaving directory '/media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_01_jun_00'
  

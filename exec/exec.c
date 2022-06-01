@@ -81,29 +81,25 @@ int	ms_execve(t_infos *info, t_cmd *str)
 	char	**envs;
 	char	*path;
 
-	write(2, "A minishell: ", 13);
-
 	envs = get_env_array(info->start_env);
 	if (envs == NULL)
 		return (-1);
 	path = ft_findshell_pass(str->args[0], envs);
-
-	printf(MAG"ms_execve(): command: str[0]: [%s] \n"RES, str->args[0]);
+	//printf(MAG"ms_execve(): command: str[0]: [%s] \n"RES, str->args[0]);
 	if (path == NULL || str->args[0][0] == '\0')	// check the command is exist
 	{
-		write(2, "minishell: ", 11);
+		write(2, "minishell: ", 11);	// added Jaka: more like Bash message
 		if (ft_strchr(str->args[0], '/') != NULL)
 		{
 			write(2, str->args[0], ft_strlen(str->args[0]));
-			write(2, ": No such file or directory\n", 29);	
+			// write(2, ": No such file or directory\n", 29);	
+			write(2, ": No such file or directory\n", 28);	
 		}
 		else
 		{
 			write(2, str->args[0], ft_strlen(str->args[0]));
 			write(2, ": command not found\n", 21);
 		}
-		write(2, "B minishell: ", 13);
-
 		exit(127);
 	}
 	printf("first!\n");
@@ -119,6 +115,7 @@ int exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
 	pid_t	pid;
 	int		status;
 
+	//printf(BLU"exec_no_pipe!\n"RES);
 	current->args = expand_array(current->args, info);
 	connect_fd(current, info);
 	if (check_if_builtin(current) == 1) 	// if builtin
@@ -129,11 +126,11 @@ int exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
 	}
 	else // if library
 	{
-		// printf(BLU"no pipe and this is library!\n"RES);
+		//printf(BLU"no pipe and this is library!\n"RES);
 		pid = fork();
 		if (pid == 0)
 		{
-			// printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
+			//printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
 			ms_execve(info, current);	

@@ -1,10 +1,16 @@
 #include "minishell.h"
 
 /*
-NOTES, ISSUES
+// NOTES, ISSUES ////////////////////////////////////////////////////
+
+Cases like:  < asdqwe   or    < nopermissionfile
+	It should not exit, just print error
+	I added a similar function like errtext_exit. But it probably needs to 
+		return to all the previous calls.
 
 
 */
+
 void	free_and_read(t_source *src, t_infos *info, int history)
 {
 	if (history == 1)
@@ -24,7 +30,7 @@ int	main(int argc, char *argv[], char *envp[])
 	t_source	src;
 	t_cmd		*cmd_list;
 	t_infos		info;
-	char		*line;
+	//char		*line;
 
 	(void) argc;
 	(void) argv;
@@ -66,7 +72,7 @@ int	main(int argc, char *argv[], char *envp[])
 					free_and_read(&src, &info, 1);
 					continue ;
 				}
-				add_history(line);
+				add_history(src.inputline);
 				cmd_list = make_commands(&src);
 				g_status = run_cmd(&info, cmd_list);
 				free_commands_list(cmd_list);	

@@ -13,7 +13,8 @@ void	check_infile_fd(t_cmd *str, t_infos *info)
 		{
 			str->infile[i] = check_expand(info, str->infile[i]);
 			if (access(str->infile[i], F_OK) != 0)
-				errtext_exit("infile not exist\n");
+				errtext_return("infile not exist\n");	// jaka: added new function. It must not exit, just return
+				//errtext_exit("infile not exist\n");
 			if (access(str->infile[i], F_OK) == 0 && access(str->infile[i], R_OK) < 0)
 				errtext_exit("can't access infile\n");
 			i++;

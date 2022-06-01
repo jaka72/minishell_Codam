@@ -70,7 +70,8 @@ typedef struct s_source
 
 // util/error.c
 void	errtext_exit(char *text);
-void	free_envlist(t_infos *infos);
+int		errtext_return(char *text);	// added jaka, 1 jun, for cases like < qweasd, must not exit, just return
+void	free_envlist(t_infos *infos);//						Needs to return to all previous calls
 int		free_strings(char **strs);
 void	free_tcmd(t_cmd *cmds);
 void	err_free_env_exit(t_infos *infos, char *text);
