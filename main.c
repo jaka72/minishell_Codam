@@ -20,7 +20,7 @@ int	main(int argc, char *argv[], char *envp[])
 	src.inputline = NULL;
 	ms_init(&info, envp);
 	free_and_read(&src, &info, 0);
-	//printf(GRN"A)\n"RES);
+	//printf(GRN"main)  cmd->args[0]: [%s]\n"RES, cmd_list->args);
 	while (src.inputline)
 	{
 		if (ft_strlen(src.inputline) > 0)

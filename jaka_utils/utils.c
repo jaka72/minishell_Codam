@@ -6,11 +6,35 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 10:42:48 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/02 11:54:00 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/02 18:42:53 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+
+
+
+int	count_args(t_cmd *cmd)
+{
+	int	i;
+
+	printf(GRN"count args a) \n"RES);
+
+	// MAYBE THE cmd->args HAS TO FIRST BE SET TO NULL, SO THE COUNTER DOES NOT 
+	//	CAUSE SEGFAULT ???
+
+	if (cmd->args == NULL) // not good, still segfault
+		return (0);
+
+	printf(GRN"count args b) \n"RES);
+	i = 0;
+	while (cmd->args[i])
+		i++;
+	return (i);
+}
+
+
+
 
 //  BOTH SYNTAX AND MAKECOMMANDS NEED TO HAVE ACCESS TO 
 //							FOLDER jaka_utils TO READ

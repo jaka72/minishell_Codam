@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 14:40:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/05/31 14:47:29 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/02 17:47:31 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	free_arr_args_and_infile(t_cmd *cmd)
 	i = 0;
 	if (cmd->args != NULL)
 	{
-		while (i < cmd->count_args)
+		while (i < count_args(cmd))
 		{
 			free(cmd->args[i]);
 			i++;

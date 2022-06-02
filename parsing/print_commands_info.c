@@ -5,7 +5,7 @@ void print_command_info(t_cmd *cmd)
 {
 	int i = 0;
 	printf(WHT2"  Command  array: "RES);
-	while (i < cmd->count_args)
+	while (i < count_args(cmd))
 	{
 		printf(DYEL" [%s%s%s] "RES, MAG, cmd->args[i], DYEL);
 		i++;

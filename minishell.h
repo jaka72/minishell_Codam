@@ -128,6 +128,12 @@ char	*ft_findshell_pass(char *cmd, char *envp[]);
 int		ms_execve(t_infos *info, t_cmd *str);	// changed jaka
 int		run_cmd(t_infos *info, t_cmd *str);
 
+
+// added jaka: to count the array of arguments:
+int		count_args(t_cmd *cmd);
+
+
+
 // main.c
 // char	*free_and_read(char *line, t_infos *info);
 

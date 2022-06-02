@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:39:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/02 11:35:27 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/02 18:47:41 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,24 @@ t_cmd	*make_commands(t_source *src)
 	while (1)
 	{
 		new_cmd = malloc(sizeof(t_cmd));
+		if (new_cmd == NULL)
+			exit (1); // some message and free all !!!
+		
+		// AT START, IMEDDIATELY AFTER MALLOCING, THE STRUCT IS APPARENTLY NULL
+		printf(YEL"make commands a) \n"RES);
+		if (new_cmd->args == 0)
+			printf(YEL"    is zero: newcmd->args [%p]\n"RES, new_cmd->args);
+		if (new_cmd->args == NULL)
+			printf(YEL"    is zero: newcmd->args [%p]\n"RES, new_cmd->args);
+		//printf(YEL"    newcmd->args [%s]\n"RES, new_cmd->args);
+		
+
 		ret = select_and_store_words(src, new_cmd);
-		// print_command_info(new_cmd);
+		
+		
+		//print_command_info(new_cmd);
+		
+		
 		if (ret == 1)
 		{
 			ft_lstadd_back(&first_cmd, new_cmd);

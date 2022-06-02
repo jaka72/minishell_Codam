@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 12:41:35 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/02 17:28:50 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/02 17:39:25 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ void	check_line_and_print(t_cmd *cmd, int *flagw, int *i)
 		*flagw = 1;
 }
 
-int	count_args(t_cmd *cmd)
-{
-	int	i;
+// int	count_args(t_cmd *cmd)
+// {
+// 	int	i;
 
-	i = 0;
-	while (cmd->args[i])
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	while (cmd->args[i])
+// 		i++;
+// 	return (i);
+// }
 
 
 
