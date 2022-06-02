@@ -26,6 +26,12 @@ void	handle_sigquit_p(int num)
 	write(STDOUT_FILENO, "Quit: 3\n", 8);
 }
 
+void	handle_sigquit_hd(int num)
+{
+	(void) num;
+	write(STDOUT_FILENO, "\b\b  \b\b", 6);
+}
+
 void	ms_init(t_infos *info, char *envp[])
 {
 	int	rc;
