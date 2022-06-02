@@ -89,6 +89,7 @@ void	handle_sigquit(int num);
 void	handle_sigint_p(int num);
 void	handle_sigquit_p(int num);
 void	handle_sigquit_instd(int num);
+void	handle_sigquit_hd(int num);
 void	ms_init(t_infos *info, char *envp[]);
 
 // init/env.c
@@ -107,7 +108,6 @@ char	**expand_array(char **args, t_infos *info);
 
 // file/heredoc.c
 char	*addtext_free(char *s1, char *s2, int *num);
-char	*check_limiter(char *buff, char *limiter);
 char	*write_free(int fd, char *checklimit);
 int		get_heredoc(char *limiter, int fd_out, t_infos *info);
 int		make_heredoc(char *limiter, t_infos *info);

@@ -108,8 +108,6 @@ int exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
 	int		status;
 
 	current->args = expand_array(current->args, info);
-	// if (current->fd_in == -3)
-	// 	signal(SIGINT, handle_sigint);
 	connect_hd(current, info);
 	connect_fd(current, info);
 
@@ -122,8 +120,6 @@ int exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
 		{
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
-			// if (current->fd_in == -3)
-			// 	signal(SIGINT, handle_sigint);
 			ms_execve(info, current);	
 		}
 		waitpid(pid, &status, WUNTRACED | WCONTINUED);
@@ -155,10 +151,6 @@ int	run_cmd(t_infos *info, t_cmd *str)
 	{
 		while (current)
 		{
-			// if (current->fd_in == -3)
-			// 	signal(SIGQUIT, handle_sigquit);
-			// else
-			// 	signal(SIGQUIT, handle_sigquit_p);
 			if (current != str)
 				g_status = 0;
 			current->args = expand_array(current->args, info);
@@ -167,12 +159,6 @@ int	run_cmd(t_infos *info, t_cmd *str)
 			pid = fork();
 			if (pid == 0)
 			{
-				// signal(SIGINT, SIG_DFL);
-				// signal(SIGQUIT, SIG_DFL);
-				// if (current->fd_in == -3)
-				// 	signal(SIGQUIT, handle_sigquit);
-				// else
-				// 	signal(SIGQUIT, SIG_DFL);
 				if (oldpipe != 0)
 				{
 					dup2(oldpipe, 0);
