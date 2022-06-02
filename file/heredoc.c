@@ -63,63 +63,113 @@ char	*write_free(int fd, char *checklimit)
 
 int	get_heredoc(char *limiter, int fd_out, t_infos *info)
 {
-	char	*checklimit;
-	char	buff_last[2];
+	char	buff[1];
 	int		rd;
 	char	*exp;
 
-	buff_last[1] = '\n';
-	checklimit = NULL;
 	rd = 1;
-	exp = NULL;
+	exp = malloc(sizeof(char) * 1);
+	if (exp == NULL)
+		errtext_exit("malloc failed\n");
+	exp[0] = '\0';
 	write(info->ini_fd[1], "> ", 2);
 	while (rd == 1)
 	{
-		rd = read(info->ini_fd[0], buff_last, 1);
+		rd = read(info->ini_fd[0], buff, 1);
 		if (rd < 0)
 			errtext_exit("read heredoc failed\n");
-		if (rd > 0 && buff_last[0] == '\n')
-			write(info->ini_fd[1], "> ", 2);
-		if (buff_last[1] == '\n' && buff_last[0] == limiter[0])
+		if (rd > 0 && buff[0] != '\n' && rd > 0 && buff[0] != ' ')
+			exp = ft_add_c_free(exp, buff[0]);
+		else if (rd > 0 && buff[0] == '\n')
 		{
-			checklimit = check_limiter(buff_last, limiter);
-			if (checklimit == NULL)
+			if (ft_strncmp(exp, limiter, ft_strlen(exp)) == 0)
 				break ;
-			checklimit = check_expand(info, checklimit);
-			checklimit = write_free(fd_out, checklimit);
-		}
-		// if $ shows up, check the env
-		if (buff_last[0] == '$')
-		{
-			exp = malloc(sizeof(char) * 2);
+			exp = check_expand_hd(info, exp);
+			exp = ft_add_c_free(exp, buff[0]);
+			write(fd_out, exp, ft_strlen(exp));
+			free(exp);
+			exp = malloc(sizeof(char) * 1);
 			if (exp == NULL)
 				errtext_exit("malloc failed\n");
-			exp[0] = '$';
-			exp[1] = '\0';
+			exp[0] = '\0';
+			write(info->ini_fd[1], "> ", 2);
 		}
-		else if (exp != NULL)
+		else if (rd > 0 && buff[0] == ' ')
 		{
-			if (buff_last[0] == '\n' || buff_last[0] == ' ' || buff_last[0] == '\0')
-			{
-				exp = check_expand(info, exp);
-				if (exp)
-				{
-					write(fd_out, exp, ft_strlen(exp));
-					free(exp);
-				}
-				exp = NULL;
-				if (buff_last[0] == '\n' || buff_last[0] == ' ')
-					write(fd_out, buff_last, 1);
-			}
-			else
-				exp = ft_add_c_free(exp, buff_last[0]);
+			exp = check_expand_hd(info, exp);
+			exp = ft_add_c_free(exp, buff[0]);
+			write(fd_out, exp, ft_strlen(exp));
+			free(exp);
+			exp = malloc(sizeof(char) * 1);
+			if (exp == NULL)
+				errtext_exit("malloc failed\n");
+			exp[0] = '\0';
 		}
-		else if (exp == NULL)
-			write(fd_out, buff_last, 1);
-		buff_last[1] = buff_last[0];
 	}
+	free(exp);
 	return (0);
 }
+
+
+// int	get_heredoc(char *limiter, int fd_out, t_infos *info)
+// {
+// 	char	*checklimit;
+// 	char	buff_last[2];
+// 	int		rd;
+// 	char	*exp;
+
+// 	buff_last[1] = '\n';
+// 	checklimit = NULL;
+// 	rd = 1;
+// 	exp = NULL;
+// 	write(info->ini_fd[1], "> ", 2);
+// 	while (rd == 1)
+// 	{
+// 		rd = read(info->ini_fd[0], buff_last, 1);
+// 		if (rd < 0)
+// 			errtext_exit("read heredoc failed\n");
+// 		if (rd > 0 && buff_last[0] == '\n')
+// 			write(info->ini_fd[1], "> ", 2);
+// 		if (buff_last[1] == '\n' && buff_last[0] == limiter[0])
+// 		{
+// 			checklimit = check_limiter(buff_last, limiter);
+// 			if (checklimit == NULL)
+// 				break ;
+// 			checklimit = check_expand_hd(info, checklimit);
+// 			checklimit = write_free(fd_out, checklimit);
+// 		}
+// 		// if $ shows up, check the env
+// 		if (buff_last[0] == '$')
+// 		{
+// 			exp = malloc(sizeof(char) * 2);
+// 			if (exp == NULL)
+// 				errtext_exit("malloc failed\n");
+// 			exp[0] = '$';
+// 			exp[1] = '\0';
+// 		}
+// 		else if (exp != NULL)
+// 		{
+// 			if (buff_last[0] == '\n' || buff_last[0] == ' ' || buff_last[0] == '\0')
+// 			{
+// 				exp = check_expand_hd(info, exp);
+// 				if (exp)
+// 				{
+// 					write(fd_out, exp, ft_strlen(exp));
+// 					free(exp);
+// 				}
+// 				exp = NULL;
+// 				if (buff_last[0] == '\n' || buff_last[0] == ' ')
+// 					write(fd_out, buff_last, 1);
+// 			}
+// 			else
+// 				exp = ft_add_c_free(exp, buff_last[0]);
+// 		}
+// 		else if (exp == NULL)
+// 			write(fd_out, buff_last, 1);
+// 		buff_last[1] = buff_last[0];
+// 	}
+// 	return (0);
+// }
 
 int	make_heredoc(char *limiter, t_infos *info)
 {
