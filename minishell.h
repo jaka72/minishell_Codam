@@ -86,6 +86,8 @@ int	clean_data(int status, t_infos *info, char *text);
 // init/init.c
 void	handle_sigint(int num);
 void	handle_sigquit(int num);
+void	handle_sigint_p(int num);
+void	handle_sigquit_p(int num);
 void	handle_sigquit_instd(int num);
 void	ms_init(t_infos *info, char *envp[]);
 
@@ -111,10 +113,11 @@ int		make_heredoc(char *limiter, t_infos *info);
 
 // exec/fd.c
 void	check_infile_fd(t_cmd *str, t_infos *info);
-void	check_heredoc_fd(t_cmd *str, t_infos *info);
+int		check_heredoc_fd(t_cmd *str, t_infos *info);
 void	check_outfile_fd(t_cmd *str, t_infos *info);
 t_cmd	*manage_in_out(t_cmd *str, t_infos *info);
 void	connect_fd(t_cmd *current, t_infos *info);
+void	connect_hd(t_cmd *current, t_infos *info);
 void	reset_fd(t_infos *info);
 
 // exec/exec.c
