@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu May 26 15:20:05 2022
+# Make data base, printed on Wed Jun  1 18:11:58 2022
 
 # Variables
 
@@ -18,11 +18,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 DESKTOP_SESSION = cinnamon
 # default
 .SHELLFLAGS := -c
-# makefile (from 'Makefile', line 119)
+# makefile (from 'Makefile', line 100)
 OBJ = $(UTIL_OBJ) $(INIT_OBJ) $(EXEC_OBJ) $(FILE_OBJ) $(SYNTAX_OBJ) $(PARSING_OBJ) $(BUILTINS_OBJ) $(JAKA_UTILS_OBJ) $(MAIN_OBJ)
 # environment
 XDG_SESSION_CLASS = user
-# makefile (from 'Makefile', line 104)
+# makefile (from 'Makefile', line 89)
 JAKA_UTILS_DIR = ./jaka_utils
 # environment
 SNAP_COMMON = /var/snap/code/common
@@ -43,9 +43,9 @@ GDMSESSION = cinnamon
 # default
 MAKE_VERSION := 4.2.1
 # makefile
-CURDIR := /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_trial_26may_00
-# makefile (from 'Makefile', line 73)
-PARSING_SRC = $(PARSING_DIR)/make_commands_removing_realloc.c $(PARSING_DIR)/make_commands_utils.c $(PARSING_DIR)/free_commands_list.c $(PARSING_DIR)/print_commands_info.c
+CURDIR := /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_01_jun_00
+# makefile (from 'Makefile', line 66)
+PARSING_SRC = $(PARSING_DIR)/make_commands.c $(PARSING_DIR)/make_commands_utils.c $(PARSING_DIR)/choose_correct_array.c $(PARSING_DIR)/store_to_redirect_arr.c $(PARSING_DIR)/free_commands_list.c $(PARSING_DIR)/ft_lstadd_back.c $(PARSING_DIR)/print_commands_info.c		
 # makefile
 SHELL = /bin/sh
 # environment
@@ -56,7 +56,7 @@ GDM_LANG = en_US
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /snap/code/97/usr/share/code/code
-# makefile (from 'Makefile', line 131)
+# makefile (from 'Makefile', line 112)
 CFLAGS = -Wall -Wextra -Werror 
 # makefile (from 'Makefile', line 29)
 UTIL_SRC = $(UTIL_DIR)/error.c $(UTIL_DIR)/util.c
@@ -70,21 +70,21 @@ SNAP_ARCH = amd64
 GTK_OVERLAY_SCROLLING = 1
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
-# makefile (from 'Makefile', line 93)
-BUILTINS_SRC = $(BUILTINS_DIR)/echo.c $(BUILTINS_DIR)/pwd.c $(BUILTINS_DIR)/cd.c $(BUILTINS_DIR)/exit.c $(BUILTINS_DIR)/export.c $(BUILTINS_DIR)/env.c $(BUILTINS_DIR)/unset.c	 
-# makefile (from 'Makefile', line 113)
+# makefile (from 'Makefile', line 77)
+BUILTINS_SRC = $(BUILTINS_DIR)/echo.c $(BUILTINS_DIR)/pwd.c $(BUILTINS_DIR)/cd.c $(BUILTINS_DIR)/cd_utils.c $(BUILTINS_DIR)/exit.c $(BUILTINS_DIR)/export.c $(BUILTINS_DIR)/env.c $(BUILTINS_DIR)/unset.c	 
+# makefile (from 'Makefile', line 98)
 MAIN_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(MAIN_SRC:.c=.o))
 # automatic
 @F = $(notdir $@)
 # environment
 GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code.desktop
-# makefile (from 'Makefile', line 54)
+# makefile (from 'Makefile', line 48)
 FILE_SRC = $(FILE_DIR)/heredoc.c						
-# makefile (from 'Makefile', line 71)
+# makefile (from 'Makefile', line 65)
 PARSING_DIR = ./parsing
 # 'override' directive
 GNUMAKEFLAGS := 
-# makefile (from 'Makefile', line 6)
+# makefile (from 'Makefile', line 5)
 OBJ_DIR = obj_dir
 # environment
 MANDATORY_PATH = /usr/share/gconf/cinnamon.mandatory.path
@@ -98,17 +98,17 @@ VSCODE_VERBOSE_LOGGING = true
 UTIL_DIR = util
 # makefile (from 'Makefile', line 2)
 BONUS = minishell_bonus
-# makefile (from 'Makefile', line 92)
+# makefile (from 'Makefile', line 76)
 BUILTINS_DIR = ./builtins
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 LC_NAME = nl_NL.UTF-8
-# makefile (from 'Makefile', line 105)
-JAKA_UTILS_SRC = $(JAKA_UTILS_DIR)/utils.c $(JAKA_UTILS_DIR)/from_libft.c
+# makefile (from 'Makefile', line 90)
+JAKA_UTILS_SRC = $(JAKA_UTILS_DIR)/utils.c
 # environment
 VSCODE_CWD = /home/jaka
-# makefile (from 'Makefile', line 53)
+# makefile (from 'Makefile', line 47)
 FILE_DIR = ./file
 # environment
 XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session0
@@ -117,20 +117,18 @@ GSETTINGS_SCHEMA_DIR = /snap/code/97/usr/share/glib-2.0/schemas
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/jaka/.local/bin:/home/jaka/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PATH = /home/jaka/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
-# makefile (from 'Makefile', line 9)
-LIBFT_SRC = $(LIBFT_DIR)/ft_memset.c $(LIBFT_DIR)/ft_strlen.c $(LIBFT_DIR)/ft_isalpha.c $(LIBFT_DIR)/ft_isspace.c $(LIBFT_DIR)/ft_memcpy.c $(LIBFT_DIR)/ft_memccpy.c $(LIBFT_DIR)/ft_strchr.c $(LIBFT_DIR)/ft_strncmp.c $(LIBFT_DIR)/ft_strdup.c $(LIBFT_DIR)/ft_strjoin.c $(LIBFT_DIR)/ft_strjoin_free.c $(LIBFT_DIR)/ft_strlcpy.c $(LIBFT_DIR)/ft_itoa.c $(LIBFT_DIR)/ft_split.c $(LIBFT_DIR)/ft_add_str.c
 # environment
-SESSION_MANAGER = local/jaka-HP-Linux:@/tmp/.ICE-unix/1784,unix/jaka-HP-Linux:/tmp/.ICE-unix/1784
+SESSION_MANAGER = local/jaka-HP-Linux:@/tmp/.ICE-unix/1800,unix/jaka-HP-Linux:/tmp/.ICE-unix/1800
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/jaka/snap/code/common/.cache/gdk-pixbuf-loaders.cache
 # environment
 SNAP = /snap/code/97
-# makefile (from 'Makefile', line 43)
+# makefile (from 'Makefile', line 42)
 EXEC_SRC = $(EXEC_DIR)/exec.c $(EXEC_DIR)/fd.c	
 # environment
 SNAP_VERSION = c3511e6c
@@ -144,7 +142,7 @@ ELECTRON_RUN_AS_NODE = 1
 GDK_PIXBUF_MODULEDIR = /snap/code/97/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
-# makefile (from 'Makefile', line 8)
+# makefile (from 'Makefile', line 7)
 LIBFT_DIR = ./libft
 # environment
 XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/jaka
@@ -157,12 +155,12 @@ XDG_SESSION_DESKTOP = cinnamon
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 288847
+GIO_LAUNCHED_DESKTOP_FILE_PID = 46200
 # automatic
 %F = $(notdir $%)
 # environment
 DISPLAY = :0
-# makefile (from 'Makefile', line 42)
+# makefile (from 'Makefile', line 41)
 EXEC_DIR = ./exec
 # environment
 VISUAL = code
@@ -170,10 +168,10 @@ VISUAL = code
 VSCODE_PIPE_LOGGING = true
 # environment
 SNAP_INSTANCE_KEY = 
-# makefile (from 'Makefile', line 112)
-MAIN_SRC = testmain.c
+# makefile (from 'Makefile', line 96)
+MAIN_SRC = testmain_jaka.c
 # environment
-PWD = /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_trial_26may_00
+PWD = /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_01_jun_00
 # environment
 QT_QPA_PLATFORMTHEME = qt5ct
 # default
@@ -181,7 +179,7 @@ QT_QPA_PLATFORMTHEME = qt5ct
 # environment
 XDG_SEAT = seat0
 # environment
-SSH_AGENT_PID = 1873
+SSH_AGENT_PID = 1891
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = X-Cinnamon
 # environment
@@ -206,7 +204,7 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 SNAP_CONTEXT = SSoTog8zHAs3Urh521we7lSVSyp7dj1tz2h7fWYXRZrCU8-8Vvlk
 # automatic
 +F = $(notdir $+)
-# makefile (from 'Makefile', line 67)
+# makefile (from 'Makefile', line 61)
 SYNTAX_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(SYNTAX_SRC:.c=.o))
 # makefile (from 'Makefile', line 38)
 INIT_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(INIT_SRC:.c=.o))
@@ -222,17 +220,17 @@ GNOME_DESKTOP_SESSION_ID = this-is-deprecated
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
 XDG_VTNR = 7
-# makefile (from 'Makefile', line 58)
+# makefile (from 'Makefile', line 52)
 FILE_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(FILE_SRC:.c=.o))
 # environment
 MAKELEVEL := 0
 # environment
 SNAP_REAL_HOME = /home/jaka
-# makefile (from 'Makefile', line 133)
+# makefile (from 'Makefile', line 114)
 RLFLAG = $(shell brew --prefix readline)
 # default
 MAKE = $(MAKE_COMMAND)
-# makefile (from 'Makefile', line 107)
+# makefile (from 'Makefile', line 92)
 JAKA_UTILS_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(JAKA_UTILS_SRC:.c=.o))
 # default
 MAKECMDGOALS := all
@@ -241,7 +239,7 @@ SNAP_USER_DATA = /home/jaka/snap/code/97
 # environment
 SHLVL = 0
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-1e35b9f1-78d1-4af2-b011-c449687f5523.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-d9cb455e-6d50-4f0a-84a6-6e42e3ad4a64.sock
 # environment
 XDG_SESSION_ID = c2
 # environment
@@ -262,7 +260,7 @@ NAME = minishell
 LC_TELEPHONE = nl_NL.UTF-8
 # default
 MAKE_COMMAND := make
-# makefile (from 'Makefile', line 77)
+# makefile (from 'Makefile', line 73)
 PARSING_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(PARSING_SRC:.c=.o))
 # default
 .VARIABLES := 
@@ -285,9 +283,8 @@ MFLAGS = -pqrR
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # automatic
- 
 +D = $(patsubst %/,%,$(dir $+))
-# makefile (from 'Makefile', line 100)
+# makefile (from 'Makefile', line 85)
 BUILTINS_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(BUILTINS_SRC:.c=.o))
 # environment
 GDK_BACKEND = x11
@@ -296,11 +293,14 @@ LIBFT_A = $(LIBFT_DIR)/libft.a
 # environment
 LC_PAPER = nl_NL.UTF-8
 # environment
+NO_AT_BRIDGE = 1
+# environment
 CINNAMON_VERSION = 4.8.5
 # environment
 LC_IDENTIFICATION = nl_NL.UTF-8
 # environment
 QT_ACCESSIBILITY = 1
+ 
 # environment
 DEFAULTS_PATH = /usr/share/gconf/cinnamon.default.path
 # default
@@ -319,23 +319,21 @@ SNAP_NAME = code
 EDITOR = code
 # environment
 LC_ALL = C
-# makefile (from 'Makefile', line 129)
+# makefile (from 'Makefile', line 110)
 HEADER = minishell.h
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
-# makefile (from 'Makefile', line 24)
-LIBFT_OBJ = $(LIBFT_SRC:%.c=%.o)
 # automatic
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
-# makefile (from 'Makefile', line 62)
+# makefile (from 'Makefile', line 56)
 SYNTAX_SRC = $(SYNTAX_DIR)/check_syntax.c $(SYNTAX_DIR)/check_syntax_quotes.c $(SYNTAX_DIR)/check_syntax_pipes.c $(SYNTAX_DIR)/check_syntax_redirects.c $(SYNTAX_DIR)/check_syntax_redirects_utils.c
 # environment
 SNAP_REEXEC = 
 # environment
 CHROME_DESKTOP = code-url-handler.desktop
-# makefile (from 'Makefile', line 45)
+# makefile (from 'Makefile', line 44)
 EXEC_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(EXEC_SRC:.c=.o))
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
@@ -348,13 +346,13 @@ LC_ADDRESS = nl_NL.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 288897
-# makefile (from 'Makefile', line 61)
+VSCODE_PID = 16869
+# makefile (from 'Makefile', line 55)
 SYNTAX_DIR = ./check_syntax
 # makefile (from 'Makefile', line 34)
 INIT_DIR = ./init
 # variable set hash-table stats:
-# Load=171/1024=17%, Rehash=0, Collisions=28/298=9%
+# Load=170/1024=17%, Rehash=0, Collisions=28/284=10%
 
 # Pattern-specific Variable Values
 
@@ -362,14 +360,14 @@ INIT_DIR = ./init
 
 # Directories
 
-# . (device 2052, inode 1126077): 27 files, no impossibilities.
+# . (device 2052, inode 1132082): 29 files, no impossibilities.
 
-# 27 files, no impossibilities in 1 directories.
+# 29 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
 obj_dir/%.o: %.c minishell.h
-#  recipe to execute (from 'Makefile', line 159):
+#  recipe to execute (from 'Makefile', line 139):
 	gcc -c $(CFLAGS) -I$(RLFLAG)/include -o $@ $<
 
 # 1 implicit rules, 0 (0.0%) terminal.
@@ -377,13 +375,19 @@ obj_dir/%.o: %.c minishell.h
 # Files
 
 # Not a target:
-libft/ft_add_str.o:
+obj_dir/./parsing/ft_lstadd_back.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
 obj_dir/util/util.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./parsing/choose_correct_array.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -396,12 +400,6 @@ obj_dir/./builtins/env.o:
 
 # Not a target:
 obj_dir/./builtins/exit.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-obj_dir/testmain.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -422,37 +420,7 @@ obj_dir/./check_syntax/check_syntax_pipes.o:
 #  File has not been updated.
 
 # Not a target:
-libft/ft_memcpy.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-libft/ft_itoa.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-libft/ft_strlen.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
 obj_dir/./file/heredoc.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-libft/ft_isspace.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-libft/ft_memset.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -465,6 +433,12 @@ obj_dir/./exec/fd.o:
 
 # Not a target:
 obj_dir/./builtins/unset.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./parsing/make_commands.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -487,26 +461,14 @@ obj_dir/./parsing/print_commands_info.o:
 #  File has not been updated.
 
 # Not a target:
-libft/ft_split.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-26 15:16:19.0003319
+#  Last modified 2022-06-01 18:10:02.8582132
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
-libft/ft_strjoin_free.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-libft/ft_strjoin.o:
+obj_dir/./builtins/cd_utils.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -523,18 +485,18 @@ obj_dir/./init/expand.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-minishell: libft/libft.a obj_dir/util/error.o obj_dir/util/util.o obj_dir/./init/init.o obj_dir/./init/env.o obj_dir/./init/expand.o obj_dir/./exec/exec.o obj_dir/./exec/fd.o obj_dir/./file/heredoc.o obj_dir/./check_syntax/check_syntax.o obj_dir/./check_syntax/check_syntax_quotes.o obj_dir/./check_syntax/check_syntax_pipes.o obj_dir/./check_syntax/check_syntax_redirects.o obj_dir/./check_syntax/check_syntax_redirects_utils.o obj_dir/./parsing/make_commands_removing_realloc.o obj_dir/./parsing/make_commands_utils.o obj_dir/./parsing/free_commands_list.o obj_dir/./parsing/print_commands_info.o obj_dir/./builtins/echo.o obj_dir/./builtins/pwd.o obj_dir/./builtins/cd.o obj_dir/./builtins/exit.o obj_dir/./builtins/export.o obj_dir/./builtins/env.o obj_dir/./builtins/unset.o obj_dir/./jaka_utils/utils.o obj_dir/./jaka_utils/from_libft.o obj_dir/testmain.o minishell.h
+minishell: libft/libft.a obj_dir/util/error.o obj_dir/util/util.o obj_dir/./init/init.o obj_dir/./init/env.o obj_dir/./init/expand.o obj_dir/./exec/exec.o obj_dir/./exec/fd.o obj_dir/./file/heredoc.o obj_dir/./check_syntax/check_syntax.o obj_dir/./check_syntax/check_syntax_quotes.o obj_dir/./check_syntax/check_syntax_pipes.o obj_dir/./check_syntax/check_syntax_redirects.o obj_dir/./check_syntax/check_syntax_redirects_utils.o obj_dir/./parsing/make_commands.o obj_dir/./parsing/make_commands_utils.o obj_dir/./parsing/choose_correct_array.o obj_dir/./parsing/store_to_redirect_arr.o obj_dir/./parsing/free_commands_list.o obj_dir/./parsing/ft_lstadd_back.o obj_dir/./parsing/print_commands_info.o obj_dir/./builtins/echo.o obj_dir/./builtins/pwd.o obj_dir/./builtins/cd.o obj_dir/./builtins/cd_utils.o obj_dir/./builtins/exit.o obj_dir/./builtins/export.o obj_dir/./builtins/env.o obj_dir/./builtins/unset.o obj_dir/./jaka_utils/utils.o obj_dir/testmain_jaka.o minishell.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 163):
+#  recipe to execute (from 'Makefile', line 142):
 	gcc $(CFLAGS) $(OBJ) -I$(RLFLAG)/include -L$(RLFLAG)/lib -lreadline $(LIBFT_A) -o $(NAME)
 
-libft/libft.a: libft/ft_memset.o libft/ft_strlen.o libft/ft_isalpha.o libft/ft_isspace.o libft/ft_memcpy.o libft/ft_memccpy.o libft/ft_strchr.o libft/ft_strncmp.o libft/ft_strdup.o libft/ft_strjoin.o libft/ft_strjoin_free.o libft/ft_strlcpy.o libft/ft_itoa.o libft/ft_split.o libft/ft_add_str.o libft/libft.h
+libft/libft.a: libft/libft.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 152):
+#  recipe to execute (from 'Makefile', line 133):
 	cd $(LIBFT_DIR); make ; cd ../
 
 # Not a target:
@@ -543,11 +505,11 @@ obj_dir/util/error.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-fclean: clean
+fclean: libftclean clean
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 175):
+#  recipe to execute (from 'Makefile', line 154):
 	rm -f $(NAME)
 
 # Not a target:
@@ -557,17 +519,16 @@ obj_dir/./check_syntax/check_syntax_quotes.o:
 #  File has not been updated.
 
 # Not a target:
-.DEFAULT:
+obj_dir/testmain_jaka.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
-libft/ft_isalpha.o:
+.DEFAULT:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 
 # Not a target:
 obj_dir/./check_syntax/check_syntax.o:
@@ -602,12 +563,12 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 171):
+#  recipe to execute (from 'Makefile', line 150):
 	rm -f $(OBJ)
-	rm -rf $(OBJ_DIR)	# added Jaka
+	rm -rf $(OBJ_DIR)
 
 # Not a target:
-libft/ft_strlcpy.o:
+obj_dir/./parsing/store_to_redirect_arr.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -616,17 +577,11 @@ libftclean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 178):
+#  recipe to execute (from 'Makefile', line 157):
 	cd $(LIBFT_DIR); make fclean; cd ../
 
 # Not a target:
 obj_dir/./init/init.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-libft/ft_strncmp.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -644,26 +599,9 @@ obj_dir/./builtins/export.o:
 #  File has not been updated.
 
 # Not a target:
-libft/ft_strdup.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-libft/ft_strchr.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-obj_dir/./parsing/make_commands_removing_realloc.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
 obj_dir/./check_syntax/check_syntax_redirects.o:
 #  Implicit rule search has not been done.
+ 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -675,12 +613,6 @@ libft/libft.h:
 
 # Not a target:
 obj_dir/./parsing/make_commands_utils.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-libft/ft_memccpy.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -699,12 +631,6 @@ minishell.h:
 
 # Not a target:
 obj_dir/./exec/exec.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-obj_dir/./jaka_utils/from_libft.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -739,9 +665,9 @@ make_obj_dir:
 # ? := 
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=1/27=4%
-#  recipe to execute (from 'Makefile', line 140):
+#  recipe to execute (from 'Makefile', line 121):
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/util/
-	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/init/
+	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/init/ 
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/exec/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/file/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/check_syntax/
@@ -750,19 +676,19 @@ make_obj_dir:
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/jaka_utils/
 
 # files hash-table stats:
-# Load=56/1024=5%, Rehash=0, Collisions=4/122=3%
+# Load=44/1024=4%, Rehash=0, Collisions=2/100=2%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 84 / storage = 1488 B / avg = 17 B
-# current buf: size = 8162 B / used = 1488 B / count = 84 / avg = 17 B
+# strcache buffers: 1 (0) / strings = 73 / storage = 1367 B / avg = 18 B
+# current buf: size = 8162 B / used = 1367 B / count = 73 / avg = 18 B
 
-# strcache performance: lookups = 109 / hit rate = 22%
+# strcache performance: lookups = 100 / hit rate = 27%
 # hash-table stats:
-# Load=84/8192=1%, Rehash=0, Collisions=1/109=1%
-# Finished Make data base on Thu May 26 15:20:05 2022
+# Load=73/8192=1%, Rehash=0, Collisions=1/100=1%
+# Finished Make data base on Wed Jun  1 18:11:58 2022
 
  

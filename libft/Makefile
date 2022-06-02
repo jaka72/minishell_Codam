@@ -6,7 +6,7 @@
 #    By: kito <kito@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/12/01 17:08:43 by kito          #+#    #+#                  #
-#    Updated: 2022/05/29 14:40:29 by kito          ########   odam.nl          #
+#    Updated: 2022/05/31 20:48:32 by jaka          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,11 @@ SRC			=	ft_memset.c			\
 				ft_strlen.c			\
 				ft_isalpha.c		\
 				ft_isspace.c		\
+				ft_isdigit.c		\
 				ft_memcpy.c			\
 				ft_memccpy.c		\
 				ft_strchr.c			\
+				ft_strcmp.c			\
 				ft_strncmp.c		\
 				ft_strdup.c			\
 				ft_strjoin.c		\

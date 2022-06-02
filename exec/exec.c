@@ -85,13 +85,14 @@ int	ms_execve(t_infos *info, t_cmd *str)
 	if (envs == NULL)
 		return (-1);
 	path = ft_findshell_pass(str->args[0], envs);
-
-	// printf(MAG"ms_execve(): command: str[0]: [%s] \n"RES, str->args[0]);
+	//printf(MAG"ms_execve(): command: str[0]: [%s] \n"RES, str->args[0]);
 	if (path == NULL || str->args[0][0] == '\0')	// check the command is exist
 	{
+		write(2, "minishell: ", 11);	// added Jaka: more like Bash message
 		if (ft_strchr(str->args[0], '/') != NULL)
 		{
 			write(2, str->args[0], ft_strlen(str->args[0]));
+			// write(2, ": No such file or directory\n", 29);	
 			write(2, ": No such file or directory\n", 28);	
 		}
 		else
@@ -108,25 +109,28 @@ int	ms_execve(t_infos *info, t_cmd *str)
 	exit(127);
 	}
 
-int exec_no_pipe(t_infos *info, t_cmd *current)
+int exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
+// int exec_no_pipe(t_infos *info, t_cmd *current)
 {
 	pid_t	pid;
 	int		status;
 
+	//printf(BLU"exec_no_pipe!\n"RES);
 	current->args = expand_array(current->args, info);
 	connect_fd(current, info);
 	if (check_if_builtin(current) == 1) 	// if builtin
 	{
 		//printf(BLU"no pipe and this is builtin!\n"RES);
-		exec_builtin(current, info);
+		g_status = exec_builtin(current, info, str);	// jaka: added third arg, to fix exit
+		// g_status = exec_builtin(current, info);	// jaka: added third arg, to fix exit
 	}
 	else // if library
 	{
-		// printf(BLU"no pipe and this is library!\n"RES);
+		//printf(BLU"no pipe and this is library!\n"RES);
 		pid = fork();
 		if (pid == 0)
 		{
-			// printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
+			//printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
 			ms_execve(info, current);	
@@ -153,7 +157,8 @@ int	run_cmd(t_infos *info, t_cmd *str)
 	current = str;
 	status = 0;
 	if (current->next == NULL)
-		exec_no_pipe(info, current);
+		exec_no_pipe(info, current, str);	// jaka: added third arg, to fix exit
+		// exec_no_pipe(info, current);
 	else  // with pipe
 	{
 		while (current)
@@ -177,10 +182,15 @@ int	run_cmd(t_infos *info, t_cmd *str)
 				connect_fd(current, info);
 				// printf(RED"run_cmd(): current[0]: [%s]\n"RES, current->args[0]);
 				if (check_if_builtin(current) == 1) 	// if builtin
-					g_status = exec_builtin(current, info);
+				{	// jaka: added brackets 
+					g_status = exec_builtin(current, info, str);	// jaka: added third arg, to fix exit
+					// g_status = exec_builtin(current, info);	// jaka: added third arg, to fix exit
+					printf(RED"g_status: %d\n"RES, g_status);
+				}
 				else // if library
 					ms_execve(info, current);
-				exit (0);  // in case of builtin, it should be quit
+				//exit (0);  // in case of builtin, it should be quit
+				exit (g_status);  // jaka: exit must show the value
 			}
 			else
 			{

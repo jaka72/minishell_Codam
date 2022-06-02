@@ -1,72 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   free_commands_list.c                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jaka <jaka@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/05/31 14:40:36 by jaka          #+#    #+#                 */
+/*   Updated: 2022/05/31 14:47:29 by jaka          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "make_commands.h"
 
-
-void free_arrays(t_cmd *cmd)
+void	free_arr_outfile_and_heredoc(t_cmd *cmd)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
-	//printf(WHT2" Free command array\n"RES);
-	if (cmd->args != NULL)
-	{
-		while (i < cmd->count_args)
-		{
-			//printf(DYEL"    Free command[%d]\n"RES, i);
-			//printf(DYEL" free%d [%s]"RES, i, cmd->args[i]);
-
-			free(cmd->args[i]);
-			i++;
-		}
-
-		//free(cmd->args[i]); // MAYBE THIS ONE NEEDED FOR THE LAST ELEMENT, WHICH IS NULL
-
-		free(cmd->args);
-		cmd->args = NULL;
-	}
-
-
-	// printf(GRE"nr outfiles: %d \n"RES, cmd->count_outfiles);
-	i = 0;
-	//printf(WHT2" Free infile array\n"RES);
-	if (cmd->infile != NULL)
-	{
-		while (i < cmd->count_infiles)
-		{
-			//printf(DYEL"    Free infile[%d]\n"RES, i);
-			free(cmd->infile[i]);
-			i++;
-		}
-		free(cmd->infile);
-		cmd->infile = NULL;
-	}
-
-
-
-
-	// printf(GRE"nr_infiles: %d \n"RES, cmd->count_outfiles);
-	i = 0;
-	//printf(WHT2" Free outfile array\n"RES);
 	if (cmd->outfile != NULL)
 	{
 		while (i < cmd->count_outfiles)
 		{
-			//printf(DYEL"    Free outfile[%d]\n"RES, i);
 			free(cmd->outfile[i]);
 			i++;
 		}
 		free(cmd->outfile);
 		cmd->outfile = NULL;
 	}
-
-
-	// printf(GRE"count_heredocs: %d \n"RES, cmd->count_outfiles);
 	i = 0;
-	//printf(WHT2" Free heredocs array\n"RES);
 	if (cmd->heredoc != NULL)
 	{
 		while (i < cmd->count_heredocs)
 		{
-			//printf(DYEL"    Free heredoc[%d]\n"RES, i);
 			free(cmd->heredoc[i]);
 			i++;
 		}
@@ -75,17 +40,45 @@ void free_arrays(t_cmd *cmd)
 	}
 }
 
+void	free_arr_args_and_infile(t_cmd *cmd)
+{
+	int	i;
+
+	i = 0;
+	if (cmd->args != NULL)
+	{
+		while (i < cmd->count_args)
+		{
+			free(cmd->args[i]);
+			i++;
+		}
+		free(cmd->args);
+		cmd->args = NULL;
+	}
+	i = 0;
+	if (cmd->infile != NULL)
+	{
+		while (i < cmd->count_infiles)
+		{
+			free(cmd->infile[i]);
+			i++;
+		}
+		free(cmd->infile);
+		cmd->infile = NULL;
+	}
+}
+
+// REMOVE i, JUST FOR PRINTING
 int	free_commands_list(t_cmd *first_cmd)
 {
-	int	i;	// just for printing
-	t_cmd *temp;
+	int		i;
+	t_cmd	*temp;
 
 	i = 0;
 	temp = first_cmd;
 	while (temp)
 	{
-		//printf(YEL"Free struct[%d]\n"RES, i);
-		free_arrays(temp);
+		free_arr_args_and_infile(temp);
 		temp = temp->next;
 		free(first_cmd);
 		first_cmd = temp;

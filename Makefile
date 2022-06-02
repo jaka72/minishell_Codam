@@ -5,23 +5,23 @@ BONUS	=	minishell_bonus
 OBJ_DIR = obj_dir
 
 LIBFT_DIR	= 	./libft
-LIBFT_SRC	= 	$(LIBFT_DIR)/ft_memset.c					\
-				$(LIBFT_DIR)/ft_strlen.c					\
-				$(LIBFT_DIR)/ft_isalpha.c					\
-				$(LIBFT_DIR)/ft_isspace.c					\
-				$(LIBFT_DIR)/ft_memcpy.c					\
-				$(LIBFT_DIR)/ft_memccpy.c					\
-				$(LIBFT_DIR)/ft_strchr.c					\
-				$(LIBFT_DIR)/ft_strncmp.c					\
-				$(LIBFT_DIR)/ft_strdup.c					\
-				$(LIBFT_DIR)/ft_strjoin.c					\
-				$(LIBFT_DIR)/ft_strjoin_free.c				\
-				$(LIBFT_DIR)/ft_strlcpy.c					\
-				$(LIBFT_DIR)/ft_atoi.c						\
-				$(LIBFT_DIR)/ft_itoa.c						\
-				$(LIBFT_DIR)/ft_split.c						\
-				$(LIBFT_DIR)/ft_add_str.c
-LIBFT_OBJ	=	$(LIBFT_SRC:%.c=%.o)
+# LIBFT_SRC	= 	$(LIBFT_DIR)/ft_memset.c					\
+# 				$(LIBFT_DIR)/ft_strlen.c					\
+# 				$(LIBFT_DIR)/ft_isalpha.c					\
+# 				$(LIBFT_DIR)/ft_isspace.c					\
+# 				$(LIBFT_DIR)/ft_memcpy.c					\
+# 				$(LIBFT_DIR)/ft_memccpy.c					\
+# 				$(LIBFT_DIR)/ft_strchr.c					\
+# 				$(LIBFT_DIR)/ft_strncmp.c					\
+# 				$(LIBFT_DIR)/ft_strdup.c					\
+# 				$(LIBFT_DIR)/ft_strjoin.c					\
+# 				$(LIBFT_DIR)/ft_strjoin_free.c				\
+# 				$(LIBFT_DIR)/ft_strlcpy.c					\
+# 				$(LIBFT_DIR)/ft_atoi.c						\
+# 				$(LIBFT_DIR)/ft_itoa.c						\
+# 				$(LIBFT_DIR)/ft_split.c						\
+# 				$(LIBFT_DIR)/ft_add_str.c
+# LIBFT_OBJ	=	$(LIBFT_SRC:%.c=%.o)
 LIBFT_A		=	$(LIBFT_DIR)/libft.a
 
 #for common resources like utility, error handling
@@ -63,10 +63,13 @@ SYNTAX_OBJ		=	$(patsubst %, $(OBJ_DIR)/%, $(SYNTAX_SRC:.c=.o))
 
 # for PARSING
 PARSING_DIR		= 	./parsing
-PARSING_SRC		= 	$(PARSING_DIR)/make_commands_removing_realloc.c \
+PARSING_SRC		= 	$(PARSING_DIR)/make_commands.c \
 					$(PARSING_DIR)/make_commands_utils.c \
+					$(PARSING_DIR)/choose_correct_array.c \
+					$(PARSING_DIR)/store_to_redirect_arr.c \
 					$(PARSING_DIR)/free_commands_list.c \
-					$(PARSING_DIR)/print_commands_info.c
+					$(PARSING_DIR)/ft_lstadd_back.c \
+					$(PARSING_DIR)/print_commands_info.c		# can be later removed
 PARSING_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(PARSING_SRC:.c=.o))
 
 # for BUILTINS
@@ -74,6 +77,7 @@ BUILTINS_DIR		= 	./builtins
 BUILTINS_SRC		= 	$(BUILTINS_DIR)/echo.c \
 						$(BUILTINS_DIR)/pwd.c \
 						$(BUILTINS_DIR)/cd.c \
+						$(BUILTINS_DIR)/cd_utils.c \
 						$(BUILTINS_DIR)/exit.c \
 		 				$(BUILTINS_DIR)/export.c	\
 						$(BUILTINS_DIR)/env.c		\
@@ -83,13 +87,14 @@ BUILTINS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(BUILTINS_SRC:.c=.o))
 
 # JAKA_UTILS
 JAKA_UTILS_DIR		= 	./jaka_utils
-JAKA_UTILS_SRC		= 	$(JAKA_UTILS_DIR)/utils.c \
-						$(JAKA_UTILS_DIR)/from_libft.c
+JAKA_UTILS_SRC		= 	$(JAKA_UTILS_DIR)/utils.c
+#						$(JAKA_UTILS_DIR)/from_libft.c
 JAKA_UTILS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(JAKA_UTILS_SRC:.c=.o))
 
 
 #for main and running commands (fork and execte)
-MAIN_SRC	=	main.c
+MAIN_SRC	=	testmain_jaka.c
+#MAIN_SRC	=	main.c
 MAIN_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(MAIN_SRC:.c=.o))
 
 OBJ			=	$(UTIL_OBJ)		\

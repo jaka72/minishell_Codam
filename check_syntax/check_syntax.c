@@ -1,39 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   check_syntax.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/02 10:27:00 by jmurovec      #+#    #+#                 */
+/*   Updated: 2022/06/02 11:10:58 by jmurovec      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "check_syntax.h"
 
 int	check_syntax_errors(t_source *src)
 {
-	int	ret;
-	// src->inputline = line;
 	src->currpos = 0;
 	src->inputline_size = ft_strlen(src->inputline);
 	if (src->inputline_size == 0)
 		return (0);
-	ret = check_quotes(src);
-	if (ret == 1) // MAYBE THIS IS NOT USED ANYMORE, ALL CHARS CAN BE VALID
+	if (check_quotes(src) != 0)
 	{
-		// printf("\n"BLU"        unsuported char\n"RES);
-		// print_err_msg(MSG_UNSUPPORTED);
-		// info->exit_code = 258;
-		// return (SYNTAX_ERROR);
-	}
-	else if (ret == 2)
-	{
-		print_err_msg(MSG_QUOTES);
-		// info->exit_code = 258;			// exit_code: no longer needed, delete all of these
+		print_err_msg(MSG_SYNTAX);
 		return (SYNTAX_ERROR);
 	}
 	if (check_pipes(src) != 0)
 	{
-		print_err_msg(MSG_PIPES);
-		// info->exit_code = 258;
+		print_err_msg(MSG_SYNTAX);
 		return (SYNTAX_ERROR);
 	}
 	if (check_redirects(src) != 0)
 	{
-		print_err_msg(MSG_REDIRECTS);
-		// info->exit_code = 258;
+		print_err_msg(MSG_SYNTAX);
 		return (SYNTAX_ERROR);
 	}
-	//printf("\n"BLU"After check redirects\n"RES);
 	return (0);
 }

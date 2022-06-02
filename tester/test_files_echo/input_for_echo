@@ -1,0 +1,15 @@
+echo   "aaa   bbb"
+echo   "aaa  |  |  bbb"
+echo   "aaa  |  |  bbb"   ccc
+echo ls   -la
+echo "   ls   -la"
+echo   aaa   bbb
+echo
+echo echo
+echo rhobebou
+echo stop barking
+echo "bonjour"
+echo bonjour
+echo 'bonjour'
+echo ' \' ' \'
+  echo "aaa" b
