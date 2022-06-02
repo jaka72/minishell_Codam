@@ -12,7 +12,7 @@
 // UTILS //////////////////////////
 int		is_allowed_char(int c);
 int		is_valid_filename_char(int c);
-int		print_err_msg(char *err_msg);
+void	print_err_msg(char *err_msg);
 char	peek_next_char(t_source *src);
 char	get_next_char(t_source *src);
 void	skip_white_spaces(t_source *src);

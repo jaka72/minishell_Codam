@@ -2,6 +2,8 @@
 infile
 minishell
 out
+out1
+out2
 out_else
 out_mini
 out_orig

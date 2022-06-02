@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 18:41:52 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/01 18:46:18 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/02 10:29:55 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	check_redirects(t_source *src)
 	int	c;
 	int	arrow;
 
+	src->currpos = 0;
 	c = src->inputline[src->currpos];
 	while (src->currpos <= src->inputline_size)
 	{

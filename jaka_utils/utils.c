@@ -6,7 +6,7 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 10:42:48 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/01 10:44:21 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/02 10:44:41 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 //  BOTH SYNTAX AND MAKECOMMANDS NEED TO HAVE ACCESS TO 
 //							FOLDER jaka_utils TO READ
 //	THE FILE utils.c, WITH FUNCTIONS SUCH AS get_next_char()
-int	print_err_msg(char *err_msg)
+void	print_err_msg(char *err_msg)
 {
 	//printf("\nMinishell: %s\n", err_msg);
 	write(2, "\nMinishel: ", 11);
 	write(2, err_msg, ft_strlen(err_msg));
 	write(2, "\n", 1);
-
-	return (SYNTAX_ERROR);
+	g_status = SYNTAX_ERROR;
 }
 
 // IF IT FINDS \ ) ( OR ; 
