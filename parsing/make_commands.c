@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:39:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/01 10:06:33 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/02 11:35:27 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ t_cmd	*make_commands(t_source *src)
 	{
 		new_cmd = malloc(sizeof(t_cmd));
 		ret = select_and_store_words(src, new_cmd);
-		print_command_info(new_cmd);
+		// print_command_info(new_cmd);
 		if (ret == 1)
 		{
 			ft_lstadd_back(&first_cmd, new_cmd);
