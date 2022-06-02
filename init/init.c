@@ -14,6 +14,18 @@ void	handle_sigquit(int num)
 	(void) num;
 }
 
+void	handle_sigint_p(int num)
+{
+	(void) num;
+	write(STDIN_FILENO, "\n", 1);
+}
+
+void	handle_sigquit_p(int num)
+{
+	(void) num;
+	write(STDIN_FILENO, "Quit: 3\n", 8);
+}
+
 void	ms_init(t_infos *info, char *envp[])
 {
 	int	rc;
