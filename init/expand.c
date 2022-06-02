@@ -76,6 +76,16 @@ int	count_expand_length(char *src)
 	return (i);
 }
 
+int	count_expand_length_hd(char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i] != '\0' && src[i] != ' ')
+		i++;
+	return (i);
+}
+
 char	*add_expanded(char *dst, char *src, t_infos *info)
 {
 	int	i;
@@ -98,6 +108,7 @@ char	*add_expanded(char *dst, char *src, t_infos *info)
 	return (dst);
 }
 
+
 char	*add_laststatus(char *dst, int g_status)
 {
 	char	*stat;
@@ -110,6 +121,40 @@ char	*add_laststatus(char *dst, int g_status)
 	if (dst == NULL)
 		errtext_exit("malloc failed");
 	return (dst);
+}
+
+char	*check_expand_hd(t_infos *info, char *tx)
+{
+	int		i;
+	char	*expanded;
+
+	i = 0;
+	if (tx[0] == '$' && tx[1] == '\0')
+		return (tx);
+	expanded = malloc(1);
+	if (expanded == NULL)
+		err_free_env_exit(info, "check expand malloc failed");
+	expanded[0] = '\0';
+	while (tx[i] != '\0')
+	{
+		if (tx[i] == '$' && tx[i + 1] == '?' )
+		{
+			expanded = ft_add_c_free(expanded, '0');
+			i++;
+		}
+		else if (tx[i] == '$')
+		{
+			expanded = add_expanded(expanded, &tx[i + 1], info);
+			// write(2, expanded, ft_strlen(expanded));
+			// write(2, "!", 1);
+			i = i + count_expand_length(&tx[i + 1]);
+		}
+		else
+			expanded = ft_add_c_free(expanded, tx[i]);
+		i++;
+	}
+	free(tx);
+	return (expanded);
 }
 
 char	*check_expand(t_infos *info, char *tx)
@@ -137,8 +182,6 @@ char	*check_expand(t_infos *info, char *tx)
 			expanded = add_singlequote(expanded, &tx[i + 1]);
 			i = i + count_single_length(&tx[i + 1]);
 		}
-		// else if (tx[i] == '$' && tx[i + 1] == '\0')
-		// 	return (tx);
 		else if (tx[i] == '$' && tx[i + 1] == '\"' && d_flag == 1)
 		{
 			expanded = ft_add_c_free(expanded, '$');
@@ -149,16 +192,13 @@ char	*check_expand(t_infos *info, char *tx)
 			expanded = ft_add_c_free(expanded, '$');
 		else if (tx[i] == '$' && tx[i + 1] == '?' )
 		{
-			// printf("now $? is called, g_status is %d\n", g_status);
 			expanded = add_laststatus(expanded, g_status);
-			printf("expanded is %s\n", expanded);
 			i++;
 		}
 		else if (tx[i] == '$')
 		{
 			expanded = add_expanded(expanded, &tx[i + 1], info);
 			i = i + count_expand_length(&tx[i + 1]);
-			// printf("tx[i] is %c\n", tx[i]);
 		}
 		else
 			expanded = ft_add_c_free(expanded, tx[i]);

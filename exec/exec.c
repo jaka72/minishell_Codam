@@ -111,7 +111,7 @@ int exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
 	connect_hd(current, info);
 	connect_fd(current, info);
 	if (check_if_builtin(current) == 1)
-		exec_builtin(current, info, str);
+		g_status = exec_builtin(current, info, str);
 	else
 	{
 		pid = fork();
