@@ -108,8 +108,11 @@ int exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
 	int		status;
 
 	current->args = expand_array(current->args, info);
+	// if (current->fd_in == -3)
+	// 	signal(SIGINT, handle_sigint);
 	connect_hd(current, info);
 	connect_fd(current, info);
+
 	if (check_if_builtin(current) == 1)
 		g_status = exec_builtin(current, info, str);
 	else
@@ -119,6 +122,8 @@ int exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
 		{
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
+			// if (current->fd_in == -3)
+			// 	signal(SIGINT, handle_sigint);
 			ms_execve(info, current);	
 		}
 		waitpid(pid, &status, WUNTRACED | WCONTINUED);
@@ -150,10 +155,10 @@ int	run_cmd(t_infos *info, t_cmd *str)
 	{
 		while (current)
 		{
-			if (current->fd_in == -3)
-				signal(SIGQUIT, handle_sigquit);
-			else
-				signal(SIGQUIT, handle_sigquit_p);
+			// if (current->fd_in == -3)
+			// 	signal(SIGQUIT, handle_sigquit);
+			// else
+			// 	signal(SIGQUIT, handle_sigquit_p);
 			if (current != str)
 				g_status = 0;
 			current->args = expand_array(current->args, info);
@@ -162,17 +167,17 @@ int	run_cmd(t_infos *info, t_cmd *str)
 			pid = fork();
 			if (pid == 0)
 			{
-				signal(SIGINT, SIG_DFL);
-				if (current->fd_in == -3)
-					signal(SIGQUIT, handle_sigquit);
-				else
-					signal(SIGQUIT, SIG_DFL);
+				// signal(SIGINT, SIG_DFL);
+				// signal(SIGQUIT, SIG_DFL);
+				// if (current->fd_in == -3)
+				// 	signal(SIGQUIT, handle_sigquit);
+				// else
+				// 	signal(SIGQUIT, SIG_DFL);
 				if (oldpipe != 0)
 				{
 					dup2(oldpipe, 0);
 					close(oldpipe);
 				}
-
 				connect_hd(current, info);
 				connect_fd(current, info);
 				dup2(newpipe[1], 1);
@@ -194,10 +199,8 @@ int	run_cmd(t_infos *info, t_cmd *str)
 					last_pid = pid;
 				if (current->fd_in == -3)
 				{
-					
 					if (waitpid(pid, &status, WUNTRACED | WCONTINUED) == last_pid)
 					{
-						// printf("last pid is %d\n", last_pid);
 						if (WIFEXITED(status))
 							g_status = WEXITSTATUS(status);
 						if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
@@ -212,11 +215,6 @@ int	run_cmd(t_infos *info, t_cmd *str)
 			}
 			current = current->next;
 		}
-		// waitpid(last_pid, &status, WUNTRACED | WCONTINUED);
-		// if (WIFEXITED(status))
-		// 	g_status = WEXITSTATUS(status);
-		// if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
-		// 	g_status = 128 + WTERMSIG(status);
 		current = str;
 		while (current)
 		{
@@ -224,7 +222,6 @@ int	run_cmd(t_infos *info, t_cmd *str)
 			{
 				if (waitpid(0, &status, WUNTRACED | WCONTINUED)  == last_pid)
 				{
-					// printf("last pid is %d\n", last_pid);
 					if (WIFEXITED(status))
 						g_status = WEXITSTATUS(status);
 					if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
@@ -237,6 +234,5 @@ int	run_cmd(t_infos *info, t_cmd *str)
 	reset_fd(info);
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
-	// printf("g_status is %d\n", g_status);
 	return(g_status);
 }
