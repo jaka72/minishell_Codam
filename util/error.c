@@ -1,14 +1,5 @@
 #include "../minishell.h"
 
-
-int	errtext_return(char *text)	// added jaka, 1 jun
-{								// 		in cases like: < asdqwe
-	write(2, "minishell: ", 11);//		it should not exit, but return (like   < asdqwe    )
-	perror(text);
-	return (ERROR_RETURN);
-}
-
-
 void	errtext_exit(char *text)
 {
 	perror(text);

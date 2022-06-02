@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 12:41:35 by jaka          #+#    #+#                 */
-/*   Updated: 2022/05/31 12:41:36 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/02 17:28:50 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,18 @@ void	check_line_and_print(t_cmd *cmd, int *flagw, int *i)
 		*flagw = 1;
 }
 
+int	count_args(t_cmd *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd->args[i])
+		i++;
+	return (i);
+}
+
+
+
 // - STILL NEEDS TO HANDLE OPTION -n IF IT IS IN QUOTES
 // - HANDLE BOTH ""  INSIDE '' AND VICE VERSA
 // printf(YEL"Echo, arg[1]: [%s], i=%d, flag=%d\n"RES,
@@ -59,7 +71,13 @@ int	run_echo_builtin(t_cmd *cmd)
 	int	flag_newline;
 	int	flag_first_word;
 
-	if (cmd->count_args == 1)
+	int	nr_args;
+	nr_args = count_args(cmd);
+
+	//printf("nr args: %d\n", nr_args);
+
+	// if (cmd->count_args == 1)
+	if (nr_args == 1)
 	{
 		write(1, "\n", 1);
 		return (0);

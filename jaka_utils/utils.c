@@ -6,7 +6,7 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 10:42:48 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/02 10:44:41 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/02 11:54:00 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@
 //	THE FILE utils.c, WITH FUNCTIONS SUCH AS get_next_char()
 void	print_err_msg(char *err_msg)
 {
-	//printf("\nMinishell: %s\n", err_msg);
-	write(2, "\nMinishel: ", 11);
-	write(2, err_msg, ft_strlen(err_msg));
-	write(2, "\n", 1);
+	// JUST FOR THE TESTER
+	printf("\nMinishell: %s\n", err_msg);  // !!!
+	
+	// write(2, "\nMinishel: ", 11);
+	// write(2, err_msg, ft_strlen(err_msg));
+	// write(2, "\n", 1);
 	g_status = SYNTAX_ERROR;
 }
 

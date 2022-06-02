@@ -66,7 +66,7 @@ do
 	input=${inputlines[$i]}
 	printf "  Test %3d:   %-30s   " $i "[$input]"
 	> out_temp; >out_mini; > out_orig
-	./minishell "$input" | 2> out_temp0
+	./minishell "$input" | cat -e > out_temp
 	#./minishell "$input" | 2> out_temp0 | cat -e out_temp0 > out_temp
 	echo $error_message | cat -e > out_orig
 	test_syntax_error "out_orig" "out_mini" "error"
@@ -101,9 +101,9 @@ echo -e $YEL"\n ( Not handled yet )"$RES
 	 		# 'abc"d"e"f"g'
 			)
 
-#nr_elements=${#inputlines[@]}
-# TURNED OFF 
-nr_elements=0
+nr_elements=${#inputlines[@]}
+# TURN ON/OFF 
+#nr_elements=0
 
 
 i=0

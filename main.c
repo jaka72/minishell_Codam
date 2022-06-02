@@ -20,6 +20,7 @@ int	main(int argc, char *argv[], char *envp[])
 	src.inputline = NULL;
 	ms_init(&info, envp);
 	free_and_read(&src, &info, 0);
+	//printf(GRN"A)\n"RES);
 	while (src.inputline)
 	{
 		if (ft_strlen(src.inputline) > 0)
@@ -31,6 +32,7 @@ int	main(int argc, char *argv[], char *envp[])
 			}
 			add_history(src.inputline);
 			cmd_list = make_commands(&src);
+			//printf(GRN"B)\n"RES);
 			g_status = run_cmd(&info, cmd_list);
 			free_commands_list(cmd_list);
 		}
