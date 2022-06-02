@@ -3,6 +3,15 @@
 /*
 // NOTES, ISSUES ////////////////////////////////////////////////////
 
+***************************************************************************
+*** A temp Line to see if this will dissapear after merging from Kitos'main
+*** Because I merged my branch to main, then I started changing this branch
+*** Then Kito merged her branch to Main.
+*** So now some files on main are older than the ones on my branch.
+*** If I now pull from main, will my new files be overwritten by my old files?
+
+
+
 Cases like:  < asdqwe   or    < nopermissionfile
 	It should not exit, just print error
 	I added a similar function like errtext_exit. But it probably needs to 

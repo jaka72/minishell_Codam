@@ -1,24 +1,26 @@
+1$
+infile$
+minishell$
+out$
+out1$
+out2$
+out_else$
+out_mini$
+out_orig$
+out_orig2$
+out_temp$
+out_temp0$
+out_temp2$
+outfile$
+readme$
+run_tester.sh$
+test_files_echo$
+test_output_cat.sh$
+test_output_echo.sh$
+test_output_various.sh$
+test_syntax_pipes.sh$
+test_syntax_quotes.sh$
+test_syntax_redirs.sh$
 $
-^[[2;37m  Command  array: ^[[0m^[[2;33m [^[[0;35mls^[[2;33m] ^[[0m^[[2;37m$
-^[[0m^[[2;37m  Command  fd_in: ^[[2;33m 0$
-^[[0m^[[2;37m  Command fd_out: ^[[2;33m 1$
-$
-^[[0m^[[2;37m  Infile   array: [^[[0m^[[2;37m]$
-^[[0m^[[2;37m  Outfile  array: [^[[0m^[[2;37m]$
-^[[0m^[[2;37m  Heredocs array: [^[[0m^[[2;37m]$
-^[[0m^[[2;37m  Command  array: ^[[0m^[[2;33m [^[[0;35mls^[[2;33m] ^[[0m^[[2;37m$
-^[[0m^[[2;37m  Command  fd_in: ^[[2;33m 0$
-^[[0m^[[2;37m  Command fd_out: ^[[2;33m 1$
-$
-^[[0m^[[2;37m  Infile   array: [^[[0m^[[2;37m]$
-^[[0m^[[2;37m  Outfile  array: [^[[0m^[[2;37m]$
-^[[0m^[[2;37m  Heredocs array: [^[[0m^[[2;37m]$
-^[[0m^[[2;37m  Command  array: ^[[0m^[[2;33m [^[[0;35mls^[[2;33m] ^[[0m^[[2;37m$
-^[[0m^[[2;37m  Command  fd_in: ^[[2;33m 0$
-^[[0m^[[2;37m  Command fd_out: ^[[2;33m-2$
-$
-^[[0m^[[2;37m  Infile   array: [^[[0m^[[2;37m]$
-^[[0m^[[2;37m  Outfile  array: [^[[0m^[[2;33m outfile ^[[0m^[[2;37m]$
-^[[0m^[[2;37m  Heredocs array: [^[[0m^[[2;37m]$
-^[[0m^[[37mexit! (tester mode)$
+^[[37mexit! (tester mode)$
 ^[[0m
