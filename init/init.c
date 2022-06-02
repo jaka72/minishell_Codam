@@ -3,7 +3,7 @@
 void	handle_sigint(int num)
 {
 	(void) num;
-	write(STDIN_FILENO, "\n", 1);
+	write(STDOUT_FILENO, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
@@ -17,13 +17,13 @@ void	handle_sigquit(int num)
 void	handle_sigint_p(int num)
 {
 	(void) num;
-	write(STDIN_FILENO, "\n", 1);
+	write(STDOUT_FILENO, "\n", 1);
 }
 
 void	handle_sigquit_p(int num)
 {
 	(void) num;
-	write(STDIN_FILENO, "Quit: 3\n", 8);
+	write(STDOUT_FILENO, "Quit: 3\n", 8);
 }
 
 void	ms_init(t_infos *info, char *envp[])

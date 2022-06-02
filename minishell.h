@@ -102,6 +102,7 @@ char	**get_env_array(t_env *start_env);
 void	print_env(t_infos *info);
 char	*name_expand(t_infos *info, char *tx);
 char	*check_expand(t_infos *info, char *tx);
+char	*check_expand_hd(t_infos *info, char *tx);
 char	**expand_array(char **args, t_infos *info);
 
 // file/heredoc.c
