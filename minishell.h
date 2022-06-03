@@ -47,7 +47,7 @@ typedef struct s_cmd
 	char			**infile;
 	char			**outfile;
 	char			**heredoc;
-	int				count_args;			// NEEDED TO KEEP TRACK OF NR OF ELEMENTS,
+	//int				count_args;			// NEEDED TO KEEP TRACK OF NR OF ELEMENTS,
 	int				count_infiles;		// TO BE ABLE TO realloc(), EACH TIME: nr + 1
 	int				count_outfiles;
 	int				count_heredocs;

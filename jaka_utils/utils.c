@@ -6,7 +6,7 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 10:42:48 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/02 18:42:53 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/03 15:36:18 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,14 @@ int	count_args(t_cmd *cmd)
 {
 	int	i;
 
-	printf(GRN"count args a) \n"RES);
-
-	// MAYBE THE cmd->args HAS TO FIRST BE SET TO NULL, SO THE COUNTER DOES NOT 
-	//	CAUSE SEGFAULT ???
-
-	if (cmd->args == NULL) // not good, still segfault
+	//printf(GRN"Start count args, "RES);
+	if (cmd->args == NULL)
 		return (0);
 
-	printf(GRN"count args b) \n"RES);
 	i = 0;
 	while (cmd->args[i])
 		i++;
+	//printf(GRN"   counted: %d\n"RES, i);
 	return (i);
 }
 

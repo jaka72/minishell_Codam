@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 14:40:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/02 17:47:31 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/03 15:42:03 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,13 @@ int	free_commands_list(t_cmd *first_cmd)
 	temp = first_cmd;
 	while (temp)
 	{
+		//printf("    i:%d\n", i);
+		
 		free_arr_args_and_infile(temp);
+		//printf("    after free arr\n");
 		temp = temp->next;
 		free(first_cmd);
+		//printf("    after free first_cmd\n");
 		first_cmd = temp;
 		i++;
 	}

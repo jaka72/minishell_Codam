@@ -130,6 +130,7 @@ int	main(int argc, char *argv[], char *envp[])
 Things to check:
    Heredoc and ctrl-C: If followed by other commands, heredoc should execute first and other commands must not execute
 
+	Maybe always after ft_strdup, needs to check if NULL
 
 ////////////////////////////////////////////////
 

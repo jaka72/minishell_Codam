@@ -34,7 +34,9 @@ int	main(int argc, char *argv[], char *envp[])
 			cmd_list = make_commands(&src);
 			//printf(GRN"B)\n"RES);
 			g_status = run_cmd(&info, cmd_list);
+			//printf(GRN"C)\n"RES);
 			free_commands_list(cmd_list);
+			//printf(GRN"D)\n"RES);
 		}
 		free_and_read(&src, &info, 0);
 	}
