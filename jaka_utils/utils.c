@@ -6,7 +6,7 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 10:42:48 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/04 11:33:45 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/04 12:17:58 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 
 
-int	count_infiles(char **arr)
+int	count_elems(char **arr)
 {
 	int	i;
 
-	printf(GRN"Start count infiles\n"RES);
+	//printf(GRN"Start count infiles\n"RES);
 	if (arr == NULL)
 		return (0);
 
-	printf(GRN"    arr is not NULL\n"RES);
+	//printf(GRN"    arr is not NULL\n"RES);
 	
 	i = 0;
 	while (arr[i])
 		i++;
-	printf(GRN"   counted: %d\n"RES, i);
+	//printf(GRN"   counted: %d\n"RES, i);
 	return (i);
 }
 

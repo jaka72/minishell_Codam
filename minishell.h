@@ -48,9 +48,9 @@ typedef struct s_cmd
 	char			**outfile;
 	char			**heredoc;
 	//int				count_args;			// NEEDED TO KEEP TRACK OF NR OF ELEMENTS,
-	int				count_infiles;		// TO BE ABLE TO realloc(), EACH TIME: nr + 1
-	int				count_outfiles;
-	int				count_heredocs;
+	//int				count_infiles;		// TO BE ABLE TO realloc(), EACH TIME: nr + 1
+	//int				count_outfiles;
+	//int				count_heredocs;
 	struct s_cmd	*next;
 	int				temp;		// just for testing
 }	t_cmd;
@@ -132,7 +132,7 @@ int		run_cmd(t_infos *info, t_cmd *str);
 // added jaka: to count the array of arguments:
 // int		count_args(t_cmd *cmd);
 int		count_args(char **arr);
-int		count_infiles(char **arr);		// THESE TWO CAN BE 1 FUNCTION  !!!
+int		count_elems(char **arr);		// THESE TWO CAN BE 1 FUNCTION  !!!
 
 
 

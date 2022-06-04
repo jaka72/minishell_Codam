@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:39:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/04 11:34:13 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/04 12:05:16 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	store_into_command_arr(t_source *src, t_cmd *cmd)
 	printf(CYN"START store into command, counted args: %d\n"RES, nr_args);
 
 	temp = realloc_array(cmd->args, nr_args + 2);
-		cmd->args = temp;
+	cmd->args = temp;
 
 	len = get_length_of_word(src);
 	start = src->currpos - len + 1;
@@ -131,6 +131,9 @@ t_cmd	*make_commands(t_source *src)
 		new_cmd = malloc(sizeof(t_cmd));
 		if (new_cmd == NULL)
 			exit (1); // some message and free all !!!
+		// set args to NULL, TO BE ABLE TO DETECT LATER WHEN COUNTING, THAT IT IS EMPTY
+		new_cmd->args = NULL;
+		
 		ret = select_and_store_words(src, new_cmd);
 		print_command_info(new_cmd);
 		if (ret == 1)
