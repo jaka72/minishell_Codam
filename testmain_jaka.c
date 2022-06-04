@@ -18,6 +18,10 @@ Cases like:  < asdqwe   or    < nopermissionfile
 		return to all the previous calls.
 
 
+SAMPLE TEST:
+	make && valgrind ./minishell "<< here cat | < infile < main.c cat | grep a > outfile | ls -l -a | wc -c  > outfile > out1 > out2"
+<< here cat | < infile < main.c cat | grep a > outfile | ls -l -a | wc -c  > outfile > out1 > out2
+
 */
 
 void	free_and_read(t_source *src, t_infos *info, int history)
@@ -60,7 +64,7 @@ int	main(int argc, char *argv[], char *envp[])
 		g_status = run_cmd(&info, cmd_list);
 		free_commands_list(cmd_list);
 		clean_data(g_status, &info, NULL);
-		printf(WHT"exit! (tester mode)\n"RES);
+		printf(GRN"\nexit! (tester mode)\n\n"RES);
 		return (0);
 	}
 	else

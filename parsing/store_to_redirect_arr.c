@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 14:31:57 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/04 13:40:12 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/04 17:35:14 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	store_arrow(t_source *src, t_tmp *t)
 void	store_word_to_array(t_source *src, t_cmd *cmd, t_tmp *t)
 // void	store_word_to_array(t_source *src, t_tmp *t)
 {
-	printf(CYN"Start store_word, t->count: %d\n"RES, t->count);
+	//printf(CYN"Start store_word, t->count: %d\n"RES, t->count);
 
 
 	ft_strlcpy(t->temp_arr[t->count], &src->inputline[t->start],
 		t->len + 1);
 		// NEED TO CHECK SUCCESS HERE ??? 
 
-	printf(CYN"    stored word: [%s] at place %d\n"RES, t->temp_arr[t->count], t->count);
+	//printf(CYN"    stored word: [%s] at place %d\n"RES, t->temp_arr[t->count], t->count);
 		
 	if (t->arrow == '<' && cmd->fd_in == -2)
 		cmd->infile = &t->temp_arr[0];
@@ -46,7 +46,7 @@ void	store_word_to_array(t_source *src, t_cmd *cmd, t_tmp *t)
 	t->temp_arr[t->count + 1] = NULL;
 	
 	//printf(CYN"    stored word: [%s] at place %d\n"RES, cmd->outfile[t->count], t->count);
-	printf(CYN"    END store_word\n"RES);
+	//printf(CYN"    END store_word\n"RES);
 	
 }
 
@@ -63,7 +63,7 @@ void	store_word_to_array(t_source *src, t_cmd *cmd, t_tmp *t)
 // COPY DIRECTLY FROM INPUT LINE, AT CORRECT CURSOR ///////////// HERE
 int	store_to_redirect_arr(t_source *src, t_cmd *cmd)
 {
-	printf(BLU"START store to redirect\n"RES);
+	//printf(BLU"START store to redirect\n"RES);
 
 	t_tmp	t;
 	char	**temp;
@@ -83,7 +83,7 @@ int	store_to_redirect_arr(t_source *src, t_cmd *cmd)
 
 	skip_white_spaces(src);
 	
-	printf(BLU"    A)\n"RES);
+//	printf(BLU"    A)\n"RES);
 
 	src->currpos++;
 	t.len = get_length_of_word(src);
@@ -93,12 +93,12 @@ int	store_to_redirect_arr(t_source *src, t_cmd *cmd)
 	if (t.temp_arr[t.count] == NULL)
 		return (1);
 
-	printf(BLU"    B)\n"RES);
+//	printf(BLU"    B)\n"RES);
 
 	store_word_to_array(src, cmd, &t);
 	// store_word_to_array(src, &t);
-	printf(BLU"    C)\n"RES);
+//	printf(BLU"    C)\n"RES);
 	//printf(BLU"    saved word [%s] at place %d\n"RES, cmd->infile[t.count], t.count);
-	printf(BLU"    D)\n"RES);
+//	printf(BLU"    D)\n"RES);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:39:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/04 12:05:16 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/04 17:33:59 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	**realloc_array(char **arr, int count)
 {
-	printf(CYN"Start realloc, count: %d\n"RES, count);
+	//printf(CYN"Start realloc, count: %d\n"RES, count);
 	int		i;
 	char	**temp;
 
@@ -24,14 +24,14 @@ char	**realloc_array(char **arr, int count)
 	
 	if (arr == NULL)
 	{
-		printf(CYN"   arr was NULL, now malloced * 2\n"RES);
+		//printf(CYN"   arr was NULL, now malloced * 2\n"RES);
 		return (temp);
 	}
 	
 	i = 0;
 	while (arr[i])
 	{
-		printf(CYN"   loop i%d\n"RES, i);
+		//printf(CYN"   loop i%d\n"RES, i);
 
 		temp[i] = ft_strdup(arr[i]);
 		i++;
@@ -45,7 +45,7 @@ char	**realloc_array(char **arr, int count)
 	free(arr);
 	arr = temp;
 
-	printf(CYN"END realloc;\n"RES);
+	//printf(CYN"END realloc;\n"RES);
 
 	return (arr);
 }
@@ -65,7 +65,7 @@ int	store_into_command_arr(t_source *src, t_cmd *cmd)
 	int		nr_args;
 
 	nr_args = count_args(cmd->args);
-	printf(CYN"START store into command, counted args: %d\n"RES, nr_args);
+	//printf(CYN"START store into command, counted args: %d\n"RES, nr_args);
 
 	temp = realloc_array(cmd->args, nr_args + 2);
 	cmd->args = temp;
@@ -89,7 +89,7 @@ int	select_and_store_words(t_source *src, t_cmd *cmd)
 	init_values(cmd);
 	while (1)
 	{
-		printf(MAG"Loop select words \n"RES);
+		//printf(MAG"Loop select words \n"RES);
 		skip_white_spaces(src);
 		src->currpos++;
 		ch = src->inputline[src->currpos];
@@ -100,7 +100,7 @@ int	select_and_store_words(t_source *src, t_cmd *cmd)
 		else if (is_valid_filename_char(ch) && ch != '\0')
 		{
 			// cmd->count_args++;
-			printf(MAG"   Found valid ch [%c]\n"RES, ch);
+			//printf(MAG"   Found valid ch [%c]\n"RES, ch);
 			store_into_command_arr(src, cmd);
 		}
 		else if (ch == '|')
@@ -126,7 +126,7 @@ t_cmd	*make_commands(t_source *src)
 	i = 0;
 	while (1)
 	{
-		printf(YEL"Loop make commands a) \n"RES);
+		//printf(YEL"Loop make commands a) \n"RES);
 
 		new_cmd = malloc(sizeof(t_cmd));
 		if (new_cmd == NULL)
