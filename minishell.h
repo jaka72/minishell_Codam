@@ -130,7 +130,10 @@ int		run_cmd(t_infos *info, t_cmd *str);
 
 
 // added jaka: to count the array of arguments:
-int		count_args(t_cmd *cmd);
+// int		count_args(t_cmd *cmd);
+int		count_args(char **arr);
+int		count_infiles(char **arr);		// THESE TWO CAN BE 1 FUNCTION  !!!
+
 
 
 

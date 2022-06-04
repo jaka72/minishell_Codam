@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 12:41:35 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/02 17:39:25 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/04 11:37:59 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	run_echo_builtin(t_cmd *cmd)
 	int	flag_first_word;
 
 	int	nr_args;
-	nr_args = count_args(cmd);
+	nr_args = count_args(cmd->args);
 
 	//printf("nr args: %d\n", nr_args);
 

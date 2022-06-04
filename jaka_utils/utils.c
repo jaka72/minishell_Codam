@@ -6,7 +6,7 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 10:42:48 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/03 15:36:18 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/04 11:33:45 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,36 @@
 
 
 
-int	count_args(t_cmd *cmd)
+int	count_infiles(char **arr)
 {
 	int	i;
 
-	//printf(GRN"Start count args, "RES);
-	if (cmd->args == NULL)
+	printf(GRN"Start count infiles\n"RES);
+	if (arr == NULL)
+		return (0);
+
+	printf(GRN"    arr is not NULL\n"RES);
+	
+	i = 0;
+	while (arr[i])
+		i++;
+	printf(GRN"   counted: %d\n"RES, i);
+	return (i);
+}
+
+
+
+// int	count_args(t_cmd *cmd)	// THIS CAN BE REWRITTEN, SEE count_infiles()
+int	count_args(char **arr)	// THIS CAN BE REWRITTEN, SEE count_infiles()
+{
+	int	i;
+
+	//printf(GRN"Start count args "RES);
+	if (arr == NULL)
 		return (0);
 
 	i = 0;
-	while (cmd->args[i])
+	while (arr[i])
 		i++;
 	//printf(GRN"   counted: %d\n"RES, i);
 	return (i);

@@ -6,7 +6,7 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 12:56:23 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/02 17:46:50 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/04 11:40:30 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_if_numeric(char *arg)
 
 int	check_args_and_print(t_cmd *cmd, int nr_commands)
 {
-	if (check_if_numeric(cmd->args[1]) != 0 && count_args(cmd) >= 2)
+	if (check_if_numeric(cmd->args[1]) != 0 && count_args(cmd->args) >= 2)
 	{
 		if (nr_commands == 1)
 			write(2, "exit\n", 5);
@@ -52,14 +52,14 @@ int	check_args_and_print(t_cmd *cmd, int nr_commands)
 		write(2, ": numeric argument required\n", 28);
 		exit (2);
 	}
-	else if (check_if_numeric(cmd->args[1]) == 0 && count_args(cmd) > 2)
+	else if (check_if_numeric(cmd->args[1]) == 0 && count_args(cmd->args) > 2)
 	{
 		if (nr_commands == 1)
 			write(2, "exit\n", 5);
 		write(2, "minishell: exit: too many arguments\n", 36);
 		return (1);
 	}
-	else if (check_if_numeric(cmd->args[1]) == 0 && count_args(cmd) == 2)
+	else if (check_if_numeric(cmd->args[1]) == 0 && count_args(cmd->args) == 2)
 	{
 		if (nr_commands == 1)
 			write(2, "exit\n", 5);
@@ -76,13 +76,13 @@ int	run_exit_builtin(t_cmd *cmd, t_cmd *list)
 	int	nr_commands;
 
 	nr_commands = count_commands(list);
-	if (count_args(cmd) == 1)
+	if (count_args(cmd->args) == 1)
 	{
 		if (nr_commands == 1)
 			write(cmd->fd_out, "exit\n", 5);
 		exit (0);
 	}
-	else if (count_args(cmd) > 1)
+	else if (count_args(cmd->args) > 1)
 	{
 		if (check_args_and_print(cmd, nr_commands) != 0)
 			return (1);

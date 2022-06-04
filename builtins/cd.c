@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 12:41:44 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/02 17:44:51 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/04 11:39:00 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,10 @@ int	run_cd_builtin(t_cmd *cmd, t_infos *info)
 	if (current_pwd == NULL)
 		return (1);
 	//if (cmd->count_args == 1)
-	if (count_args(cmd) == 1)
+	if (count_args(cmd->args) == 1)
 		ret = get_path_and_change_dir(info, current_pwd, "HOME");
 	// else if (cmd->count_args == 2)
-	else if (count_args(cmd) == 2)
+	else if (count_args(cmd->args) == 2)
 	{
 		if (ft_strcmp(cmd->args[1], "~") == 0)
 			ret = get_path_and_change_dir(info, current_pwd, "HOME");
@@ -139,7 +139,7 @@ int	run_cd_builtin(t_cmd *cmd, t_infos *info)
 			ret = change_dir(info, current_pwd, cmd->args[1]);
 	}
 	// else if (cmd->count_args > 2)
-	else if (count_args(cmd) > 2)
+	else if (count_args(cmd->args) > 2)
 		ret = print_error_too_many_args();
 	if (ret == 1)
 		return (1);

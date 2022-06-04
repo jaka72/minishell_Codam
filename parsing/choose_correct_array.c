@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 14:07:33 by jaka          #+#    #+#                 */
-/*   Updated: 2022/05/31 14:08:03 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/03 17:46:23 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@ void	is_infile(t_cmd *cmd, t_tmp *t)
 {
 	t->temp_arr = cmd->infile;
 	cmd->count_infiles++;
-	t->count = cmd->count_infiles;
+	// t->count = cmd->count_infiles;
+	t->count = count_infiles(cmd->infile);
+	
+	printf("  counted infiles: %d\n", t->count);
+	
 	cmd->fd_in = -2;
 }
 
