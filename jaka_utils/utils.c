@@ -6,7 +6,7 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 10:42:48 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/04 12:17:58 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/04 22:02:36 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	count_args(char **arr)	// THIS CAN BE REWRITTEN, SEE count_infiles()
 void	print_err_msg(char *err_msg)
 {
 	// JUST FOR THE TESTER
-	printf("\nMinishell: %s\n", err_msg);  // !!!
+	printf("\nMinishell: %s\n", err_msg);  // !!! CHANGE BACK TO write()
 	
 	// write(2, "\nMinishel: ", 11);
 	// write(2, err_msg, ft_strlen(err_msg));
