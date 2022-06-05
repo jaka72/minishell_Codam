@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:14:28 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/01 10:28:56 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/04 13:52:26 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	init_values(t_cmd *cmd)
 	cmd->infile = NULL;
 	cmd->outfile = NULL;
 	cmd->heredoc = NULL;
-	cmd->count_args = 0;
-	cmd->count_infiles = 0;
-	cmd->count_outfiles = 0;
-	cmd->count_heredocs = 0;
+	//cmd->count_args = 0;
+	//cmd->count_infiles = 0;
+	//cmd->count_outfiles = 0;
+	//cmd->count_heredocs = 0;
 }
 
 int	check_if_builtin(t_cmd *cmd)

@@ -47,10 +47,10 @@ typedef struct s_cmd
 	char			**infile;
 	char			**outfile;
 	char			**heredoc;
-	int				count_args;			// NEEDED TO KEEP TRACK OF NR OF ELEMENTS,
-	int				count_infiles;		// TO BE ABLE TO realloc(), EACH TIME: nr + 1
-	int				count_outfiles;
-	int				count_heredocs;
+	//int				count_args;			// NEEDED TO KEEP TRACK OF NR OF ELEMENTS,
+	//int				count_infiles;		// TO BE ABLE TO realloc(), EACH TIME: nr + 1
+	//int				count_outfiles;
+	//int				count_heredocs;
 	struct s_cmd	*next;
 	int				temp;		// just for testing
 }	t_cmd;
@@ -128,6 +128,15 @@ char	*ft_make_binpass(int i, char *pass, char *cmd);
 char	*ft_findshell_pass(char *cmd, char *envp[]);
 int		ms_execve(t_infos *info, t_cmd *str);	// changed jaka
 int		run_cmd(t_infos *info, t_cmd *str);
+
+
+// added jaka: to count the array of arguments:
+// int		count_args(t_cmd *cmd);
+int		count_args(char **arr);
+int		count_elems(char **arr);		// THESE TWO CAN BE 1 FUNCTION  !!!
+
+
+
 
 // main.c
 // char	*free_and_read(char *line, t_infos *info);

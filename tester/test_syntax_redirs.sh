@@ -10,7 +10,8 @@ RES="\033[0m"
 
 ############################################################
 
-error_message="Minishell: Syntax error with REDIRECTS"
+# error_message="Minishell: Syntax error with REDIRECTS"
+error_message="Minishell: Syntax error"
 
 ############################################################
 
@@ -60,23 +61,23 @@ test_syntax_error()
 echo -e $YEL"\nTest INPUT redirects: syntax errors"$RES
 
 inputlines=("<"
-			"<<"
-			"<<<"
-			"< <<"
-			"<< <"
-			"< <"
-			" <"
-			" <<"
-			" < <"
-			" < < "
-			"<< >"
-			">< <"
-			" << < "
-			" < << "
-			"< abc < < "
-			"< abc <<"
-			"<< abc < < abc"
-			"< abc < abc <<"
+			# "<<"
+			# "<<<"
+			# "< <<"
+			# "<< <"
+			# "< <"
+			# " <"
+			# " <<"
+			# " < <"
+			# " < < "
+			# "<< >"
+			# ">< <"
+			# " << < "
+			# " < << "
+			# "< abc < < "
+			# "< abc <<"
+			# "<< abc < < abc"
+			# "< abc < abc <<"
 			)
 
 nr_elements=${#inputlines[@]}
@@ -102,8 +103,8 @@ echo -e $YEL"\nTest INPUT redirects: syntax errors, arrow with pipe"$RES
 
 
 inputlines=(
-			"ls | < | outfile"
-			"< infile cat | < | outfile"
+			# "ls | < | outfile"
+			# "< infile cat | < | outfile"
 
 			### HEREDOC not handled yet
 			# "<< here >< outfile"
@@ -171,10 +172,10 @@ done
 echo -e $YEL"\nTest redirects: pipes with arrows, valid input "$RES
 
 inputlines=(
-			"ls | < infile"
-			"ls|<infile"
-			"< infile cat -e > out"
-			"< infile cat -e | < ls | < infile"
+			# "ls | < infile"
+			# "ls|<infile"
+			# "< infile cat -e > out"
+			# "< infile cat -e | < ls | < infile"
 			)
 
 nr_elements=${#inputlines[@]}
@@ -195,12 +196,12 @@ done
 
 echo ""
 echo ""
-echo ""
-echo ""
+# echo ""
+# echo ""
 
 input="ls | < infile"
 
-eval $input | cat -e
+# eval $input | cat -e
 # echo $input
 
 # echo aaaaaa
