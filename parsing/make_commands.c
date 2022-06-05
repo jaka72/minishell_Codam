@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:39:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/02 11:35:27 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/04 17:33:59 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,25 @@
 
 char	**realloc_array(char **arr, int count)
 {
+	//printf(CYN"Start realloc, count: %d\n"RES, count);
 	int		i;
 	char	**temp;
 
-	temp = malloc(sizeof(char *) * (count + 1));
+	temp = malloc(sizeof(char *) * (count));
 	if (temp == NULL)
 		return (NULL);
+	
+	if (arr == NULL)
+	{
+		//printf(CYN"   arr was NULL, now malloced * 2\n"RES);
+		return (temp);
+	}
+	
 	i = 0;
 	while (arr[i])
 	{
+		//printf(CYN"   loop i%d\n"RES, i);
+
 		temp[i] = ft_strdup(arr[i]);
 		i++;
 	}
@@ -34,6 +44,9 @@ char	**realloc_array(char **arr, int count)
 	}
 	free(arr);
 	arr = temp;
+
+	//printf(CYN"END realloc;\n"RES);
+
 	return (arr);
 }
 
@@ -45,28 +58,27 @@ char	**realloc_array(char **arr, int count)
 // Should malloc error give message ?
 int	store_into_command_arr(t_source *src, t_cmd *cmd)
 {
+
 	int		len;
 	int		start;
 	char	**temp;
+	int		nr_args;
 
-	if (cmd->count_args == 1)
-	{
-		cmd->args = malloc(sizeof(char *) * 2);
-		if (cmd->args == NULL)
-			return (1);
-	}
-	else
-	{
-		temp = realloc_array(cmd->args, cmd->count_args);
-		cmd->args = temp;
-	}
+	nr_args = count_args(cmd->args);
+	//printf(CYN"START store into command, counted args: %d\n"RES, nr_args);
+
+	temp = realloc_array(cmd->args, nr_args + 2);
+	cmd->args = temp;
+
 	len = get_length_of_word(src);
 	start = src->currpos - len + 1;
-	cmd->args[cmd->count_args - 1] = malloc(sizeof(char) * (len + 1));
-	if (cmd->args[cmd->count_args - 1] == NULL)
+	
+	cmd->args[nr_args] = malloc(sizeof(char) * (len + 1));
+	if (cmd->args[nr_args] == NULL)
 		return (1);
-	ft_strlcpy(cmd->args[cmd->count_args - 1], &src->inputline[start], len + 1);
-	cmd->args[cmd->count_args] = NULL;
+		
+	ft_strlcpy(cmd->args[nr_args], &src->inputline[start], len + 1);
+	cmd->args[nr_args + 1] = NULL;
 	return (0);
 }
 
@@ -77,6 +89,7 @@ int	select_and_store_words(t_source *src, t_cmd *cmd)
 	init_values(cmd);
 	while (1)
 	{
+		//printf(MAG"Loop select words \n"RES);
 		skip_white_spaces(src);
 		src->currpos++;
 		ch = src->inputline[src->currpos];
@@ -86,7 +99,8 @@ int	select_and_store_words(t_source *src, t_cmd *cmd)
 		}
 		else if (is_valid_filename_char(ch) && ch != '\0')
 		{
-			cmd->count_args++;
+			// cmd->count_args++;
+			//printf(MAG"   Found valid ch [%c]\n"RES, ch);
 			store_into_command_arr(src, cmd);
 		}
 		else if (ch == '|')
@@ -112,9 +126,16 @@ t_cmd	*make_commands(t_source *src)
 	i = 0;
 	while (1)
 	{
+		//printf(YEL"Loop make commands a) \n"RES);
+
 		new_cmd = malloc(sizeof(t_cmd));
+		if (new_cmd == NULL)
+			exit (1); // some message and free all !!!
+		// set args to NULL, TO BE ABLE TO DETECT LATER WHEN COUNTING, THAT IT IS EMPTY
+		new_cmd->args = NULL;
+		
 		ret = select_and_store_words(src, new_cmd);
-		// print_command_info(new_cmd);
+		print_command_info(new_cmd);
 		if (ret == 1)
 		{
 			ft_lstadd_back(&first_cmd, new_cmd);

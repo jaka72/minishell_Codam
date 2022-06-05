@@ -136,10 +136,11 @@ echo -e $BLU"  ( valid input with wc is KO, because tabs are displayed different
 			"ls | grep a"
 			"ls | grep a | wc"
 			"ls | wc"
+			"ls | ls | ls"
 
 			## NO OUTPUT EXAMPLE
 	 		"< infile cat | < readme"
-			"ls | ls | ls > outfile"
+			# "ls | ls | ls > outfile"
 			
 			# ## HEREDOC not handled yet
 			# # "<< here cat | wc > outfile"

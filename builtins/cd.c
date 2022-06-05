@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 12:41:44 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/01 17:14:15 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/04 11:39:00 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ char	*get_path(t_infos *info, char *name)
 	{
 		if (ft_strcmp(temp->name, name) == 0)
 		{
-			printf(YEL"temp->name: [%s]\n"RES, temp->name);
-			printf(YEL"temp->value: [%s]\n"RES, temp->value);
+			//printf(YEL"temp->name: [%s]\n"RES, temp->name);
+			//printf(YEL"temp->value: [%s]\n"RES, temp->value);
 			newpath = ft_strdup(temp->value);
-			printf(YEL"newpath: [%s]\n"RES, newpath);
+			//printf(YEL"newpath: [%s]\n"RES, newpath);
 			if (newpath == NULL)
 			{
 				write(2, "Minishell: Error with mallocing\n", 32);
@@ -125,9 +125,11 @@ int	run_cd_builtin(t_cmd *cmd, t_infos *info)
 	current_pwd = getcwd(buff, PATH_MAX);
 	if (current_pwd == NULL)
 		return (1);
-	if (cmd->count_args == 1)
+	//if (cmd->count_args == 1)
+	if (count_args(cmd->args) == 1)
 		ret = get_path_and_change_dir(info, current_pwd, "HOME");
-	else if (cmd->count_args == 2)
+	// else if (cmd->count_args == 2)
+	else if (count_args(cmd->args) == 2)
 	{
 		if (ft_strcmp(cmd->args[1], "~") == 0)
 			ret = get_path_and_change_dir(info, current_pwd, "HOME");
@@ -136,7 +138,8 @@ int	run_cd_builtin(t_cmd *cmd, t_infos *info)
 		else
 			ret = change_dir(info, current_pwd, cmd->args[1]);
 	}
-	else if (cmd->count_args > 2)
+	// else if (cmd->count_args > 2)
+	else if (count_args(cmd->args) > 2)
 		ret = print_error_too_many_args();
 	if (ret == 1)
 		return (1);

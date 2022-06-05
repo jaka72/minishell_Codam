@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 14:07:33 by jaka          #+#    #+#                 */
-/*   Updated: 2022/05/31 14:08:03 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/04 17:35:30 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,20 @@
 void	is_infile(t_cmd *cmd, t_tmp *t)
 {
 	t->temp_arr = cmd->infile;
-	cmd->count_infiles++;
-	t->count = cmd->count_infiles;
+	//cmd->count_infiles++;
+	// t->count = cmd->count_infiles;
+	//t->count = count_infiles(cmd->infile);
+	
+	//printf("    is_infile: t.count == nr_args == %d\n", t->count);
+	
 	cmd->fd_in = -2;
 }
 
 void	is_heredoc(t_source *src, t_cmd *cmd, t_tmp *t)
 {
 	t->temp_arr = cmd->heredoc;
-	cmd->count_heredocs++;
-	t->count = cmd->count_heredocs;
+	// cmd->count_heredocs++;
+	// t->count = cmd->count_heredocs;
 	cmd->fd_in = -3;
 	src->currpos++;
 }
@@ -32,8 +36,8 @@ void	is_heredoc(t_source *src, t_cmd *cmd, t_tmp *t)
 void	is_outfile(t_source *src, t_cmd *cmd, t_tmp *t)
 {
 	t->temp_arr = cmd->outfile;
-	cmd->count_outfiles++;
-	t->count = cmd->count_outfiles;
+	//cmd->count_outfiles++;
+	//t->count = cmd->count_outfiles;
 	cmd->fd_out = -2;
 	if (src->inputline[src->currpos + 1] == '>')
 	{
@@ -56,4 +60,7 @@ void	choose_correct_array(t_source *src, t_cmd *cmd, t_tmp *t)
 	{
 		is_outfile(src, cmd, t);
 	}
+	// t->count = count_elems(cmd->outfile);
+	t->count = count_elems(t->temp_arr);
+	//printf(WHT"       t.count: %d\n"RES, t->count);
 }

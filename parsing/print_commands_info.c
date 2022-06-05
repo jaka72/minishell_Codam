@@ -5,7 +5,7 @@ void print_command_info(t_cmd *cmd)
 {
 	int i = 0;
 	printf(WHT2"  Command  array: "RES);
-	while (i < cmd->count_args)
+	while (i < count_args(cmd->args))
 	{
 		printf(DYEL" [%s%s%s] "RES, MAG, cmd->args[i], DYEL);
 		i++;
@@ -20,7 +20,8 @@ void print_command_info(t_cmd *cmd)
 	// printf(GRE"nr outfiles: %d \n"RES, cmd->count_outfiles);
 	i = 0;
 	printf(WHT2"  Infile   array: ["RES);
-	while (i < cmd->count_infiles)
+	// while (i < cmd->count_infiles)
+	while (i < count_elems(cmd->infile))
 	{
 		printf(DYEL" %s "RES, cmd->infile[i]);
 		//printf(YEL" %i "RES, i);
@@ -34,7 +35,8 @@ void print_command_info(t_cmd *cmd)
 	// printf(GRE"nr_infiles: %d \n"RES, cmd->count_outfiles);
 	i = 0;
 	printf(WHT2"  Outfile  array: ["RES);
-	while (i < cmd->count_outfiles)
+	// while (i < cmd->count_outfiles)
+	while (i < count_elems(cmd->outfile))
 	{
 		printf(DYEL" %s "RES, cmd->outfile[i]);
 		//printf(YEL" %i "RES, i);
@@ -46,7 +48,8 @@ void print_command_info(t_cmd *cmd)
 	// printf(GRE"count_heredocs: %d \n"RES, cmd->count_outfiles);
 	i = 0;
 	printf(WHT2"  Heredocs array: ["RES);
-	while (i < cmd->count_heredocs)
+	// while (i < cmd->count_heredocs)
+	while (i < count_elems(cmd->heredoc))
 	{
 		printf(DYEL" %s "RES, cmd->heredoc[i]);
 		i++;

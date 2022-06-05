@@ -89,7 +89,7 @@ int	ms_execve(t_infos *info, t_cmd *str)
 		if (ft_strchr(str->args[0], '/') != NULL)
 		{
 			write(2, str->args[0], ft_strlen(str->args[0]));
-			write(2, ": No such file or directory\n", 28);	
+			write(2, ": Noo such file or directory\n", 28);	
 		}
 		else
 		{
@@ -173,7 +173,8 @@ int	run_cmd(t_infos *info, t_cmd *str)
 					g_status = exec_builtin(current, info, str);
 				else
 					ms_execve(info, current);
-				exit (0);  // in case of builtin, it should be quit
+				//exit (0);  // in case of builtin, it should be quit
+				exit (g_status);
 			}
 			else
 			{

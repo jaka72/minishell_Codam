@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 14:31:57 by jaka          #+#    #+#                 */
-/*   Updated: 2022/05/31 14:40:24 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/04 17:35:14 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,41 @@ void	store_arrow(t_source *src, t_tmp *t)
 	t->arrow = src->inputline[src->currpos];
 }
 
+
+
+
+
 // SAVE TO CORRECT ARRAY: INFILE, OUTFILE, OR HEREDOC ARRAY
 void	store_word_to_array(t_source *src, t_cmd *cmd, t_tmp *t)
+// void	store_word_to_array(t_source *src, t_tmp *t)
 {
-	ft_strlcpy(t->temp_arr[t->count - 1], &src->inputline[t->start],
+	//printf(CYN"Start store_word, t->count: %d\n"RES, t->count);
+
+
+	ft_strlcpy(t->temp_arr[t->count], &src->inputline[t->start],
 		t->len + 1);
+		// NEED TO CHECK SUCCESS HERE ??? 
+
+	//printf(CYN"    stored word: [%s] at place %d\n"RES, t->temp_arr[t->count], t->count);
+		
 	if (t->arrow == '<' && cmd->fd_in == -2)
 		cmd->infile = &t->temp_arr[0];
 	else if (t->arrow == '<' && cmd->fd_in == -3)
 		cmd->heredoc = &t->temp_arr[0];
 	else if (t->arrow == '>')
 		cmd->outfile = &t->temp_arr[0];
-	t->temp_arr[t->count] = NULL;
+	
+	t->temp_arr[t->count + 1] = NULL;
+	
+	//printf(CYN"    stored word: [%s] at place %d\n"RES, cmd->outfile[t->count], t->count);
+	//printf(CYN"    END store_word\n"RES);
+	
 }
+
+
+
+
+
 
 // ALLOCATE CORRECT NR OF PLACES IN **args
 // if count == 1, it just started, still empty; Create space for 1st and NULL
@@ -41,29 +63,42 @@ void	store_word_to_array(t_source *src, t_cmd *cmd, t_tmp *t)
 // COPY DIRECTLY FROM INPUT LINE, AT CORRECT CURSOR ///////////// HERE
 int	store_to_redirect_arr(t_source *src, t_cmd *cmd)
 {
+	//printf(BLU"START store to redirect\n"RES);
+
 	t_tmp	t;
 	char	**temp;
+	//int		nr_args;
+
 
 	store_arrow(src, &t);
 	choose_correct_array(src, cmd, &t);
-	if (t.count == 1)
-	{
-		t.temp_arr = malloc(sizeof(char *) * 2);
-		if (t.temp_arr == NULL)
-			return (1);
-	}
-	else
-	{
-		temp = realloc_array(t.temp_arr, t.count);
-		t.temp_arr = temp;
-	}
+
+	// t.count = count_elems(cmd->outfile);
+	// printf(BLU"    returned t.count: %d\n"RES, t.count);
+
+	// temp = realloc_array(t.temp_arr, t.count);
+	temp = realloc_array(t.temp_arr, t.count + 2);
+	t.temp_arr = temp;
+
+
 	skip_white_spaces(src);
+	
+//	printf(BLU"    A)\n"RES);
+
 	src->currpos++;
 	t.len = get_length_of_word(src);
 	t.start = src->currpos - t.len + 1;
-	t.temp_arr[t.count - 1] = malloc(sizeof(char) * (t.len + 1));
-	if (t.temp_arr[t.count - 1] == NULL)
+	// t.temp_arr[t.count - 1] = malloc(sizeof(char) * (t.len + 1));
+	t.temp_arr[t.count] = malloc(sizeof(char) * (t.len + 1));
+	if (t.temp_arr[t.count] == NULL)
 		return (1);
+
+//	printf(BLU"    B)\n"RES);
+
 	store_word_to_array(src, cmd, &t);
+	// store_word_to_array(src, &t);
+//	printf(BLU"    C)\n"RES);
+	//printf(BLU"    saved word [%s] at place %d\n"RES, cmd->infile[t.count], t.count);
+//	printf(BLU"    D)\n"RES);
 	return (0);
 }
