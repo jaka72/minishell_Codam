@@ -1,12 +1,14 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-# GNU Make 4.2.1
-# Built for x86_64-pc-linux-gnu
-# Copyright (C) 1988-2016 Free Software Foundation, Inc.
-# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
-# This is free software: you are free to change and redistribute it.
-# There is NO WARRANTY, to the extent permitted by law.
+# GNU Make 3.81
+# Copyright (C) 2006  Free Software Foundation, Inc.
+# This is free software; see the source for copying conditions.
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
 
-# Make data base, printed on Wed Jun  1 18:11:58 2022
+# This program built for i386-apple-darwin11.3.0
+ 
+
+# Make data base, printed on Sun Jun  5 09:30:58 2022
 
 # Variables
 
@@ -14,345 +16,214 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
-# environment
-DESKTOP_SESSION = cinnamon
-# default
-.SHELLFLAGS := -c
-# makefile (from 'Makefile', line 100)
+# makefile (from `Makefile', line 100)
 OBJ = $(UTIL_OBJ) $(INIT_OBJ) $(EXEC_OBJ) $(FILE_OBJ) $(SYNTAX_OBJ) $(PARSING_OBJ) $(BUILTINS_OBJ) $(JAKA_UTILS_OBJ) $(MAIN_OBJ)
-# environment
-XDG_SESSION_CLASS = user
-# makefile (from 'Makefile', line 89)
+# makefile (from `Makefile', line 89)
 JAKA_UTILS_DIR = ./jaka_utils
 # environment
-SNAP_COMMON = /var/snap/code/common
-# environment
-XDG_SESSION_TYPE = x11
-# environment
 VSCODE_LOG_NATIVE = false
-# makefile (from 'Makefile', line 35)
-INIT_SRC = $(INIT_DIR)/init.c $(INIT_DIR)/env.c $(INIT_DIR)/expand.c	
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
+# environment
+CPPFLAGS = -I/usr/local/opt/readline/include
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
-# environment
-XAUTHORITY = /home/jaka/.Xauthority
-# environment
-GDMSESSION = cinnamon
-# default
-MAKE_VERSION := 4.2.1
+# automatic
+@F = $(notdir $@)
 # makefile
-CURDIR := /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_01_jun_00
-# makefile (from 'Makefile', line 66)
+CURDIR := /Users/keika/Desktop/Mini_3_june
+# makefile (from `Makefile', line 66)
 PARSING_SRC = $(PARSING_DIR)/make_commands.c $(PARSING_DIR)/make_commands_utils.c $(PARSING_DIR)/choose_correct_array.c $(PARSING_DIR)/store_to_redirect_arr.c $(PARSING_DIR)/free_commands_list.c $(PARSING_DIR)/ft_lstadd_back.c $(PARSING_DIR)/print_commands_info.c		
 # makefile
 SHELL = /bin/sh
 # environment
-SNAP_DATA = /var/snap/code/97
+VSCODE_NLS_CONFIG = {"locale":"ja","availableLanguages":{},"_languagePackSupport":true}
 # environment
-GDM_LANG = en_US
-# environment
-VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
-# environment
-_ = /snap/code/97/usr/share/code/code
-# makefile (from 'Makefile', line 112)
+_ = /usr/bin/make
+# makefile (from `Makefile', line 112)
 CFLAGS = -Wall -Wextra -Werror 
-# makefile (from 'Makefile', line 29)
+# makefile (from `Makefile', line 29)
 UTIL_SRC = $(UTIL_DIR)/error.c $(UTIL_DIR)/util.c
-# environment
-XDG_CONFIG_DIRS = /etc/xdg/xdg-cinnamon:/etc/xdg
-# environment
-SNAP_INSTANCE_NAME = code
-# environment
-SNAP_ARCH = amd64
-# environment
-GTK_OVERLAY_SCROLLING = 1
-# makefile (from 'Makefile', line 1)
+# makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
-# makefile (from 'Makefile', line 77)
+# makefile (from `Makefile', line 77)
 BUILTINS_SRC = $(BUILTINS_DIR)/echo.c $(BUILTINS_DIR)/pwd.c $(BUILTINS_DIR)/cd.c $(BUILTINS_DIR)/cd_utils.c $(BUILTINS_DIR)/exit.c $(BUILTINS_DIR)/export.c $(BUILTINS_DIR)/env.c $(BUILTINS_DIR)/unset.c	 
-# makefile (from 'Makefile', line 98)
+# makefile (from `Makefile', line 98)
 MAIN_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(MAIN_SRC:.c=.o))
-# automatic
-@F = $(notdir $@)
-# environment
-GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code.desktop
-# makefile (from 'Makefile', line 48)
+# makefile (from `Makefile', line 48)
 FILE_SRC = $(FILE_DIR)/heredoc.c						
-# makefile (from 'Makefile', line 65)
+# makefile (from `Makefile', line 65)
 PARSING_DIR = ./parsing
-# 'override' directive
-GNUMAKEFLAGS := 
-# makefile (from 'Makefile', line 5)
+ 
+# makefile (from `Makefile', line 5)
 OBJ_DIR = obj_dir
 # environment
-MANDATORY_PATH = /usr/share/gconf/cinnamon.mandatory.path
-# environment
-XDG_DATA_DIRS = /usr/share/cinnamon:/usr/share/gnome:/home/jaka/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
-# environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
-# environment
 VSCODE_VERBOSE_LOGGING = true
-# makefile (from 'Makefile', line 28)
+# makefile (from `Makefile', line 28)
 UTIL_DIR = util
-# makefile (from 'Makefile', line 2)
+# makefile (from `Makefile', line 2)
 BONUS = minishell_bonus
-# makefile (from 'Makefile', line 76)
+# makefile (from `Makefile', line 76)
 BUILTINS_DIR = ./builtins
 # environment
-LESSOPEN = | /usr/bin/lesspipe %s
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/pk/ns046dtx2t19fvg7mvxp5d540000gp/T/vscode-ipc-ead9d05f-dbcc-4608-b266-5130eb441182.sock
 # environment
-LC_NAME = nl_NL.UTF-8
-# makefile (from 'Makefile', line 90)
-JAKA_UTILS_SRC = $(JAKA_UTILS_DIR)/utils.c
-# environment
-VSCODE_CWD = /home/jaka
-# makefile (from 'Makefile', line 47)
+VSCODE_CWD = /
+# makefile (from `Makefile', line 47)
 FILE_DIR = ./file
 # environment
-XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session0
+PATH = /Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/local/opt/llvm/bin:/usr/local/bin:/Users/keika/.brew/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/local/opt/llvm/bin:/usr/local/bin:/Users/keika/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
 # environment
-GSETTINGS_SCHEMA_DIR = /snap/code/97/usr/share/glib-2.0/schemas
-# default
-MAKE_HOST := x86_64-pc-linux-gnu
+C_INCLUDE_PATH = /Users/keika/.brew/include:/Users/keika/.brew/include:
 # environment
-PATH = /home/jaka/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-# environment
-GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
-# environment
-SESSION_MANAGER = local/jaka-HP-Linux:@/tmp/.ICE-unix/1800,unix/jaka-HP-Linux:/tmp/.ICE-unix/1800
-# environment
-XDG_RUNTIME_DIR = /run/user/1000
-# environment
-GDK_PIXBUF_MODULE_FILE = /home/jaka/snap/code/common/.cache/gdk-pixbuf-loaders.cache
-# environment
-SNAP = /snap/code/97
-# makefile (from 'Makefile', line 42)
+LIBRARY_PATH = /Users/keika/.brew/lib:/Users/keika/.brew/lib:
+# makefile (from `Makefile', line 42)
 EXEC_SRC = $(EXEC_DIR)/exec.c $(EXEC_DIR)/fd.c	
 # environment
-SNAP_VERSION = c3511e6c
+LaunchInstanceID = 18324A55-26C1-45B5-9FEA-C06992D3206F
 # environment
 VSCODE_LOG_STACK = false
 # environment
-DISABLE_WAYLAND = 1
-# environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-GDK_PIXBUF_MODULEDIR = /snap/code/97/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+LDFLAGS = -L/usr/local/opt/readline/lib
 # default
-.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
-# makefile (from 'Makefile', line 7)
+.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# makefile (from `Makefile', line 7)
 LIBFT_DIR = ./libft
 # environment
-XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/jaka
-# environment
-LS_COLORS = 
-# environment
-INSIDE_NEMO_PYTHON = 
-# environment
-XDG_SESSION_DESKTOP = cinnamon
-# environment
-SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
-# environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 46200
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.cw9LxuCQOu/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
-DISPLAY = :0
-# makefile (from 'Makefile', line 41)
+HOMEBREW_TEMP = /tmp/keika/Homebrew/Temp
+# makefile (from `Makefile', line 41)
 EXEC_DIR = ./exec
 # environment
-VISUAL = code
-# environment
 VSCODE_PIPE_LOGGING = true
+# makefile (from `Makefile', line 97)
+MAIN_SRC = main.c
 # environment
-SNAP_INSTANCE_KEY = 
-# makefile (from 'Makefile', line 96)
-MAIN_SRC = testmain_jaka.c
+PWD = /Users/keika/Desktop/Mini_3_june
 # environment
-PWD = /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_01_jun_00
-# environment
-QT_QPA_PLATFORMTHEME = qt5ct
-# default
-.LOADED := 
-# environment
-XDG_SEAT = seat0
-# environment
-SSH_AGENT_PID = 1891
-# environment
-ORIGINAL_XDG_CURRENT_DESKTOP = X-Cinnamon
-# environment
-GTK_MODULES = xapp-gtk3-module:gail:atk-bridge
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-HOME = /home/jaka
+PYENV_SHELL = zsh
 # environment
-LESSCLOSE = /usr/bin/lesspipe %s %s
+HOME = /Users/keika
+# default
+MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CLI = 1
+VSCODE_CODE_CACHE_PATH = /Users/keika/Library/Application Support/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
 # environment
-VSCODE_CODE_CACHE_PATH = /home/jaka/.config/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
-# environment
-LOGNAME = jaka
+LOGNAME = keika
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
-# environment
-SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
-# environment
-SNAP_CONTEXT = SSoTog8zHAs3Urh521we7lSVSyp7dj1tz2h7fWYXRZrCU8-8Vvlk
-# automatic
-+F = $(notdir $+)
-# makefile (from 'Makefile', line 61)
+# makefile (from `Makefile', line 61)
 SYNTAX_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(SYNTAX_SRC:.c=.o))
-# makefile (from 'Makefile', line 38)
+# makefile (from `Makefile', line 38)
 INIT_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(INIT_SRC:.c=.o))
 # environment
-ELECTRON_NO_ATTACH_CONSOLE = 1
-# environment
-SNAP_USER_COMMON = /home/jaka/snap/code/common
-# environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
-# environment
-GNOME_DESKTOP_SESSION_ID = this-is-deprecated
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
-# environment
-XDG_VTNR = 7
-# makefile (from 'Makefile', line 52)
+# makefile (from `Makefile', line 52)
 FILE_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(FILE_SRC:.c=.o))
 # environment
-MAKELEVEL := 0
-# environment
-SNAP_REAL_HOME = /home/jaka
-# makefile (from 'Makefile', line 114)
+XPC_FLAGS = 0x0
+# makefile (from `Makefile', line 114)
 RLFLAG = $(shell brew --prefix readline)
+ 
 # default
 MAKE = $(MAKE_COMMAND)
-# makefile (from 'Makefile', line 92)
+# makefile (from `Makefile', line 92)
 JAKA_UTILS_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(JAKA_UTILS_SRC:.c=.o))
 # default
 MAKECMDGOALS := all
 # environment
-SNAP_USER_DATA = /home/jaka/snap/code/97
+HOMEBREW_CACHE = /tmp/keika/Homebrew/Caches
 # environment
-SHLVL = 0
+SHLVL = 1
+# default
+MAKE_VERSION := 3.81
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-d9cb455e-6d50-4f0a-84a6-6e42e3ad4a64.sock
-# environment
-XDG_SESSION_ID = c2
-# environment
-USER = jaka
-# environment
-SNAP_REVISION = 97
-# environment
-LC_MONETARY = nl_NL.UTF-8
+USER = keika
 # makefile
 .DEFAULT_GOAL := all
-# environment
-XDG_CURRENT_DESKTOP = X-Cinnamon
-# makefile (from 'Makefile', line 1)
+# makefile (from `Makefile', line 1)
 NAME = minishell
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
-# environment
-LC_TELEPHONE = nl_NL.UTF-8
 # default
-MAKE_COMMAND := make
-# makefile (from 'Makefile', line 73)
+MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
+# makefile (from `Makefile', line 73)
 PARSING_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(PARSING_SRC:.c=.o))
 # default
 .VARIABLES := 
+# environment
+TMPDIR = /var/folders/pk/ns046dtx2t19fvg7mvxp5d540000gp/T/
 # automatic
 *F = $(notdir $*)
 # environment
-LANGUAGE = en_US
-# environment
-XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
-# environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-b24d0794-1.67.2-main.sock
-# environment
-BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
-# makefile (from 'Makefile', line 31)
+VSCODE_IPC_HOOK = /Users/keika/Library/Application Support/Code/1.67.2-main.sock
+# makefile (from `Makefile', line 31)
 UTIL_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(UTIL_SRC:.c=.o))
 # makefile
-MAKEFLAGS = pqrR
+MAKEFLAGS = Rrqp
 # environment
-MFLAGS = -pqrR
+MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
+# environment
+XPC_SERVICE_NAME = com.microsoft.VSCode.28128
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
-# makefile (from 'Makefile', line 85)
+# makefile (from `Makefile', line 85)
 BUILTINS_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(BUILTINS_SRC:.c=.o))
-# environment
-GDK_BACKEND = x11
-# makefile (from 'Makefile', line 25)
+# makefile (from `Makefile', line 25)
 LIBFT_A = $(LIBFT_DIR)/libft.a
+# automatic
++F = $(notdir $+)
 # environment
-LC_PAPER = nl_NL.UTF-8
-# environment
-NO_AT_BRIDGE = 1
-# environment
-CINNAMON_VERSION = 4.8.5
-# environment
-LC_IDENTIFICATION = nl_NL.UTF-8
-# environment
-QT_ACCESSIBILITY = 1
- 
-# environment
-DEFAULTS_PATH = /usr/share/gconf/cinnamon.default.path
+__CF_USER_TEXT_ENCODING = 0x1F6:0x1:0xE
 # default
 MAKEFILES := 
-# environment
-SNAP_COOKIE = SSoTog8zHAs3Urh521we7lSVSyp7dj1tz2h7fWYXRZrCU8-8Vvlk
-# environment
-LC_NUMERIC = nl_NL.UTF-8
 # automatic
 <F = $(notdir $<)
 # environment
-LC_MEASUREMENT = nl_NL.UTF-8
-# environment
-SNAP_NAME = code
-# environment
-EDITOR = code
-# environment
 LC_ALL = C
-# makefile (from 'Makefile', line 110)
+# makefile (from `Makefile', line 110)
 HEADER = minishell.h
 # environment
-GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+SECURITYSESSIONID = 186a6
 # automatic
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
-# makefile (from 'Makefile', line 56)
+# makefile (from `Makefile', line 56)
 SYNTAX_SRC = $(SYNTAX_DIR)/check_syntax.c $(SYNTAX_DIR)/check_syntax_quotes.c $(SYNTAX_DIR)/check_syntax_pipes.c $(SYNTAX_DIR)/check_syntax_redirects.c $(SYNTAX_DIR)/check_syntax_redirects_utils.c
-# environment
-SNAP_REEXEC = 
-# environment
-CHROME_DESKTOP = code-url-handler.desktop
-# makefile (from 'Makefile', line 44)
+# makefile (from `Makefile', line 35)
+INIT_SRC = $(INIT_DIR)/init.c $(INIT_DIR)/env.c $(INIT_DIR)/expand.c	
+# makefile (from `Makefile', line 44)
 EXEC_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(EXEC_SRC:.c=.o))
 # default
-.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+.INCLUDE_DIRS = /usr/local/include
 # environment
-GJS_DEBUG_OUTPUT = stderr
-# default
-.RECIPEPREFIX := 
-# environment
-LC_ADDRESS = nl_NL.UTF-8
+MAKELEVEL := 0
+# makefile (from `Makefile', line 90)
+JAKA_UTILS_SRC = $(JAKA_UTILS_DIR)/utils.c
 # environment
 LANG = C
 # environment
-VSCODE_PID = 16869
-# makefile (from 'Makefile', line 55)
+VSCODE_PID = 626
+# makefile (from `Makefile', line 55)
 SYNTAX_DIR = ./check_syntax
-# makefile (from 'Makefile', line 34)
+# makefile (from `Makefile', line 34)
 INIT_DIR = ./init
 # variable set hash-table stats:
-# Load=170/1024=17%, Rehash=0, Collisions=28/284=10%
+# Load=104/1024=10%, Rehash=0, Collisions=9/216=4%
 
 # Pattern-specific Variable Values
 
@@ -360,15 +231,16 @@ INIT_DIR = ./init
 
 # Directories
 
-# . (device 2052, inode 1132082): 29 files, no impossibilities.
+# . (device 16777220, inode 12927439138): 22 files, no impossibilities.
 
-# 29 files, no impossibilities in 1 directories.
+# 22 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
 obj_dir/%.o: %.c minishell.h
-#  recipe to execute (from 'Makefile', line 139):
+#  commands to execute (from `Makefile', line 139):
 	gcc -c $(CFLAGS) -I$(RLFLAG)/include -o $@ $<
+	
 
 # 1 implicit rules, 0 (0.0%) terminal.
 
@@ -385,6 +257,7 @@ obj_dir/util/util.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+ 
 
 # Not a target:
 obj_dir/./parsing/choose_correct_array.o:
@@ -405,16 +278,22 @@ obj_dir/./builtins/exit.o:
 #  File has not been updated.
 
 all: make_obj_dir minishell
-#  Command line target.
+#  Command-line target.
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/19=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/18=0%
 
 # Not a target:
 obj_dir/./check_syntax/check_syntax_pipes.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/main.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -463,9 +342,11 @@ obj_dir/./parsing/print_commands_info.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-01 18:10:02.8582132
+#  Last modified 2022-06-03 11:15:35
 #  File has been updated.
 #  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
 obj_dir/./builtins/cd_utils.o:
@@ -481,23 +362,26 @@ obj_dir/./parsing/free_commands_list.o:
 
 # Not a target:
 obj_dir/./init/expand.o:
+ 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
-minishell: libft/libft.a obj_dir/util/error.o obj_dir/util/util.o obj_dir/./init/init.o obj_dir/./init/env.o obj_dir/./init/expand.o obj_dir/./exec/exec.o obj_dir/./exec/fd.o obj_dir/./file/heredoc.o obj_dir/./check_syntax/check_syntax.o obj_dir/./check_syntax/check_syntax_quotes.o obj_dir/./check_syntax/check_syntax_pipes.o obj_dir/./check_syntax/check_syntax_redirects.o obj_dir/./check_syntax/check_syntax_redirects_utils.o obj_dir/./parsing/make_commands.o obj_dir/./parsing/make_commands_utils.o obj_dir/./parsing/choose_correct_array.o obj_dir/./parsing/store_to_redirect_arr.o obj_dir/./parsing/free_commands_list.o obj_dir/./parsing/ft_lstadd_back.o obj_dir/./parsing/print_commands_info.o obj_dir/./builtins/echo.o obj_dir/./builtins/pwd.o obj_dir/./builtins/cd.o obj_dir/./builtins/cd_utils.o obj_dir/./builtins/exit.o obj_dir/./builtins/export.o obj_dir/./builtins/env.o obj_dir/./builtins/unset.o obj_dir/./jaka_utils/utils.o obj_dir/testmain_jaka.o minishell.h
+minishell: libft/libft.a obj_dir/util/error.o obj_dir/util/util.o obj_dir/./init/init.o obj_dir/./init/env.o obj_dir/./init/expand.o obj_dir/./exec/exec.o obj_dir/./exec/fd.o obj_dir/./file/heredoc.o obj_dir/./check_syntax/check_syntax.o obj_dir/./check_syntax/check_syntax_quotes.o obj_dir/./check_syntax/check_syntax_pipes.o obj_dir/./check_syntax/check_syntax_redirects.o obj_dir/./check_syntax/check_syntax_redirects_utils.o obj_dir/./parsing/make_commands.o obj_dir/./parsing/make_commands_utils.o obj_dir/./parsing/choose_correct_array.o obj_dir/./parsing/store_to_redirect_arr.o obj_dir/./parsing/free_commands_list.o obj_dir/./parsing/ft_lstadd_back.o obj_dir/./parsing/print_commands_info.o obj_dir/./builtins/echo.o obj_dir/./builtins/pwd.o obj_dir/./builtins/cd.o obj_dir/./builtins/cd_utils.o obj_dir/./builtins/exit.o obj_dir/./builtins/export.o obj_dir/./builtins/env.o obj_dir/./builtins/unset.o obj_dir/./jaka_utils/utils.o obj_dir/main.o minishell.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 142):
+#  commands to execute (from `Makefile', line 142):
 	gcc $(CFLAGS) $(OBJ) -I$(RLFLAG)/include -L$(RLFLAG)/lib -lreadline $(LIBFT_A) -o $(NAME)
+	
 
 libft/libft.a: libft/libft.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 133):
+#  commands to execute (from `Makefile', line 133):
 	cd $(LIBFT_DIR); make ; cd ../
+	
 
 # Not a target:
 obj_dir/util/error.o:
@@ -509,17 +393,12 @@ fclean: libftclean clean
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 154):
+#  commands to execute (from `Makefile', line 154):
 	rm -f $(NAME)
+	
 
 # Not a target:
 obj_dir/./check_syntax/check_syntax_quotes.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-obj_dir/testmain_jaka.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -563,9 +442,10 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 150):
+#  commands to execute (from `Makefile', line 150):
 	rm -f $(OBJ)
 	rm -rf $(OBJ_DIR)
+	
 
 # Not a target:
 obj_dir/./parsing/store_to_redirect_arr.o:
@@ -577,12 +457,14 @@ libftclean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 157):
+#  commands to execute (from `Makefile', line 157):
 	cd $(LIBFT_DIR); make fclean; cd ../
+	
 
 # Not a target:
 obj_dir/./init/init.o:
 #  Implicit rule search has not been done.
+ 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -601,7 +483,6 @@ obj_dir/./builtins/export.o:
 # Not a target:
 obj_dir/./check_syntax/check_syntax_redirects.o:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -643,7 +524,7 @@ obj_dir/./check_syntax/check_syntax_redirects_utils.o:
 
 make_obj_dir:
 #  Implicit rule search has not been done.
-#  Implicit/static pattern stem: ''
+#  Implicit/static pattern stem: `'
 #  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
@@ -664,8 +545,8 @@ make_obj_dir:
 # automatic
 # ? := 
 # variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/27=4%
-#  recipe to execute (from 'Makefile', line 121):
+# Load=8/32=25%, Rehash=0, Collisions=1/26=4%
+#  commands to execute (from `Makefile', line 121):
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/util/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/init/ 
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/exec/
@@ -674,21 +555,22 @@ make_obj_dir:
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/parsing/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/builtins/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/jaka_utils/
+	
 
 # files hash-table stats:
-# Load=44/1024=4%, Rehash=0, Collisions=2/100=2%
+# Load=44/1024=4%, Rehash=0, Collisions=2/98=2%
 # VPATH Search Paths
 
-# No 'vpath' search paths.
+# No `vpath' search paths.
 
-# No general ('VPATH' variable) search path.
+# No general (`VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 73 / storage = 1367 B / avg = 18 B
-# current buf: size = 8162 B / used = 1367 B / count = 73 / avg = 18 B
+# # of strings in strcache: 1
+# # of strcache buffers: 1
+ 
+# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
+# strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# strcache performance: lookups = 100 / hit rate = 27%
-# hash-table stats:
-# Load=73/8192=1%, Rehash=0, Collisions=1/100=1%
-# Finished Make data base on Wed Jun  1 18:11:58 2022
+# Finished Make data base on Sun Jun  5 09:30:58 2022
 
  

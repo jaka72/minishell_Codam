@@ -79,6 +79,7 @@ int	free_commands_list(t_cmd *first_cmd)
 	while (temp)
 	{
 		free_arr_args_and_infile(temp);
+		free_arr_outfile_and_heredoc(temp);
 		temp = temp->next;
 		free(first_cmd);
 		first_cmd = temp;
@@ -86,3 +87,4 @@ int	free_commands_list(t_cmd *first_cmd)
 	}
 	return (0);
 }
+

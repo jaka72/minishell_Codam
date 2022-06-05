@@ -74,40 +74,41 @@ t_cmd	*manage_in_out(t_cmd *str, t_infos *info)
 	return (str);
 }
 
-int	check_heredoc_fd(t_cmd *str, t_infos *info)
-{
-	int	i;
-	int	j;
+// int	check_heredoc_fd(t_cmd *str, t_infos *info)
+// {
+// 	int	i;
+// 	int	j;
 
-	i = 0;
-	j = 0;
-	if (str->heredoc != NULL)
-	{
-		while (str->heredoc[i])
-		{
-			// write(2, "hdmake!\n", 8);
-			j = make_heredoc(str->heredoc[i], info);
-			i++;
-		}	
-		// if (str->fd_in == -3)
-		// 	str->fd_in = j;
-	}
-	// write(2, "return!\n", 8);
-	return (j);
-}
+// 	i = 0;
+// 	j = 0;
+// 	if (str->heredoc != NULL)
+// 	{
+// 		while (str->heredoc[i])
+// 		{
+// 			// write(2, "hdmake!\n", 8);
+// 			j = make_heredoc(str->heredoc[i], info);
+// 			i++;
+// 		}	
+// 		// if (str->fd_in == -3)
+// 		// 	str->fd_in = j;
+// 	}
+// 	// write(2, "return!\n", 8);
+// 	// printf("g_status is %d\n", g_status);
+// 	return (j);
+// }
 
-void	connect_hd(t_cmd *current, t_infos *info)
-{
-	int i;
+// void	connect_hd(t_cmd *current, t_infos *info)
+// {
+// 	int i;
 
-	i = 0;
-	i = check_heredoc_fd(current, info);
-	if (current->fd_in == -3)
-	{
-		dup2(i, 0);
-		close(i);
-	}
-}
+// 	i = 0;
+// 	i = check_heredoc_fd(current, info);
+// 	if (current->fd_in == -3)
+// 	{
+// 		dup2(i, 0);
+// 		close(i);
+// 	}
+// }
 
 void	connect_fd(t_cmd *current, t_infos *info)
 {
