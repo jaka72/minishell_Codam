@@ -102,3 +102,4 @@ int	free_commands_list(t_cmd *first_cmd)
 	}
 	return (0);
 }
+

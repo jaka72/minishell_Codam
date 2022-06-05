@@ -32,6 +32,12 @@ void	handle_sigquit_hd(int num)
 	write(STDOUT_FILENO, "\b\b  \b\b", 6);
 }
 
+void	handle_sigint_hd(int num)
+{
+	(void) num;
+	write(STDOUT_FILENO, "\b\b  \b\b\n", 7);
+}
+
 void	ms_init(t_infos *info, char *envp[])
 {
 	int	rc;

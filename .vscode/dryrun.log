@@ -1,0 +1,76 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/keika/Desktop/Mini_3_june'
+mkdir -p obj_dir/ obj_dir/util/
+mkdir -p obj_dir/ obj_dir/init/ 
+mkdir -p obj_dir/ obj_dir/exec/
+mkdir -p obj_dir/ obj_dir/file/
+mkdir -p obj_dir/ obj_dir/check_syntax/
+mkdir -p obj_dir/ obj_dir/parsing/
+mkdir -p obj_dir/ obj_dir/builtins/
+mkdir -p obj_dir/ obj_dir/jaka_utils/
+ 
+cd ./libft; make ; cd ../
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/util/error.o util/error.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/util/util.o util/util.c
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./init/init.o init/init.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./init/env.o init/env.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./init/expand.o init/expand.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./exec/exec.o exec/exec.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./exec/fd.o exec/fd.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./file/heredoc.o file/heredoc.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./check_syntax/check_syntax.o check_syntax/check_syntax.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./check_syntax/check_syntax_quotes.o check_syntax/check_syntax_quotes.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./check_syntax/check_syntax_pipes.o check_syntax/check_syntax_pipes.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./check_syntax/check_syntax_redirects.o check_syntax/check_syntax_redirects.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./check_syntax/check_syntax_redirects_utils.o check_syntax/check_syntax_redirects_utils.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./parsing/make_commands.o parsing/make_commands.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./parsing/make_commands_utils.o parsing/make_commands_utils.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./parsing/choose_correct_array.o parsing/choose_correct_array.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./parsing/store_to_redirect_arr.o parsing/store_to_redirect_arr.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./parsing/free_commands_list.o parsing/free_commands_list.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./parsing/ft_lstadd_back.o parsing/ft_lstadd_back.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./parsing/print_commands_info.o parsing/print_commands_info.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./builtins/echo.o builtins/echo.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./builtins/pwd.o builtins/pwd.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./builtins/cd.o builtins/cd.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./builtins/cd_utils.o builtins/cd_utils.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./builtins/exit.o builtins/exit.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./builtins/export.o builtins/export.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./builtins/env.o builtins/env.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./builtins/unset.o builtins/unset.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./jaka_utils/utils.o jaka_utils/utils.c
+ 
+gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/main.o main.c
+ 
+gcc -Wall -Wextra -Werror   obj_dir/util/error.o  obj_dir/util/util.o  obj_dir/./init/init.o  obj_dir/./init/env.o  obj_dir/./init/expand.o  obj_dir/./exec/exec.o  obj_dir/./exec/fd.o  obj_dir/./file/heredoc.o  obj_dir/./check_syntax/check_syntax.o  obj_dir/./check_syntax/check_syntax_quotes.o  obj_dir/./check_syntax/check_syntax_pipes.o  obj_dir/./check_syntax/check_syntax_redirects.o  obj_dir/./check_syntax/check_syntax_redirects_utils.o  obj_dir/./parsing/make_commands.o  obj_dir/./parsing/make_commands_utils.o  obj_dir/./parsing/choose_correct_array.o  obj_dir/./parsing/store_to_redirect_arr.o  obj_dir/./parsing/free_commands_list.o  obj_dir/./parsing/ft_lstadd_back.o  obj_dir/./parsing/print_commands_info.o  obj_dir/./builtins/echo.o  obj_dir/./builtins/pwd.o  obj_dir/./builtins/cd.o  obj_dir/./builtins/cd_utils.o  obj_dir/./builtins/exit.o  obj_dir/./builtins/export.o  obj_dir/./builtins/env.o  obj_dir/./builtins/unset.o  obj_dir/./jaka_utils/utils.o  obj_dir/main.o -I/usr/local/opt/readline/include -L/ 
+usr/local/opt/readline/lib -lreadline ./libft/libft.a -o minishell
+make: Leaving directory `/Users/keika/Desktop/Mini_3_june'
+ 

@@ -88,24 +88,39 @@ int	make_heredoc(char *limiter, t_infos *info)
 {
 	int	pid;
 	int	newpipe[2];
+	int	status;
 
 	signal(SIGQUIT, handle_sigquit_hd);
+	signal(SIGINT, handle_sigint_hd);
 	pipe(newpipe);
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		dup2(newpipe[1], 1);
 		close(newpipe[0]);
 		get_heredoc(limiter, newpipe[1], info);
 		close(newpipe[1]);
-		exit(1);
+		exit(0);
 	}
 	else
 	{
 		close(newpipe[1]);
-		wait(0);
+		// wait(0);
+		if (waitpid(pid, &status, WUNTRACED | WCONTINUED) >= 0)
+		{
+			if (WIFEXITED(status))
+				g_status = WEXITSTATUS(status);
+			if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
+				g_status = 1;
+		}
 	}
-	// write(2, "send!\n", 6);
+	// printf("g_status is %d!\n", g_status);
+	if (g_status == 1)
+	{
+		close(newpipe[0]);
+		return(-1);
+	}	
 	return (newpipe[0]);
 }
 
