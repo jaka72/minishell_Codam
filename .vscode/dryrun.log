@@ -4,6 +4,7 @@ mkdir -p obj_dir/ obj_dir/util/
 mkdir -p obj_dir/ obj_dir/init/ 
 mkdir -p obj_dir/ obj_dir/exec/
 mkdir -p obj_dir/ obj_dir/file/
+ 
 mkdir -p obj_dir/ obj_dir/check_syntax/
 mkdir -p obj_dir/ obj_dir/parsing/
 mkdir -p obj_dir/ obj_dir/builtins/

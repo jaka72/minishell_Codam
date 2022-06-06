@@ -47,12 +47,12 @@ typedef struct s_cmd
 	char			**infile;
 	char			**outfile;
 	char			**heredoc;
-	//int				count_args;			// NEEDED TO KEEP TRACK OF NR OF ELEMENTS,
-	//int				count_infiles;		// TO BE ABLE TO realloc(), EACH TIME: nr + 1
+	struct s_cmd	*next;
+	//int				count_args;
+	//int				count_infiles;
 	//int				count_outfiles;
 	//int				count_heredocs;
-	struct s_cmd	*next;
-	int				temp;		// just for testing
+	//int				temp;	// just for testing
 }	t_cmd;
 
 // JAKA
@@ -81,7 +81,7 @@ void	err_all_free_exit(t_infos *infos, t_cmd *cmds, char *text);
 char	*make_malloc_str(char *text);
 char	*free_return_null(char *text);
 char	*ft_add_c_free(char *s1, char c);
-int	clean_data(int status, t_infos *info, char *text);
+int		clean_data(int status, t_infos *info, char *text);
 
 // init/init.c
 void	handle_sigint(int num);
@@ -131,8 +131,7 @@ int		run_cmd(t_infos *info, t_cmd *str);
 
 
 // added jaka: to count the array of arguments:
-//int	count_args(char **arr);
-int		count_elems(char **arr);		// THESE TWO CAN BE 1 FUNCTION  !!!
+int		count_elems(char **arr);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 14:31:57 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/04 17:35:14 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/06 19:54:40 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	store_word_to_array(t_source *src, t_cmd *cmd, t_tmp *t)
 
 	ft_strlcpy(t->temp_arr[t->count], &src->inputline[t->start],
 		t->len + 1);
-		// NEED TO CHECK SUCCESS HERE ??? 
 
 	//printf(CYN"    stored word: [%s] at place %d\n"RES, t->temp_arr[t->count], t->count);
 		
@@ -79,6 +78,8 @@ int	store_to_redirect_arr(t_source *src, t_cmd *cmd)
 	// temp = realloc_array(t.temp_arr, t.count);
 	temp = realloc_array(t.temp_arr, t.count + 2);
 	t.temp_arr = temp;
+	if (temp == NULL)
+		return (-1);
 
 
 	skip_white_spaces(src);

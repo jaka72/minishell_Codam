@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jun  6 13:10:37 2022
+# Make data base, printed on Mon Jun  6 17:33:00 2022
 
 # Variables
 
@@ -103,6 +103,7 @@ BUILTINS_DIR = ./builtins
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
+ 
 LC_NAME = nl_NL.UTF-8
 # makefile (from 'Makefile', line 90)
 JAKA_UTILS_SRC = $(JAKA_UTILS_DIR)/utils.c $(JAKA_UTILS_DIR)/print_err_msg.c
@@ -111,7 +112,6 @@ VSCODE_CWD = /home/jaka
 # makefile (from 'Makefile', line 47)
 FILE_DIR = ./file
 # environment
- 
 XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session0
 # environment
 GSETTINGS_SCHEMA_DIR = /snap/code/97/usr/share/glib-2.0/schemas
@@ -358,9 +358,9 @@ INIT_DIR = ./init
 
 # Directories
 
-# . (device 2052, inode 1135352): 21 files, no impossibilities.
+# . (device 2052, inode 1135352): 22 files, no impossibilities.
 
-# 21 files, no impossibilities in 1 directories.
+# 22 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -395,6 +395,7 @@ obj_dir/./builtins/env.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+ 
 
 # Not a target:
 obj_dir/./builtins/exit.o:
@@ -402,7 +403,6 @@ obj_dir/./builtins/exit.o:
 #  Modification time never checked.
 #  File has not been updated.
 
- 
 all: make_obj_dir minishell
 #  Command line target.
 #  Implicit rule search has been done.
@@ -462,7 +462,7 @@ obj_dir/./parsing/print_commands_info.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 13:09:42.0636426
+#  Last modified 2022-06-06 17:32:38.2011621
 #  File has been updated.
 #  Successfully updated.
 
@@ -687,13 +687,12 @@ make_obj_dir:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 66 / storage = 1276 B / avg = 19 B
-# current buf: size = 8162 B / used = 1276 B / count = 66 / avg = 19 B
+# strcache buffers: 1 (0) / strings = 67 / storage = 1284 B / avg = 19 B
+# current buf: size = 8162 B / used = 1284 B / count = 67 / avg = 19 B
 
-# strcache performance: lookups = 93 / hit rate = 29%
+# strcache performance: lookups = 94 / hit rate = 28%
 # hash-table stats:
- 
-# Load=66/8192=1%, Rehash=0, Collisions=1/93=1%
-# Finished Make data base on Mon Jun  6 13:10:37 2022
+# Load=67/8192=1%, Rehash=0, Collisions=1/94=1%
+# Finished Make data base on Mon Jun  6 17:33:00 2022
 
  
