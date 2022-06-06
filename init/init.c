@@ -40,16 +40,16 @@ void	handle_sigint_hd(int num)
 
 void	ms_init(t_infos *info, char *envp[])
 {
-	int	rc;
+	// int	rc;
 
 	rl_catch_signals = 0;
-	rc = tcgetattr(0, &info->termios_save);
-	if (rc)
-		errtext_exit("get termios failed\n");
-	info->termios_new = info->termios_save;
-	rc = tcsetattr(0, 0, &info->termios_new);
-	if (rc)
-		errtext_exit("set termios failed\n");
+	// rc = tcgetattr(0, &info->termios_save);
+	// if (rc)
+	// 	errtext_exit("get termios failed\n");
+	// info->termios_new = info->termios_save;
+	// rc = tcsetattr(0, 0, &info->termios_new);
+	// if (rc)
+	// 	errtext_exit("set termios failed\n");
 	info->start_env = get_env(info, envp);
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);

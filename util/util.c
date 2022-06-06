@@ -57,7 +57,7 @@ int	clean_data(int status, t_infos *info, char *text)
 		close(info->ini_fd[0]);
 	if (info->ini_fd[1] > 1)
 		close(info->ini_fd[1]);
-	tcsetattr(0, 0, &info->termios_save);
+	// tcsetattr(0, 0, &info->termios_save);
 	rl_clear_history();
 	return (status);
 }

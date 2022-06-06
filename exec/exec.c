@@ -89,7 +89,7 @@ int	ms_execve(t_infos *info, t_cmd *str)
 		if (ft_strchr(str->args[0], '/') != NULL)
 		{
 			write(2, str->args[0], ft_strlen(str->args[0]));
-			write(2, ": Noo such file or directory\n", 28);	
+			write(2, ": Noo such file or directory\n", 28);
 		}
 		else
 		{
@@ -102,15 +102,17 @@ int	ms_execve(t_infos *info, t_cmd *str)
 	exit(127);
 }
 
-int exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
+int	exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
 {
 	pid_t	pid;
 	int		status;
 
 	current->args = expand_array(current->args, info);
-	// connect_hd(current, info);
-	connect_fd(current, info);
-
+	if (connect_fd(current, info) != 0)
+	{
+		g_status = 1;
+		return (g_status);
+	}
 	if (check_if_builtin(current) == 1)
 		g_status = exec_builtin(current, info, str);
 	else
@@ -120,7 +122,7 @@ int exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
 		{
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
-			ms_execve(info, current);	
+			ms_execve(info, current);
 		}
 		waitpid(pid, &status, WUNTRACED | WCONTINUED);
 		if (WIFEXITED(status))
@@ -138,7 +140,7 @@ int	open_heredoc(t_infos *info, t_cmd *str)
 	int	j;
 
 	current = str;
-	while(current)
+	while (current)
 	{
 		if (current->heredoc != NULL)
 		{
@@ -146,7 +148,6 @@ int	open_heredoc(t_infos *info, t_cmd *str)
 			j = 0;
 			while (current->heredoc[i])
 			{
-				// printf("limiter is %s\n", current->heredoc[i]);
 				j = make_heredoc(current->heredoc[i], info);
 				if (j < 0)
 					return (-1);
@@ -159,13 +160,11 @@ int	open_heredoc(t_infos *info, t_cmd *str)
 				}				
 				else
 					close(j);
-				// printf("j is %d\n", j);
 				i++;
 			}
 		}
-		current = current->next; 
+		current = current->next;
 	}
-	// printf("now, str->fd_in is %d\n", str->fd_in);
 	return (0);
 }
 
@@ -173,20 +172,21 @@ int	run_cmd(t_infos *info, t_cmd *str)
 {
 	t_cmd	*current;
 	pid_t	pid;
-	int		newpipe[2];
-	int		oldpipe;
+	int		newpipe[3];
 	int		status;
 	pid_t	last_pid;
 
 	current = str;
 	status = 0;
-	oldpipe = 0;
+	newpipe[0] = 0;
+	newpipe[1] = 0;
+	newpipe[2] = 0;
 	signal(SIGINT, handle_sigint_p);
 	signal(SIGQUIT, handle_sigquit_p);
 	if (open_heredoc(info, str) == 0)
 	{
-		if (current->next == NULL)
-			exec_no_pipe(info, current, str);
+		if (str->next == NULL)
+			exec_no_pipe(info, str, str);
 		else
 		{
 			while (current)
@@ -199,16 +199,23 @@ int	run_cmd(t_infos *info, t_cmd *str)
 				pid = fork();
 				if (pid == 0)
 				{
-					if (oldpipe != 0)
+					if (newpipe[2] != 0)
 					{
-						dup2(oldpipe, 0);
-						close(oldpipe);
+						dup2(newpipe[2], 0);
+						close(newpipe[2]);
 					}
-					// connect_hd(current, info);
-					connect_fd(current, info);
-					dup2(newpipe[1], 1);
-					close(newpipe[1]);
-					close(newpipe[0]);
+					if (newpipe[1] != 0)
+					{
+						dup2(newpipe[1], 1);
+						close(newpipe[1]);
+					}
+					if (newpipe[0] != 0)
+						close(newpipe[0]);
+					if (connect_fd(current, info) != 0)
+					{
+						g_status = 1;
+						exit (g_status);
+					}
 					if (check_if_builtin(current) == 1)
 						g_status = exec_builtin(current, info, str);
 					else
@@ -217,42 +224,25 @@ int	run_cmd(t_infos *info, t_cmd *str)
 				}
 				else
 				{
-					if (oldpipe != 0)
-						close(oldpipe);
-					oldpipe = newpipe[0];
-					close(newpipe[1]);
+					if (newpipe[2] != 0)
+						close(newpipe[2]);
+					newpipe[2] = newpipe[0];
+					if (newpipe[1] != 0)
+						close(newpipe[1]);
 					if (current->next == NULL)
 						last_pid = pid;
-					if (current->fd_in == -3)
-					{
-						if (waitpid(pid, &status, WUNTRACED | WCONTINUED) == last_pid)
-						{
-							if (WIFEXITED(status))
-								g_status = WEXITSTATUS(status);
-							if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
-								g_status = 128 + WTERMSIG(status);
-						}
-						if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
-						{							
-							write(2, "quit\n", 5);
-							break;
-						}
-					}		
 				}
 				current = current->next;
 			}
 			current = str;
 			while (current)
 			{
-				if (current->fd_in != -3)
+				if (waitpid(0, &status, WUNTRACED | WCONTINUED) == last_pid)
 				{
-					if (waitpid(0, &status, WUNTRACED | WCONTINUED)  == last_pid)
-					{
-						if (WIFEXITED(status))
-							g_status = WEXITSTATUS(status);
-						if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
-							g_status = 128 + WTERMSIG(status);	
-					}
+					if (WIFEXITED(status))
+						g_status = WEXITSTATUS(status);
+					if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
+						g_status = 128 + WTERMSIG(status);
 				}
 				current = current->next;
 			}
@@ -260,6 +250,6 @@ int	run_cmd(t_infos *info, t_cmd *str)
 		reset_fd(info);
 	}
 	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, handle_sigquit);	
-	return(g_status);
+	signal(SIGQUIT, handle_sigquit);
+	return (g_status);
 }
