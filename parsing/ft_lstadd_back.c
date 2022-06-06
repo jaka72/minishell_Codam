@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:18:57 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/06 15:06:17 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/06 22:04:31 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_lstadd_back(t_cmd **list, t_cmd *newnode)
 	{
 		newnode->next = NULL;
 		*list = newnode;
-		printf(GRN"lstaddback: first round\n"RES);
+		//printf(GRN"lstaddback: first round\n"RES);
 		return ;
 	}
 	temp = *list;

@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jun  6 17:33:00 2022
+# Make data base, printed on Mon Jun  6 22:03:46 2022
 
 # Variables
 
@@ -103,7 +103,6 @@ BUILTINS_DIR = ./builtins
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
- 
 LC_NAME = nl_NL.UTF-8
 # makefile (from 'Makefile', line 90)
 JAKA_UTILS_SRC = $(JAKA_UTILS_DIR)/utils.c $(JAKA_UTILS_DIR)/print_err_msg.c
@@ -169,8 +168,8 @@ VISUAL = code
 VSCODE_PIPE_LOGGING = true
 # environment
 SNAP_INSTANCE_KEY = 
-# makefile (from 'Makefile', line 97)
-MAIN_SRC = testmain_jaka.c
+# makefile (from 'Makefile', line 98)
+MAIN_SRC = main.c
 # environment
 PWD = /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun
 # environment
@@ -291,6 +290,7 @@ BUILTINS_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(BUILTINS_SRC:.c=.o))
 GDK_BACKEND = x11
 # makefile (from 'Makefile', line 25)
 LIBFT_A = $(LIBFT_DIR)/libft.a
+ 
 # environment
 LC_PAPER = nl_NL.UTF-8
 # environment
@@ -358,9 +358,9 @@ INIT_DIR = ./init
 
 # Directories
 
-# . (device 2052, inode 1135352): 22 files, no impossibilities.
+# . (device 2052, inode 1135352): 24 files, no impossibilities.
 
-# 22 files, no impossibilities in 1 directories.
+# 24 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -395,7 +395,6 @@ obj_dir/./builtins/env.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 
 # Not a target:
 obj_dir/./builtins/exit.o:
@@ -414,6 +413,12 @@ all: make_obj_dir minishell
 
 # Not a target:
 obj_dir/./check_syntax/check_syntax_pipes.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/main.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -462,7 +467,7 @@ obj_dir/./parsing/print_commands_info.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-06 17:32:38.2011621
+#  Last modified 2022-06-06 22:03:34.7070548
 #  File has been updated.
 #  Successfully updated.
 
@@ -484,7 +489,7 @@ obj_dir/./init/expand.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-minishell: libft/libft.a obj_dir/util/error.o obj_dir/util/util.o obj_dir/./init/init.o obj_dir/./init/env.o obj_dir/./init/expand.o obj_dir/./exec/exec.o obj_dir/./exec/fd.o obj_dir/./file/heredoc.o obj_dir/./check_syntax/check_syntax.o obj_dir/./check_syntax/check_syntax_quotes.o obj_dir/./check_syntax/check_syntax_pipes.o obj_dir/./check_syntax/check_syntax_redirects.o obj_dir/./check_syntax/check_syntax_redirects_utils.o obj_dir/./parsing/make_commands.o obj_dir/./parsing/make_commands_utils.o obj_dir/./parsing/choose_correct_array.o obj_dir/./parsing/store_to_redirect_arr.o obj_dir/./parsing/free_commands_list.o obj_dir/./parsing/ft_lstadd_back.o obj_dir/./parsing/print_commands_info.o obj_dir/./builtins/echo.o obj_dir/./builtins/pwd.o obj_dir/./builtins/cd.o obj_dir/./builtins/cd_utils.o obj_dir/./builtins/exit.o obj_dir/./builtins/export.o obj_dir/./builtins/env.o obj_dir/./builtins/unset.o obj_dir/./jaka_utils/utils.o obj_dir/./jaka_utils/print_err_msg.o obj_dir/testmain_jaka.o minishell.h
+minishell: libft/libft.a obj_dir/util/error.o obj_dir/util/util.o obj_dir/./init/init.o obj_dir/./init/env.o obj_dir/./init/expand.o obj_dir/./exec/exec.o obj_dir/./exec/fd.o obj_dir/./file/heredoc.o obj_dir/./check_syntax/check_syntax.o obj_dir/./check_syntax/check_syntax_quotes.o obj_dir/./check_syntax/check_syntax_pipes.o obj_dir/./check_syntax/check_syntax_redirects.o obj_dir/./check_syntax/check_syntax_redirects_utils.o obj_dir/./parsing/make_commands.o obj_dir/./parsing/make_commands_utils.o obj_dir/./parsing/choose_correct_array.o obj_dir/./parsing/store_to_redirect_arr.o obj_dir/./parsing/free_commands_list.o obj_dir/./parsing/ft_lstadd_back.o obj_dir/./parsing/print_commands_info.o obj_dir/./builtins/echo.o obj_dir/./builtins/pwd.o obj_dir/./builtins/cd.o obj_dir/./builtins/cd_utils.o obj_dir/./builtins/exit.o obj_dir/./builtins/export.o obj_dir/./builtins/env.o obj_dir/./builtins/unset.o obj_dir/./jaka_utils/utils.o obj_dir/./jaka_utils/print_err_msg.o obj_dir/main.o minishell.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -513,12 +518,6 @@ fclean: libftclean clean
 
 # Not a target:
 obj_dir/./check_syntax/check_syntax_quotes.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-obj_dir/testmain_jaka.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -582,6 +581,7 @@ libftclean:
 # Not a target:
 obj_dir/./init/init.o:
 #  Implicit rule search has not been done.
+ 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -687,12 +687,12 @@ make_obj_dir:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 67 / storage = 1284 B / avg = 19 B
-# current buf: size = 8162 B / used = 1284 B / count = 67 / avg = 19 B
+# strcache buffers: 1 (0) / strings = 69 / storage = 1285 B / avg = 18 B
+# current buf: size = 8162 B / used = 1285 B / count = 69 / avg = 18 B
 
-# strcache performance: lookups = 94 / hit rate = 28%
+# strcache performance: lookups = 96 / hit rate = 28%
 # hash-table stats:
-# Load=67/8192=1%, Rehash=0, Collisions=1/94=1%
-# Finished Make data base on Mon Jun  6 17:33:00 2022
+# Load=69/8192=1%, Rehash=0, Collisions=1/96=1%
+# Finished Make data base on Mon Jun  6 22:03:46 2022
 
  

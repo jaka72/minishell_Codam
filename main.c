@@ -29,9 +29,7 @@ int	main(int argc, char *argv[], char *envp[])
 				free_and_read(&src, &info, 1);
 				continue ;
 			}
-			printf(YEL"After check syntax error\n"RES);
 			add_history(src.inputline);
-			// cmd_list = make_commands(&src);
 			cmd_list = make_commands(&src, &info);		// Changed jaka: It needs &info, to call clean_data(), 
 														//		in case malloc failed inside make_commands()
 			g_status = run_cmd(&info, cmd_list);

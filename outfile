@@ -1,131 +1,35 @@
-==451955== Memcheck, a memory error detector
-==451955== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==451955== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
-==451955== Command: ./minishell echo\ aa\ \ |\ pwd\ 
-==451955== 
-==451964== 
-==451964== HEAP SUMMARY:
-==451964==     in use at exit: 6,729 bytes in 244 blocks
-==451964==   total heap usage: 255 allocs, 11 frees, 7,795 bytes allocated
-==451964== 
-==451964== 4 bytes in 1 blocks are still reachable in loss record 1 of 7
-==451964==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==451964==    by 0x10CF5D: store_into_command_arr (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x10D095: select_and_store_words (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x10D174: make_commands (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x10F743: main (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964== 
-==451964== 8 bytes in 2 blocks are still reachable in loss record 2 of 7
-==451964==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==451964==    by 0x109821: ft_add_c_free (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x10AA52: check_expand (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x10AB36: expand_array (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x10B33C: run_cmd (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x10F75A: main (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964== 
-==451964== 40 bytes in 2 blocks are still reachable in loss record 3 of 7
-==451964==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==451964==    by 0x10CD7F: realloc_array (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x10CEF2: store_into_command_arr (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x10D095: select_and_store_words (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x10D174: make_commands (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x10F743: main (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964== 
-==451964== 96 bytes in 2 blocks are still reachable in loss record 4 of 7
-==451964==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==451964==    by 0x10D13A: make_commands (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x10F743: main (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964== 
-==451964== 1,163 bytes in 79 blocks are still reachable in loss record 5 of 7
-==451964==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==451964==    by 0x109BFB: get_name_value (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x109E03: get_env (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x109A44: ms_init (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x10F6F0: main (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964== 
-==451964== 1,896 bytes in 79 blocks are still reachable in loss record 6 of 7
-==451964==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==451964==    by 0x109D82: get_env (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x109A44: ms_init (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x10F6F0: main (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964== 
-==451964== 3,522 bytes in 79 blocks are still reachable in loss record 7 of 7
-==451964==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==451964==    by 0x109C92: get_name_value (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x109E03: get_env (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x109A44: ms_init (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964==    by 0x10F6F0: main (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451964== 
-==451964== LEAK SUMMARY:
-==451964==    definitely lost: 0 bytes in 0 blocks
-==451964==    indirectly lost: 0 bytes in 0 blocks
-==451964==      possibly lost: 0 bytes in 0 blocks
-==451964==    still reachable: 6,729 bytes in 244 blocks
-==451964==         suppressed: 0 bytes in 0 blocks
-==451964== 
-==451964== For lists of detected and suppressed errors, rerun with: -s
-==451964== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==451965== 
-==451965== HEAP SUMMARY:
-==451965==     in use at exit: 6,729 bytes in 244 blocks
-==451965==   total heap usage: 259 allocs, 15 frees, 7,805 bytes allocated
-==451965== 
-==451965== 12 bytes in 3 blocks are still reachable in loss record 1 of 6
-==451965==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==451965==    by 0x109821: ft_add_c_free (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x10AA52: check_expand (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x10AB36: expand_array (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x10B33C: run_cmd (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x10F75A: main (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965== 
-==451965== 40 bytes in 2 blocks are still reachable in loss record 2 of 6
-==451965==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==451965==    by 0x10CD7F: realloc_array (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x10CEF2: store_into_command_arr (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x10D095: select_and_store_words (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x10D174: make_commands (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x10F743: main (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965== 
-==451965== 96 bytes in 2 blocks are still reachable in loss record 3 of 6
-==451965==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==451965==    by 0x10D13A: make_commands (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x10F743: main (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965== 
-==451965== 1,163 bytes in 79 blocks are still reachable in loss record 4 of 6
-==451965==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==451965==    by 0x109BFB: get_name_value (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x109E03: get_env (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x109A44: ms_init (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x10F6F0: main (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965== 
-==451965== 1,896 bytes in 79 blocks are still reachable in loss record 5 of 6
-==451965==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==451965==    by 0x109D82: get_env (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x109A44: ms_init (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x10F6F0: main (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965== 
-==451965== 3,522 bytes in 79 blocks are still reachable in loss record 6 of 6
-==451965==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==451965==    by 0x109C92: get_name_value (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x109E03: get_env (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x109A44: ms_init (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965==    by 0x10F6F0: main (in /media/jaka/Windows/Users/admin/Desktop/codam_projects/minishell_cleaning_06_jun/minishell)
-==451965== 
-==451965== LEAK SUMMARY:
-==451965==    definitely lost: 0 bytes in 0 blocks
-==451965==    indirectly lost: 0 bytes in 0 blocks
-==451965==      possibly lost: 0 bytes in 0 blocks
-==451965==    still reachable: 6,729 bytes in 244 blocks
-==451965==         suppressed: 0 bytes in 0 blocks
-==451965== 
-==451965== For lists of detected and suppressed errors, rerun with: -s
-==451965== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==451955== 
-==451955== HEAP SUMMARY:
-==451955==     in use at exit: 0 bytes in 0 blocks
-==451955==   total heap usage: 259 allocs, 259 frees, 7,805 bytes allocated
-==451955== 
-==451955== All heap blocks were freed -- no leaks are possible
-==451955== 
-==451955== For lists of detected and suppressed errors, rerun with: -s
-==451955== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==585512== Memcheck, a memory error detector
+==585512== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==585512== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==585512== Command: ./minishell
+==585512== 
+==585600== 
+==585600== HEAP SUMMARY:
+==585600==     in use at exit: 211,355 bytes in 462 blocks
+==585600==   total heap usage: 676 allocs, 214 frees, 232,010 bytes allocated
+==585600== 
+==585600== LEAK SUMMARY:
+==585600==    definitely lost: 0 bytes in 0 blocks
+==585600==    indirectly lost: 0 bytes in 0 blocks
+==585600==      possibly lost: 0 bytes in 0 blocks
+==585600==    still reachable: 211,355 bytes in 462 blocks
+==585600==         suppressed: 0 bytes in 0 blocks
+==585600== Rerun with --leak-check=full to see details of leaked memory
+==585600== 
+==585600== For lists of detected and suppressed errors, rerun with: -s
+==585600== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==585512== 
+==585512== HEAP SUMMARY:
+==585512==     in use at exit: 204,585 bytes in 215 blocks
+==585512==   total heap usage: 679 allocs, 464 frees, 232,044 bytes allocated
+==585512== 
+==585512== LEAK SUMMARY:
+==585512==    definitely lost: 0 bytes in 0 blocks
+==585512==    indirectly lost: 0 bytes in 0 blocks
+==585512==      possibly lost: 0 bytes in 0 blocks
+==585512==    still reachable: 204,585 bytes in 215 blocks
+==585512==         suppressed: 0 bytes in 0 blocks
+==585512== Rerun with --leak-check=full to see details of leaked memory
+==585512== 
+==585512== For lists of detected and suppressed errors, rerun with: -s
+==585512== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

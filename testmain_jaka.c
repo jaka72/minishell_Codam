@@ -109,7 +109,7 @@ int	main(int argc, char *argv[], char *envp[])
 /*
 /// CURRENT ISSUES: //////////////////////////
 
-- There is forbidden printf in clean_data
+- There is forbidden printf in clean_data, also in expand and export ...
 
 
 - MALLOC  -  still reachable:  Looks like with builtins this happens

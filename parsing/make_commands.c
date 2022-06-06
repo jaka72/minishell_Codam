@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:39:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/06 20:07:02 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/06 22:05:57 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**realloc_array(char **arr, int count)
 	
 	if (arr == NULL)
 	{
-		printf(CYN"   arr was NULL, now malloced * 2\n"RES);
+		//printf(CYN"   arr was NULL, now malloced * 2\n"RES);
 		return (temp);
 	}
 	
@@ -50,7 +50,7 @@ char	**realloc_array(char **arr, int count)
 	free(arr);
 	arr = temp;
 
-	printf(YEL"END realloc;\n"RES);
+	//printf(YEL"END realloc;\n"RES);
 
 	return (arr);
 }
@@ -129,7 +129,7 @@ int	select_and_store_words(t_source *src, t_cmd *cmd)
 //	ret == -1 means Malloc failed
 t_cmd	*make_commands(t_source *src, t_infos *info)
 {
-	int		i;
+	int		i;		// can be removed
 	int		ret;
 	t_cmd	*first_cmd;
 	t_cmd	*new_cmd;
@@ -141,7 +141,7 @@ t_cmd	*make_commands(t_source *src, t_infos *info)
 	i = 0;
 	while (1)
 	{
-		printf(CYN"Make cmds, loop i%d\n"RES, i);
+		//printf(CYN"Make cmds, loop i%d\n"RES, i);
 		
 		//printf(YEL"Loop make commands a) \n"RES);
 		new_cmd = malloc(sizeof(t_cmd));
@@ -153,7 +153,7 @@ t_cmd	*make_commands(t_source *src, t_infos *info)
 
 
 
-		printf(GRN"  Ret %d\n"RES, ret);
+		//printf(GRN"  Ret %d\n"RES, ret);
 
 		ft_lstadd_back(&first_cmd, new_cmd);
 		
@@ -172,7 +172,7 @@ t_cmd	*make_commands(t_source *src, t_infos *info)
 		
 		if (ret == -1)
 		{
-			printf(GRN"  Ret -1, should exit \n"RES);
+			//printf(GRN"  Ret -1, should exit \n"RES);
 			free_commands_list(first_cmd);
 			//free(src->inputline); 		// DOES THIS SERVE ANY PURPOSE ???
 			clean_data(1, info, "");
@@ -181,7 +181,7 @@ t_cmd	*make_commands(t_source *src, t_infos *info)
 
 
 
-		printf(CYN"   ret %d, first_cmd [%p],  new_cmd [%p]\n"RES, ret, first_cmd, new_cmd);
+		//printf(CYN"   ret %d, first_cmd [%p],  new_cmd [%p]\n"RES, ret, first_cmd, new_cmd);
 		i++;
 	}
 	return (first_cmd);

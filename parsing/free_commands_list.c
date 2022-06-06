@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 14:40:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/06 17:12:42 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/06 22:04:57 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	free_commands_list(t_cmd *first_cmd)
 
 	i = 0;
 	temp = first_cmd;
-	printf(RED"FREE ALL, first_cmd [%p]\n"RES, first_cmd);
+	//printf(RED"FREE ALL, first_cmd [%p]\n"RES, first_cmd);
 	while (temp)
 	{
 		printf(RED"Free Command %d, temp->args[0]: [%s]\n"RES, i, temp->args[0]);
