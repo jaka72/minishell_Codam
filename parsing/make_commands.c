@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:39:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/04 17:33:59 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/06 13:11:49 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	store_into_command_arr(t_source *src, t_cmd *cmd)
 	char	**temp;
 	int		nr_args;
 
-	nr_args = count_args(cmd->args);
+	nr_args = count_elems(cmd->args);
 	//printf(CYN"START store into command, counted args: %d\n"RES, nr_args);
 
 	temp = realloc_array(cmd->args, nr_args + 2);
@@ -111,7 +111,18 @@ int	select_and_store_words(t_source *src, t_cmd *cmd)
 	return (0);
 }
 
+
+// void	msg_and_exit(char *err_msg, int exit_code)
+// {
+// 	write(2, err_msg, ft_strlen(err_msg));
+// 	//write(2, "\n", 1);
+// 	exit (exit_code);
+// }
+
+
+
 // REMOVE i  and printing info
+// set args to NULL, TO BE ABLE TO DETECT LATER WHEN COUNTING, THAT IT IS EMPTY
 t_cmd	*make_commands(t_source *src)
 {
 	int		i;
@@ -127,15 +138,12 @@ t_cmd	*make_commands(t_source *src)
 	while (1)
 	{
 		//printf(YEL"Loop make commands a) \n"RES);
-
 		new_cmd = malloc(sizeof(t_cmd));
 		if (new_cmd == NULL)
-			exit (1); // some message and free all !!!
-		// set args to NULL, TO BE ABLE TO DETECT LATER WHEN COUNTING, THAT IT IS EMPTY
+			msg_and_exit("cmd: malloc failed\n", 1);
 		new_cmd->args = NULL;
-		
 		ret = select_and_store_words(src, new_cmd);
-		print_command_info(new_cmd);
+		print_command_info(new_cmd);			// can be removed
 		if (ret == 1)
 		{
 			ft_lstadd_back(&first_cmd, new_cmd);

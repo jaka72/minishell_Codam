@@ -6,64 +6,22 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 10:42:48 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/04 22:02:36 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/06 13:12:21 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-
-
 int	count_elems(char **arr)
 {
 	int	i;
 
-	//printf(GRN"Start count infiles\n"RES);
 	if (arr == NULL)
 		return (0);
-
-	//printf(GRN"    arr is not NULL\n"RES);
-	
 	i = 0;
 	while (arr[i])
 		i++;
-	//printf(GRN"   counted: %d\n"RES, i);
 	return (i);
-}
-
-
-
-// int	count_args(t_cmd *cmd)	// THIS CAN BE REWRITTEN, SEE count_infiles()
-int	count_args(char **arr)	// THIS CAN BE REWRITTEN, SEE count_infiles()
-{
-	int	i;
-
-	//printf(GRN"Start count args "RES);
-	if (arr == NULL)
-		return (0);
-
-	i = 0;
-	while (arr[i])
-		i++;
-	//printf(GRN"   counted: %d\n"RES, i);
-	return (i);
-}
-
-
-
-
-//  BOTH SYNTAX AND MAKECOMMANDS NEED TO HAVE ACCESS TO 
-//							FOLDER jaka_utils TO READ
-//	THE FILE utils.c, WITH FUNCTIONS SUCH AS get_next_char()
-void	print_err_msg(char *err_msg)
-{
-	// JUST FOR THE TESTER
-	printf("\nMinishell: %s\n", err_msg);  // !!! CHANGE BACK TO write()
-	
-	// write(2, "\nMinishel: ", 11);
-	// write(2, err_msg, ft_strlen(err_msg));
-	// write(2, "\n", 1);
-	g_status = SYNTAX_ERROR;
 }
 
 // IF IT FINDS \ ) ( OR ; 
@@ -82,42 +40,59 @@ int	is_allowed_char(int c)
 }
 
 // HERE, IF I BLOCK THE if, THEN I CORRUPT PIPES: ls | wc
+// 0 == invalid
+// 1 == valid
 int	is_valid_filename_char(int c)
 {
 	if (c >= 33 && c <= 126)
 	{
 		if (c == '<' || c == '>' || c == '|')
-			return (0); // 0 == invalid
+			return (0);
 	}
-	return (1);	// 1== valid
+	return (1);
 }
 
-char peek_next_char(t_source *src)
+char	peek_next_char(t_source *src)
 {
 	long	pos;
-	
+
 	if (!src || !src->inputline)
 	{
-		return NOINPUT;
+		return (NOINPUT);
 	}
 	pos = src->currpos;
-
 	pos++;
 	if (pos >= src->inputline_size)
 	{
-		return ENDOFLINE;
+		return (ENDOFLINE);
 	}
-	return src->inputline[pos];
+	return (src->inputline[pos]);
 }
 
 // RETURNS THE NEW currpos ON THE
 // LAST WHITE SPACE BEFORE THE NEXT CHAR
-void skip_white_spaces(t_source *src)
+void	skip_white_spaces(t_source *src)
 {
-	char c;
+	char	c;
 
 	if (src == NULL || src->inputline == NULL)
-		return;
-	while (((c = peek_next_char(src)) != ENDOFLINE) && (isspace(c)))
+		return ;
+	c = peek_next_char(src);
+	while (c != ENDOFLINE && (isspace(c)))
+	{
 		src->currpos++;
+		c = peek_next_char(src);
+	}
 }
+
+// RETURNS THE NEW currpos ON THE
+// LAST WHITE SPACE BEFORE THE NEXT CHAR
+// void skip_white_spaces(t_source *src)
+// {
+// 	char c;
+
+// 	if (src == NULL || src->inputline == NULL)
+// 		return;
+// 	while (((c = peek_next_char(src)) != ENDOFLINE) && (isspace(c)))
+// 		src->currpos++;
+// }

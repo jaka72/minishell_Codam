@@ -1,28 +1,11 @@
  jaka  $ $PWD$
 $
-^[[0;33mLoop make commands a) $
-^[[0m^[[0;35mLoop select words $
-^[[0m^[[0;35m   Found valid ch [e]$
-^[[0m^[[36mSTART store into command, counted args: 0$
-^[[0m^[[36mStart realloc, count: 2$
-^[[0m^[[36m   arr was NULL, now malloced * 2$
-^[[0m^[[0;35mLoop select words $
-^[[0m^[[0;35m   Found valid ch ["]$
-^[[0m^[[36mSTART store into command, counted args: 1$
-^[[0m^[[36mStart realloc, count: 3$
-^[[0m^[[36m   loop i0$
-^[[0m^[[36mEND realloc;$
-^[[0m^[[0;35mLoop select words $
-^[[0m^[[2;37m  Command  array: ^[[0m^[[2;33m [^[[0;35mecho^[[2;33m] ^[[0m^[[2;33m [^[[0;35m" $USER  $ "'$PWD'^[[2;33m] ^[[0m^[[2;37m$
+^[[2;37m  Command  array: ^[[0m^[[2;33m [^[[0;35mecho^[[2;33m] ^[[0m^[[2;33m [^[[0;35m" $USER  $ "'$PWD'^[[2;33m] ^[[0m^[[2;37m$
 ^[[0m^[[2;37m  Command  fd_in: ^[[2;33m 0$
 ^[[0m^[[2;37m  Command fd_out: ^[[2;33m 1$
 $
 ^[[0m^[[2;37m  Infile   array: [^[[0m^[[2;37m]$
 ^[[0m^[[2;37m  Outfile  array: [^[[0m^[[2;37m]$
 ^[[0m^[[2;37m  Heredocs array: [^[[0m^[[2;37m]$
-^[[0m^[[31mFREE ALL$
-^[[0m^[[31mFree Command i:0$
-^[[0m^[[36m   Free args       0 [echo]$
-^[[36m   Free args       1 [ jaka  $ $PWD]$
-^[[37mexit! (tester mode)$
+^[[0m^[[31mFree Command 0$
 ^[[0m

@@ -19,12 +19,12 @@ bash test_syntax_quotes.sh
 
 bash test_syntax_pipes.sh
 
-# bash test_output_cat.sh
+bash test_output_cat.sh
 
 
 # bash test_syntax_redirs.sh		## some issues with output, neeed to check
 
-#bash test_output_various.sh
+# bash test_output_various.sh		## check what is here
 
 bash test_output_echo.sh
 

@@ -64,7 +64,7 @@ int	main(int argc, char *argv[], char *envp[])
 		g_status = run_cmd(&info, cmd_list);
 		free_commands_list(cmd_list);
 		clean_data(g_status, &info, NULL);
-		printf(GRN"\nexit! (tester mode)\n\n"RES);
+		//printf(GRN"\nexit! (tester mode)\n\n"RES);
 		return (0);
 	}
 	else
