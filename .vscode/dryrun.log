@@ -14,6 +14,7 @@ cd ./libft; make ; cd ../
 gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/util/error.o util/error.c
  
 gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/util/util.o util/util.c
+ 
 gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./init/init.o init/init.c
  
 gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./init/env.o init/env.c
@@ -70,7 +71,7 @@ gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/./jak
  
 gcc -c -Wall -Wextra -Werror  -I/usr/local/opt/readline/include -o obj_dir/main.o main.c
  
-gcc -Wall -Wextra -Werror   obj_dir/util/error.o  obj_dir/util/util.o  obj_dir/./init/init.o  obj_dir/./init/env.o  obj_dir/./init/expand.o  obj_dir/./exec/exec.o  obj_dir/./exec/fd.o  obj_dir/./file/heredoc.o  obj_dir/./check_syntax/check_syntax.o  obj_dir/./check_syntax/check_syntax_quotes.o  obj_dir/./check_syntax/check_syntax_pipes.o  obj_dir/./check_syntax/check_syntax_redirects.o  obj_dir/./check_syntax/check_syntax_redirects_utils.o  obj_dir/./parsing/make_commands.o  obj_dir/./parsing/make_commands_utils.o  obj_dir/./parsing/choose_correct_array.o  obj_dir/./parsing/store_to_redirect_arr.o  obj_dir/./parsing/free_commands_list.o  obj_dir/./parsing/ft_lstadd_back.o  obj_dir/./parsing/print_commands_info.o  obj_dir/./builtins/echo.o  obj_dir/./builtins/pwd.o  obj_dir/./builtins/cd.o  obj_dir/./builtins/cd_utils.o  obj_dir/./builtins/exit.o  obj_dir/./builtins/export.o  obj_dir/./builtins/env.o  obj_dir/./builtins/unset.o  obj_dir/./jaka_utils/utils.o  obj_dir/main.o -I/usr/local/opt/readline/include -L/ 
-usr/local/opt/readline/lib -lreadline ./libft/libft.a -o minishell
+gcc -Wall -Wextra -Werror   obj_dir/util/error.o  obj_dir/util/util.o  obj_dir/./init/init.o  obj_dir/./init/env.o  obj_dir/./init/expand.o  obj_dir/./exec/exec.o  obj_dir/./exec/fd.o  obj_dir/./file/heredoc.o  obj_dir/./check_syntax/check_syntax.o  obj_dir/./check_syntax/check_syntax_quotes.o  obj_dir/./check_syntax/check_syntax_pipes.o  obj_dir/./check_syntax/check_syntax_redirects.o  obj_dir/./check_syntax/check_syntax_redirects_utils.o  obj_dir/./parsing/make_commands.o  obj_dir/./parsing/make_commands_utils.o  obj_dir/./parsing/choose_correct_array.o  obj_dir/./parsing/store_to_redirect_arr.o  obj_dir/./parsing/free_commands_list.o  obj_dir/./parsing/ft_lstadd_back.o  obj_dir/./parsing/print_commands_info.o  obj_dir/./builtins/echo.o  obj_dir/./builtins/pwd.o  obj_dir/./builtins/cd.o  obj_dir/./builtins/cd_utils.o  obj_dir/./builtins/exit.o  obj_dir/./builtins/export.o  obj_dir/./builtins/env.o  obj_dir/./builtins/unset.o  obj_dir/./jaka_utils/utils.o  obj_dir/main.o -I/usr/local/opt/readline/include -L/usr/local/opt/readline/lib -lreadline ./libft/libft.a -o minishell
+ 
 make: Leaving directory `/Users/keika/Desktop/Mini_3_june'
  

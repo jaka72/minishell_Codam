@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Sun Jun  5 09:30:58 2022
+# Make data base, printed on Mon Jun  6 04:28:08 2022
 
 # Variables
 
@@ -54,7 +54,6 @@ MAIN_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(MAIN_SRC:.c=.o))
 FILE_SRC = $(FILE_DIR)/heredoc.c						
 # makefile (from `Makefile', line 65)
 PARSING_DIR = ./parsing
- 
 # makefile (from `Makefile', line 5)
 OBJ_DIR = obj_dir
 # environment
@@ -66,7 +65,7 @@ BONUS = minishell_bonus
 # makefile (from `Makefile', line 76)
 BUILTINS_DIR = ./builtins
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/pk/ns046dtx2t19fvg7mvxp5d540000gp/T/vscode-ipc-ead9d05f-dbcc-4608-b266-5130eb441182.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/pk/ns046dtx2t19fvg7mvxp5d540000gp/T/vscode-ipc-9338b5cd-8a1c-4933-9f1f-27558ac832b9.sock
 # environment
 VSCODE_CWD = /
 # makefile (from `Makefile', line 47)
@@ -80,7 +79,7 @@ LIBRARY_PATH = /Users/keika/.brew/lib:/Users/keika/.brew/lib:
 # makefile (from `Makefile', line 42)
 EXEC_SRC = $(EXEC_DIR)/exec.c $(EXEC_DIR)/fd.c	
 # environment
-LaunchInstanceID = 18324A55-26C1-45B5-9FEA-C06992D3206F
+LaunchInstanceID = 1139CA82-DAD6-4718-8029-CC3F853FDACA
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -92,7 +91,7 @@ LDFLAGS = -L/usr/local/opt/readline/lib
 # makefile (from `Makefile', line 7)
 LIBFT_DIR = ./libft
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.cw9LxuCQOu/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.U0MoRmGu6M/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -135,7 +134,6 @@ FILE_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(FILE_SRC:.c=.o))
 XPC_FLAGS = 0x0
 # makefile (from `Makefile', line 114)
 RLFLAG = $(shell brew --prefix readline)
- 
 # default
 MAKE = $(MAKE_COMMAND)
 # makefile (from `Makefile', line 92)
@@ -217,7 +215,7 @@ JAKA_UTILS_SRC = $(JAKA_UTILS_DIR)/utils.c
 # environment
 LANG = C
 # environment
-VSCODE_PID = 626
+VSCODE_PID = 550
 # makefile (from `Makefile', line 55)
 SYNTAX_DIR = ./check_syntax
 # makefile (from `Makefile', line 34)
@@ -231,9 +229,9 @@ INIT_DIR = ./init
 
 # Directories
 
-# . (device 16777220, inode 12927439138): 22 files, no impossibilities.
+# . (device 16777220, inode 12927439138): 21 files, no impossibilities.
 
-# 22 files, no impossibilities in 1 directories.
+# 21 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -257,7 +255,6 @@ obj_dir/util/util.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 
 # Not a target:
 obj_dir/./parsing/choose_correct_array.o:
@@ -269,6 +266,7 @@ obj_dir/./parsing/choose_correct_array.o:
 obj_dir/./builtins/env.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
+ 
 #  File has not been updated.
 
 # Not a target:
@@ -342,7 +340,7 @@ obj_dir/./parsing/print_commands_info.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-03 11:15:35
+#  Last modified 2022-06-05 10:02:37
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -362,7 +360,6 @@ obj_dir/./parsing/free_commands_list.o:
 
 # Not a target:
 obj_dir/./init/expand.o:
- 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -443,6 +440,7 @@ clean:
 #  Modification time never checked.
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 150):
+ 
 	rm -f $(OBJ)
 	rm -rf $(OBJ_DIR)
 	
@@ -464,7 +462,6 @@ libftclean:
 # Not a target:
 obj_dir/./init/init.o:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -519,6 +516,7 @@ obj_dir/./exec/exec.o:
 # Not a target:
 obj_dir/./check_syntax/check_syntax_redirects_utils.o:
 #  Implicit rule search has not been done.
+ 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -567,10 +565,9 @@ make_obj_dir:
 
 # # of strings in strcache: 1
 # # of strcache buffers: 1
- 
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sun Jun  5 09:30:58 2022
+# Finished Make data base on Mon Jun  6 04:28:08 2022
 
  

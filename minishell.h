@@ -11,8 +11,8 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <termcap.h>
-# include <termios.h>
+// # include <termcap.h>
+// # include <termios.h>
 # include "libft/libft.h"
 
 typedef struct s_env		t_env;
@@ -32,8 +32,8 @@ struct s_env
 struct	s_infos
 {
 	t_env			*start_env;
-	struct termios	termios_save;
-	struct termios	termios_new;
+	// struct termios	termios_save;
+	// struct termios	termios_new;
 	char			prompt[13];
 	int				ini_fd[2];
 };
@@ -114,11 +114,11 @@ int		get_heredoc(char *limiter, int fd_out, t_infos *info);
 int		make_heredoc(char *limiter, t_infos *info);
 
 // exec/fd.c
-void	check_infile_fd(t_cmd *str, t_infos *info);
+int		check_infile_fd(t_cmd *str, t_infos *info);
 // int		check_heredoc_fd(t_cmd *str, t_infos *info);
-void	check_outfile_fd(t_cmd *str, t_infos *info);
-t_cmd	*manage_in_out(t_cmd *str, t_infos *info);
-void	connect_fd(t_cmd *current, t_infos *info);
+int		check_outfile_fd(t_cmd *str, t_infos *info);
+// t_cmd	*manage_in_out(t_cmd *str, t_infos *info);
+int		connect_fd(t_cmd *current, t_infos *info);
 // void	connect_hd(t_cmd *current, t_infos *info);
 void	reset_fd(t_infos *info);
 

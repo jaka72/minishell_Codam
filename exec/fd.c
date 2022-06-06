@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-void	check_infile_fd(t_cmd *str, t_infos *info)
+int	check_infile_fd(t_cmd *str, t_infos *info)
 {
 	int	i;
 	int	j;
@@ -13,9 +13,15 @@ void	check_infile_fd(t_cmd *str, t_infos *info)
 		{
 			str->infile[i] = check_expand(info, str->infile[i]);
 			if (access(str->infile[i], F_OK) != 0)
-				errtext_exit("infile not exist\n");
+			{
+				perror("infile not exist\n");
+				return (1);
+			}
 			if (access(str->infile[i], F_OK) == 0 && access(str->infile[i], R_OK) < 0)
-				errtext_exit("can't access infile\n");
+			{
+				perror("Permission denied\n");
+				return (1);
+			}
 			i++;
 		}
 		if (i > 0)
@@ -24,15 +30,19 @@ void	check_infile_fd(t_cmd *str, t_infos *info)
 		{
 			j = open(str->infile[i], O_RDONLY);
 			if (j < 0)
-				errtext_exit("file open failed\n");
+			{
+				perror("file open failed\n");
+				return (1);
+			}
 			str->fd_in = j;
 		}		
 	}
+	return (0);
 }
 
 
 
-void	check_outfile_fd(t_cmd *str, t_infos *info)
+int	check_outfile_fd(t_cmd *str, t_infos *info)
 {
 	int	i;
 	int	j;
@@ -46,12 +56,18 @@ void	check_outfile_fd(t_cmd *str, t_infos *info)
 			str->outfile[i] = check_expand(info, str->outfile[i]);
 			if (str->outfile[i] && access(str->outfile[i], F_OK) == 0
 				&& access(str->outfile[i], W_OK) < 0)
-				errtext_exit("outfile exist but not accessible\n");
+				{
+					perror("outfile exist but not accessible\n");
+					return (1);
+				}
 			if (str->outfile[i] && access(str->outfile[i], F_OK) != 0)
 			{
 				j = open(str->outfile[i], O_CREAT, 0666);
 				if (j < 0)
-					errtext_exit("couldn't make output file\n");
+				{
+					perror("couldn't make output file\n");
+					return (1);
+				}
 				close(j);
 			}
 			i++;
@@ -63,57 +79,28 @@ void	check_outfile_fd(t_cmd *str, t_infos *info)
 		if (str->fd_out == -3)
 			str->fd_out = open(str->outfile[i], O_WRONLY | O_CREAT | O_APPEND, 0666);
 		if (str->fd_out < 0)
-			errtext_exit("output file open failed\n");
+		{
+			perror("output file open failed\n");
+			return (1);
+		}
 	}
+	return (0);
 }
 
-t_cmd	*manage_in_out(t_cmd *str, t_infos *info)
-{
-	check_infile_fd(str, info);
-	check_outfile_fd(str, info);
-	return (str);
-}
-
-// int	check_heredoc_fd(t_cmd *str, t_infos *info)
+// int	manage_in_out(t_cmd *str, t_infos *info)
 // {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	j = 0;
-// 	if (str->heredoc != NULL)
-// 	{
-// 		while (str->heredoc[i])
-// 		{
-// 			// write(2, "hdmake!\n", 8);
-// 			j = make_heredoc(str->heredoc[i], info);
-// 			i++;
-// 		}	
-// 		// if (str->fd_in == -3)
-// 		// 	str->fd_in = j;
-// 	}
-// 	// write(2, "return!\n", 8);
-// 	// printf("g_status is %d\n", g_status);
-// 	return (j);
+// 	check_infile_fd(str, info);
+// 	check_outfile_fd(str, info);
+// 	return (0);
 // }
 
-// void	connect_hd(t_cmd *current, t_infos *info)
-// {
-// 	int i;
 
-// 	i = 0;
-// 	i = check_heredoc_fd(current, info);
-// 	if (current->fd_in == -3)
-// 	{
-// 		dup2(i, 0);
-// 		close(i);
-// 	}
-// }
-
-void	connect_fd(t_cmd *current, t_infos *info)
+int	connect_fd(t_cmd *current, t_infos *info)
 {
-	current = manage_in_out(current, info);
-	
+	if (check_infile_fd(current, info) != 0)
+		return (1);
+	if (check_outfile_fd(current, info) != 0)
+		return (1);
 	if (current->fd_in > 0)
 	{
 		dup2(current->fd_in, 0);
@@ -124,6 +111,7 @@ void	connect_fd(t_cmd *current, t_infos *info)
 		dup2(current->fd_out, 1);
 		close(current->fd_out);
 	}
+	return (0);
 }
 
 void	reset_fd(t_infos *info)
