@@ -114,7 +114,7 @@ int	connect_fd(t_cmd *current, t_infos *info)
 	return (0);
 }
 
-void	reset_fd(t_infos *info)
+void	reset_fd_sig(t_infos *info)
 {
 	int	fd0;
 	int	fd1;
@@ -125,4 +125,6 @@ void	reset_fd(t_infos *info)
 	dup2(fd1, 1);
 	close(fd0);
 	close(fd1);
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, handle_sigquit);
 }

@@ -51,7 +51,6 @@ int	clean_data(int status, t_infos *info, char *text)
 {
 	if (text != NULL)
 		printf("%s", text);
-	rl_clear_history();
 	free_envlist(info);
 	if (info->ini_fd[0] > 0)
 		close(info->ini_fd[0]);

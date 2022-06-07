@@ -105,15 +105,11 @@ int	ms_execve(t_infos *info, t_cmd *str)
 int	exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
 {
 	pid_t	pid;
-	int		status;
 
 	current->args = expand_array(current->args, info);
 	if (connect_fd(current, info) != 0)
-	{
 		g_status = 1;
-		return (g_status);
-	}
-	if (check_if_builtin(current) == 1)
+	else if (check_if_builtin(current) == 1)
 		g_status = exec_builtin(current, info, str);
 	else
 	{
@@ -124,13 +120,15 @@ int	exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
 			signal(SIGQUIT, SIG_DFL);
 			ms_execve(info, current);
 		}
-		waitpid(pid, &status, WUNTRACED | WCONTINUED);
-		if (WIFEXITED(status))
-			g_status = WEXITSTATUS(status);
-		if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
-			g_status = 128 + WTERMSIG(status);
+		waitpid(pid, &g_status, WUNTRACED | WCONTINUED);
+		if (WIFEXITED(g_status))
+			g_status = WEXITSTATUS(g_status);
+		else if (WIFEXITED(g_status) == 0 && WIFSIGNALED(g_status))
+			g_status = 128 + WTERMSIG(g_status);
+		else
+			g_status = 0;
 	}
-	return (0);
+	return (g_status);
 }
 
 int	open_heredoc(t_infos *info, t_cmd *str)
@@ -168,88 +166,102 @@ int	open_heredoc(t_infos *info, t_cmd *str)
 	return (0);
 }
 
-int	run_cmd(t_infos *info, t_cmd *str)
+typedef struct s_pid
 {
-	t_cmd	*current;
 	pid_t	pid;
 	int		newpipe[3];
 	int		status;
 	pid_t	last_pid;
+}	t_pid;
 
-	current = str;
-	status = 0;
-	newpipe[0] = 0;
-	newpipe[1] = 0;
-	newpipe[2] = 0;
+void	init_pid_sig(t_pid *pid)
+{
+	pid->status = 0;
+	pid->newpipe[0] = 0;
+	pid->newpipe[1] = 0;
+	pid->newpipe[2] = 0;
 	signal(SIGINT, handle_sigint_p);
 	signal(SIGQUIT, handle_sigquit_p);
-	if (open_heredoc(info, str) == 0)
+}
+
+int	exec_with_pipe(t_infos *info, t_cmd *str, t_pid *pid)
+{
+	t_cmd	*current;
+
+	current = str;
+	while (current)
 	{
-		if (str->next == NULL)
-			exec_no_pipe(info, str, str);
+		if (current != str)
+			g_status = 0;
+		current->args = expand_array(current->args, info);
+		if (current->next)
+			pipe(pid->newpipe);
+		pid->pid = fork();
+		if (pid->pid == 0)
+		{
+			if (pid->newpipe[2] != 0)
+			{
+				dup2(pid->newpipe[2], 0);
+				close(pid->newpipe[2]);
+			}
+			if (pid->newpipe[1] != 0)
+			{
+				dup2(pid->newpipe[1], 1);
+				close(pid->newpipe[1]);
+			}
+			if (pid->newpipe[0] != 0)
+				close(pid->newpipe[0]);
+			if (connect_fd(current, info) != 0)
+			{
+				g_status = 1;
+				exit (g_status);
+			}
+			if (check_if_builtin(current) == 1)
+				g_status = exec_builtin(current, info, str);
+			else
+				ms_execve(info, current);
+			free_commands_list(str);
+			clean_data(g_status, info, NULL);
+			exit (g_status);  // in case of builtin, it should be cleaned and quit
+		}
 		else
 		{
-			while (current)
-			{
-				if (current != str)
-					g_status = 0;
-				current->args = expand_array(current->args, info);
-				if (current->next)
-					pipe(newpipe);
-				pid = fork();
-				if (pid == 0)
-				{
-					if (newpipe[2] != 0)
-					{
-						dup2(newpipe[2], 0);
-						close(newpipe[2]);
-					}
-					if (newpipe[1] != 0)
-					{
-						dup2(newpipe[1], 1);
-						close(newpipe[1]);
-					}
-					if (newpipe[0] != 0)
-						close(newpipe[0]);
-					if (connect_fd(current, info) != 0)
-					{
-						g_status = 1;
-						exit (g_status);
-					}
-					if (check_if_builtin(current) == 1)
-						g_status = exec_builtin(current, info, str);
-					else
-						ms_execve(info, current);
-					exit (g_status);  // in case of builtin, it should be quit
-				}
-				else
-				{
-					if (newpipe[2] != 0)
-						close(newpipe[2]);
-					newpipe[2] = newpipe[0];
-					if (newpipe[1] != 0)
-						close(newpipe[1]);
-					if (current->next == NULL)
-						last_pid = pid;
-				}
-				current = current->next;
-			}
-			current = str;
-			while (current)
-			{
-				if (waitpid(0, &status, WUNTRACED | WCONTINUED) == last_pid)
-				{
-					if (WIFEXITED(status))
-						g_status = WEXITSTATUS(status);
-					if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
-						g_status = 128 + WTERMSIG(status);
-				}
-				current = current->next;
-			}
+			if (pid->newpipe[2] != 0)
+				close(pid->newpipe[2]);
+			pid->newpipe[2] = pid->newpipe[0];
+			if (pid->newpipe[1] != 0)
+				close(pid->newpipe[1]);
+			if (current->next == NULL)
+				pid->last_pid = pid->pid;
 		}
-		reset_fd(info);
+		current = current->next;
 	}
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, handle_sigquit);
+	return (0);
+}
+
+int	run_cmd(t_infos *info, t_cmd *str)
+{
+	t_cmd	*current;
+	t_pid	pid;
+
+	if (open_heredoc(info, str) != 0)
+		return (g_status);
+	init_pid_sig(&pid);
+	if (str->next == NULL)
+		return (exec_no_pipe(info, str, str));
+	exec_with_pipe(info, str, &pid);
+	current = str;
+	while (current)
+	{
+		if (waitpid(0, &pid.status, WUNTRACED | WCONTINUED) == pid.last_pid)
+		{
+			if (WIFEXITED(pid.status))
+				g_status = WEXITSTATUS(pid.status);
+			else if (WIFEXITED(pid.status) == 0 && WIFSIGNALED(pid.status))
+				g_status = 128 + WTERMSIG(pid.status);
+		}
+		current = current->next;
+	}
+	reset_fd_sig(info);
 	return (g_status);
 }
