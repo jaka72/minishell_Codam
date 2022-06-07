@@ -13,7 +13,8 @@ typedef struct s_temporary_array
 } t_tmp;
 
 // MAKE COMMANDS
-t_cmd	*make_commands(t_source *src);
+// t_cmd	*make_commands(t_source *src);
+t_cmd	*make_commands(t_source *src, t_infos *info);
 int		free_commands_list(t_cmd *first_cmd);
 void	print_command_info(t_cmd *cmd);
 void	choose_correct_array(t_source *src, t_cmd *cmd, t_tmp *t);

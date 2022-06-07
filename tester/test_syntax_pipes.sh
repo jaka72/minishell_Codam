@@ -12,7 +12,7 @@ RES="\033[0m"
 
 ############################################################
 
-error_message="Minishell: Syntax error with PIPES"
+error_message="Minishell: Syntax error"
 
 ############################################################
 
@@ -56,6 +56,8 @@ test_syntax_error()
 }
 
 
+
+
 #############################################################################
 
 
@@ -83,12 +85,11 @@ do
 	input=${inputlines[$i]}
 	printf "  Test %3d:   %-30s   " $i "'$input'"
 	> out_temp; >out_mini; > out_orig
-	./minishell "$input" | cat -e 2> out_temp
-	echo $error_message | cat -e 2> out_orig
+	./minishell "$input" | cat -e > out_temp
+	echo $error_message | cat -e > out_orig
 	test_syntax_error "out_orig" "out_mini" "error"
 	((i=i+1))
 done
-
 
 
 # ######################################################################
@@ -138,7 +139,7 @@ echo -e $BLU"  ( valid input with wc is KO, because tabs are displayed different
 			"ls | wc"
 			"ls | ls | ls"
 
-			## NO OUTPUT EXAMPLE
+			## NO OUTPUT EXAMPLES
 	 		"< infile cat | < readme"
 			# "ls | ls | ls > outfile"
 			
@@ -169,6 +170,8 @@ done
 
 
 echo ""
+
+
 
 
 ##################################################################################

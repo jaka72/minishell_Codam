@@ -20,7 +20,6 @@ int	main(int argc, char *argv[], char *envp[])
 	src.inputline = NULL;
 	ms_init(&info, envp);
 	free_and_read(&src, &info, 0);
-	//printf(GRN"main)  cmd->args[0]: [%s]\n"RES, cmd_list->args);
 	while (src.inputline)
 	{
 		if (ft_strlen(src.inputline) > 0)
@@ -31,12 +30,10 @@ int	main(int argc, char *argv[], char *envp[])
 				continue ;
 			}
 			add_history(src.inputline);
-			cmd_list = make_commands(&src);
-			//printf(GRN"B)\n"RES);
+			cmd_list = make_commands(&src, &info);		// Changed jaka: It needs &info, to call clean_data(), 
+														//		in case malloc failed inside make_commands()
 			g_status = run_cmd(&info, cmd_list);
-			//printf(GRN"C)\n"RES);
 			free_commands_list(cmd_list);
-			//printf(GRN"D)\n"RES);
 		}
 		free_and_read(&src, &info, 0);
 	}
