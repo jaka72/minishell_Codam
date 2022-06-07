@@ -25,6 +25,7 @@ SAMPLE TEST:
 
 make && valgrind valgrind --leak-check=full --show-reachable=yes   ./minishell 2> outfile
 
+monitor: 20,00% 20,3%
 */
 
 void	free_and_read(t_source *src, t_infos *info, int history)
@@ -110,7 +111,16 @@ int	main(int argc, char *argv[], char *envp[])
 }
 
 /*
-/// CURRENT ISSUES: //////////////////////////
+/// CURRENT ISSUES: ////////////////////////////////////////////////////////////////////////
+
+- heredoc alway exits,	- with normal input: << here cat ... $HOME ... here ... EXITS!
+					- in case nonexisting variable: ... $xxx
+					- with no input, just here
+
+- inside heredoc, if pressed ctrl-c, will go back to promt, then if again ctrl-C, prints black lines
+
+- in heredoc, if line not empty, first ctrl-D nothing, seconmd ctrl-D exits
+
 
 - In case of nonexisting command, still reachable: run_cmd, store_into command ... 
 		Try if it is better after Keiko added 2 lines.
@@ -165,6 +175,8 @@ Things to check:
 
 ////////////////////////////////////////////////
 
+
+- How is ctrl-\ behaving? First nothihng, after 1 command says quite 3 ???
 
 - Maybe all the libft files in main Makefile are not needed listed, because they come from own libft file?
 
@@ -246,11 +258,6 @@ Things to check:
 
 
 
-
-
-
-
-
 - Echo:  escape character, ie:   "  \"    "
     In bash it prints just   "  
 
@@ -264,16 +271,20 @@ Things to check:
 - No error when command is wrong, ie: catxxx
     Also, no error when wrong option, ie:  cat -xxx
 
+// looking at runcmd ///////////////////////////////////////////////
 
-
+- function count_env , seems unnused
+- what is rl_catch_signals = 0 ?
 -------------------------------------------------------------------------
 
 
 
 // INFO ABOUT KEY BINDING SETTINGS
 stty -a
-    interupt    ctrl-C      SIGINT
-    quit        ctrl-\      SIGQUIT
-    send oef    ctrl-D
-
+    interupt    ctrl-C      SIGINT		makes newline, always. Interupts the readline? Replaces line with "" ???
+    
+	quit        ctrl-\      SIGQUIT		prints quit 3 ???
+    
+	send oef    ctrl-D					exits program, works only if empty readline
+										Sends eof to whom?
 */
