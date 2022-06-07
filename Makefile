@@ -87,7 +87,8 @@ BUILTINS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(BUILTINS_SRC:.c=.o))
 
 # JAKA_UTILS
 JAKA_UTILS_DIR		= 	./jaka_utils
-JAKA_UTILS_SRC		= 	$(JAKA_UTILS_DIR)/utils.c
+JAKA_UTILS_SRC		= 	$(JAKA_UTILS_DIR)/utils.c	\
+						$(JAKA_UTILS_DIR)/print_err_msg.c
 #						$(JAKA_UTILS_DIR)/from_libft.c
 JAKA_UTILS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(JAKA_UTILS_SRC:.c=.o))
 

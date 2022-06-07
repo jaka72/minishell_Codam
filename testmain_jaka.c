@@ -59,14 +59,17 @@ int	main(int argc, char *argv[], char *envp[])
 		src.inputline = argv[1];
 		src.inputline_size = strlen(src.inputline);
 		if (check_syntax_errors(&src) != 0)
+		{
 			return (SYNTAX_ERROR);
-		cmd_list = make_commands(&src  /*, &info  */);
+		}
+		// cmd_list = make_commands(&src  /*, &info  */);
+		cmd_list = make_commands(&src, &info);
+
 		g_status = run_cmd(&info, cmd_list);
 		free_commands_list(cmd_list);
 		clean_data(g_status, &info, NULL);
-		printf(GRN"\nexit!!! (tester mode)\n\n"RES);
-		// return (0);
-		exit(0);
+		//printf(GRN"\nexit! (tester mode)\n\n"RES);
+		return (0);
 	}
 	else
 	{
@@ -80,14 +83,16 @@ int	main(int argc, char *argv[], char *envp[])
 			{
 				if (check_syntax_errors(&src) != 0)
 				{
-					//add_history(line);				// ADDED JAKA: INCASE OF ERROR MUST NOT EXIT, BUT LOOP AGAIN
+					//add_history(line);				// ADDED JAKA: IN CASE OF ERROR MUST NOT EXIT, BUT LOOP AGAIN
 					//free(line);
 					//line = readline(info.prompt);
 					free_and_read(&src, &info, 1);
 					continue ;
 				}
 				add_history(src.inputline);
-				cmd_list = make_commands(&src);
+				// cmd_list = make_commands(&src);
+				cmd_list = make_commands(&src, &info);
+
 				g_status = run_cmd(&info, cmd_list);
 				free_commands_list(cmd_list);	
 			}
@@ -103,6 +108,21 @@ int	main(int argc, char *argv[], char *envp[])
 
 /*
 /// CURRENT ISSUES: //////////////////////////
+
+- There is forbidden printf in clean_data, also in expand and export ...
+
+
+- MALLOC  -  still reachable:  Looks like with builtins this happens
+	no problem: ls | wc
+	a  problem: ls | echo aaa    or    echo aaa | ls   or   pwd | ls 
+
+
+- If malloc fails inside make_commands(), it must also free mallocs from ms_init, get_env,
+		It looks like it's now fixed with calling clean_data
+
+- If malloc fails in my make_commands(), then it has to free and exit. But there are still mallocs present from 
+	ms_init, get_env. lost 24 bytes in 1 block
+
 
 - Segfault or hanging, if the env variable does not exist. This was not happening in version 30 may
 		echo $OUTFILE  (if nonexistant, should print new line)
@@ -126,7 +146,7 @@ int	main(int argc, char *argv[], char *envp[])
 			}
 
 
-
+- There is 2x clear_history in clean_data()
 
 - In case of ctrl_C, main() reaches the end and prints "exit" ????
 

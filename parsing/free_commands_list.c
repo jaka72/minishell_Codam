@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 14:40:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/04 17:39:54 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/06 22:04:57 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	free_arr_outfile_and_heredoc(t_cmd *cmd)
 		while (i < count_elems(cmd->heredoc))
 		{
 			printf(MAG"   Free %-10s %i [%s]\n", "heredoc", i, cmd->heredoc[i]);
-			// printf(YEL"Free heredoc %i\n", i);
+			//printf(YEL"Free heredoc %i\n", i);
 			free(cmd->heredoc[i]);
 			i++;
 		}
@@ -52,7 +52,7 @@ void	free_arr_args_and_infile(t_cmd *cmd)
 	i = 0;
 	if (cmd->args != NULL)
 	{
-		while (i < count_args(cmd->args))
+		while (i < count_elems(cmd->args))
 		{
 			printf(LBLU"   Free %-10s %i [%s]\n", "args", i, cmd->args[i]);
 			// printf(YEL"Free arg %i\n", i);
@@ -84,18 +84,22 @@ int	free_commands_list(t_cmd *first_cmd)
 	int		i;		// JUST FOR PRINTING
 	t_cmd	*temp;
 
-	printf(RED"FREE ALL\n"RES);
 	i = 0;
 	temp = first_cmd;
+	//printf(RED"FREE ALL, first_cmd [%p]\n"RES, first_cmd);
 	while (temp)
 	{
-		printf(RED"Free Command %d\n"RES, i);
+		printf(RED"Free Command %d, temp->args[0]: [%s]\n"RES, i, temp->args[0]);
 
 		free_arr_args_and_infile(temp);
 		free_arr_outfile_and_heredoc(temp);
 		//printf("    after free arr\n");
 		temp = temp->next;
 		free(first_cmd);
+
+		first_cmd = NULL; // NOT SURE IF NECESSARY ??
+
+		
 		//printf("    after free first_cmd\n");
 		first_cmd = temp;
 		i++;
