@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 14:40:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/06 22:04:57 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/07 12:14:24 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,11 @@ int	free_commands_list(t_cmd *first_cmd)
 
 	i = 0;
 	temp = first_cmd;
-	//printf(RED"FREE ALL, first_cmd [%p]\n"RES, first_cmd);
+	printf(RED"FREE ALL, first_cmd [%p]\n"RES, first_cmd);
 	while (temp)
 	{
-		printf(RED"Free Command %d, temp->args[0]: [%s]\n"RES, i, temp->args[0]);
+		// THIS PRINT CAUSES SEGFAULT IF INPUT LINE IS SPACES ONLY
+		//printf(RED"Free Command %d, temp->args[0]: [%s]\n"RES, i, temp->args[0]);
 
 		free_arr_args_and_infile(temp);
 		free_arr_outfile_and_heredoc(temp);
@@ -97,7 +98,7 @@ int	free_commands_list(t_cmd *first_cmd)
 		temp = temp->next;
 		free(first_cmd);
 
-		first_cmd = NULL; // NOT SURE IF NECESSARY ??
+		//first_cmd = NULL; // NOT SURE IF NECESSARY ??
 
 		
 		//printf("    after free first_cmd\n");
