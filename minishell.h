@@ -120,7 +120,7 @@ int		check_outfile_fd(t_cmd *str, t_infos *info);
 // t_cmd	*manage_in_out(t_cmd *str, t_infos *info);
 int		connect_fd(t_cmd *current, t_infos *info);
 // void	connect_hd(t_cmd *current, t_infos *info);
-void	reset_fd(t_infos *info);
+void	reset_fd_sig(t_infos *info);
 
 // exec/exec.c
 char	*ft_find_env_passnum(char *envp[]);

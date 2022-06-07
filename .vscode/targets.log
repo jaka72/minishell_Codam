@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Mon Jun  6 04:28:08 2022
+# Make data base, printed on Tue Jun  7 10:22:08 2022
 
 # Variables
 
@@ -65,7 +65,7 @@ BONUS = minishell_bonus
 # makefile (from `Makefile', line 76)
 BUILTINS_DIR = ./builtins
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/pk/ns046dtx2t19fvg7mvxp5d540000gp/T/vscode-ipc-9338b5cd-8a1c-4933-9f1f-27558ac832b9.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/pk/ns046dtx2t19fvg7mvxp5d540000gp/T/vscode-ipc-23faaf91-cb05-4215-be36-57d307638461.sock
 # environment
 VSCODE_CWD = /
 # makefile (from `Makefile', line 47)
@@ -79,7 +79,7 @@ LIBRARY_PATH = /Users/keika/.brew/lib:/Users/keika/.brew/lib:
 # makefile (from `Makefile', line 42)
 EXEC_SRC = $(EXEC_DIR)/exec.c $(EXEC_DIR)/fd.c	
 # environment
-LaunchInstanceID = 1139CA82-DAD6-4718-8029-CC3F853FDACA
+LaunchInstanceID = B5F463D5-8DD8-44F6-9854-8CB07BAD8F04
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -91,7 +91,7 @@ LDFLAGS = -L/usr/local/opt/readline/lib
 # makefile (from `Makefile', line 7)
 LIBFT_DIR = ./libft
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.U0MoRmGu6M/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.OSgO1gyxzi/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -215,7 +215,7 @@ JAKA_UTILS_SRC = $(JAKA_UTILS_DIR)/utils.c
 # environment
 LANG = C
 # environment
-VSCODE_PID = 550
+VSCODE_PID = 545
 # makefile (from `Makefile', line 55)
 SYNTAX_DIR = ./check_syntax
 # makefile (from `Makefile', line 34)
@@ -229,9 +229,9 @@ INIT_DIR = ./init
 
 # Directories
 
-# . (device 16777220, inode 12927439138): 21 files, no impossibilities.
+# . (device 16777220, inode 12927439138): 25 files, no impossibilities.
 
-# 21 files, no impossibilities in 1 directories.
+# 25 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -340,7 +340,7 @@ obj_dir/./parsing/print_commands_info.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-05 10:02:37
+#  Last modified 2022-06-07 10:21:33
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -516,7 +516,6 @@ obj_dir/./exec/exec.o:
 # Not a target:
 obj_dir/./check_syntax/check_syntax_redirects_utils.o:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -543,6 +542,7 @@ make_obj_dir:
 # automatic
 # ? := 
 # variable set hash-table stats:
+ 
 # Load=8/32=25%, Rehash=0, Collisions=1/26=4%
 #  commands to execute (from `Makefile', line 121):
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/util/
@@ -568,6 +568,6 @@ make_obj_dir:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Mon Jun  6 04:28:08 2022
+# Finished Make data base on Tue Jun  7 10:22:08 2022
 
  
