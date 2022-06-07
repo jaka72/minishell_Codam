@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:14:28 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/04 13:52:26 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/07 10:16:29 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	exec_builtin(t_cmd *cmd, t_infos *info, t_cmd *list)
 	else if (ft_strcmp("cd", cmd->args[0]) == 0)
 		return (run_cd_builtin(cmd, info));
 	else if (ft_strcmp("exit", cmd->args[0]) == 0)
-		// return (run_exit_builtin(cmd));
-		return (run_exit_builtin(cmd, list));
+		return (run_exit_builtin(cmd, list, info));
+		// return (run_exit_builtin(cmd, list));
 	else if (ft_strcmp("export", cmd->args[0]) == 0)
 		return (run_export_builtin(cmd, info));
 	else if (ft_strcmp("unset", cmd->args[0]) == 0)

@@ -22,6 +22,9 @@ SAMPLE TEST:
 	make && valgrind ./minishell "<< here cat | < infile < main.c cat | grep a > outfile | ls -l -a | wc -c  > outfile > out1 > out2"
 << here cat | < infile < main.c cat | grep a > outfile | ls -l -a | wc -c  > outfile > out1 > out2
 
+
+make && valgrind valgrind --leak-check=full --show-reachable=yes   ./minishell 2> outfile
+
 */
 
 void	free_and_read(t_source *src, t_infos *info, int history)
@@ -108,6 +111,9 @@ int	main(int argc, char *argv[], char *envp[])
 
 /*
 /// CURRENT ISSUES: //////////////////////////
+
+- In case of nonexisting command, still reachable: run_cmd, store_into command ... 
+		Try if it is better after Keiko added 2 lines.
 
 - There is forbidden printf in clean_data, also in expand and export ...
 
