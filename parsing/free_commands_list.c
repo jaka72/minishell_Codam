@@ -20,9 +20,10 @@ void	free_arr_outfile_and_heredoc(t_cmd *cmd)
 	if (cmd->outfile != NULL)
 	{
 		// while (i < cmd->count_outfiles)
+		
 		while (i < count_elems(cmd->outfile))
 		{
-			printf(LMAG"   Free %-10s %i [%s]\n", "outfile", i, cmd->outfile[i]);
+			// printf(LMAG"   Free %-10s %i [%s]\n", "outfile", i, cmd->outfile[i]);
 			free(cmd->outfile[i]);
 			i++;
 		}
@@ -35,7 +36,7 @@ void	free_arr_outfile_and_heredoc(t_cmd *cmd)
 		// while (i < cmd->count_heredocs)
 		while (i < count_elems(cmd->heredoc))
 		{
-			printf(MAG"   Free %-10s %i [%s]\n", "heredoc", i, cmd->heredoc[i]);
+			// printf(MAG"   Free %-10s %i [%s]\n", "heredoc", i, cmd->heredoc[i]);
 			//printf(YEL"Free heredoc %i\n", i);
 			free(cmd->heredoc[i]);
 			i++;
@@ -54,7 +55,7 @@ void	free_arr_args_and_infile(t_cmd *cmd)
 	{
 		while (i < count_elems(cmd->args))
 		{
-			printf(LBLU"   Free %-10s %i [%s]\n", "args", i, cmd->args[i]);
+			// printf(LBLU"   Free %-10s %i [%s]\n", "args", i, cmd->args[i]);
 			// printf(YEL"Free arg %i\n", i);
 			free(cmd->args[i]);
 			i++;
@@ -69,7 +70,7 @@ void	free_arr_args_and_infile(t_cmd *cmd)
 		while (i < count_elems(cmd->infile))
 		{
 			// printf(YEL"Free infile %i\n", i);
-			printf(BLU"   Free %-10s %i [%s]\n", "infile", i, cmd->infile[i]);
+			// printf(BLU"   Free %-10s %i [%s]\n", "infile", i, cmd->infile[i]);
 			free(cmd->infile[i]);
 			i++;
 		}
@@ -89,11 +90,9 @@ int	free_commands_list(t_cmd *first_cmd)
 	//printf(RED"FREE ALL, first_cmd [%p]\n"RES, first_cmd);
 	while (temp)
 	{
-		printf(RED"Free Command %d, temp->args[0]: [%s]\n"RES, i, temp->args[0]);
-
 		free_arr_args_and_infile(temp);
 		free_arr_outfile_and_heredoc(temp);
-		//printf("    after free arr\n");
+		// printf("    after free arr\n");
 		temp = temp->next;
 		free(first_cmd);
 

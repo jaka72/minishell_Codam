@@ -1,11 +1,11 @@
 #include "../minishell.h"
 
-int	find_name_delate(char *targetname, t_infos *info)
+int	find_name_delate(char *targetname)
 {
 	t_env	*env;
 	t_env	*prev;
 
-	env = info->start_env;
+	env = gl.start_env;
 	prev = NULL;
 	while (env)
 	{
@@ -14,7 +14,7 @@ int	find_name_delate(char *targetname, t_infos *info)
 		{
 			printf("targetname is %s found %s %s!!\n", targetname, env->name, env->value);
 			if (prev == NULL)
-				info->start_env = env->next;
+				gl.start_env = env->next;
 			else
 				prev->next = env->next;
 			free(env);
@@ -26,19 +26,19 @@ int	find_name_delate(char *targetname, t_infos *info)
 	return (0);
 }
 
-int	run_unset_builtin(t_cmd *cmd, t_infos *info)
+int	run_unset_builtin(t_cmd *cmd)
 {
 	int	i;
 	//t_env	*env;
 	//t_env	*prev;
 
 	i = 1;
-	//env = info->start_env;
+	//env = gl.start_env;
 	//prev = NULL;
 	while (cmd->args[i])
 	{
-		find_name_delate(cmd->args[i], info);
-		//env = info->start_env;
+		find_name_delate(cmd->args[i]);
+		//env = gl.start_env;
 		i++;
 	}
 	return (0);

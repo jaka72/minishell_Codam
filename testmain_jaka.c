@@ -33,9 +33,6 @@ void	free_and_read(t_source *src, t_infos *info, int history)
 	src->inputline = readline(info->prompt);
 }
 
-
-
-int	g_status;
 // ORIGINAL FROM testmain.c
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -65,9 +62,9 @@ int	main(int argc, char *argv[], char *envp[])
 		// cmd_list = make_commands(&src  /*, &info  */);
 		cmd_list = make_commands(&src, &info);
 
-		g_status = run_cmd(&info, cmd_list);
+		gl.g_status = run_cmd(&info, cmd_list);
 		free_commands_list(cmd_list);
-		clean_data(g_status, &info, NULL);
+		clean_data(gl.g_status, &info, NULL);
 		//printf(GRN"\nexit! (tester mode)\n\n"RES);
 		return (0);
 	}
@@ -93,7 +90,7 @@ int	main(int argc, char *argv[], char *envp[])
 				// cmd_list = make_commands(&src);
 				cmd_list = make_commands(&src, &info);
 
-				g_status = run_cmd(&info, cmd_list);
+				gl.g_status = run_cmd(&info, cmd_list);
 				free_commands_list(cmd_list);	
 			}
 			free_and_read(&src, &info, 0);
@@ -103,7 +100,7 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 
 	//system("leaks minishell");
-	return (clean_data(g_status, &info, "exit\n"));
+	return (clean_data(gl.g_status, &info, "exit\n"));
 }
 
 /*

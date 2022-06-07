@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int	check_infile_fd(t_cmd *str, t_infos *info)
+int	check_infile_fd(t_cmd *str)
 {
 	int	i;
 	int	j;
@@ -11,7 +11,7 @@ int	check_infile_fd(t_cmd *str, t_infos *info)
 	{
 		while (str->infile[i])
 		{
-			str->infile[i] = check_expand(info, str->infile[i]);
+			str->infile[i] = check_expand(str->infile[i]);
 			if (access(str->infile[i], F_OK) != 0)
 			{
 				perror("infile not exist\n");
@@ -42,7 +42,7 @@ int	check_infile_fd(t_cmd *str, t_infos *info)
 
 
 
-int	check_outfile_fd(t_cmd *str, t_infos *info)
+int	check_outfile_fd(t_cmd *str)
 {
 	int	i;
 	int	j;
@@ -53,7 +53,7 @@ int	check_outfile_fd(t_cmd *str, t_infos *info)
 	{
 		while (str->outfile[i])
 		{
-			str->outfile[i] = check_expand(info, str->outfile[i]);
+			str->outfile[i] = check_expand(str->outfile[i]);
 			if (str->outfile[i] && access(str->outfile[i], F_OK) == 0
 				&& access(str->outfile[i], W_OK) < 0)
 				{
@@ -95,11 +95,11 @@ int	check_outfile_fd(t_cmd *str, t_infos *info)
 // }
 
 
-int	connect_fd(t_cmd *current, t_infos *info)
+int	connect_fd(t_cmd *current)
 {
-	if (check_infile_fd(current, info) != 0)
+	if (check_infile_fd(current) != 0)
 		return (1);
-	if (check_outfile_fd(current, info) != 0)
+	if (check_outfile_fd(current) != 0)
 		return (1);
 	if (current->fd_in > 0)
 	{

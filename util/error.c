@@ -6,12 +6,12 @@ void	errtext_exit(char *text)
 	exit(ERROR_RETURN);
 }
 
-void	free_envlist(t_infos *infos)
+void	free_envlist(void)
 {
 	t_env	*env;
 	t_env	*temp_env;
 
-	env = infos->start_env;
+	env = gl.start_env;
 	while (env->next)
 	{
 		if (env->name)
@@ -62,10 +62,10 @@ void	free_tcmd(t_cmd *cmds)
 	}
 }
 
-void	err_free_env_exit(t_infos *infos, char *text)
+void	err_free_env_exit(char *text)
 {
 	perror(text);
-	free_envlist(infos);
+	free_envlist();
 	// tcsetattr(0, 0, &infos->termios_save);
 	exit(ERROR_RETURN);
 }
@@ -75,6 +75,6 @@ void	err_all_free_exit(t_infos *infos, t_cmd *cmds, char *text)
 	if (cmds != NULL)
 		free_tcmd(cmds);
 	perror(text);
-	clean_data(g_status, infos, NULL);
+	clean_data(gl.g_status, infos, NULL);
 	exit(ERROR_RETURN);
 }

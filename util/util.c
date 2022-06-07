@@ -51,7 +51,7 @@ int	clean_data(int status, t_infos *info, char *text)
 {
 	if (text != NULL)
 		printf("%s", text);
-	free_envlist(info);
+	free_envlist();
 	if (info->ini_fd[0] > 0)
 		close(info->ini_fd[0]);
 	if (info->ini_fd[1] > 1)

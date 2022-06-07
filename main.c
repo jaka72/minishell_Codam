@@ -32,10 +32,10 @@ int	main(int argc, char *argv[], char *envp[])
 			add_history(src.inputline);
 			cmd_list = make_commands(&src, &info);		// Changed jaka: It needs &info, to call clean_data(), 
 														//		in case malloc failed inside make_commands()
-			g_status = run_cmd(&info, cmd_list);
+			gl.g_status = run_cmd(&info, cmd_list);
 			free_commands_list(cmd_list);
 		}
 		free_and_read(&src, &info, 0);
 	}
-	return (clean_data(g_status, &info, "exit\n"));
+	return (clean_data(gl.g_status, &info, "exit\n"));
 }

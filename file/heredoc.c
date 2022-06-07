@@ -55,7 +55,7 @@ int	get_heredoc(char *limiter, int fd_out, t_infos *info)
 			{
 				if (ft_strncmp(exp, limiter, ft_strlen(exp)) == 0)
 					break ;
-				exp = check_expand_hd(info, exp);
+				exp = check_expand_hd(exp);
 				exp = ft_add_c_free(exp, buff[0]);
 				write(fd_out, exp, ft_strlen(exp));
 				free(exp);
@@ -70,7 +70,7 @@ int	get_heredoc(char *limiter, int fd_out, t_infos *info)
 		}
 		else if (rd > 0 && buff[0] == ' ')
 		{
-			exp = check_expand_hd(info, exp);
+			exp = check_expand_hd(exp);
 			exp = ft_add_c_free(exp, buff[0]);
 			write(fd_out, exp, ft_strlen(exp));
 			free(exp);
@@ -110,13 +110,13 @@ int	make_heredoc(char *limiter, t_infos *info)
 		if (waitpid(pid, &status, WUNTRACED | WCONTINUED) >= 0)
 		{
 			if (WIFEXITED(status))
-				g_status = WEXITSTATUS(status);
-			if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
-				g_status = 1;
+				gl.g_status = WEXITSTATUS(status);
+			else if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
+				gl.g_status = 1;
 		}
 	}
-	// printf("g_status is %d!\n", g_status);
-	if (g_status == 1)
+	// printf("gl.g_status is %d!\n", gl.g_status);
+	if (gl.g_status == 1)
 	{
 		close(newpipe[0]);
 		return(-1);

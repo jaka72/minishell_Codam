@@ -1,11 +1,11 @@
 #include "../minishell.h"
 #define FLAG1 1
 
-void	print_env(t_infos *info) 
+void	print_env(void) 
 {
 	t_env	*env;
 
-	env = info->start_env;
+	env = gl.start_env;
 	while (env->next)
 	{
 		printf("%s=%s\n", env->name, env->value);
@@ -14,13 +14,13 @@ void	print_env(t_infos *info)
 	printf("%s=%s\n", env->name, env->value);
 }
 
-char	*name_expand(t_infos *info, char *tx)
+char	*name_expand(char *tx)
 {
 	char	*newtx;
 	t_env	*env;
 
 	newtx = NULL;
-	env = info->start_env;
+	env = gl.start_env;
 	while (env)
 	{
 		if (ft_strncmp(tx, env->name, ft_strlen(tx) + 1) == 0
@@ -86,7 +86,7 @@ int	count_expand_length_hd(char *src)
 	return (i);
 }
 
-char	*add_expanded(char *dst, char *src, t_infos *info)
+char	*add_expanded(char *dst, char *src)
 {
 	int	i;
 	char	*temp;
@@ -101,7 +101,7 @@ char	*add_expanded(char *dst, char *src, t_infos *info)
 	if (temp == NULL)
 		errtext_exit("malloc failed");
 	ft_strlcpy(temp, src, i + 1);
-	expanded = name_expand(info, temp);
+	expanded = name_expand(temp);
 	dst = ft_strjoin_free(dst, expanded);
 	if (dst == NULL)
 		errtext_exit("malloc failed");
@@ -123,7 +123,7 @@ char	*add_laststatus(char *dst, int g_status)
 	return (dst);
 }
 
-char	*check_expand_hd(t_infos *info, char *tx)
+char	*check_expand_hd(char *tx)
 {
 	int		i;
 	char	*expanded;
@@ -133,7 +133,7 @@ char	*check_expand_hd(t_infos *info, char *tx)
 		return (tx);
 	expanded = malloc(1);
 	if (expanded == NULL)
-		err_free_env_exit(info, "check expand malloc failed");
+		err_free_env_exit("check expand malloc failed");
 	expanded[0] = '\0';
 	while (tx[i] != '\0')
 	{
@@ -144,7 +144,7 @@ char	*check_expand_hd(t_infos *info, char *tx)
 		}
 		else if (tx[i] == '$')
 		{
-			expanded = add_expanded(expanded, &tx[i + 1], info);
+			expanded = add_expanded(expanded, &tx[i + 1]);
 			// write(2, expanded, ft_strlen(expanded));
 			// write(2, "!", 1);
 			i = i + count_expand_length(&tx[i + 1]);
@@ -157,7 +157,7 @@ char	*check_expand_hd(t_infos *info, char *tx)
 	return (expanded);
 }
 
-char	*check_expand(t_infos *info, char *tx)
+char	*check_expand(char *tx)
 {
 	int		i;
 	int		d_flag;
@@ -169,7 +169,7 @@ char	*check_expand(t_infos *info, char *tx)
 		return (tx);
 	expanded = malloc(1);
 	if (expanded == NULL)
-		err_free_env_exit(info, "check expand malloc failed");
+		err_free_env_exit("check expand malloc failed");
 	expanded[0] = '\0';
 	while (tx[i] != '\0')
 	{
@@ -192,12 +192,12 @@ char	*check_expand(t_infos *info, char *tx)
 			expanded = ft_add_c_free(expanded, '$');
 		else if (tx[i] == '$' && tx[i + 1] == '?' )
 		{
-			expanded = add_laststatus(expanded, g_status);
+			expanded = add_laststatus(expanded, gl.g_status);
 			i++;
 		}
 		else if (tx[i] == '$')
 		{
-			expanded = add_expanded(expanded, &tx[i + 1], info);
+			expanded = add_expanded(expanded, &tx[i + 1]);
 			i = i + count_expand_length(&tx[i + 1]);
 		}
 		else
@@ -214,7 +214,7 @@ char	*check_expand(t_infos *info, char *tx)
 	return (expanded);
 }
 
-char	**expand_array(char **args, t_infos *info)
+char	**expand_array(char **args)
 {
 	int	i;
 	int	temp;
@@ -225,7 +225,7 @@ char	**expand_array(char **args, t_infos *info)
 		return (args);
 	while (args[i])
 	{
-		args[i] = check_expand(info, args[i]);
+		args[i] = check_expand(args[i]);
 		if (args[i] == NULL)
 		{
 			temp = i;
