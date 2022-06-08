@@ -22,7 +22,7 @@ void	print_err_msg(char *err_msg)
 	// write(2, "\nMinishel: ", 11);
 	// write(2, err_msg, ft_strlen(err_msg));
 	// write(2, "\n", 1);
-	g_status = SYNTAX_ERROR;
+	gl.g_status = SYNTAX_ERROR;
 }
 
 void	msg_and_exit(char *err_msg, int exit_code)

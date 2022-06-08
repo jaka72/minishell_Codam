@@ -75,12 +75,12 @@ char	*ft_findshell_pass(char *cmd, char *envp[])
 	return (NULL);
 }
 
-int	ms_execve(t_infos *info, t_cmd *str)
+int	ms_execve(t_cmd *str)
 {
 	char	**envs;
 	char	*path;
 
-	envs = get_env_array(info->start_env);
+	envs = get_env_array(gl.start_env);
 	if (envs == NULL)
 		return (-1);
 	path = ft_findshell_pass(str->args[0], envs);
@@ -89,28 +89,30 @@ int	ms_execve(t_infos *info, t_cmd *str)
 		if (ft_strchr(str->args[0], '/') != NULL)
 		{
 			write(2, str->args[0], ft_strlen(str->args[0]));
-			write(2, ": Noo such file or directory\n", 28);
+			write(2, ": No such file or directory\n", 28);
 		}
 		else
 		{
 			write(2, str->args[0], ft_strlen(str->args[0]));
 			write(2, ": command not found\n", 21);
 		}
+		free_commands_list(str);
+		clean_data(gl.g_status, NULL);
 		exit(127);
 	}
 	execve(path, str->args, envs);
 	exit(127);
 }
 
-int	exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
+int	exec_no_pipe(t_cmd *str)
 {
 	pid_t	pid;
 
-	current->args = expand_array(current->args, info);
-	if (connect_fd(current, info) != 0)
-		g_status = 1;
-	else if (check_if_builtin(current) == 1)
-		g_status = exec_builtin(current, info, str);
+	str->args = expand_array(str->args);
+	if (connect_fd(str) != 0)
+		gl.g_status = 1;
+	else if (check_if_builtin(str) == 1)
+		gl.g_status = exec_builtin(str, str);
 	else
 	{
 		pid = fork();
@@ -118,20 +120,25 @@ int	exec_no_pipe(t_infos *info, t_cmd *current, t_cmd *str)
 		{
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
-			ms_execve(info, current);
+			ms_execve(str);
 		}
-		waitpid(pid, &g_status, WUNTRACED | WCONTINUED);
-		if (WIFEXITED(g_status))
-			g_status = WEXITSTATUS(g_status);
-		else if (WIFEXITED(g_status) == 0 && WIFSIGNALED(g_status))
-			g_status = 128 + WTERMSIG(g_status);
+		if (str->fd_in > 0)
+			close(str->fd_in);
+		if (str->fd_out > 1)
+			close(str->fd_out);
+		waitpid(pid, &gl.g_status, WUNTRACED | WCONTINUED);
+		if (WIFEXITED(gl.g_status))
+			gl.g_status = WEXITSTATUS(gl.g_status);
+		else if (WIFEXITED(gl.g_status) == 0 && WIFSIGNALED(gl.g_status))
+			gl.g_status = 128 + WTERMSIG(gl.g_status);
 		else
-			g_status = 0;
+			gl.g_status = 0;
 	}
-	return (g_status);
+	reset_fd_sig();
+	return (gl.g_status);
 }
 
-int	open_heredoc(t_infos *info, t_cmd *str)
+int	open_heredoc(t_cmd *str)
 {
 	t_cmd	*current;
 	int	i;
@@ -146,7 +153,7 @@ int	open_heredoc(t_infos *info, t_cmd *str)
 			j = 0;
 			while (current->heredoc[i])
 			{
-				j = make_heredoc(current->heredoc[i], info);
+				j = make_heredoc(current->heredoc[i]);
 				if (j < 0)
 					return (-1);
 				if (current->fd_in == -3)
@@ -184,7 +191,7 @@ void	init_pid_sig(t_pid *pid)
 	signal(SIGQUIT, handle_sigquit_p);
 }
 
-int	exec_with_pipe(t_infos *info, t_cmd *str, t_pid *pid)
+int	exec_with_pipe(t_cmd *str, t_pid *pid)
 {
 	t_cmd	*current;
 
@@ -192,8 +199,8 @@ int	exec_with_pipe(t_infos *info, t_cmd *str, t_pid *pid)
 	while (current)
 	{
 		if (current != str)
-			g_status = 0;
-		current->args = expand_array(current->args, info);
+			gl.g_status = 0;
+		current->args = expand_array(current->args);
 		if (current->next)
 			pipe(pid->newpipe);
 		pid->pid = fork();
@@ -211,18 +218,18 @@ int	exec_with_pipe(t_infos *info, t_cmd *str, t_pid *pid)
 			}
 			if (pid->newpipe[0] != 0)
 				close(pid->newpipe[0]);
-			if (connect_fd(current, info) != 0)
+			if (connect_fd(current) != 0)
 			{
-				g_status = 1;
-				exit (g_status);
+				gl.g_status = 1;
+				exit (gl.g_status);
 			}
 			if (check_if_builtin(current) == 1)
-				g_status = exec_builtin(current, info, str);
+				gl.g_status = exec_builtin(current, str);
 			else
-				ms_execve(info, current);
+				ms_execve(current);
 			free_commands_list(str);
-			clean_data(g_status, info, NULL);
-			exit (g_status);  // in case of builtin, it should be cleaned and quit
+			clean_data(gl.g_status, NULL);
+			exit (gl.g_status);  // in case of builtin, it should be cleaned and quit
 		}
 		else
 		{
@@ -239,29 +246,29 @@ int	exec_with_pipe(t_infos *info, t_cmd *str, t_pid *pid)
 	return (0);
 }
 
-int	run_cmd(t_infos *info, t_cmd *str)
+int	run_cmd(t_cmd *str)
 {
 	t_cmd	*current;
 	t_pid	pid;
 
-	if (open_heredoc(info, str) != 0)
-		return (g_status);
+	if (open_heredoc(str) != 0)
+		return (gl.g_status);
 	init_pid_sig(&pid);
 	if (str->next == NULL)
-		return (exec_no_pipe(info, str, str));
-	exec_with_pipe(info, str, &pid);
+		return (exec_no_pipe(str));
+	exec_with_pipe(str, &pid);
 	current = str;
 	while (current)
 	{
 		if (waitpid(0, &pid.status, WUNTRACED | WCONTINUED) == pid.last_pid)
 		{
 			if (WIFEXITED(pid.status))
-				g_status = WEXITSTATUS(pid.status);
+				gl.g_status = WEXITSTATUS(pid.status);
 			else if (WIFEXITED(pid.status) == 0 && WIFSIGNALED(pid.status))
-				g_status = 128 + WTERMSIG(pid.status);
+				gl.g_status = 128 + WTERMSIG(pid.status);
 		}
 		current = current->next;
 	}
-	reset_fd_sig(info);
-	return (g_status);
+	reset_fd_sig();
+	return (gl.g_status);
 }

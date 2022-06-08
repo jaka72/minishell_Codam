@@ -30,7 +30,7 @@ char	*write_free(int fd, char *checklimit)
 	return (free_return_null(checklimit));
 }
 
-int	get_heredoc(char *limiter, int fd_out, t_infos *info)
+int	get_heredoc(char *limiter, int fd_out)
 {
 	char	buff[1];
 	int		rd;
@@ -41,10 +41,10 @@ int	get_heredoc(char *limiter, int fd_out, t_infos *info)
 	if (exp == NULL)
 		errtext_exit("malloc failed\n");
 	exp[0] = '\0';
-	write(info->ini_fd[1], "> ", 2);
+	write(gl.ini_fd[1], "> ", 2);
 	while (rd == 1)
 	{
-		rd = read(info->ini_fd[0], buff, 1);
+		rd = read(gl.ini_fd[0], buff, 1);
 		if (rd < 0)
 			errtext_exit("read heredoc failed\n");
 		if (rd > 0 && buff[0] != '\n' && rd > 0 && buff[0] != ' ')
@@ -55,7 +55,7 @@ int	get_heredoc(char *limiter, int fd_out, t_infos *info)
 			{
 				if (ft_strncmp(exp, limiter, ft_strlen(exp)) == 0)
 					break ;
-				exp = check_expand_hd(info, exp);
+				exp = check_expand_hd(exp);
 				exp = ft_add_c_free(exp, buff[0]);
 				write(fd_out, exp, ft_strlen(exp));
 				free(exp);
@@ -66,11 +66,11 @@ int	get_heredoc(char *limiter, int fd_out, t_infos *info)
 			}
 			else
 				write(fd_out, "\n", 1);
-			write(info->ini_fd[1], "> ", 2);
+			write(gl.ini_fd[1], "> ", 2);
 		}
 		else if (rd > 0 && buff[0] == ' ')
 		{
-			exp = check_expand_hd(info, exp);
+			exp = check_expand_hd(exp);
 			exp = ft_add_c_free(exp, buff[0]);
 			write(fd_out, exp, ft_strlen(exp));
 			free(exp);
@@ -84,7 +84,7 @@ int	get_heredoc(char *limiter, int fd_out, t_infos *info)
 	return (0);
 }
 
-int	make_heredoc(char *limiter, t_infos *info)
+int	make_heredoc(char *limiter)
 {
 	int	pid;
 	int	newpipe[2];
@@ -99,7 +99,7 @@ int	make_heredoc(char *limiter, t_infos *info)
 		signal(SIGINT, SIG_DFL);
 		dup2(newpipe[1], 1);
 		close(newpipe[0]);
-		get_heredoc(limiter, newpipe[1], info);
+		get_heredoc(limiter, newpipe[1]);
 		close(newpipe[1]);
 		exit(0);
 	}
@@ -110,14 +110,15 @@ int	make_heredoc(char *limiter, t_infos *info)
 		if (waitpid(pid, &status, WUNTRACED | WCONTINUED) >= 0)
 		{
 			if (WIFEXITED(status))
-				g_status = WEXITSTATUS(status);
-			if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
-				g_status = 1;
+				gl.g_status = WEXITSTATUS(status);
+			else if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
+				gl.g_status = 1;
 		}
 	}
-	// printf("g_status is %d!\n", g_status);
-	if (g_status == 1)
+	// printf("gl.g_status is %d!\n", gl.g_status);
+	if (gl.g_status == 1)
 	{
+		reset_fd_sig();
 		close(newpipe[0]);
 		return(-1);
 	}	

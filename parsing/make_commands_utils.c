@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:14:28 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/07 10:16:29 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/08 07:27:44 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	check_if_builtin(t_cmd *cmd)
 	return (0);
 }
 
-// IS IT HERE BETTER TO RETURN DIRECTLY FROM THE FUNCTION, OR SET THE g_status?
-int	exec_builtin(t_cmd *cmd, t_infos *info, t_cmd *list)
+// IS IT HERE BETTER TO RETURN DIRECTLY FROM THE FUNCTION, OR SET THE gl.g_status?
+int	exec_builtin(t_cmd *cmd, t_cmd *list)
 // int	exec_builtin(t_cmd *cmd, t_infos *info)
 {
 	if (cmd->args == NULL)
@@ -61,16 +61,16 @@ int	exec_builtin(t_cmd *cmd, t_infos *info, t_cmd *list)
 	else if (ft_strcmp("pwd", cmd->args[0]) == 0)
 		return (run_pwd_builtin());
 	else if (ft_strcmp("cd", cmd->args[0]) == 0)
-		return (run_cd_builtin(cmd, info));
+		return (run_cd_builtin(cmd));
 	else if (ft_strcmp("exit", cmd->args[0]) == 0)
-		return (run_exit_builtin(cmd, list, info));
+		return (run_exit_builtin(cmd, list));
 		// return (run_exit_builtin(cmd, list));
 	else if (ft_strcmp("export", cmd->args[0]) == 0)
-		return (run_export_builtin(cmd, info));
+		return (run_export_builtin(cmd));
 	else if (ft_strcmp("unset", cmd->args[0]) == 0)
-		return (run_unset_builtin(cmd, info));
+		return (run_unset_builtin(cmd));
 	else if (ft_strcmp("env", cmd->args[0]) == 0)
-		return (run_env_builtin(info));
+		return (run_env_builtin());
 	return (0);
 }
 

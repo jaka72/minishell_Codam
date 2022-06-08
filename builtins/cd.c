@@ -43,12 +43,12 @@ int	update_path(t_env *env, char *old_pwd, char *name)
 }
 
 // THERE IS A DUPLICATE OF THIS FUNCITON IN ECHO BUILTIN
-char	*get_path(t_infos *info, char *name)
+char	*get_path(char *name)
 {
 	char	*newpath;
 	t_env	*temp;
 
-	temp = info->start_env;
+	temp = gl.start_env;
 	while (temp)
 	{
 		if (ft_strcmp(temp->name, name) == 0)
@@ -70,7 +70,7 @@ char	*get_path(t_infos *info, char *name)
 	return (NULL);
 }
 
-int	change_dir(t_infos *info, char *old_pwd, char *newpath)
+int	change_dir(char *old_pwd, char *newpath)
 {
 	char	*current;
 	char	buff[PATH_MAX];
@@ -83,18 +83,18 @@ int	change_dir(t_infos *info, char *old_pwd, char *newpath)
 	current = getcwd(buff, PATH_MAX);
 	if (current == NULL)
 		return (1);
-	update_path(info->start_env, current, "PWD");
-	update_path(info->start_env, old_pwd, "OLDPWD");
+	update_path(gl.start_env, current, "PWD");
+	update_path(gl.start_env, old_pwd, "OLDPWD");
 	return (0);
 }
 
-int	get_path_and_change_dir(t_infos *info, char *current_pwd, char *name)
+int	get_path_and_change_dir(char *current_pwd, char *name)
 {
 	int		ret;
 	char	*newpath;
 	char	buff[PATH_MAX];
 
-	newpath = get_path(info, name);
+	newpath = get_path(name);
 	if (newpath == NULL)
 	{
 		write(2, "minishell: cd: ", 15);
@@ -102,20 +102,20 @@ int	get_path_and_change_dir(t_infos *info, char *current_pwd, char *name)
 		write(2, " not set\n", 9);
 		return (1);
 	}
-	ret = change_dir(info, current_pwd, newpath);
+	ret = change_dir(current_pwd, newpath);
 	free(newpath);
 	if (ret == 1)
 		return (1);
 	newpath = getcwd(buff, PATH_MAX);
 	if (newpath == NULL)
 		return (1);
-	update_path(info->start_env, newpath, "PWD");
-	update_path(info->start_env, current_pwd, "OLDPWD");
+	update_path(gl.start_env, newpath, "PWD");
+	update_path(gl.start_env, current_pwd, "OLDPWD");
 	return (0);
 }
 
 // Shall print some message if current_pwd is NULL ?
-int	run_cd_builtin(t_cmd *cmd, t_infos *info)
+int	run_cd_builtin(t_cmd *cmd)
 {
 	int		ret;
 	char	buff[PATH_MAX];
@@ -127,16 +127,16 @@ int	run_cd_builtin(t_cmd *cmd, t_infos *info)
 		return (1);
 	//if (cmd->count_args == 1)
 	if (count_elems(cmd->args) == 1)
-		ret = get_path_and_change_dir(info, current_pwd, "HOME");
+		ret = get_path_and_change_dir(current_pwd, "HOME");
 	// else if (cmd->count_args == 2)
 	else if (count_elems(cmd->args) == 2)
 	{
 		if (ft_strcmp(cmd->args[1], "~") == 0)
-			ret = get_path_and_change_dir(info, current_pwd, "HOME");
+			ret = get_path_and_change_dir(current_pwd, "HOME");
 		else if (ft_strcmp(cmd->args[1], "-") == 0)
-			ret = get_path_and_change_dir(info, current_pwd, "OLDPWD");
+			ret = get_path_and_change_dir(current_pwd, "OLDPWD");
 		else
-			ret = change_dir(info, current_pwd, cmd->args[1]);
+			ret = change_dir(current_pwd, cmd->args[1]);
 	}
 	// else if (cmd->count_args > 2)
 	else if (count_elems(cmd->args) > 2)

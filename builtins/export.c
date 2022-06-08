@@ -1,11 +1,11 @@
 //#include "minishell.h"
 #include "builtins.h"
 
-void	print_env_export(t_infos *info)
+void	print_env_export()
 {
 	t_env	*env;
 
-	env = info->start_env;
+	env = gl.start_env;
 	while (env->next)
 	{
 		printf("declare -x ");
@@ -73,7 +73,7 @@ int	write_identifier_error(char *text)
 	return (1);
 }
 
-int	run_export_builtin(t_cmd *cmd, t_infos *info)
+int	run_export_builtin(t_cmd *cmd)
 {
 	int		i;
 	t_env	*temp_env;
@@ -81,7 +81,7 @@ int	run_export_builtin(t_cmd *cmd, t_infos *info)
 
 	i = 1;
 	if (cmd->args[1] == NULL)
-		print_env_export(info);
+		print_env_export();
 	else
 	{
 		while(cmd->args[i])
@@ -96,8 +96,8 @@ int	run_export_builtin(t_cmd *cmd, t_infos *info)
 				temp_env = find_and_split(cmd->args[i], '=', temp_env);
 				if (check_valid_identifier(temp_env->name) != 0)
 					return(write_identifier_error(cmd->args[i]));
-				find_name_delate(temp_env->name, info); // to find if the same name variable is exist 
-				end_env = last_env(info->start_env);
+				find_name_delate(temp_env->name); // to find if the same name variable is exist 
+				end_env = last_env(gl.start_env);
 				end_env->next = temp_env;
 			}
 			i++;

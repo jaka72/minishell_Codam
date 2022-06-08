@@ -1,5 +1,7 @@
 #include "../minishell.h"
 
+t_global	gl;
+
 void	handle_sigint(int num)
 {
 	(void) num;
@@ -38,33 +40,25 @@ void	handle_sigint_hd(int num)
 	write(STDOUT_FILENO, "\b\b  \b\b\n", 7);
 }
 
-void	ms_init(t_infos *info, char *envp[])
+void	ms_init(char *envp[])
 {
-	// int	rc;
-
+	gl.g_status = 0;
 	rl_catch_signals = 0;
-	// rc = tcgetattr(0, &info->termios_save);
-	// if (rc)
-	// 	errtext_exit("get termios failed\n");
-	// info->termios_new = info->termios_save;
-	// rc = tcsetattr(0, 0, &info->termios_new);
-	// if (rc)
-	// 	errtext_exit("set termios failed\n");
-	info->start_env = get_env(info, envp);
+	gl.start_env = get_env(envp);
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
-	ft_memccpy(info->prompt, "minishell > ", '\0', 13);
-	info->ini_fd[0] = dup(0);
-	if (info->ini_fd[0] < 0)
+	ft_memccpy(gl.prompt, "minishell > ", '\0', 13);
+	gl.ini_fd[0] = dup(0);
+	if (gl.ini_fd[0] < 0)
 	{
-		free_envlist(info);
+		free_envlist();
 		errtext_exit("dup for initial fd failed\n");	
 	}		
-	info->ini_fd[1] = dup(1);
-	if (info->ini_fd[1] < 0)
+	gl.ini_fd[1] = dup(1);
+	if (gl.ini_fd[1] < 0)
 	{
-		free_envlist(info);
-		close(info->ini_fd[0]);
+		free_envlist();
+		close(gl.ini_fd[0]);
 		errtext_exit("dup for initial fd failed\n");	
 	}
 }

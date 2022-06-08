@@ -58,7 +58,7 @@ t_env	*get_name_value(t_env *env, char *envtext)
 	return (env);
 }
 
-t_env	*get_env(t_infos *infos, char *envp[])
+t_env	*get_env(char *envp[])
 {
 	int		i;
 	t_env	*temp_env;
@@ -66,34 +66,34 @@ t_env	*get_env(t_infos *infos, char *envp[])
 
 	temp_env = NULL;
 	current_env = NULL;
-	infos->start_env = NULL;
+	gl.start_env = NULL;
 	i = 0;
 	while (envp[i])
 	{
 		temp_env = malloc(sizeof(t_env));
 		if (temp_env == NULL)
 		{
-			if (infos->start_env == NULL)
+			if (gl.start_env == NULL)
 				errtext_exit("malloc for env failed\n");
 			else
-				err_free_env_exit(infos, "malloc for env failed\n");
+				err_free_env_exit("malloc for env failed\n");
 		}
 		temp_env->name = NULL;
 		temp_env->value = NULL;
 		temp_env->next = NULL;
 		temp_env = get_name_value(temp_env, envp[i]);
 		if (temp_env == NULL)
-			err_free_env_exit(infos, "getting env failed\n");
-		if (infos->start_env == NULL)
-			infos->start_env = temp_env;
+			err_free_env_exit("getting env failed\n");
+		if (gl.start_env == NULL)
+			gl.start_env = temp_env;
 		else
 		{
-			current_env = last_env(infos->start_env);
+			current_env = last_env(gl.start_env);
 			current_env->next = temp_env;
 		}
 		i++;
 	}
-	return (infos->start_env);
+	return (gl.start_env);
 }
 
 char	**ft_realloc_i(char **str, int i)

@@ -6,7 +6,7 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 12:56:23 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/07 14:53:41 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/08 07:23:39 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_if_numeric(char *arg)
 
 // int	check_args_and_print(t_cmd *cmd, int nr_commands)
 // int	check_args_and_print(t_cmd *cmd, int nr_commands, t_infos *info)
-int	check_args_and_print(t_cmd *cmd, int nr_commands, t_infos *info, t_cmd *list)
+int	check_args_and_print(t_cmd *cmd, int nr_commands, t_cmd *list)
 {
 	int	exit_code;	// TO STORE, OTHERWISE IT READS cmd->args AFTER FREEING
 
@@ -57,7 +57,7 @@ int	check_args_and_print(t_cmd *cmd, int nr_commands, t_infos *info, t_cmd *list
 		write(2, ": numeric argument required\n", 28);
 
 		free_commands_list(list);	// THIS OK, , only 1 block reachable, add_history
-		clean_data(g_status, info, "");
+		clean_data(gl.g_status, "");
 
 		exit (2);
 	}
@@ -73,7 +73,7 @@ int	check_args_and_print(t_cmd *cmd, int nr_commands, t_infos *info, t_cmd *list
 		if (nr_commands == 1)
 			write(2, "exit\n", 5);
 		free_commands_list(list);	// THIS IS CAUSING SEGFAULT IN IF READLINE DISABLED "exit 123"
-		clean_data(g_status, info, "");
+		clean_data(gl.g_status, "");
 		exit (exit_code);
 	}
 	return (0);
@@ -83,7 +83,7 @@ int	check_args_and_print(t_cmd *cmd, int nr_commands, t_infos *info, t_cmd *list
 // UNLESS THERE IS ANOTHER WAY OF DOING IT
 // nr_commands checks if there are pipes or just single command
 // int	run_exit_builtin(t_cmd *cmd, t_cmd *list)
-int	run_exit_builtin(t_cmd *cmd, t_cmd *list, t_infos *info)
+int	run_exit_builtin(t_cmd *cmd, t_cmd *list)
 {
 	int	nr_commands;
 
@@ -94,14 +94,14 @@ int	run_exit_builtin(t_cmd *cmd, t_cmd *list, t_infos *info)
 			write(cmd->fd_out, "exit\n", 5);
 		free_commands_list(list);		// THIS OK, REMOVES REACHABLE, IF READLINE DISABLED, CHECK ALSO WITH READLINE
 	
-		clean_data(g_status, info, "");  // new, IS THIS NECESSARY HERE?? add_history() STILL SHOWS MALLOCED
+		clean_data(gl.g_status, "");  // new, IS THIS NECESSARY HERE?? add_history() STILL SHOWS MALLOCED
 		exit (0);							// SEEMS NO DIFFERENCE IN NONTESTER MODE
 	}										// STILL SHOWS READLINE REACHABLE BYTES
 	else if (count_elems(cmd->args) > 1)
 	{
 		// if (check_args_and_print(cmd, nr_commands) != 0)
 		// if (check_args_and_print(cmd, nr_commands, info) != 0)
-		if (check_args_and_print(cmd, nr_commands, info, list) != 0)
+		if (check_args_and_print(cmd, nr_commands, list) != 0)
 			return (1);
 	}
 	return (0);
