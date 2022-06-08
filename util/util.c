@@ -47,16 +47,15 @@ char	*ft_add_c_free(char *s1, char c)
 	return (str);
 }
 
-int	clean_data(int status, t_infos *info, char *text)
+int	clean_data(int status, char *text)
 {
 	if (text != NULL)
 		printf("%s", text);
 	free_envlist();
-	if (info->ini_fd[0] > 0)
-		close(info->ini_fd[0]);
-	if (info->ini_fd[1] > 1)
-		close(info->ini_fd[1]);
-	// tcsetattr(0, 0, &info->termios_save);
+	if (gl.ini_fd[0] > 0)
+		close(gl.ini_fd[0]);
+	if (gl.ini_fd[1] > 1)
+		close(gl.ini_fd[1]);
 	rl_clear_history();
 	return (status);
 }

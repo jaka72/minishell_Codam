@@ -2,35 +2,30 @@
 
 /*
 // NOTES, ISSUES ////////////////////////////////////////////////////
-
 ***************************************************************************
 *** A temp Line to see if this will dissapear after merging from Kitos'main
 *** Because I merged my branch to main, then I started changing this branch
 *** Then Kito merged her branch to Main.
 *** So now some files on main are older than the ones on my branch.
 *** If I now pull from main, will my new files be overwritten by my old files?
-
-
-
 Cases like:  < asdqwe   or    < nopermissionfile
 	It should not exit, just print error
 	I added a similar function like errtext_exit. But it probably needs to 
 		return to all the previous calls.
-
-
 SAMPLE TEST:
 	make && valgrind ./minishell "<< here cat | < infile < main.c cat | grep a > outfile | ls -l -a | wc -c  > outfile > out1 > out2"
 << here cat | < infile < main.c cat | grep a > outfile | ls -l -a | wc -c  > outfile > out1 > out2
-
+make && valgrind valgrind --leak-check=full --show-reachable=yes   ./minishell 2> outfile
+monitor: 20,00% 20,3%
 */
 
-void	free_and_read(t_source *src, t_infos *info, int history)
+void	free_and_read(t_source *src, int history)
 {
 	if (history == 1)
 		add_history(src->inputline);	
 	if (src->inputline != NULL)
 		free(src->inputline);
-	src->inputline = readline(info->prompt);
+	src->inputline = readline(gl.prompt);
 }
 
 // ORIGINAL FROM testmain.c
@@ -39,16 +34,15 @@ int	main(int argc, char *argv[], char *envp[])
 	printf("\n");
 	t_source	src;
 	t_cmd		*cmd_list;
-	t_infos		info;
 	//char		*line;
 
 	(void) argc;
 	(void) argv;
 	// src.inputline = NULL;
-	ms_init(&info, envp);
-	//free_and_read(&src, &info, 0);
+	ms_init(envp);
+	//free_and_read(&src, 0);
 
-	//line = readline(info.prompt);
+	//line = readline(gl.prompt);
 
 	if (argc == 2)	// JUST FOR TESTING ////////////////////////
 	{
@@ -59,21 +53,20 @@ int	main(int argc, char *argv[], char *envp[])
 		{
 			return (SYNTAX_ERROR);
 		}
-		// cmd_list = make_commands(&src  /*, &info  */);
-		cmd_list = make_commands(&src, &info);
+		cmd_list = make_commands(&src);
 
-		gl.g_status = run_cmd(&info, cmd_list);
+		gl.g_status = run_cmd(cmd_list);
 		free_commands_list(cmd_list);
-		clean_data(gl.g_status, &info, NULL);
+		clean_data(gl.g_status, NULL);
 		//printf(GRN"\nexit! (tester mode)\n\n"RES);
 		return (0);
 	}
 	else
 	{
-		printf(GRN"Real mode:\n"RES);
-		//line = readline(info.prompt);
+		// printf(GRN"Real mode:\n"RES);
+		//line = readline(gl.prompt);
 		src.inputline = NULL;
-		free_and_read(&src, &info, 0);
+		free_and_read(&src, 0);
 		while (src.inputline)
 		{
 			if (ft_strlen(src.inputline) > 0)
@@ -82,29 +75,39 @@ int	main(int argc, char *argv[], char *envp[])
 				{
 					//add_history(line);				// ADDED JAKA: IN CASE OF ERROR MUST NOT EXIT, BUT LOOP AGAIN
 					//free(line);
-					//line = readline(info.prompt);
-					free_and_read(&src, &info, 1);
+					//line = readline(gl.prompt);
+					free_and_read(&src, 1);
 					continue ;
 				}
 				add_history(src.inputline);
 				// cmd_list = make_commands(&src);
-				cmd_list = make_commands(&src, &info);
+				cmd_list = make_commands(&src);
 
-				gl.g_status = run_cmd(&info, cmd_list);
+				gl.g_status = run_cmd(cmd_list);
 				free_commands_list(cmd_list);	
 			}
-			free_and_read(&src, &info, 0);
+			free_and_read(&src, 0);
 			//free(line);
-			//line = readline(info.prompt);
+			//line = readline(gl.prompt);
 		}
 	}
 
 	//system("leaks minishell");
-	return (clean_data(gl.g_status, &info, "exit\n"));
+	return (clean_data(gl.g_status, "exit\n"));
 }
 
 /*
 /// CURRENT ISSUES: //////////////////////////
+
+- heredoc alway exits,	- with normal input: << here cat ... $HOME ... here ... EXITS!
+					- in case nonexisting variable: ... $xxx
+					- with no input, just here
+- inside heredoc, if pressed ctrl-c, will go back to promt, then if again ctrl-C, prints black lines
+- in heredoc, if line not empty, first ctrl-D nothing, seconmd ctrl-D exits
+
+
+- In case of nonexisting command, still reachable: run_cmd, store_into command ... 
+		Try if it is better after Keiko added 2 lines.
 
 - There is forbidden printf in clean_data, also in expand and export ...
 
@@ -156,6 +159,7 @@ Things to check:
 
 ////////////////////////////////////////////////
 
+- How is ctrl-\ behaving? First nothihng, after 1 command says quite 3 ???
 
 - Maybe all the libft files in main Makefile are not needed listed, because they come from own libft file?
 
@@ -256,15 +260,19 @@ Things to check:
     Also, no error when wrong option, ie:  cat -xxx
 
 
+// looking at runcmd ///////////////////////////////////////////////
+- function count_env , seems unnused
+- what is rl_catch_signals = 0 ?
 
 -------------------------------------------------------------------------
 
 
-
 // INFO ABOUT KEY BINDING SETTINGS
 stty -a
-    interupt    ctrl-C      SIGINT
-    quit        ctrl-\      SIGQUIT
-    send oef    ctrl-D
-
+    interupt    ctrl-C      SIGINT		makes newline, always. Interupts the readline? Replaces line with "" ???
+    
+	quit        ctrl-\      SIGQUIT		prints quit 3 ???
+    
+	send oef    ctrl-D					exits program, works only if empty readline
+										Sends eof to whom?
 */

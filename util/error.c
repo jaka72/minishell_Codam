@@ -45,17 +45,18 @@ int	free_strings(char **strs)
 	return (0);
 }
 
-void	free_tcmd(t_cmd *cmds)
+void	free_tcmd(t_cmd *st_cmd)
 {
 	t_cmd	*current;
 	t_cmd	*temp;
 
-	current = cmds;
+	current = st_cmd;
 	while (current)
 	{
 		free_strings(current->args);
 		free_strings(current->infile);
 		free_strings(current->outfile);
+		free_strings(current->heredoc);
 		temp = current;
 		current = current->next;
 		free(temp);
@@ -66,15 +67,13 @@ void	err_free_env_exit(char *text)
 {
 	perror(text);
 	free_envlist();
-	// tcsetattr(0, 0, &infos->termios_save);
 	exit(ERROR_RETURN);
 }
 
-void	err_all_free_exit(t_infos *infos, t_cmd *cmds, char *text)
+int	err_all_free_exit(t_cmd *st_cmd, int exitnum)
 {
-	if (cmds != NULL)
-		free_tcmd(cmds);
-	perror(text);
-	clean_data(gl.g_status, infos, NULL);
-	exit(ERROR_RETURN);
+	if (st_cmd != NULL)
+		free_tcmd(st_cmd);
+	clean_data(gl.g_status, NULL);
+	return (exitnum);
 }

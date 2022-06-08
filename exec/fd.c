@@ -87,13 +87,6 @@ int	check_outfile_fd(t_cmd *str)
 	return (0);
 }
 
-// int	manage_in_out(t_cmd *str, t_infos *info)
-// {
-// 	check_infile_fd(str, info);
-// 	check_outfile_fd(str, info);
-// 	return (0);
-// }
-
 
 int	connect_fd(t_cmd *current)
 {
@@ -114,13 +107,13 @@ int	connect_fd(t_cmd *current)
 	return (0);
 }
 
-void	reset_fd_sig(t_infos *info)
+void	reset_fd_sig(void)
 {
 	int	fd0;
 	int	fd1;
 
-	fd0 = dup(info->ini_fd[0]);
-	fd1 = dup(info->ini_fd[1]);
+	fd0 = dup(gl.ini_fd[0]);
+	fd1 = dup(gl.ini_fd[1]);
 	dup2(fd0, 0);
 	dup2(fd1, 1);
 	close(fd0);

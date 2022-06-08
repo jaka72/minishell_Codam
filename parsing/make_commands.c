@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:39:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/06 22:05:57 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/08 07:24:30 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	select_and_store_words(t_source *src, t_cmd *cmd)
 // set args to NULL, TO BE ABLE TO DETECT LATER WHEN COUNTING, THAT IT IS EMPTY
 // t_cmd	*make_commands(t_source *src)
 //	ret == -1 means Malloc failed
-t_cmd	*make_commands(t_source *src, t_infos *info)
+t_cmd	*make_commands(t_source *src)
 {
 	int		i;		// can be removed
 	int		ret;
@@ -175,7 +175,7 @@ t_cmd	*make_commands(t_source *src, t_infos *info)
 			//printf(GRN"  Ret -1, should exit \n"RES);
 			free_commands_list(first_cmd);
 			//free(src->inputline); 		// DOES THIS SERVE ANY PURPOSE ???
-			clean_data(1, info, "");
+			clean_data(1, "");
 			msg_and_exit("make_commands: malloc failed\n", 1);
 		}
 

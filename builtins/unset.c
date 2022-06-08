@@ -12,7 +12,7 @@ int	find_name_delate(char *targetname)
 		if (ft_strncmp(targetname, env->name, ft_strlen(targetname) + 1) == 0
 			&& ft_strlen(targetname) == ft_strlen(env->name))
 		{
-			printf("targetname is %s found %s %s!!\n", targetname, env->name, env->value);
+			// printf("targetname is %s found %s %s!!\n", targetname, env->name, env->value);
 			if (prev == NULL)
 				gl.start_env = env->next;
 			else
