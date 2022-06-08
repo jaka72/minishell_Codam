@@ -53,7 +53,7 @@ int	get_heredoc(char *limiter, int fd_out)
 		{
 			if (exp[0] != '\0')
 			{
-				if (ft_strncmp(exp, limiter, ft_strlen(exp)) == 0)
+				if (ft_strncmp(exp, limiter, ft_strlen(limiter)) == 0)
 					break ;
 				exp = check_expand_hd(exp);
 				exp = ft_add_c_free(exp, buff[0]);

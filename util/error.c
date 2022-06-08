@@ -27,6 +27,7 @@ void	free_envlist(void)
 	if (env->value)
 		free(env->value);
 	free(env);
+	gl.start_env = NULL;
 }
 
 int	free_strings(char **strs)
@@ -35,22 +36,23 @@ int	free_strings(char **strs)
 
 	i = 0;
 	if (strs == NULL)
-		return (0);
+		return (-1);
 	while (strs[i])
 	{
 		free(strs[i]);
 		i++;
 	}
 	free(strs);
+	strs = NULL;
 	return (0);
 }
 
-void	free_tcmd(t_cmd *st_cmd)
+void	free_tcmd(void)
 {
 	t_cmd	*current;
 	t_cmd	*temp;
 
-	current = st_cmd;
+	current = gl.start_cmd;
 	while (current)
 	{
 		free_strings(current->args);
@@ -61,6 +63,7 @@ void	free_tcmd(t_cmd *st_cmd)
 		current = current->next;
 		free(temp);
 	}
+	gl.start_cmd = NULL;
 }
 
 void	err_free_env_exit(char *text)
@@ -70,10 +73,12 @@ void	err_free_env_exit(char *text)
 	exit(ERROR_RETURN);
 }
 
-int	err_all_free_exit(t_cmd *st_cmd, int exitnum)
+int	err_all_free_exit(int exitnum)
 {
-	if (st_cmd != NULL)
-		free_tcmd(st_cmd);
-	clean_data(gl.g_status, NULL);
+	if (gl.start_cmd != NULL)
+		free_tcmd();
+	free_envlist();
+	clean_fd();
+	rl_clear_history();
 	return (exitnum);
 }

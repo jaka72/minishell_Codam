@@ -97,7 +97,7 @@ int	run_export_builtin(t_cmd *cmd)
 				if (check_valid_identifier(temp_env->name) != 0)
 					return(write_identifier_error(cmd->args[i]));
 				find_name_delate(temp_env->name); // to find if the same name variable is exist 
-				end_env = last_env(gl.start_env);
+				end_env = last_env();
 				end_env->next = temp_env;
 			}
 			i++;

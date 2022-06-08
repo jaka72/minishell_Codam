@@ -1,22 +1,22 @@
 #include "../minishell.h"
 
-t_env	*last_env(t_env *start_env)
+t_env	*last_env(void)
 {
 	t_env	*last;
 
-	last = start_env;
+	last = gl.start_env;
 	while (last->next != NULL)
 		last = last->next;
 	return (last);
 }
 
-int	count_env(t_env *start_env)
+int	count_env(void)
 {
 	int	i;
 	t_env	*current;
 
 	i = 0;
-	current = start_env;
+	current = gl.start_env;
 	while(current)
 	{
 		i++;
@@ -88,7 +88,7 @@ t_env	*get_env(char *envp[])
 			gl.start_env = temp_env;
 		else
 		{
-			current_env = last_env(gl.start_env);
+			current_env = last_env();
 			current_env->next = temp_env;
 		}
 		i++;
@@ -114,31 +114,7 @@ char	**ft_realloc_i(char **str, int i)
 	return (temp);
 }
 
-// char	**ft_add_str(char **str)
-// {
-// 	char	**temp;
-// 	int		i;
-// 	int		j;
-
-// 	i = 0;
-// 	j = 0;
-// 	while (str[i])
-// 		i++;
-// 	temp = malloc(sizeof(char **) * (i + 2));
-// 	if (temp == NULL)
-// 		return (NULL);
-// 	while (str[j])
-// 	{
-// 		temp[j] = str[j];
-// 		j++;
-// 	}
-// 	temp[i] = NULL;
-// 	temp[i + 1] = NULL;
-// 	free(str);
-// 	return (temp);
-// }
-
-char	**get_env_array(t_env *start_env)
+char	**get_env_array(void)
 {
 	char	**envs;
 	char	*temp;
@@ -151,7 +127,7 @@ char	**get_env_array(t_env *start_env)
 		errtext_exit("malloc for envs failed\n");
 	envs[0] = NULL;
 	temp = NULL;
-	current = start_env;
+	current = gl.start_env;
 	while (current)
 	{
 		envs = ft_add_str(envs);

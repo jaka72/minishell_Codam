@@ -99,6 +99,8 @@ int	main(int argc, char *argv[], char *envp[])
 /*
 /// CURRENT ISSUES: //////////////////////////
 
+- check ls | exit qwe wer , exit 255 !
+
 - heredoc alway exits,	- with normal input: << here cat ... $HOME ... here ... EXITS!
 					- in case nonexisting variable: ... $xxx
 					- with no input, just here
