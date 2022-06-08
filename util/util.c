@@ -1,21 +1,5 @@
 #include "../minishell.h"
 
-char	*make_malloc_str(char *text)
-{
-	int		i;
-	char	*str;
-
-	if (text == NULL)
-		return (NULL);
-	i = ft_strlen(text);
-	str = malloc(i + 1);
-	if (str == NULL)
-		errtext_exit("malloc failed\n");
-	str = ft_memcpy(str, text, i);
-	str[i] = '\0';
-	return (str);
-}
-
 char	*free_return_null(char *text)
 {
 	free(text);
@@ -78,12 +62,9 @@ int	clean_data(int status, char *text)
 	if (text != NULL)
 		printf("%s", text);
 	free_envlist();
-	// if (gl.ini_fd[0] > 0)
-	// 	close(gl.ini_fd[0]);
-	// if (gl.ini_fd[1] > 1)
-	// 	close(gl.ini_fd[1]);
 	clean_fd();
 	rl_clear_history();
+	tcsetattr(0, 0, &gl.termios_save);
 	return (status);
 }
 

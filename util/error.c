@@ -12,7 +12,7 @@ void	free_envlist(void)
 	t_env	*temp_env;
 
 	env = gl.start_env;
-	while (env->next)
+	while (env)
 	{
 		if (env->name)
 			free(env->name);
@@ -22,11 +22,6 @@ void	free_envlist(void)
 		env = env->next;
 		free(temp_env);
 	}
-	if (env->name)
-		free(env->name);
-	if (env->value)
-		free(env->value);
-	free(env);
 	gl.start_env = NULL;
 }
 
@@ -75,10 +70,16 @@ void	err_free_env_exit(char *text)
 
 int	err_all_free_exit(int exitnum)
 {
-	if (gl.start_cmd != NULL)
-		free_tcmd();
+	free_tcmd();
 	free_envlist();
-	clean_fd();
+	// clean_fd();
 	rl_clear_history();
 	return (exitnum);
+}
+
+int	errtx_all_free_exit(int exitnum, char *tx)
+{
+	if (tx != NULL)
+		perror(tx);
+	return (err_all_free_exit(exitnum));
 }

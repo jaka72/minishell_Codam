@@ -11,6 +11,8 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <termcap.h>
+# include <termios.h>
 # include "libft/libft.h"
 
 typedef struct s_global		t_global;
@@ -21,11 +23,12 @@ typedef struct s_pid		t_pid;
 
 struct	s_global
 {
-	int		g_status;
-	t_env	*start_env;
-	t_cmd	*start_cmd;
-	char	prompt[13];
-	int		ini_fd[2];
+	int				g_status;
+	t_env			*start_env;
+	t_cmd			*start_cmd;
+	char			prompt[13];
+	int				ini_fd[2];
+	struct termios	termios_save;
 };
 
 struct s_env
@@ -77,9 +80,9 @@ int		free_strings(char **strs);
 void	free_tcmd(void);
 void	err_free_env_exit(char *text);
 int		err_all_free_exit(int exitnum);
+int		errtx_all_free_exit(int exitnum, char *tx);
 
 // util/util.c
-char	*make_malloc_str(char *text);
 char	*free_return_null(char *text);
 char	*ft_add_c_free(char *s1, char c);
 void	clean_fd(void);
@@ -109,8 +112,6 @@ char	*check_expand_hd(char *tx);
 char	**expand_array(char **args);
 
 // file/heredoc.c
-char	*addtext_free(char *s1, char *s2, int *num);
-char	*write_free(int fd, char *checklimit);
 int		get_heredoc(char *limiter, int fd_out);
 int		make_heredoc(char *limiter);
 

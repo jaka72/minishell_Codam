@@ -42,12 +42,26 @@ void	handle_sigint_hd(int num)
 
 void	ms_init(char *envp[])
 {
+	int	rc;
+	struct termios	termios_new;
+
 	gl.g_status = 0;
+	gl.start_env = NULL;
+	gl.start_cmd = NULL;
 	rl_catch_signals = 0;
+	rc = tcgetattr(0, &gl.termios_save);
+	if (rc)
+		errtext_exit("get termios failed\n");
+	termios_new = gl.termios_save;
+	termios_new.c_lflag &= ~(ECHOCTL);
+	rc = tcsetattr(0, 0, &termios_new);
+	if (rc)
+		errtext_exit("set termios failed\n");
+	ft_memccpy(gl.prompt, "minishell > ", '\0', 13);
 	gl.start_env = get_env(envp);
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
-	ft_memccpy(gl.prompt, "minishell > ", '\0', 13);
+	
 	gl.ini_fd[0] = dup(0);
 	if (gl.ini_fd[0] < 0)
 	{
