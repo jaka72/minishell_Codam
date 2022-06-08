@@ -6,7 +6,7 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 12:56:23 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/08 07:23:39 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/08 10:12:24 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	check_args_and_print(t_cmd *cmd, int nr_commands, t_cmd *list)
 		free_commands_list(list);	// THIS OK, , only 1 block reachable, add_history
 		clean_data(gl.g_status, "");
 
-		exit (2);
+		exit (255);
 	}
 	else if (check_if_numeric(cmd->args[1]) == 0 && count_elems(cmd->args) > 2)
 	{
