@@ -3,11 +3,7 @@
 /*
 // NOTES, ISSUES ////////////////////////////////////////////////////
 ***************************************************************************
-*** A temp Line to see if this will dissapear after merging from Kitos'main
-*** Because I merged my branch to main, then I started changing this branch
-*** Then Kito merged her branch to Main.
-*** So now some files on main are older than the ones on my branch.
-*** If I now pull from main, will my new files be overwritten by my old files?
+
 Cases like:  < asdqwe   or    < nopermissionfile
 	It should not exit, just print error
 	I added a similar function like errtext_exit. But it probably needs to 
@@ -97,13 +93,27 @@ int	main(int argc, char *argv[], char *envp[])
 }
 
 /*
-/// CURRENT ISSUES: //////////////////////////
+/// CURRENT ISSUES: ////////////////////////////////////////////////////////////////////////
 
 - check ls | exit qwe wer , exit 255 !
 
 - heredoc alway exits,	- with normal input: << here cat ... $HOME ... here ... EXITS!
 					- in case nonexisting variable: ... $xxx
 					- with no input, just here
+
+- inside heredoc, if pressed ctrl-c, will go back to promt, then if again ctrl-C, prints black lines
+
+- in heredoc, if line not empty, first ctrl-D nothing, seconmd ctrl-D exits
+
+
+- Echo: case [echo -n -n abc], prints the second -n, needs to ignore it
+
+- Should minishell be able to create var $ABC ,without doing export
+
+- in case <qwewer ,could add in front of error msg: minishell: qwewer: No such file....
+
+- <nopermiss_file or >nopermiss_file ,writes 2x no permission.
+
 - inside heredoc, if pressed ctrl-c, will go back to promt, then if again ctrl-C, prints black lines
 - in heredoc, if line not empty, first ctrl-D nothing, seconmd ctrl-D exits
 
@@ -160,6 +170,8 @@ Things to check:
 	Maybe always after ft_strdup, needs to check if NULL
 
 ////////////////////////////////////////////////
+
+- How is ctrl-\ behaving? First nothihng, after 1 command says quite 3 ???
 
 - How is ctrl-\ behaving? First nothihng, after 1 command says quite 3 ???
 
@@ -243,11 +255,6 @@ Things to check:
 
 
 
-
-
-
-
-
 - Echo:  escape character, ie:   "  \"    "
     In bash it prints just   "  
 
@@ -261,6 +268,7 @@ Things to check:
 - No error when command is wrong, ie: catxxx
     Also, no error when wrong option, ie:  cat -xxx
 
+// looking at runcmd ///////////////////////////////////////////////
 
 // looking at runcmd ///////////////////////////////////////////////
 - function count_env , seems unnused
