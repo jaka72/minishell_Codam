@@ -15,12 +15,12 @@ int	check_infile_fd(t_cmd *str)
 			if (access(str->infile[i], F_OK) != 0)
 			{
 				perror("infile not exist\n");
-				return (1);
+				return (-4);
 			}
 			if (access(str->infile[i], F_OK) == 0 && access(str->infile[i], R_OK) < 0)
 			{
 				perror("Permission denied\n");
-				return (1);
+				return (-4);
 			}
 			i++;
 		}
@@ -32,7 +32,7 @@ int	check_infile_fd(t_cmd *str)
 			if (j < 0)
 			{
 				perror("file open failed\n");
-				return (1);
+				return (-4);
 			}
 			str->fd_in = j;
 		}		
@@ -58,7 +58,7 @@ int	check_outfile_fd(t_cmd *str)
 				&& access(str->outfile[i], W_OK) < 0)
 				{
 					perror("outfile exist but not accessible\n");
-					return (1);
+					return (-4);
 				}
 			if (str->outfile[i] && access(str->outfile[i], F_OK) != 0)
 			{
@@ -66,7 +66,7 @@ int	check_outfile_fd(t_cmd *str)
 				if (j < 0)
 				{
 					perror("couldn't make output file\n");
-					return (1);
+					return (-4);
 				}
 				close(j);
 			}
@@ -81,7 +81,7 @@ int	check_outfile_fd(t_cmd *str)
 		if (str->fd_out < 0)
 		{
 			perror("output file open failed\n");
-			return (1);
+			return (-4);
 		}
 	}
 	return (0);
@@ -91,18 +91,20 @@ int	check_outfile_fd(t_cmd *str)
 int	connect_fd(t_cmd *current)
 {
 	if (check_infile_fd(current) != 0)
-		return (1);
+		return (-4);
 	if (check_outfile_fd(current) != 0)
-		return (1);
+		return (-4);
 	if (current->fd_in > 0)
 	{
 		dup2(current->fd_in, 0);
 		close(current->fd_in);
+		current->fd_in = 0;
 	}
 	if (current->fd_out > 1)
 	{
 		dup2(current->fd_out, 1);
 		close(current->fd_out);
+		current->fd_out = 1;
 	}
 	return (0);
 }

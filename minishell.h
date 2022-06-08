@@ -17,6 +17,7 @@ typedef struct s_global		t_global;
 typedef struct s_env		t_env;
 typedef struct s_cmd		t_cmd;
 typedef struct s_source		t_source;
+typedef struct s_pid		t_pid;
 
 struct	s_global
 {
@@ -52,6 +53,15 @@ struct s_source
 	long	currpos;
 };
 
+struct s_pid
+{
+	pid_t	pid;
+	int		newpipe[3];
+	int		status;
+	pid_t	last_pid;
+};
+
+
 extern t_global	gl;
 
 # include "jaka_utils/utils.h"
@@ -64,14 +74,15 @@ void	errtext_exit(char *text);
 int		errtext_return(char *text);
 void	free_envlist(void);
 int		free_strings(char **strs);
-void	free_tcmd(t_cmd *st_cmd);
+void	free_tcmd(void);
 void	err_free_env_exit(char *text);
-int		err_all_free_exit(t_cmd *st_cmd, int exitnum);
+int		err_all_free_exit(int exitnum);
 
 // util/util.c
 char	*make_malloc_str(char *text);
 char	*free_return_null(char *text);
 char	*ft_add_c_free(char *s1, char c);
+void	clean_fd(void);
 int		clean_data(int status, char *text);
 
 // init/init.c
@@ -79,17 +90,16 @@ void	handle_sigint(int num);
 void	handle_sigquit(int num);
 void	handle_sigint_p(int num);
 void	handle_sigquit_p(int num);
-void	handle_sigquit_instd(int num);
 void	handle_sigquit_hd(int num);
 void	handle_sigint_hd(int num);
 void	ms_init( char *envp[]);
 
 // init/env.c
-t_env	*last_env(t_env *start_env);
-int		count_env(t_env *start_env);
+t_env	*last_env(void);
+int		count_env(void);
 t_env	*get_name_value(t_env *env, char *envtext);
 t_env	*get_env(char *envp[]);
-char	**get_env_array(t_env *start_env);
+char	**get_env_array(void);
 
 // init/expand.c
 void	print_env(void);
@@ -115,7 +125,7 @@ char	*ft_find_env_passnum(char *envp[]);
 char	*ft_make_binpass(int i, char *pass, char *cmd);
 char	*ft_findshell_pass(char *cmd, char *envp[]);
 int		ms_execve(t_cmd *str);
-int		run_cmd(t_cmd *str);
+int		run_cmd(void);
 
 
 // added jaka: to count the array of arguments:

@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 14:40:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/08 06:54:33 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/08 11:11:25 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	free_commands_list(t_cmd *first_cmd)
 		first_cmd = temp;
 		i++;
 	}
+	
 	return (0);
 }
 

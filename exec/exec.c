@@ -80,7 +80,7 @@ int	ms_execve(t_cmd *str)
 	char	**envs;
 	char	*path;
 
-	envs = get_env_array(gl.start_env);
+	envs = get_env_array();
 	if (envs == NULL)
 		return (-1);
 	path = ft_findshell_pass(str->args[0], envs);
@@ -104,15 +104,15 @@ int	ms_execve(t_cmd *str)
 	exit(127);
 }
 
-int	exec_no_pipe(t_cmd *str)
+int	exec_no_pipe(void)
 {
 	pid_t	pid;
 
-	str->args = expand_array(str->args);
-	if (connect_fd(str) != 0)
+	gl.start_cmd->args = expand_array(gl.start_cmd->args);
+	if (connect_fd(gl.start_cmd) != 0)
 		gl.g_status = 1;
-	else if (check_if_builtin(str) == 1)
-		gl.g_status = exec_builtin(str, str);
+	else if (check_if_builtin(gl.start_cmd) == 1)
+		gl.g_status = exec_builtin(gl.start_cmd, gl.start_cmd);
 	else
 	{
 		pid = fork();
@@ -120,12 +120,12 @@ int	exec_no_pipe(t_cmd *str)
 		{
 			signal(SIGINT, SIG_DFL);
 			signal(SIGQUIT, SIG_DFL);
-			ms_execve(str);
+			ms_execve(gl.start_cmd);
 		}
-		if (str->fd_in > 0)
-			close(str->fd_in);
-		if (str->fd_out > 1)
-			close(str->fd_out);
+		if (gl.start_cmd->fd_in > 0)
+			close(gl.start_cmd->fd_in);
+		if (gl.start_cmd->fd_out > 1)
+			close(gl.start_cmd->fd_out);
 		waitpid(pid, &gl.g_status, WUNTRACED | WCONTINUED);
 		if (WIFEXITED(gl.g_status))
 			gl.g_status = WEXITSTATUS(gl.g_status);
@@ -138,13 +138,13 @@ int	exec_no_pipe(t_cmd *str)
 	return (gl.g_status);
 }
 
-int	open_heredoc(t_cmd *str)
+int	open_heredoc(void)
 {
 	t_cmd	*current;
 	int	i;
 	int	j;
 
-	current = str;
+	current = gl.start_cmd;
 	while (current)
 	{
 		if (current->heredoc != NULL)
@@ -173,32 +173,25 @@ int	open_heredoc(t_cmd *str)
 	return (0);
 }
 
-typedef struct s_pid
-{
-	pid_t	pid;
-	int		newpipe[3];
-	int		status;
-	pid_t	last_pid;
-}	t_pid;
 
-void	init_pid_sig(t_pid *pid)
+void	init_pid_sig(t_pid *pidinfo)
 {
-	pid->status = 0;
-	pid->newpipe[0] = 0;
-	pid->newpipe[1] = 0;
-	pid->newpipe[2] = 0;
+	pidinfo->status = 0;
+	pidinfo->newpipe[0] = 0;
+	pidinfo->newpipe[1] = 0;
+	pidinfo->newpipe[2] = 0;
 	signal(SIGINT, handle_sigint_p);
 	signal(SIGQUIT, handle_sigquit_p);
 }
 
-int	exec_with_pipe(t_cmd *str, t_pid *pid)
+int	exec_with_pipe(t_pid *pid)
 {
 	t_cmd	*current;
 
-	current = str;
+	current = gl.start_cmd;
 	while (current)
 	{
-		if (current != str)
+		if (current != gl.start_cmd)
 			gl.g_status = 0;
 		current->args = expand_array(current->args);
 		if (current->next)
@@ -224,10 +217,10 @@ int	exec_with_pipe(t_cmd *str, t_pid *pid)
 				exit (gl.g_status);
 			}
 			if (check_if_builtin(current) == 1)
-				gl.g_status = exec_builtin(current, str);
+				gl.g_status = exec_builtin(current, gl.start_cmd);
 			else
 				ms_execve(current);
-			free_commands_list(str);
+			free_commands_list(gl.start_cmd);
 			clean_data(gl.g_status, NULL);
 			exit (gl.g_status);  // in case of builtin, it should be cleaned and quit
 		}
@@ -246,18 +239,18 @@ int	exec_with_pipe(t_cmd *str, t_pid *pid)
 	return (0);
 }
 
-int	run_cmd(t_cmd *str)
+int	run_cmd(void)
 {
 	t_cmd	*current;
 	t_pid	pid;
 
-	if (open_heredoc(str) != 0)
+	if (open_heredoc() != 0)
 		return (gl.g_status);
 	init_pid_sig(&pid);
-	if (str->next == NULL)
-		return (exec_no_pipe(str));
-	exec_with_pipe(str, &pid);
-	current = str;
+	if (gl.start_cmd->next == NULL)
+		return (exec_no_pipe());
+	exec_with_pipe(&pid);
+	current = gl.start_cmd;
 	while (current)
 	{
 		if (waitpid(0, &pid.status, WUNTRACED | WCONTINUED) == pid.last_pid)
