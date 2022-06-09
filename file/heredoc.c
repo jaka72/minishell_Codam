@@ -38,7 +38,7 @@ int	get_heredoc(char *limiter, int fd_out)
 			else
 			{
 				write(fd_out, "\n", 1);
-				write(gl.ini_fd[1], "\n", 1);
+				write(gl.ini_fd[1], ">\n", 2);
 			}
 				
 			write(gl.ini_fd[1], "> ", 2);
@@ -64,9 +64,13 @@ int	make_heredoc(char *limiter)
 	int	pid;
 	int	newpipe[2];
 	int	status;
+	int	rc;
 
-	signal(SIGQUIT, handle_sigquit_hd);
 	signal(SIGINT, handle_sigint_hd);
+	gl.termios_new.c_lflag &= ~(ECHOCTL);
+	rc = tcsetattr(0, 0, &gl.termios_new);
+	if (rc)
+		errtext_exit("set termios failed\n");
 	pipe(newpipe);
 	pid = fork();
 	if (pid == 0)
@@ -90,6 +94,10 @@ int	make_heredoc(char *limiter)
 				gl.g_status = 1;
 		}
 	}
+	gl.termios_new.c_lflag |= (ECHOCTL);
+	rc = tcsetattr(0, 0, &gl.termios_new);
+	if (rc)
+		errtext_exit("set termios failed\n");
 	if (gl.g_status == 1)
 	{
 		reset_fd_sig();

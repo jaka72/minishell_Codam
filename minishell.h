@@ -29,6 +29,7 @@ struct	s_global
 	char			prompt[13];
 	int				ini_fd[2];
 	struct termios	termios_save;
+	struct termios	termios_new;
 };
 
 struct s_env
@@ -93,7 +94,6 @@ void	handle_sigint(int num);
 void	handle_sigquit(int num);
 void	handle_sigint_p(int num);
 void	handle_sigquit_p(int num);
-void	handle_sigquit_hd(int num);
 void	handle_sigint_hd(int num);
 void	ms_init( char *envp[]);
 

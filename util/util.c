@@ -60,7 +60,7 @@ void	clean_fd(void)
 int	clean_data(int status, char *text)
 {
 	if (text != NULL)
-		printf("%s", text);
+		write(STDOUT_FILENO, text, ft_strlen(text));
 	free_envlist();
 	clean_fd();
 	rl_clear_history();

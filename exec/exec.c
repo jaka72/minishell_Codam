@@ -237,6 +237,37 @@ int	exec_with_pipe(t_pid *pid)
 	return (0);
 }
 
+int	open_outfile(void)
+{
+	t_cmd	*current;
+	int	i;
+	int	j;
+
+	current = gl.start_cmd;
+	while (current)
+	{
+		if (current->outfile != NULL)
+		{
+			i = 0;
+			j = 0;
+			while (current->outfile[i])
+			{
+				current->outfile[i] = check_expand(current->outfile[i]);
+				if (current->outfile[i] && access(current->outfile[i], F_OK) != 0)
+				{
+					j = open(current->outfile[i], O_CREAT, 0666);
+					if (j < 0)
+						exit(err_all_free_exit(1));
+					close(j);
+				}
+				i++;
+			}
+		}
+		current = current->next;
+	}
+	return (0);
+}
+
 int	run_cmd(void)
 {
 	t_cmd	*current;
@@ -244,6 +275,7 @@ int	run_cmd(void)
 
 	if (open_heredoc() != 0)
 		return (gl.g_status);
+	open_outfile();
 	init_pid_sig(&pid);
 	if (gl.start_cmd->next == NULL)
 		return (exec_no_pipe());

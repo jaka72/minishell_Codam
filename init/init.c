@@ -28,22 +28,16 @@ void	handle_sigquit_p(int num)
 	write(STDOUT_FILENO, "Quit: 3\n", 8);
 }
 
-void	handle_sigquit_hd(int num)
-{
-	(void) num;
-	write(STDOUT_FILENO, "\b\b  \b\b", 6);
-}
-
 void	handle_sigint_hd(int num)
 {
 	(void) num;
-	write(STDOUT_FILENO, "\b\b  \b\b\n", 7);
+	write(STDOUT_FILENO, "\n", 1);
 }
 
 void	ms_init(char *envp[])
 {
 	int	rc;
-	struct termios	termios_new;
+	// struct termios	termios_new;
 
 	gl.g_status = 0;
 	gl.start_env = NULL;
@@ -52,9 +46,9 @@ void	ms_init(char *envp[])
 	rc = tcgetattr(0, &gl.termios_save);
 	if (rc)
 		errtext_exit("get termios failed\n");
-	termios_new = gl.termios_save;
-	termios_new.c_lflag &= ~(ECHOCTL);
-	rc = tcsetattr(0, 0, &termios_new);
+	gl.termios_new = gl.termios_save;
+	// gl.termios_new.c_lflag &= ~(ECHOCTL);
+	rc = tcsetattr(0, 0, &gl.termios_new);
 	if (rc)
 		errtext_exit("set termios failed\n");
 	ft_memccpy(gl.prompt, "minishell > ", '\0', 13);
