@@ -91,27 +91,16 @@ int	main(int argc, char *argv[], char *envp[])
 /*
 /// CURRENT ISSUES: ////////////////////////////////////////////////////////////////////////
 
+- Does minishell need to execute a custom made program, ie: print something?
 
-- Malloc error, case: env | grep PWD ,may not always happen ???
-	Looks like always in combination with env ... env | wc ...
-		minishell > env | grep PWD
-		minishell(8628,0x1151cd5c0) malloc: Incorrect checksum for freed object 0x7fe12ad00058: probably modified after being freed.
-		Corrupt value: 0x100000000
-		minishell(8628,0x1151cd5c0) malloc: *** set a breakpoint in malloc_error_break to debug
+- check ls | exit qwe wer , exit 255 ! Now 139 ????
+	Check always exit code, after exit and other commands, because it is sometimes some hidden error, and it 
+		prints 139, not 255
 
-
-- check ls | exit qwe wer , exit 255 !
 
 - heredoc alway exits,	- with normal input: << here cat ... $HOME ... here ... EXITS!
 					- in case nonexisting variable: ... $xxx
 					- with no input, just here
-
-- inside heredoc, if pressed ctrl-c, will go back to promt, then if again ctrl-C, prints black lines
-
-- in heredoc, if line not empty, first ctrl-D nothing, seconmd ctrl-D exits
-
-
-- Echo: case [echo -n -n abc], prints the second -n, needs to ignore it
 
 - Should minishell be able to create var $ABC ,without doing export
 
@@ -281,6 +270,8 @@ Things to check:
 
 -------------------------------------------------------------------------
 
+
+// READLINE LIBRARY - get familiar
 
 // INFO ABOUT KEY BINDING SETTINGS
 	stty -a

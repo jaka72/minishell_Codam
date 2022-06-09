@@ -83,23 +83,7 @@ int	ms_execve(t_cmd *str)
 	envs = get_env_array();
 	if (envs == NULL)
 		return (-1);
-
-	printf(GRN"ms_execve: args[0] [%s]\n"RES, str->args[0]);
-	// CHECK IF IT IS A CUSTOM PROGRAM  [./a.out]   OR   A PATH [/bin/ls]
-	//		If slash at start
-	//			If yes, extract word after last slash. 
-	//			Run ft_findshell_pass() to get the correct path.
-	//		If dot./slash at start,
-	//			Skip ft_finshell_pass
-	//			Check if command is good, with acces()
-	//			save the correct path: it has to be without ./ ,if it is in the same folder 
-	//								 : if it is in above folder, the execve recognises the ../
-
 	path = ft_findshell_pass(str->args[0], envs);
-
-	// If input had the slash start, compare if it matches with orig args[0]
-	// 		if not, then set path to NULL, to print the error msg and exit.
-
 	if (path == NULL || str->args[0][0] == '\0')
 	{
 		if (ft_strchr(str->args[0], '/') != NULL)

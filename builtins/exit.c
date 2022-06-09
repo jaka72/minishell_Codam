@@ -6,7 +6,7 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 12:56:23 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/08 10:12:24 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/09 15:11:50 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ int	check_if_numeric(char *arg)
 
 // int	check_args_and_print(t_cmd *cmd, int nr_commands)
 // int	check_args_and_print(t_cmd *cmd, int nr_commands, t_infos *info)
+// exit_code: TO STORE, OTHERWISE IT READS cmd->args AFTER FREEING
 int	check_args_and_print(t_cmd *cmd, int nr_commands, t_cmd *list)
 {
-	int	exit_code;	// TO STORE, OTHERWISE IT READS cmd->args AFTER FREEING
+	int	exit_code;
 
 	exit_code = ft_atoi(cmd->args[1]);
 	if (check_if_numeric(cmd->args[1]) != 0 && count_elems(cmd->args) >= 2)
@@ -55,10 +56,8 @@ int	check_args_and_print(t_cmd *cmd, int nr_commands, t_cmd *list)
 		write(2, "minishell: exit: ", 17);
 		write(2, cmd->args[1], ft_strlen(cmd->args[1]));
 		write(2, ": numeric argument required\n", 28);
-
-		free_commands_list(list);	// THIS OK, , only 1 block reachable, add_history
+		free_commands_list(list);
 		clean_data(gl.g_status, "");
-
 		exit (255);
 	}
 	else if (check_if_numeric(cmd->args[1]) == 0 && count_elems(cmd->args) > 2)
@@ -85,11 +84,13 @@ int	check_args_and_print(t_cmd *cmd, int nr_commands, t_cmd *list)
 // int	run_exit_builtin(t_cmd *cmd, t_cmd *list)
 int	run_exit_builtin(t_cmd *cmd, t_cmd *list)
 {
+	//printf(GRN"Start exit\n"RES);
 	int	nr_commands;
 
 	nr_commands = count_commands(list);
 	if (count_elems(cmd->args) == 1)
 	{
+		//printf(GRN"   only 1 arg\n"RES);
 		if (nr_commands == 1)
 			write(cmd->fd_out, "exit\n", 5);
 		free_commands_list(list);		// THIS OK, REMOVES REACHABLE, IF READLINE DISABLED, CHECK ALSO WITH READLINE
