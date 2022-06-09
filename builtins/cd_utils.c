@@ -6,20 +6,20 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 12:43:30 by jaka          #+#    #+#                 */
-/*   Updated: 2022/05/31 12:43:37 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/09 10:42:27 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	insert_into_list(t_env *env, const char *value)
+int	insert_oldpwd_into_list(t_env *env, const char *value)
 {
 	t_env	*new;
 	t_env	*temp;
 
 	new = malloc(sizeof(t_env));
 	if (new == NULL)
-		return (-1);
+		return (-1); // 	NEEDS TO GIVE MESSAGE IF MALLOC FAILED, FREE AND AND EXIT !!!
 	new->value = ft_strdup(value);
 	new->name = ft_strdup("OLDPWD");
 	new->next = NULL;

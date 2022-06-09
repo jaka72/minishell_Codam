@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 12:41:44 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/06 12:38:03 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/09 10:42:04 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	update_path(t_env *env, char *old_pwd, char *name)
 		}
 		temp = temp->next;
 	}
-	insert_into_list(env, old_pwd);
+	insert_oldpwd_into_list(env, old_pwd);
 	return (0);
 }
 
@@ -59,14 +59,19 @@ char	*get_path(char *name)
 			//printf(YEL"newpath: [%s]\n"RES, newpath);
 			if (newpath == NULL)
 			{
-				write(2, "Minishell: Error with mallocing\n", 32);
+				write(2, "Minishell: Error with mallocing\n", 32); // NEEDS TO EXIT IF MALLOC FAILED, FREE AND EXIT
 				return (NULL);
+			}
+			if (ft_strcmp(name, "OLDPWD") == 0 && newpath)
+			{
+				write(1, newpath, ft_strlen(newpath));
+				write(1, "\n", 1);
 			}
 			return (newpath);
 		}
 		temp = temp->next;
 	}
-	printf(CYN"get path, not found\n"RES);
+	//printf(CYN"cd: get path: OLDPWD not found or set ??? \n"RES);
 	return (NULL);
 }
 
@@ -77,7 +82,7 @@ int	change_dir(char *old_pwd, char *newpath)
 
 	if (chdir(newpath) == -1)
 	{
-		write(2, "minishell: cd: Noo such file or directory\n", 42);
+		write(2, "minishell: cd: No such file or directory\n", 42);
 		return (1);
 	}
 	current = getcwd(buff, PATH_MAX);
@@ -121,7 +126,7 @@ int	run_cd_builtin(t_cmd *cmd)
 	char	buff[PATH_MAX];
 	char	*current_pwd;
 
-	ret = 0;	// jaka 1jun
+	ret = 0;
 	current_pwd = getcwd(buff, PATH_MAX);
 	if (current_pwd == NULL)
 		return (1);

@@ -91,6 +91,15 @@ int	main(int argc, char *argv[], char *envp[])
 /*
 /// CURRENT ISSUES: ////////////////////////////////////////////////////////////////////////
 
+
+- Malloc error, case: env | grep PWD ,may not always happen ???
+	Looks like always in combination with env ... env | wc ...
+		minishell > env | grep PWD
+		minishell(8628,0x1151cd5c0) malloc: Incorrect checksum for freed object 0x7fe12ad00058: probably modified after being freed.
+		Corrupt value: 0x100000000
+		minishell(8628,0x1151cd5c0) malloc: *** set a breakpoint in malloc_error_break to debug
+
+
 - check ls | exit qwe wer , exit 255 !
 
 - heredoc alway exits,	- with normal input: << here cat ... $HOME ... here ... EXITS!
@@ -274,11 +283,10 @@ Things to check:
 
 
 // INFO ABOUT KEY BINDING SETTINGS
-stty -a
-    interupt    ctrl-C      SIGINT		makes newline, always. Interupts the readline? Replaces line with "" ???
-    
-	quit        ctrl-\      SIGQUIT		prints quit 3 ???
-    
-	send oef    ctrl-D					exits program, works only if empty readline
-										Sends eof to whom?
+	stty -a
+	Case readline:
+	    interupt    ctrl-C      SIGINT		makes newline, always. Interupts the readline? Replaces line with "" ???
+		quit        ctrl-\      SIGQUIT		prints quit 3 ???
+		send oef    ctrl-D		eof			- if readline empty: exits program
+			(Sends eof to whom?)			- if readline busy:  nothing
 */
