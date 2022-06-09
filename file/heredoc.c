@@ -1,35 +1,5 @@
 #include "../minishell.h"
 
-char	*addtext_free(char *s1, char *s2, int *num)
-{
-	char	*str;
-	int		i;
-	int		j;
-
-	j = 0;
-	i = ft_strlen(s1);
-	str = malloc(sizeof(char) * (i + 2));
-	if (!str)
-		errtext_exit("malloc for making delimiter\n");
-	while (j < i)
-	{
-		str[j] = s1[j];
-		j++;
-	}
-	str[j] = s2[0];
-	j++;
-	str[j] = '\0';
-	*num = *num + 1;
-	free(s1);
-	return (str);
-}
-
-char	*write_free(int fd, char *checklimit)
-{
-	write(fd, checklimit, ft_strlen(checklimit));
-	return (free_return_null(checklimit));
-}
-
 int	get_heredoc(char *limiter, int fd_out)
 {
 	char	buff[1];
@@ -39,14 +9,15 @@ int	get_heredoc(char *limiter, int fd_out)
 	rd = 1;
 	exp = malloc(sizeof(char) * 1);
 	if (exp == NULL)
-		errtext_exit("malloc failed\n");
+		exit(err_all_free_exit(1));
 	exp[0] = '\0';
+	buff[0] = '\n';
 	write(gl.ini_fd[1], "> ", 2);
-	while (rd == 1)
+	while (rd == 1 || (rd == 0 && buff[0] != '\n'))
 	{
 		rd = read(gl.ini_fd[0], buff, 1);
 		if (rd < 0)
-			errtext_exit("read heredoc failed\n");
+			exit(err_all_free_exit(1));
 		if (rd > 0 && buff[0] != '\n' && rd > 0 && buff[0] != ' ')
 			exp = ft_add_c_free(exp, buff[0]);
 		else if (rd > 0 && buff[0] == '\n')
@@ -61,11 +32,15 @@ int	get_heredoc(char *limiter, int fd_out)
 				free(exp);
 				exp = malloc(sizeof(char) * 1);
 				if (exp == NULL)
-					errtext_exit("malloc failed\n");
+					exit(err_all_free_exit(1));
 				exp[0] = '\0';
 			}
 			else
+			{
 				write(fd_out, "\n", 1);
+				write(gl.ini_fd[1], ">\n", 2);
+			}
+				
 			write(gl.ini_fd[1], "> ", 2);
 		}
 		else if (rd > 0 && buff[0] == ' ')
@@ -76,7 +51,7 @@ int	get_heredoc(char *limiter, int fd_out)
 			free(exp);
 			exp = malloc(sizeof(char) * 1);
 			if (exp == NULL)
-				errtext_exit("malloc failed\n");
+				exit(err_all_free_exit(1));
 			exp[0] = '\0';
 		}
 	}
@@ -89,9 +64,13 @@ int	make_heredoc(char *limiter)
 	int	pid;
 	int	newpipe[2];
 	int	status;
+	int	rc;
 
-	signal(SIGQUIT, handle_sigquit_hd);
 	signal(SIGINT, handle_sigint_hd);
+	gl.termios_new.c_lflag &= ~(ECHOCTL);
+	rc = tcsetattr(0, 0, &gl.termios_new);
+	if (rc)
+		errtext_exit("set termios failed\n");
 	pipe(newpipe);
 	pid = fork();
 	if (pid == 0)
@@ -101,7 +80,7 @@ int	make_heredoc(char *limiter)
 		close(newpipe[0]);
 		get_heredoc(limiter, newpipe[1]);
 		close(newpipe[1]);
-		exit(0);
+		exit(err_all_free_exit(0));
 	}
 	else
 	{
@@ -115,7 +94,10 @@ int	make_heredoc(char *limiter)
 				gl.g_status = 1;
 		}
 	}
-	// printf("gl.g_status is %d!\n", gl.g_status);
+	gl.termios_new.c_lflag |= (ECHOCTL);
+	rc = tcsetattr(0, 0, &gl.termios_new);
+	if (rc)
+		errtext_exit("set termios failed\n");
 	if (gl.g_status == 1)
 	{
 		reset_fd_sig();

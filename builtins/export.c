@@ -30,18 +30,15 @@ t_env	*find_and_split(const char *s, char c, t_env *env)
 			
 			env->name = malloc(sizeof(char)*(i + 1));
 			if (env->name == NULL)
-				errtext_exit("for name malloc failed");
+				exit(errtx_all_free_exit(1, "for env name malloc failed"));
 			ft_strlcpy(env->name, s, i + 1);
 			env->name[i] = '\0';
-			// printf("%s\n", env->name);
 			env->value = malloc(sizeof(char)*(w - i));
-			
 			if (env->value == NULL)
-				errtext_exit("for value malloc failed");
+				exit(errtx_all_free_exit(1, "for env value malloc failed"));
 			ft_strlcpy(env->value, &s[i + 1], (w - i));
 			env->value[w - i] = '\0';
 			env->next = NULL;
-			// printf("%s\n", env->value);
 			return(env);
 		}
 		i++;
@@ -92,7 +89,7 @@ int	run_export_builtin(t_cmd *cmd)
 			{
 				temp_env = malloc(sizeof(t_env) * 1);
 				if (temp_env == NULL)
-					errtext_exit("for temp_env malloc failed");
+					exit(errtx_all_free_exit(1, "for temp_env malloc failed"));
 				temp_env = find_and_split(cmd->args[i], '=', temp_env);
 				if (check_valid_identifier(temp_env->name) != 0)
 					return(write_identifier_error(cmd->args[i]));
