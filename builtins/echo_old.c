@@ -12,34 +12,23 @@
 
 #include "builtins.h"
 
-// printf(GRN"   first char [%i]\n"RES, cmd->args[j][0]);
-int	check_n_option(t_cmd *cmd)
+int	check_n_option(char *str)
 {
 	int	i;
-	int	j;
 
 	i = 1;
-	j = 1;
-	while (cmd->args[j] != NULL)
+	while (str[i])
 	{
-		if (cmd->args[j][0] == '-')	// found -n
+		if (str[i] != 'n')
 		{
-			i = 1;
-			while (cmd->args[j][i])
-			{
-				if (cmd->args[j][i] != 'n')
-					return (j); // found not n, option must be ignored
-				i++;
-			}
+			return (0);
 		}
-		else
-			return (j); 		// found other element, not -n; go back to  
-		j++;
+		i++;
 	}
-	return (j); // on
+	return (1);
 }
 
-void	check_line_and_print(t_cmd *cmd, int *flagfw, int *i)
+void	check_line_and_print(t_cmd *cmd, int *flagw, int *i)
 {
 	int		j;
 	char	*word;
@@ -55,19 +44,40 @@ void	check_line_and_print(t_cmd *cmd, int *flagfw, int *i)
 	{
 		write(1, " ", 1);
 	}
-	if (*flagfw == 0)
-		*flagfw = 1;
+	if (*flagw == 0)
+		*flagw = 1;
 }
+
+// int	count_args(t_cmd *cmd)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (cmd->args[i])
+// 		i++;
+// 	return (i);
+// }
+
+
 
 // - STILL NEEDS TO HANDLE OPTION -n IF IT IS IN QUOTES
 // - HANDLE BOTH ""  INSIDE '' AND VICE VERSA
+// printf(YEL"Echo, arg[1]: [%s], i=%d, flag=%d\n"RES,
+//					cmd->args[1], i, flag_newline);
+//printf(YEL"loop [%s], i=%d\n"RES, cmd->args[i], i);
 int	run_echo_builtin(t_cmd *cmd)
 {
 	int	i;
 	int	flag_newline;
 	int	flag_first_word;
 
-	if (count_elems(cmd->args) == 1)
+	int	nr_args;
+	nr_args = count_elems(cmd->args);
+
+	//printf("nr args: %d\n", nr_args);
+
+	// if (cmd->count_args == 1)
+	if (nr_args == 1)
 	{
 		write(1, "\n", 1);
 		return (0);
@@ -75,16 +85,16 @@ int	run_echo_builtin(t_cmd *cmd)
 	flag_first_word = 0;
 	flag_newline = 0;
 	if (cmd->args[1][0] == '-')
-		flag_newline = check_n_option(cmd);
+		flag_newline = check_n_option(cmd->args[1]);
 	i = 1;
-	if (flag_newline > 0)
-		i = flag_newline;
+	if (flag_newline == 1)
+		i = 2;
 	while (cmd->args[i])
 	{
 		check_line_and_print(cmd, &flag_first_word, &i);
 		i++;
 	}
-	if (flag_newline <= 1)
+	if (flag_newline == 0)
 		write(1, "\n", 1);
 	return (0);
 }
