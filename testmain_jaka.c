@@ -51,7 +51,7 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		cmd_list = make_commands(&src);
 
-		gl.g_status = run_cmd(cmd_list);
+		gl.g_status = run_cmd();
 		free_commands_list(cmd_list);
 		clean_data(gl.g_status, NULL);
 		//printf(GRN"\nexit! (tester mode)\n\n"RES);
@@ -79,7 +79,7 @@ int	main(int argc, char *argv[], char *envp[])
 				// cmd_list = make_commands(&src);
 				cmd_list = make_commands(&src);
 
-				gl.g_status = run_cmd(cmd_list);
+				gl.g_status = run_cmd();
 				free_commands_list(cmd_list);	
 			}
 			free_and_read(&src, 0);
