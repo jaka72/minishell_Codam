@@ -6,7 +6,7 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 12:56:23 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/08 10:12:24 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/09 15:15:03 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_if_numeric(char *arg)
 
 // int	check_args_and_print(t_cmd *cmd, int nr_commands)
 // int	check_args_and_print(t_cmd *cmd, int nr_commands, t_infos *info)
-int	check_args_and_print(t_cmd *cmd, int nr_commands, t_cmd *list)
+int	check_args_and_print(t_cmd *cmd, int nr_commands)
 {
 	int	exit_code;	// TO STORE, OTHERWISE IT READS cmd->args AFTER FREEING
 
@@ -55,11 +55,7 @@ int	check_args_and_print(t_cmd *cmd, int nr_commands, t_cmd *list)
 		write(2, "minishell: exit: ", 17);
 		write(2, cmd->args[1], ft_strlen(cmd->args[1]));
 		write(2, ": numeric argument required\n", 28);
-
-		free_commands_list(list);	// THIS OK, , only 1 block reachable, add_history
-		clean_data(gl.g_status, "");
-
-		exit (255);
+		exit(err_all_free_exit(255));
 	}
 	else if (check_if_numeric(cmd->args[1]) == 0 && count_elems(cmd->args) > 2)
 	{
@@ -72,9 +68,7 @@ int	check_args_and_print(t_cmd *cmd, int nr_commands, t_cmd *list)
 	{
 		if (nr_commands == 1)
 			write(2, "exit\n", 5);
-		free_commands_list(list);	// THIS IS CAUSING SEGFAULT IN IF READLINE DISABLED "exit 123"
-		clean_data(gl.g_status, "");
-		exit (exit_code);
+		exit(err_all_free_exit(exit_code));
 	}
 	return (0);
 }
@@ -86,22 +80,19 @@ int	check_args_and_print(t_cmd *cmd, int nr_commands, t_cmd *list)
 int	run_exit_builtin(t_cmd *cmd, t_cmd *list)
 {
 	int	nr_commands;
+	char	*i;
 
+	i = ft_itoa(count_elems(cmd->args));
 	nr_commands = count_commands(list);
 	if (count_elems(cmd->args) == 1)
 	{
 		if (nr_commands == 1)
 			write(cmd->fd_out, "exit\n", 5);
-		free_commands_list(list);		// THIS OK, REMOVES REACHABLE, IF READLINE DISABLED, CHECK ALSO WITH READLINE
-	
-		clean_data(gl.g_status, "");  // new, IS THIS NECESSARY HERE?? add_history() STILL SHOWS MALLOCED
-		exit (0);							// SEEMS NO DIFFERENCE IN NONTESTER MODE
-	}										// STILL SHOWS READLINE REACHABLE BYTES
+		exit(err_all_free_exit(0));
+	}
 	else if (count_elems(cmd->args) > 1)
 	{
-		// if (check_args_and_print(cmd, nr_commands) != 0)
-		// if (check_args_and_print(cmd, nr_commands, info) != 0)
-		if (check_args_and_print(cmd, nr_commands, list) != 0)
+		if (check_args_and_print(cmd, nr_commands) != 0)
 			return (1);
 	}
 	return (0);

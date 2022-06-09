@@ -45,12 +45,12 @@ void	ms_init(char *envp[])
 	rl_catch_signals = 0;
 	rc = tcgetattr(0, &gl.termios_save);
 	if (rc)
-		errtext_exit("get termios failed\n");
+		exit(errtx_all_free_exit(1, "get termios failed\n"));
 	gl.termios_new = gl.termios_save;
 	// gl.termios_new.c_lflag &= ~(ECHOCTL);
 	rc = tcsetattr(0, 0, &gl.termios_new);
 	if (rc)
-		errtext_exit("set termios failed\n");
+		exit(errtx_all_free_exit(1, "set termios failed\n"));
 	ft_memccpy(gl.prompt, "minishell > ", '\0', 13);
 	gl.start_env = get_env(envp);
 	signal(SIGINT, handle_sigint);
@@ -58,15 +58,11 @@ void	ms_init(char *envp[])
 	
 	gl.ini_fd[0] = dup(0);
 	if (gl.ini_fd[0] < 0)
-	{
-		free_envlist();
-		errtext_exit("dup for initial fd failed\n");	
-	}		
+		exit(errtx_all_free_exit(1, "dup for initial fd failed\n"));		
 	gl.ini_fd[1] = dup(1);
 	if (gl.ini_fd[1] < 0)
 	{
-		free_envlist();
 		close(gl.ini_fd[0]);
-		errtext_exit("dup for initial fd failed\n");	
+		exit(errtx_all_free_exit(1, "dup for initial fd failed\n"));
 	}
 }

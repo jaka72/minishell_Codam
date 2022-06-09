@@ -74,7 +74,9 @@ extern t_global	gl;
 # include "builtins/builtins.h"
 
 // util/error.c
-void	errtext_exit(char *text);
+// void	errtext_exit(char *text);  not used any more
+int		return_perr(int i, char *tx);
+int		return_errtx(int i, char *tx);
 int		errtext_return(char *text);
 void	free_envlist(void);
 int		free_strings(char **strs);

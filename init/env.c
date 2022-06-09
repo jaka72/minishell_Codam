@@ -12,17 +12,17 @@ t_env	*last_env(void)
 
 int	count_env(void)
 {
-	int	i;
+	int		i;
 	t_env	*current;
 
 	i = 0;
 	current = gl.start_env;
-	while(current)
+	while (current)
 	{
 		i++;
 		current = current->next;
 	}
-	return(i);
+	return (i);
 }
 
 t_env	*get_name_value(t_env *env, char *envtext)
@@ -118,7 +118,7 @@ char	**get_env_array(void)
 	i = 0;
 	envs = malloc(sizeof(char **) * 1);
 	if (envs == NULL)
-		errtext_exit("malloc for envs failed\n");
+		exit(errtx_all_free_exit(1, "malloc for envs failed\n"));
 	envs[0] = NULL;
 	temp = NULL;
 	current = gl.start_env;
@@ -129,7 +129,7 @@ char	**get_env_array(void)
 			return (NULL);
 		temp = malloc((ft_strlen(current->name) + ft_strlen(current->value) + 2));
 		if (temp == NULL)
-			errtext_exit("malloc for envs failed\n");
+			exit(errtx_all_free_exit(1, "malloc for envs failed\n"));
 		ft_memcpy(temp, current->name, ft_strlen(current->name));
 		ft_memcpy(&temp[ft_strlen(current->name)], "=", 1);
 		ft_memcpy(&temp[ft_strlen(current->name) + 1], current->value, ft_strlen(current->value) + 1);

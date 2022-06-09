@@ -12,35 +12,24 @@ int	check_infile_fd(t_cmd *str)
 		while (str->infile[i])
 		{
 			str->infile[i] = check_expand(str->infile[i]);
-			if (access(str->infile[i], F_OK) != 0)
-			{
-				perror("infile not exist\n");
-				return (-4);
-			}
-			if (access(str->infile[i], F_OK) == 0 && access(str->infile[i], R_OK) < 0)
-			{
-				perror("Permission denied\n");
-				return (-4);
-			}
+			if (str->infile[i] == NULL)
+				return (return_errtx(-4, "ambiguous redirect\n"));
+			if (access(str->infile[i], F_OK) != 0
+				|| (access(str->infile[i], F_OK) == 0
+					&& access(str->infile[i], R_OK) < 0))
+				return (return_perr(-4, str->infile[i]));
 			i++;
 		}
-		if (i > 0)
-			i--;
-		if (str->fd_in == -2)
-		{
-			j = open(str->infile[i], O_RDONLY);
-			if (j < 0)
-			{
-				perror("file open failed\n");
-				return (-4);
-			}
-			str->fd_in = j;
-		}		
+		i--;
+		if (str->fd_in != -2)
+			return (0);
+		j = open(str->infile[i], O_RDONLY);
+		if (j < 0)
+			return (return_perr(-4, str->infile[i]));
+		str->fd_in = j;
 	}
 	return (0);
 }
-
-
 
 int	check_outfile_fd(t_cmd *str)
 {
@@ -90,8 +79,10 @@ int	check_outfile_fd(t_cmd *str)
 
 int	connect_fd(t_cmd *current)
 {
+	// current->infile = expand_array(current->infile);
 	if (check_infile_fd(current) != 0)
 		return (-4);
+	// current->outfile = expand_array(current->outfile);
 	if (check_outfile_fd(current) != 0)
 		return (-4);
 	if (current->fd_in > 0)

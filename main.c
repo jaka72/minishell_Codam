@@ -12,7 +12,6 @@ void	free_and_read(t_source *src, int history)
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_source	src;
-	// t_cmd		*cmd_list;
 
 	(void) argc;
 	(void) argv;
@@ -29,10 +28,8 @@ int	main(int argc, char *argv[], char *envp[])
 				continue ;
 			}
 			add_history(src.inputline);
-			gl.start_cmd = make_commands(&src);		// Changed jaka: It needs &info, to call clean_data(), 
-														//		in case malloc failed inside make_commands()
+			gl.start_cmd = make_commands(&src);
 			gl.g_status = run_cmd();
-			// free_commands_list(gl.start_cmd);
 			free_tcmd();
 		}
 		free_and_read(&src, 0);
