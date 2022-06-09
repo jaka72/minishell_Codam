@@ -71,7 +71,7 @@ int	count_expand_length(char *src)
 	int	i;
 
 	i = 0;
-	while (src[i] != '\0' && src[i] != '\'' && src[i] != '\"' && src[i] != '$' && src[i] != ' ' && src[i] != '=' && src[i] != '/')
+	while (src[i] != '\0' && src[i] != '\'' && src[i] != '\"' && src[i] != '$' && src[i] != ' ' && src[i] != '=' && src[i] != '/' && src[i] != ':')
 		i++;
 	return (i);
 }
@@ -95,7 +95,7 @@ char	*add_expanded(char *dst, char *src)
 	i = 0;
 	temp = NULL;
 	expanded = NULL;
-	while (src[i] != '\0' && src[i] != '\'' && src[i] != '\"' && src[i] != '$' && src[i] != ' ' && src[i] != '=' && src[i] != '/')
+	while (src[i] != '\0' && src[i] != '\'' && src[i] != '\"' && src[i] != '$' && src[i] != ' ' && src[i] != '=' && src[i] != '/' && src[i] != ':')
 		i++;
 	temp = malloc(i + 1);
 	if (temp == NULL)

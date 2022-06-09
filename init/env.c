@@ -38,7 +38,7 @@ t_env	*get_name_value(t_env *env, char *envtext)
 		if (env->name == NULL)
 		{
 			free(env);
-			return (NULL);
+			exit(errtx_all_free_exit(1, "malloc for env failed\n"));
 		}
 		env->name = ft_memcpy(env->name, envtext, i);
 		env->name[i] = '\0';
@@ -49,7 +49,7 @@ t_env	*get_name_value(t_env *env, char *envtext)
 			{
 				free(env->name);
 				free(env);
-				return (NULL);
+				exit(errtx_all_free_exit(1, "malloc for env failed\n"));
 			}
 			env->value = ft_memcpy(env->value, &envtext[i + 1], ft_strlen(envtext) - i);
 			env->value[ft_strlen(envtext) - i] = '\0';
@@ -66,18 +66,12 @@ t_env	*get_env(char *envp[])
 
 	temp_env = NULL;
 	current_env = NULL;
-	gl.start_env = NULL;
 	i = 0;
 	while (envp[i])
 	{
 		temp_env = malloc(sizeof(t_env));
 		if (temp_env == NULL)
-		{
-			if (gl.start_env == NULL)
-				errtext_exit("malloc for env failed\n");
-			else
-				err_free_env_exit("malloc for env failed\n");
-		}
+			exit(errtx_all_free_exit(1, "malloc for env failed\n"));
 		temp_env->name = NULL;
 		temp_env->value = NULL;
 		temp_env->next = NULL;
