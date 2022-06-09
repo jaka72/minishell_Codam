@@ -29,7 +29,7 @@ char	*name_expand(char *tx)
 			// printf("tx is %s found %s %s!!\n", tx, env->name, env->value);	
 			newtx = malloc(ft_strlen(env->value) + 1);
 			if (newtx == NULL)
-				errtext_exit("check expand malloc failed");
+				exit(errtx_all_free_exit(1, "check expand malloc failed\n"));
 			newtx = ft_memcpy(newtx, env->value, ft_strlen(env->value));
 			newtx[ft_strlen(env->value)] = '\0';		
 			free(tx);
@@ -99,12 +99,12 @@ char	*add_expanded(char *dst, char *src)
 		i++;
 	temp = malloc(i + 1);
 	if (temp == NULL)
-		errtext_exit("malloc failed");
+		exit(errtx_all_free_exit(1, "add expand malloc failed\n"));
 	ft_strlcpy(temp, src, i + 1);
 	expanded = name_expand(temp);
 	dst = ft_strjoin_free(dst, expanded);
 	if (dst == NULL)
-		errtext_exit("malloc failed");
+		exit(errtx_all_free_exit(1, "add expand malloc failed\n"));
 	return (dst);
 }
 
@@ -116,10 +116,10 @@ char	*add_laststatus(char *dst, int g_status)
 	stat = NULL;
 	stat = ft_itoa(g_status);
 	if (stat == NULL)
-		errtext_exit("malloc failed");
+		exit(errtx_all_free_exit(1, "last status malloc failed\n"));
 	dst = ft_strjoin(dst, stat);
 	if (dst == NULL)
-		errtext_exit("malloc failed");
+		exit(errtx_all_free_exit(1, "last status malloc failed\n"));
 	return (dst);
 }
 

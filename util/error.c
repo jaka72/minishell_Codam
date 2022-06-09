@@ -1,9 +1,24 @@
 #include "../minishell.h"
 
-void	errtext_exit(char *text)
+// void	errtext_exit(char *text)
+// {
+// 	perror(text);
+// 	exit(ERROR_RETURN);
+// }
+
+int	return_perr(int i, char *tx)
 {
-	perror(text);
-	exit(ERROR_RETURN);
+	write(2, "minishell: ", 11);
+	write(2, tx, ft_strlen(tx));
+	perror(" ");
+	return (i);
+}
+
+int	return_errtx(int i, char *tx)
+{
+	write(2, "minishell: ", 11);
+	write(2, tx, ft_strlen(tx));
+	return (i);
 }
 
 void	free_envlist(void)
@@ -72,7 +87,6 @@ int	err_all_free_exit(int exitnum)
 {
 	free_tcmd();
 	free_envlist();
-	// clean_fd();
 	rl_clear_history();
 	return (exitnum);
 }

@@ -70,7 +70,7 @@ int	make_heredoc(char *limiter)
 	gl.termios_new.c_lflag &= ~(ECHOCTL);
 	rc = tcsetattr(0, 0, &gl.termios_new);
 	if (rc)
-		errtext_exit("set termios failed\n");
+		exit(errtx_all_free_exit(1, "set termios failed\n"));
 	pipe(newpipe);
 	pid = fork();
 	if (pid == 0)
@@ -97,7 +97,7 @@ int	make_heredoc(char *limiter)
 	gl.termios_new.c_lflag |= (ECHOCTL);
 	rc = tcsetattr(0, 0, &gl.termios_new);
 	if (rc)
-		errtext_exit("set termios failed\n");
+		exit(errtx_all_free_exit(1, "set termios failed\n"));
 	if (gl.g_status == 1)
 	{
 		reset_fd_sig();
