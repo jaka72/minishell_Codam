@@ -63,8 +63,12 @@ char	*ft_findshell_pass(char *cmd, char *envp[])
 			bin = ft_make_binpass(i, pass, cmd);
 			if (bin == NULL)
 				return (NULL);
-			if (access(bin, X_OK) == 0)
+//			if (access(bin, X_OK) == 0)
+			if (access(bin, F_OK) == 0) 	// jaka: At this moment I need to know if the library path exists.
+			{								//		 Will check the access X_OK later.
+				printf(CYN"loop: bin: [%s]\n"RES, bin);
 				return (bin);
+			}
 			free(bin);
 			if (pass[i] == '\0')
 				return (NULL);
@@ -72,58 +76,8 @@ char	*ft_findshell_pass(char *cmd, char *envp[])
 			i = 0;
 		}
 	}
+	printf(CYN"Return bin: [%s]\n"RES, bin);
 	return (NULL);
-}
-
-/* CHECKING IF IT IS A CUSTOM PROGRAM:
-	- a.out  or  ./a.out  
-	- ../a.out  or  folder/a.out 
-	- absolute: /bin/ls            */
-void	check_if_custom_path(t_cmd *str, char **path)
-{
-	int	ret;
-
-	if (str->args[0][0] == '.' || ft_strchr(str->args[0], '/') != NULL)
-	{
-		printf(YEL"Path:    [%s]\n"RES, *path);
-		printf(YEL"args[0]: [%s]\n"RES, str->args[0]);
-		if ((ret = access(str->args[0], X_OK)) == 0)
-		{
-			free(*path);	// check if this really needs to be freed
-			*path = ft_strdup(str->args[0]);		
-			printf(YEL" YES executable: [%s], ret: %d\n"RES, *path, ret);
-		}
-		else
-			printf(YEL" Not executable: [%s]\n"RES, *path);
-	}
-}
-
-int	ms_execve(t_cmd *str)
-{
-	char	**envs;
-	char	*path;
-
-	envs = get_env_array();
-	if (envs == NULL)
-		return (-1);
-	path = ft_findshell_pass(str->args[0], envs);
-	check_if_custom_path(str, &path);	// added Jaka, 10 jun
-	if (path == NULL || str->args[0][0] == '\0')
-	{
-		if (ft_strchr(str->args[0], '/') != NULL)
-		{
-			write(2, str->args[0], ft_strlen(str->args[0]));
-			write(2, ": No such file or directory\n", 28);
-		}
-		else
-		{
-			write(2, str->args[0], ft_strlen(str->args[0]));
-			write(2, ": command not found\n", 21);
-		}
-		exit(err_all_free_exit(127));
-	}
-	execve(path, str->args, envs);
-	exit(err_all_free_exit(1));
 }
 
 int	exec_no_pipe(void)
@@ -196,7 +150,6 @@ int	open_heredoc(void)
 	}
 	return (0);
 }
-
 
 void	init_pid_sig(t_pid *pidinfo)
 {

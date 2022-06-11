@@ -125,8 +125,14 @@ void	reset_fd_sig(void);
 char	*ft_find_env_passnum(char *envp[]);
 char	*ft_make_binpass(int i, char *pass, char *cmd);
 char	*ft_findshell_pass(char *cmd, char *envp[]);
-int		ms_execve(t_cmd *str);
+// int		ms_execve(t_cmd *str);
 int		run_cmd(void);
+
+// exec/ms_execve.c
+int		ms_execve(t_cmd *str);
+int		cmd_is_custom(char **args, char **envs);
+int		cmd_with_slash(char *path, char **args, char **envs);
+int		cmd_no_slash(char *path, char **args, char **envs);
 
 
 // added jaka: to count the array of arguments:

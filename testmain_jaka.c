@@ -91,13 +91,19 @@ int	main(int argc, char *argv[], char *envp[])
 /*
 /// CURRENT ISSUES: ////////////////////////////////////////////////////////////////////////
 
+- What if lib command has no permissions? Now we say no such file.
+	It has to say Bash: ls: No permission, and exit code 126
+
 - ./builtins/$ABCa  ==> existing folder, but nonexisiting variable, It shows access() as it is X_OK ????
 
 
 - in Bash, it gives 2 different err messages in separate terminals ??? in case traying ti execute a folder
 		./libft  or  ./libft/    or libft
 	msg1: no such file, msg2: it is a folder ????
-	
+
+- In Bash, if you try execit a text file, it will try to execute a word from each line
+	and write Command not found.
+
 
 - check ls | exit qwe wer , exit 255 ! Now 139 ????
 	Check always exit code, after exit and other commands, because it is sometimes some hidden error, and it 
