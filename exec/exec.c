@@ -75,6 +75,29 @@ char	*ft_findshell_pass(char *cmd, char *envp[])
 	return (NULL);
 }
 
+/* CHECKING IF IT IS A CUSTOM PROGRAM:
+	- a.out  or  ./a.out  
+	- ../a.out  or  folder/a.out 
+	- absolute: /bin/ls            */
+void	check_if_custom_path(t_cmd *str, char **path)
+{
+	int	ret;
+
+	if (str->args[0][0] == '.' || ft_strchr(str->args[0], '/') != NULL)
+	{
+		printf(YEL"Path:    [%s]\n"RES, *path);
+		printf(YEL"args[0]: [%s]\n"RES, str->args[0]);
+		if ((ret = access(str->args[0], X_OK)) == 0)
+		{
+			free(*path);	// check if this really needs to be freed
+			*path = ft_strdup(str->args[0]);		
+			printf(YEL" YES executable: [%s], ret: %d\n"RES, *path, ret);
+		}
+		else
+			printf(YEL" Not executable: [%s]\n"RES, *path);
+	}
+}
+
 int	ms_execve(t_cmd *str)
 {
 	char	**envs;
@@ -83,23 +106,8 @@ int	ms_execve(t_cmd *str)
 	envs = get_env_array();
 	if (envs == NULL)
 		return (-1);
-
-	printf(GRN"ms_execve: args[0] [%s]\n"RES, str->args[0]);
-	// CHECK IF IT IS A CUSTOM PROGRAM  [./a.out]   OR   A PATH [/bin/ls]
-	//		If slash at start
-	//			If yes, extract word after last slash. 
-	//			Run ft_findshell_pass() to get the correct path.
-	//		If dot./slash at start,
-	//			Skip ft_finshell_pass
-	//			Check if command is good, with acces()
-	//			save the correct path: it has to be without ./ ,if it is in the same folder 
-	//								 : if it is in above folder, the execve recognises the ../
-
 	path = ft_findshell_pass(str->args[0], envs);
-
-	// If input had the slash start, compare if it matches with orig args[0]
-	// 		if not, then set path to NULL, to print the error msg and exit.
-
+	check_if_custom_path(str, &path);	// added Jaka, 10 jun
 	if (path == NULL || str->args[0][0] == '\0')
 	{
 		if (ft_strchr(str->args[0], '/') != NULL)

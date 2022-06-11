@@ -91,7 +91,13 @@ int	main(int argc, char *argv[], char *envp[])
 /*
 /// CURRENT ISSUES: ////////////////////////////////////////////////////////////////////////
 
-- Does minishell need to execute a custom made program, ie: print something?
+- ./builtins/$ABCa  ==> existing folder, but nonexisiting variable, It shows access() as it is X_OK ????
+
+
+- in Bash, it gives 2 different err messages in separate terminals ??? in case traying ti execute a folder
+		./libft  or  ./libft/    or libft
+	msg1: no such file, msg2: it is a folder ????
+	
 
 - check ls | exit qwe wer , exit 255 ! Now 139 ????
 	Check always exit code, after exit and other commands, because it is sometimes some hidden error, and it 
@@ -248,7 +254,6 @@ Things to check:
 - If just pressed tab twice, it prints content from ls ???
 
 
-
 - Echo:  escape character, ie:   "  \"    "
     In bash it prints just   "  
 
@@ -281,3 +286,15 @@ Things to check:
 		send oef    ctrl-D		eof			- if readline empty: exits program
 			(Sends eof to whom?)			- if readline busy:  nothing
 */
+
+
+//		If slash at start
+//			Extract word after last slash. 
+//			Run ft_findshell_pass() to get the correct path.
+//			Compare both pass if they match, it can go to access and execve
+//		If ./   or   ../ at start,
+//			Skip ft_findshell_pass
+//			Check if command is X_OK, with acces()
+//			save the correct path: it has to be without ./ ,if it is in the same folder 
+//								 : if it is in above folder, the execve recognises the ../
+// if (str->args[0][0] == '.' || str->args[0][0] == '/' || h

@@ -2,11 +2,8 @@
 
 int main()
 {
-    int i = 0;
-    printf("A) This is from x_test_command.c\n");
-    while (i < 100000000)
-    {
-        i++;
-    }
+
+    printf("B)        Run was executed in execve(  run )  in file Y_execve_test. \n");
+
     return (0);
 }
