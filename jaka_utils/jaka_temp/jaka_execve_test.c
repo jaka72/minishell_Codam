@@ -83,7 +83,7 @@ int main(int argc, char **argv)
         ret_access = access(arr_folder[0], R_OK || X_OK || W_OK);
         if (ret_access != 0)
         {
-            printf("After access\n");
+            printf("After access, ret = %d, errno = %d\n", ret_access, errno);
             if (errno == 2)
             {
                 //perror("   perror: ");
@@ -99,7 +99,7 @@ int main(int argc, char **argv)
 
 
         ret_execve = execve(arr_folder[0], arr_folder, NULL);
-        printf("After execve\n");
+        printf("After execve, ret = %d, errno = %d\n", ret_execve, errno);
         
         if (ret_execve != 0)
         {
