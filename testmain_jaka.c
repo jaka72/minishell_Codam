@@ -91,18 +91,28 @@ int	main(int argc, char *argv[], char *envp[])
 /*
 /// CURRENT ISSUES: ////////////////////////////////////////////////////////////////////////
 
-- check ls | exit qwe wer , exit 255 !
+- What if lib command has no permissions? Now we say no such file.
+	It has to say Bash: ls: No permission, and exit code 126
+
+- ./builtins/$ABCa  ==> existing folder, but nonexisiting variable, It shows access() as it is X_OK ????
+
+
+- in Bash, it gives 2 different err messages in separate terminals ??? in case traying ti execute a folder
+		./libft  or  ./libft/    or libft
+	msg1: no such file, msg2: it is a folder ????
+
+- In Bash, if you try execit a text file, it will try to execute a word from each line
+	and write Command not found.
+
+
+- check ls | exit qwe wer , exit 255 ! Now 139 ????
+	Check always exit code, after exit and other commands, because it is sometimes some hidden error, and it 
+		prints 139, not 255
+
 
 - heredoc alway exits,	- with normal input: << here cat ... $HOME ... here ... EXITS!
 					- in case nonexisting variable: ... $xxx
 					- with no input, just here
-
-- inside heredoc, if pressed ctrl-c, will go back to promt, then if again ctrl-C, prints black lines
-
-- in heredoc, if line not empty, first ctrl-D nothing, seconmd ctrl-D exits
-
-
-- Echo: case [echo -n -n abc], prints the second -n, needs to ignore it
 
 - Should minishell be able to create var $ABC ,without doing export
 
@@ -250,7 +260,6 @@ Things to check:
 - If just pressed tab twice, it prints content from ls ???
 
 
-
 - Echo:  escape character, ie:   "  \"    "
     In bash it prints just   "  
 
@@ -273,12 +282,25 @@ Things to check:
 -------------------------------------------------------------------------
 
 
+// READLINE LIBRARY - get familiar
+
 // INFO ABOUT KEY BINDING SETTINGS
-stty -a
-    interupt    ctrl-C      SIGINT		makes newline, always. Interupts the readline? Replaces line with "" ???
-    
-	quit        ctrl-\      SIGQUIT		prints quit 3 ???
-    
-	send oef    ctrl-D					exits program, works only if empty readline
-										Sends eof to whom?
+	stty -a
+	Case readline:
+	    interupt    ctrl-C      SIGINT		makes newline, always. Interupts the readline? Replaces line with "" ???
+		quit        ctrl-\      SIGQUIT		prints quit 3 ???
+		send oef    ctrl-D		eof			- if readline empty: exits program
+			(Sends eof to whom?)			- if readline busy:  nothing
 */
+
+
+//		If slash at start
+//			Extract word after last slash. 
+//			Run ft_findshell_pass() to get the correct path.
+//			Compare both pass if they match, it can go to access and execve
+//		If ./   or   ../ at start,
+//			Skip ft_findshell_pass
+//			Check if command is X_OK, with acces()
+//			save the correct path: it has to be without ./ ,if it is in the same folder 
+//								 : if it is in above folder, the execve recognises the ../
+// if (str->args[0][0] == '.' || str->args[0][0] == '/' || h

@@ -45,7 +45,7 @@ int	check_if_numeric(char *arg)
 // int	check_args_and_print(t_cmd *cmd, int nr_commands, t_infos *info)
 int	check_args_and_print(t_cmd *cmd, int nr_commands)
 {
-	int	exit_code;	// TO STORE, OTHERWISE IT READS cmd->args AFTER FREEING
+	int	exit_code;
 
 	exit_code = ft_atoi(cmd->args[1]);
 	if (check_if_numeric(cmd->args[1]) != 0 && count_elems(cmd->args) >= 2)
@@ -79,6 +79,7 @@ int	check_args_and_print(t_cmd *cmd, int nr_commands)
 // int	run_exit_builtin(t_cmd *cmd, t_cmd *list)
 int	run_exit_builtin(t_cmd *cmd, t_cmd *list)
 {
+	//printf(GRN"Start exit\n"RES);
 	int	nr_commands;
 	char	*i;
 
@@ -86,6 +87,7 @@ int	run_exit_builtin(t_cmd *cmd, t_cmd *list)
 	nr_commands = count_commands(list);
 	if (count_elems(cmd->args) == 1)
 	{
+		//printf(GRN"   only 1 arg\n"RES);
 		if (nr_commands == 1)
 			write(cmd->fd_out, "exit\n", 5);
 		exit(err_all_free_exit(0));
