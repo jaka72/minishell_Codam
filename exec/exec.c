@@ -46,7 +46,7 @@ char	*ft_make_binpass(int i, char *pass, char *cmd)
 	return (bin);
 }
 
-char	*ft_findshell_pass(char *cmd, char *envp[])
+char	*ft_findshell_path(char *cmd, char *envp[])
 {
 	int		i;
 	char	*pass;
@@ -63,8 +63,12 @@ char	*ft_findshell_pass(char *cmd, char *envp[])
 			bin = ft_make_binpass(i, pass, cmd);
 			if (bin == NULL)
 				return (NULL);
-			if (access(bin, X_OK) == 0)
+//			if (access(bin, X_OK) == 0)
+			if (access(bin, F_OK) == 0) 	// jaka: At this moment I need to know if the library path exists.
+			{								//		 Will check the access X_OK later.
+				printf(CYN"loop: bin: [%s]\n"RES, bin);
 				return (bin);
+			}
 			free(bin);
 			if (pass[i] == '\0')
 				return (NULL);
@@ -72,34 +76,8 @@ char	*ft_findshell_pass(char *cmd, char *envp[])
 			i = 0;
 		}
 	}
+	printf(CYN"Return bin: [%s]\n"RES, bin);
 	return (NULL);
-}
-
-int	ms_execve(t_cmd *str)
-{
-	char	**envs;
-	char	*path;
-
-	envs = get_env_array();
-	if (envs == NULL)
-		return (-1);
-	path = ft_findshell_pass(str->args[0], envs);
-	if (path == NULL || str->args[0][0] == '\0')
-	{
-		if (ft_strchr(str->args[0], '/') != NULL)
-		{
-			write(2, str->args[0], ft_strlen(str->args[0]));
-			write(2, ": No such file or directory\n", 28);
-		}
-		else
-		{
-			write(2, str->args[0], ft_strlen(str->args[0]));
-			write(2, ": command not found\n", 21);
-		}
-		exit(err_all_free_exit(127));
-	}
-	execve(path, str->args, envs);
-	exit(err_all_free_exit(1));
 }
 
 int	exec_no_pipe(void)
@@ -172,7 +150,6 @@ int	open_heredoc(void)
 	}
 	return (0);
 }
-
 
 void	init_pid_sig(t_pid *pidinfo)
 {

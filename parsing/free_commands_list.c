@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 14:40:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/13 07:52:28 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/13 09:26:37 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ int	free_commands_list(t_cmd *first_cmd)
 
 	i = 0;
 	temp = first_cmd;
-	// printf(RED"FREE ALL, first_cmd [%p]\n"RES, first_cmd);
+	//printf(RED"FREE cmd list, first_cmd [%p]\n"RES, first_cmd);
+	//printf(RED"FREE cmd list\n"RES);
 	while (temp)
 	{
 		// THIS PRINT CAUSES SEGFAULT IF INPUT LINE IS SPACES ONLY
@@ -106,7 +107,7 @@ int	free_commands_list(t_cmd *first_cmd)
 		first_cmd = temp;
 		i++;
 	}
-	
+	//printf(RED"End free_cmd_list\n"RES);
 	return (0);
 }
 

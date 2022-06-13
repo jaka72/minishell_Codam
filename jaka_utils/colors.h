@@ -3,6 +3,9 @@
 
 # define BLKB  "\e[40m"
 
+//# define ORN   "\e[33;33m"   // normal // NOT SURE IF ORANGE WORKS
+
+
 # define YEL   "\e[0;33m"   // normal
 # define HYEL  "\e[1;33m"   // bold or bright ???
 # define DYEL  "\e[2;33m"   // dark

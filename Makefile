@@ -33,14 +33,16 @@ UTIL_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(UTIL_SRC:.c=.o))
 #for getting environment variables and keybound setting
 INIT_DIR	=	./init
 INIT_SRC	=	$(INIT_DIR)/init.c					\
+				$(INIT_DIR)/signal_handle.c			\
 				$(INIT_DIR)/env.c					\
-				$(INIT_DIR)/expand.c	
+				$(INIT_DIR)/expand.c
 INIT_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(INIT_SRC:.c=.o))
 
 #for excute the command
 EXEC_DIR	=	./exec
 EXEC_SRC	=	$(EXEC_DIR)/exec.c	\
-				$(EXEC_DIR)/fd.c	
+				$(EXEC_DIR)/fd.c	\
+				$(EXEC_DIR)/ms_execve.c						# added jaka 10 jun
 EXEC_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(EXEC_SRC:.c=.o))
 
 #for setting file information to cmd-struct from (<, <<, > , >>)

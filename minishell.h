@@ -91,12 +91,14 @@ char	*ft_add_c_free(char *s1, char c);
 void	clean_fd(void);
 int		clean_data(int status, char *text);
 
-// init/init.c
+// init/signal_handle.c
 void	handle_sigint(int num);
 void	handle_sigquit(int num);
 void	handle_sigint_p(int num);
 void	handle_sigquit_p(int num);
 void	handle_sigint_hd(int num);
+
+// init/init.c
 void	ms_init( char *envp[]);
 
 // init/env.c
@@ -126,9 +128,15 @@ void	reset_fd_sig(void);
 // exec/exec.c
 char	*ft_find_env_passnum(char *envp[]);
 char	*ft_make_binpass(int i, char *pass, char *cmd);
-char	*ft_findshell_pass(char *cmd, char *envp[]);
-int		ms_execve(t_cmd *str);
+char	*ft_findshell_path(char *cmd, char *envp[]);
+// int		ms_execve(t_cmd *str);
 int		run_cmd(void);
+
+// exec/ms_execve.c
+int		ms_execve(t_cmd *str);
+int		cmd_is_custom(char **args, char **envs);
+int		cmd_with_slash(char *path, char **args, char **envs);
+int		cmd_no_slash(char *path, char **args, char **envs);
 
 
 // added jaka: to count the array of arguments:
