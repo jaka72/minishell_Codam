@@ -17,7 +17,7 @@ int	find_name_delate(char *targetname)
 			else
 				prev->next = env->next;
 			free(env);
-			break;
+			break ;
 		}
 		prev = env;
 		env = env->next;
