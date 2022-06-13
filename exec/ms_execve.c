@@ -13,7 +13,7 @@ int	cmd_no_slash(char *path, char **args, char **envs)
 
 	if (path == NULL)	// is custom
 	{
-		printf(BLU"       Path is NULL\n");
+		//printf(BLU"       Path is NULL\n");
 		print_error_msg("minishell: ", args[0], ": Command not found\n");
 		exit(err_all_free_exit(127));
 	}
@@ -28,7 +28,7 @@ int	cmd_no_slash(char *path, char **args, char **envs)
 		else					// can execute
 		{
 			execve(path, args, envs);
-			printf(GRN"      Why did not execute??\n"); // what if it still does not execute?
+			//printf(GRN"      Why did not execute??\n"); // what if it still does not execute?
 		}
 	}
 	return (1);		// means it did not execute ??
@@ -41,7 +41,7 @@ int	cmd_with_slash(char *path, char **args, char **envs)
 	ret = access(path, X_OK);
 	if (ret != 0)
 	{
-		printf(BLU"       Access not zero! 0\n");
+		//printf(BLU"       Access not zero! 0\n");
 		if (errno == 2)
 		{
 			print_error_msg("minishell: ", path, ": No such file or folder\n");
@@ -55,7 +55,7 @@ int	cmd_with_slash(char *path, char **args, char **envs)
 	}
 	else
 	{
-		printf(BLU"       Access zero, can execute\n");
+		//printf(BLU"       Access zero, can execute\n");
 		execve(path, args, envs);
 		printf(GRN"      Why did not execute??\n");  // what if it still does not execute?
 	}
@@ -70,7 +70,7 @@ int	cmd_is_custom(char **args, char **envs)
 	ret = access(args[0], X_OK);
 	if (ret != 0)
 	{
-		printf(BLU"       Access not zero! 0\n");
+		//printf(BLU"       Access is not zero!\n");
 		if (errno == 2)
 		{
 			print_error_msg("minishell: ", args[0], ": No such file or folder\n");
@@ -84,13 +84,16 @@ int	cmd_is_custom(char **args, char **envs)
 	}
 	else
 	{
-		printf(BLU"       Access zero, can execute\n");
-		execve(args[0], args, envs);
-		printf(BLU"      Why did not execute??\n"); // what if it still does not execute?
+		//printf(BLU"       Access is zero, should execute\n");
+		ret = execve(args[0], args, envs);
+		printf(BLU"       Execve did not execute\n"); // what if it still does not execute?
+		printf(BLU"       ret: %d, errno: %d\n", ret, errno);
+		perror("          perror: ");
+		print_error_msg("minishell: ", args[0], ": Looks like trying to execute a folder.\n");
+		exit(err_all_free_exit(126));
 	}
 	return (1);		// means it did not execute ??
 }
-
 
 // Var path will only return valid path, if args[0] does not contain slashes
 // If var args[0] has slashes or dot, it will ignore var path, and execute the args[0]
@@ -107,22 +110,22 @@ int	ms_execve(t_cmd *str)
 
 	if (ft_strchr(str->args[0], '/') == 0)	// cmd without slashes
 	{
-		printf(GRN"No slashes\n");  // what if it still does not execute?
+		//printf(GRN"No slashes\n");  // what if it still does not execute?
 		ret = cmd_no_slash(path, str->args, envs);
 	}
 	else								// cmd has slashes
 	{
 		if (path != NULL)		// is library
 		{
-			printf(GRN"Has slashes, is library.\n");  // what if it still does not execute?
+			//printf(GRN"Has slashes, is library.\n");  // what if it still does not execute?
 			ret = cmd_with_slash(path, str->args, envs);
 		}
 		else		// is custom
 		{
-			printf(GRN"Cmd is custom\n");  // what if it still does not execute?
+			//printf(GRN"Cmd is custom\n");  // what if it still does not execute?
 			ret = cmd_is_custom(str->args, envs);
 		}
 	}
-	printf(YEL"END of mse_execve, ret = %d\n", ret);
+	//printf(YEL"END of mse_execve, ret = %d\n", ret);
 	exit(err_all_free_exit(1));
 }
