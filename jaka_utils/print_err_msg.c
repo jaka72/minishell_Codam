@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/06 13:06:34 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/14 10:08:11 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/14 22:19:14 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 void	print_err_msg(char *err_msg)
 {
 	printf("\nMinishell: %s\n", err_msg);
-	//printf("\nTest print, something %s\n", "message");
-
-	ft_strchr(err_msg, 'a'); // just tu silence bash error
 
 	// write(2, "\nMinishel: ", 11);
 	// write(2, err_msg, ft_strlen(err_msg));
