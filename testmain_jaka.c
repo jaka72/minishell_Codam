@@ -296,10 +296,10 @@ Things to check:
 
 //		If slash at start
 //			Extract word after last slash. 
-//			Run ft_findshell_pass() to get the correct path.
+//			Run ft_findshell_path() to get the correct path.
 //			Compare both pass if they match, it can go to access and execve
 //		If ./   or   ../ at start,
-//			Skip ft_findshell_pass
+//			Skip ft_findshell_path
 //			Check if command is X_OK, with acces()
 //			save the correct path: it has to be without ./ ,if it is in the same folder 
 //								 : if it is in above folder, the execve recognises the ../

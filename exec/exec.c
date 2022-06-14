@@ -1,25 +1,25 @@
 #include "../minishell.h"
 
-char	*ft_find_env_passnum(char *envp[])
+char	*ft_find_env_pathnum(char *envp[])
 {
 	int		i;
-	char	*pass;
+	char	*path;
 
 	i = 0;
-	pass = NULL;
+	path = NULL;
 	while (envp[i] != NULL)
 	{
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
-			pass = &envp[i][5];
-			return (pass);
+			path = &envp[i][5];
+			return (path);
 		}
 		i++;
 	}
 	return (NULL);
 }
 
-char	*ft_make_binpass(int i, char *pass, char *cmd)
+char	*ft_make_binpath(int i, char *path, char *cmd)
 {
 	int		j;
 	int		k;
@@ -32,7 +32,7 @@ char	*ft_make_binpass(int i, char *pass, char *cmd)
 		return (NULL);
 	while (j < i)
 	{
-		bin[j] = pass[j];
+		bin[j] = path[j];
 		j++;
 	}
 	bin[j] = '/';
@@ -46,21 +46,21 @@ char	*ft_make_binpass(int i, char *pass, char *cmd)
 	return (bin);
 }
 
-char	*ft_findshell_pass(char *cmd, char *envp[])
+char	*ft_findshell_path(char *cmd, char *envp[])
 {
 	int		i;
-	char	*pass;
+	char	*path;
 	char	*bin;
 
 	i = 0;
-	pass = ft_find_env_passnum(envp);
-	while (pass != NULL && pass[i] != '\0')
+	path = ft_find_env_pathnum(envp);
+	while (path != NULL && path[i] != '\0')
 	{
-		while (pass[i] != ':' && pass[i] != '\0')
+		while (path[i] != ':' && path[i] != '\0')
 			i++;
-		if (pass[i] == ':' || pass[i] == '\0')
+		if (path[i] == ':' || path[i] == '\0')
 		{
-			bin = ft_make_binpass(i, pass, cmd);
+			bin = ft_make_binpath(i, path, cmd);
 			if (bin == NULL)
 				return (NULL);
 //			if (access(bin, X_OK) == 0)
@@ -70,9 +70,9 @@ char	*ft_findshell_pass(char *cmd, char *envp[])
 				return (bin);
 			}
 			free(bin);
-			if (pass[i] == '\0')
+			if (path[i] == '\0')
 				return (NULL);
-			pass = &pass[i + 1];
+			path = &path[i + 1];
 			i = 0;
 		}
 	}
@@ -95,11 +95,7 @@ int	exec_no_pipe(void)
 	{
 		pid = fork();
 		if (pid == 0)
-		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
 			ms_execve(gl.start_cmd);
-		}
 		if (gl.start_cmd->fd_in > 0)
 			close(gl.start_cmd->fd_in);
 		if (gl.start_cmd->fd_out > 1)
@@ -214,6 +210,13 @@ int	exec_with_pipe(t_pid *pid)
 	return (0);
 }
 
+int	check_close(int i)
+{
+	if (i < 0)
+		exit(err_all_free_exit(1));
+	return (i);
+}
+
 int	open_outfile(void)
 {
 	t_cmd	*current;
@@ -233,9 +236,7 @@ int	open_outfile(void)
 				if (current->outfile[i] && access(current->outfile[i], F_OK) != 0)
 				{
 					j = open(current->outfile[i], O_CREAT, 0666);
-					if (j < 0)
-						exit(err_all_free_exit(1));
-					close(j);
+					close(check_close(j));
 				}
 				i++;
 			}

@@ -114,7 +114,7 @@ char	*check_expand_hd(char *tx);
 char	**expand_array(char **args);
 
 // file/heredoc.c
-int		get_heredoc(char *limiter, int fd_out);
+int		read_heredoc(char *limiter, int fd_out);
 int		make_heredoc(char *limiter);
 
 // exec/fd.c
@@ -124,9 +124,9 @@ int		connect_fd(t_cmd *current);
 void	reset_fd_sig(void);
 
 // exec/exec.c
-char	*ft_find_env_passnum(char *envp[]);
+char	*ft_find_env_pathnum(char *envp[]);
 char	*ft_make_binpass(int i, char *pass, char *cmd);
-char	*ft_findshell_pass(char *cmd, char *envp[]);
+char	*ft_findshell_path(char *cmd, char *envp[]);
 // int		ms_execve(t_cmd *str);
 int		run_cmd(void);
 

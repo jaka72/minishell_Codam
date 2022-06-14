@@ -1,63 +1,81 @@
 #include "../minishell.h"
 
-int	get_heredoc(char *limiter, int fd_out)
+int	read_heredoc(char *limiter, int fd_out)
 {
-	char	buff[1];
-	int		rd;
-	char	*exp;
+	char	*str;
 
-	rd = 1;
-	exp = malloc(sizeof(char) * 1);
-	if (exp == NULL)
-		exit(err_all_free_exit(1));
-	exp[0] = '\0';
-	buff[0] = '\n';
-	write(gl.ini_fd[1], "> ", 2);
-	while (rd == 1 || (rd == 0 && buff[0] != '\n'))
+	str = readline("> ");
+	while (str)
 	{
-		rd = read(gl.ini_fd[0], buff, 1);
-		if (rd < 0)
-			exit(err_all_free_exit(1));
-		if (rd > 0 && buff[0] != '\n' && rd > 0 && buff[0] != ' ')
-			exp = ft_add_c_free(exp, buff[0]);
-		else if (rd > 0 && buff[0] == '\n')
-		{
-			if (exp[0] != '\0')
-			{
-				if (ft_strncmp(exp, limiter, ft_strlen(limiter)) == 0)
+		if ((ft_strncmp(str, limiter, ft_strlen(limiter)) == 0) && ft_strlen(limiter) == ft_strlen(str))
 					break ;
-				exp = check_expand_hd(exp);
-				exp = ft_add_c_free(exp, buff[0]);
-				write(fd_out, exp, ft_strlen(exp));
-				free(exp);
-				exp = malloc(sizeof(char) * 1);
-				if (exp == NULL)
-					exit(err_all_free_exit(1));
-				exp[0] = '\0';
-			}
-			else
-			{
-				write(fd_out, "\n", 1);
-				write(gl.ini_fd[1], ">\n", 2);
-			}
-				
-			write(gl.ini_fd[1], "> ", 2);
-		}
-		else if (rd > 0 && buff[0] == ' ')
-		{
-			exp = check_expand_hd(exp);
-			exp = ft_add_c_free(exp, buff[0]);
-			write(fd_out, exp, ft_strlen(exp));
-			free(exp);
-			exp = malloc(sizeof(char) * 1);
-			if (exp == NULL)
-				exit(err_all_free_exit(1));
-			exp[0] = '\0';
-		}
+		str = check_expand_hd(str);
+		write(fd_out, str, ft_strlen(str));
+		write(fd_out, "\n", 1);
+		free(str);
+		str = readline("> ");
 	}
-	free(exp);
 	return (0);
 }
+
+// int	get_heredoc(char *limiter, int fd_out)
+// {
+// 	char	buff[1];
+// 	int		rd;
+// 	char	*exp;
+
+// 	rd = 1;
+// 	exp = malloc(sizeof(char) * 1);
+// 	if (exp == NULL)
+// 		exit(err_all_free_exit(1));
+// 	exp[0] = '\0';
+// 	buff[0] = '\n';
+// 	write(gl.ini_fd[1], "> ", 2);
+// 	while (rd == 1 || (rd == 0 && buff[0] != '\n'))
+// 	{
+// 		rd = read(gl.ini_fd[0], buff, 1);
+// 		if (rd < 0)
+// 			exit(err_all_free_exit(1));
+// 		if (rd > 0 && buff[0] != '\n' && rd > 0 && buff[0] != ' ')
+// 			exp = ft_add_c_free(exp, buff[0]);
+// 		else if (rd > 0 && buff[0] == '\n')
+// 		{
+// 			if (exp[0] != '\0')
+// 			{
+// 				if (ft_strncmp(exp, limiter, ft_strlen(limiter)) == 0)
+// 					break ;
+// 				exp = check_expand_hd(exp);
+// 				exp = ft_add_c_free(exp, buff[0]);
+// 				write(fd_out, exp, ft_strlen(exp));
+// 				free(exp);
+// 				exp = malloc(sizeof(char) * 1);
+// 				if (exp == NULL)
+// 					exit(err_all_free_exit(1));
+// 				exp[0] = '\0';
+// 			}
+// 			else
+// 			{
+// 				write(fd_out, "\n", 1);
+// 				write(gl.ini_fd[1], ">\n", 2);
+// 			}
+				
+// 			write(gl.ini_fd[1], "> ", 2);
+// 		}
+// 		else if (rd > 0 && buff[0] == ' ')
+// 		{
+// 			exp = check_expand_hd(exp);
+// 			exp = ft_add_c_free(exp, buff[0]);
+// 			write(fd_out, exp, ft_strlen(exp));
+// 			free(exp);
+// 			exp = malloc(sizeof(char) * 1);
+// 			if (exp == NULL)
+// 				exit(err_all_free_exit(1));
+// 			exp[0] = '\0';
+// 		}
+// 	}
+// 	free(exp);
+// 	return (0);
+// }
 
 int	make_heredoc(char *limiter)
 {
@@ -76,16 +94,14 @@ int	make_heredoc(char *limiter)
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		dup2(newpipe[1], 1);
 		close(newpipe[0]);
-		get_heredoc(limiter, newpipe[1]);
+		read_heredoc(limiter, newpipe[1]);
 		close(newpipe[1]);
 		exit(err_all_free_exit(0));
 	}
 	else
 	{
 		close(newpipe[1]);
-		// wait(0);
 		if (waitpid(pid, &status, WUNTRACED | WCONTINUED) >= 0)
 		{
 			if (WIFEXITED(status))
@@ -107,4 +123,4 @@ int	make_heredoc(char *limiter)
 	return (newpipe[0]);
 }
 
-// check! if "<< here" and no argument, it causes segmentation fault
+
