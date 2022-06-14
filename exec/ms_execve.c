@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ms_execve.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: jaka <jaka@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/14 09:35:21 by jaka          #+#    #+#                 */
+/*   Updated: 2022/06/14 09:39:59 by jaka          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	print_error_msg(char *s1, char *s2, char *s3)
@@ -127,5 +139,5 @@ int	ms_execve(t_cmd *str)
 		}
 	}
 	//printf(YEL"END of mse_execve, ret = %d\n", ret);
-	exit(err_all_free_exit(1));
+	exit(err_all_free_exit(ret));
 }
