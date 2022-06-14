@@ -85,6 +85,7 @@ int	make_heredoc(char *limiter)
 	int	rc;
 
 	signal(SIGINT, handle_sigint_hd);
+	// signal(SIGQUIT, SIG_IGN);
 	gl.termios_new.c_lflag &= ~(ECHOCTL);
 	rc = tcsetattr(0, 0, &gl.termios_new);
 	if (rc)

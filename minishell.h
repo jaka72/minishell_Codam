@@ -91,12 +91,14 @@ char	*ft_add_c_free(char *s1, char c);
 void	clean_fd(void);
 int		clean_data(int status, char *text);
 
-// init/init.c
+// init/signal_handle.c
 void	handle_sigint(int num);
 void	handle_sigquit(int num);
 void	handle_sigint_p(int num);
 void	handle_sigquit_p(int num);
 void	handle_sigint_hd(int num);
+
+// init/init.c
 void	ms_init( char *envp[]);
 
 // init/env.c
