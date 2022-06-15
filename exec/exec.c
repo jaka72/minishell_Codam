@@ -107,8 +107,8 @@ int	exec_no_pipe(void)
 			gl.g_status = WEXITSTATUS(gl.g_status);
 		else if (WIFEXITED(gl.g_status) == 0 && WIFSIGNALED(gl.g_status))
 			gl.g_status = 128 + WTERMSIG(gl.g_status);
-		else
-			gl.g_status = 0;
+		// else
+		// 	gl.g_status = 0;
 	}
 	reset_fd_sig();
 	return (gl.g_status);
