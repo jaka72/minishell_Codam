@@ -84,6 +84,8 @@ int	exec_no_pipe(void)
 {
 	pid_t	pid;
 
+	if (check_infile_avairable(gl.start_cmd) != 0)
+		return (gl.g_status);
 	if (gl.start_cmd->args == NULL)
 		return (gl.g_status);
 	gl.start_cmd->args = expand_array(gl.start_cmd->args);
@@ -217,7 +219,8 @@ int	check_close(int i)
 	return (i);
 }
 
-int	open_outfile(void)
+
+int	make_noexist_outfile(void)
 {
 	t_cmd	*current;
 	int	i;
@@ -253,7 +256,7 @@ int	run_cmd(void)
 
 	if (open_heredoc() != 0)
 		return (gl.g_status);
-	open_outfile();
+	make_noexist_outfile();
 	init_pid_sig(&pid);
 	if (gl.start_cmd->next == NULL)
 		return (exec_no_pipe());
