@@ -1,5 +1,29 @@
 #include "../minishell.h"
 
+int	check_infile_avairable(t_cmd *str)
+{
+	int	i;
+
+	i = 0;
+	if (str->infile == NULL)
+		return (0);
+	while (str->infile[i])
+	{
+		str->infile[i] = check_expand(str->infile[i]);
+		if (str->infile[i] == NULL)
+			return (return_errtx(-4, "ambiguous redirect\n"));
+		if (access(str->infile[i], F_OK) != 0
+			|| (access(str->infile[i], F_OK) == 0
+				&& access(str->infile[i], R_OK) < 0))
+		{
+			gl.g_status = 1;
+			return (return_perr(-4, str->infile[i]));
+		}		
+		i++;
+	}
+	return (0);
+}
+
 int	check_infile_fd(t_cmd *str)
 {
 	int	i;
