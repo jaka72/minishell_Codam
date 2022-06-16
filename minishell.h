@@ -122,9 +122,7 @@ int		read_heredoc(char *limiter, int fd_out);
 int		make_heredoc(char *limiter);
 
 // exec/fd.c
-int		check_infile_avairable(t_cmd *str);
-int		check_infile_fd(t_cmd *str);
-int		check_outfile_fd(t_cmd *str);
+// int		check_infile_fd(t_cmd *str);
 int		connect_fd(t_cmd *current);
 void	reset_fd_sig(void);
 

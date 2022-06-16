@@ -19,11 +19,11 @@ void print_command_info(t_cmd *cmd)
 
 	// printf(GRE"nr outfiles: %d \n"RES, cmd->count_outfiles);
 	i = 0;
-	printf(WHT2"  Infile   array: ["RES);
+	printf(WHT2"  files  array: ["RES);
 	// while (i < cmd->count_infiles)
-	while (i < count_elems(cmd->infile))
+	while (i < count_elems(cmd->files))
 	{
-		printf(DYEL" %s "RES, cmd->infile[i]);
+		printf(DYEL" %s "RES, cmd->files[i]);
 		//printf(YEL" %i "RES, i);
 		i++;
 	}
@@ -33,16 +33,16 @@ void print_command_info(t_cmd *cmd)
 
 
 	// printf(GRE"nr_infiles: %d \n"RES, cmd->count_outfiles);
-	i = 0;
-	printf(WHT2"  Outfile  array: ["RES);
-	// while (i < cmd->count_outfiles)
-	while (i < count_elems(cmd->outfile))
-	{
-		printf(DYEL" %s "RES, cmd->outfile[i]);
-		//printf(YEL" %i "RES, i);
-		i++;
-	}
-	printf(WHT2"]\n"RES);
+	// i = 0;
+	// printf(WHT2"  Outfile  array: ["RES);
+	// // while (i < cmd->count_outfiles)
+	// while (i < count_elems(cmd->outfile))
+	// {
+	// 	printf(DYEL" %s "RES, cmd->outfile[i]);
+	// 	//printf(YEL" %i "RES, i);
+	// 	i++;
+	// }
+	// printf(WHT2"]\n"RES);
 
 
 	// printf(GRE"count_heredocs: %d \n"RES, cmd->count_outfiles);

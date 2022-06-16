@@ -209,7 +209,6 @@ char	*check_expand_file(char *tx)
 		free(expanded);
 		return (NULL);
 	}
-	printf("expanded is %s\n", expanded);
 	return (expanded);
 }
 

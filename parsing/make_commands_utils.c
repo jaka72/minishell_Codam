@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:14:28 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/16 08:05:46 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/16 15:11:09 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	init_values(t_cmd *cmd)
 	cmd->fd_in = 0;
 	cmd->fd_out = 1;
 	cmd->args = NULL;
-	cmd->infile = NULL;
-	cmd->outfile = NULL;
+	// cmd->infile = NULL;
+	// cmd->outfile = NULL;
 	cmd->heredoc = NULL;
 	cmd->files = NULL;
 	//cmd->count_args = 0;
