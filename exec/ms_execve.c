@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/14 09:35:21 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/16 17:20:03 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/16 19:21:09 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,6 @@ int	ms_execve(t_cmd *str)
 	if (envs == NULL)
 		return (-1);
 	path = ft_findshell_path(str->args[0], envs);
-	// signal(SIGINT, SIG_DFL);
-	// signal(SIGQUIT, SIG_DFL);
 	if (ft_strchr(str->args[0], '/') == 0)	// cmd without slashes
 	{
 		// printf(GRN"No slashes\n");  // what if it still does not execute?

@@ -18,65 +18,6 @@ int	read_heredoc(char *limiter, int fd_out)
 	return (0);
 }
 
-// int	get_heredoc(char *limiter, int fd_out)
-// {
-// 	char	buff[1];
-// 	int		rd;
-// 	char	*exp;
-
-// 	rd = 1;
-// 	exp = malloc(sizeof(char) * 1);
-// 	if (exp == NULL)
-// 		exit(err_all_free_exit(1));
-// 	exp[0] = '\0';
-// 	buff[0] = '\n';
-// 	write(gl.ini_fd[1], "> ", 2);
-// 	while (rd == 1 || (rd == 0 && buff[0] != '\n'))
-// 	{
-// 		rd = read(gl.ini_fd[0], buff, 1);
-// 		if (rd < 0)
-// 			exit(err_all_free_exit(1));
-// 		if (rd > 0 && buff[0] != '\n' && rd > 0 && buff[0] != ' ')
-// 			exp = ft_add_c_free(exp, buff[0]);
-// 		else if (rd > 0 && buff[0] == '\n')
-// 		{
-// 			if (exp[0] != '\0')
-// 			{
-// 				if (ft_strncmp(exp, limiter, ft_strlen(limiter)) == 0)
-// 					break ;
-// 				exp = check_expand_hd(exp);
-// 				exp = ft_add_c_free(exp, buff[0]);
-// 				write(fd_out, exp, ft_strlen(exp));
-// 				free(exp);
-// 				exp = malloc(sizeof(char) * 1);
-// 				if (exp == NULL)
-// 					exit(err_all_free_exit(1));
-// 				exp[0] = '\0';
-// 			}
-// 			else
-// 			{
-// 				write(fd_out, "\n", 1);
-// 				write(gl.ini_fd[1], ">\n", 2);
-// 			}
-				
-// 			write(gl.ini_fd[1], "> ", 2);
-// 		}
-// 		else if (rd > 0 && buff[0] == ' ')
-// 		{
-// 			exp = check_expand_hd(exp);
-// 			exp = ft_add_c_free(exp, buff[0]);
-// 			write(fd_out, exp, ft_strlen(exp));
-// 			free(exp);
-// 			exp = malloc(sizeof(char) * 1);
-// 			if (exp == NULL)
-// 				exit(err_all_free_exit(1));
-// 			exp[0] = '\0';
-// 		}
-// 	}
-// 	free(exp);
-// 	return (0);
-// }
-
 int	make_heredoc(char *limiter)
 {
 	int	pid;

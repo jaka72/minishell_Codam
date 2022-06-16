@@ -3,7 +3,7 @@
 void	free_and_read(t_source *src, int history)
 {
 	if (history == 1)
-		add_history(src->inputline);	
+		add_history(src->inputline);
 	if (src->inputline != NULL)
 		free(src->inputline);
 	src->inputline = readline(gl.prompt);
