@@ -1,11 +1,5 @@
 #include "../minishell.h"
 
-// void	errtext_exit(char *text)
-// {
-// 	perror(text);
-// 	exit(ERROR_RETURN);
-// }
-
 int	return_perr(int i, char *tx)
 {
 	write(2, "minishell: ", 11);
@@ -66,8 +60,6 @@ void	free_tcmd(void)
 	while (current)
 	{
 		free_strings(current->args);
-		// free_strings(current->infile);
-		// free_strings(current->outfile);
 		free_strings(current->heredoc);
 		free_strings(current->files);
 		temp = current;

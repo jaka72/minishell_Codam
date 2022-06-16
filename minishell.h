@@ -44,8 +44,6 @@ struct s_cmd
 	char			**args;
 	int				fd_in;		// fd_in  : default is 0, if "<" -2, if "<<" -3.
 	int				fd_out;		// fd_out : default is 1, if ">" -2, if ">>" -3.
-	char			**infile;
-	char			**outfile;
 	char			**heredoc;
 	char			**files;
 	struct s_cmd	*next;
@@ -60,10 +58,11 @@ struct s_source
 
 struct s_pid
 {
-	pid_t	pid;
+	pid_t	cu_pid;
 	int		newpipe[3];
 	int		status;
 	pid_t	last_pid;
+	t_cmd	*temp_cmd;
 };
 
 
@@ -75,7 +74,6 @@ extern t_global	gl;
 # include "builtins/builtins.h"
 
 // util/error.c
-// void	errtext_exit(char *text);  not used any more
 int		return_perr(int i, char *tx);
 int		return_errtx(int i, char *tx);
 int		errtext_return(char *text);
