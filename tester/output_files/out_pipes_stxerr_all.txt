@@ -1,0 +1,38 @@
+
+--- Test syntax error PIPES -------------------------
+Minishell: Syntax error$
+Minishell: Syntax error$
+Minishell: Syntax error$
+Minishell: Syntax error$
+Minishell: Syntax error$
+Minishell: Syntax error$
+Minishell: Syntax error$
+Minishell: Syntax error$
+Minishell: Syntax error$
+Minishell: Syntax error$
+Minishell: Syntax error$
+
+--- Test syntax error PIPES with words -------------------------
+Minishell: Syntax error$
+Minishell: Syntax error$
+Minishell: Syntax error$
+Minishell: Syntax error$
+Minishell: Syntax error$
+Minishell: Syntax error$
+Minishell: Syntax error$
+Minishell: Syntax error$
+
+--- TEST PIPES, VALID INPUT -------------------------
+7 7 78$
+7 7 78$
+7 7 78$
+readme$
+1 1 7$
+7 7 78$
+infile$
+minishell$
+output_files$
+readme$
+run_tester.sh$
+test_files$
+test_files_echo$

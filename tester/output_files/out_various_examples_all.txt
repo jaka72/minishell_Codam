@@ -1,0 +1,59 @@
+Test 0
+LDFLAGS=-L/Users/jmurovec/.brew/opt/readline/lib$
+TERM_PROGRAM=vscode$
+SHELL=/bin/zsh$
+HOMEBREW_TEMP=/tmp/jmurovec/Homebrew/Temp$
+TERM=xterm-256color$
+OUTFILE=outfile$
+TMPDIR=/var/folders/zz/zyxvpxvq6csfxvn_n0009kjh002cmc/T/$
+CPPFLAGS=-I/Users/jmurovec/.brew/opt/readline/include$
+Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.EY87walXSJ/Render$
+LIBRARY_PATH=/Users/jmurovec/.brew/lib:/Users/jmurovec/.brew/lib:/Users/jmurovec/.brew/lib:$
+TERM_PROGRAM_VERSION=1.68.0$
+ORIGINAL_XDG_CURRENT_DESKTOP=undefined$
+USER=jmurovec$
+COMMAND_MODE=unix2003$
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.zZpFcQGm33/Listeners$
+__CF_USER_TEXT_ENCODING=0x1328C:0x0:0x0$
+HOMEBREW_CACHE=/tmp/jmurovec/Homebrew/Caches$
+PATH=/Users/jmurovec/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/bin:/Users/jmurovec/.brew/bin$
+C_INCLUDE_PATH=/Users/jmurovec/.brew/include:/Users/jmurovec/.brew/include:/Users/jmurovec/.brew/include:$
+PWD=/Users/jmurovec/Desktop/projects/minishell_15jun_with_comments/tester$
+LANG=en_US.UTF-8$
+XPC_FLAGS=0x0$
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=--ms-enable-electron-run-as-node$
+XPC_SERVICE_NAME=0$
+HISTCONTROL=ignoreboth:erasedup$
+HOME=/Users/jmurovec$
+SHLVL=3$
+VSCODE_GIT_ASKPASS_MAIN=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js$
+LOGNAME=jmurovec$
+VSCODE_GIT_IPC_HANDLE=/var/folders/zz/zyxvpxvq6csfxvn_n0009kjh002cmc/T/vscode-git-3dddc88661.sock$
+VSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper$
+GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh$
+DISPLAY=/private/tmp/com.apple.launchd.NkNtwopzHV/org.xquartz:0$
+SECURITYSESSIONID=186a8$
+COLORTERM=truecolor$
+_=./minishell$
+
+Test 1
+infile$$
+readme$$
+run_tester.sh$$
+minishell$$
+test_files_echo$$
+test_files$$
+output_files$$
+
+Test 2
+infile$$$$$$$$$$$$$$$$$
+minishell$$$$$$$$$$$$$$$$$
+output_files$$$$$$$$$$$$$$$$$
+readme$$$$$$$$$$$$$$$$$
+run_tester.sh$$$$$$$$$$$$$$$$$
+test_files$$$$$$$$$$$$$$$$$
+test_files_echo$$$$$$$$$$$$$$$$$
+
+Test 3
+1$$
+

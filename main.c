@@ -12,7 +12,6 @@ void	free_and_read(t_source *src, int history)
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_source	src;
-	// int	i = 0;
 
 	(void) argc;
 	(void) argv;
@@ -30,18 +29,6 @@ int	main(int argc, char *argv[], char *envp[])
 			}
 			add_history(src.inputline);
 			gl.start_cmd = make_commands(&src);
-			// i = 0;
-			// while(gl.start_cmd->files && gl.start_cmd->files[i])
-			// {
-			// 	printf("%s \n", gl.start_cmd->files[i]);
-			// 	i++;
-			// }
-			// i = 0;
-			// while(gl.start_cmd->heredoc && gl.start_cmd->heredoc[i])
-			// {
-			// 	printf("%s \n", gl.start_cmd->heredoc[i]);
-			// 	i++;
-			// }			
 			gl.g_status = run_cmd();
 			free_tcmd();
 		}

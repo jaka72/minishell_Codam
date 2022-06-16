@@ -105,6 +105,9 @@ char	*ft_make_binpath(int i, char *path, char *cmd)
 	return (bin);
 }
 
+
+//	At this moment I need to know if the library path exists with F_OK,
+//		it will check the access X_OK later.
 char	*ft_findshell_path(char *cmd, char *envp[])
 {
 	int		i;
@@ -122,10 +125,9 @@ char	*ft_findshell_path(char *cmd, char *envp[])
 			bin = ft_make_binpath(i, path, cmd);
 			if (bin == NULL)
 				return (NULL);
-//			if (access(bin, X_OK) == 0)
-			if (access(bin, F_OK) == 0) 	// jaka: At this moment I need to know if the library path exists.
-			{								//		 Will check the access X_OK later.
-				// printf(CYN"loop: bin: [%s]\n"RES, bin);
+			if (access(bin, F_OK) == 0) 	
+			{								
+				//printf(CYN"loop: bin: [%s]\n"RES, bin);
 				return (bin);
 			}
 			free(bin);
@@ -135,7 +137,7 @@ char	*ft_findshell_path(char *cmd, char *envp[])
 			i = 0;
 		}
 	}
-	// printf(CYN"Return bin: [%s]\n"RES, bin);
+	//printf(CYN"Return bin: [%s]\n"RES, bin);
 	return (NULL);
 }
 

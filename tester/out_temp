@@ -1,8 +1,0 @@
-$
-^[[36mMake cmds, loop i0$
-^[[0m^[[36m   arr was NULL, now malloced * 2$
-^[[0m^[[0;33mEND realloc;$
-^[[0m^[[36m  Ret -1$
-^[[0m^[[32m  Ret -1, shoul dexit $
-^[[0m^[[31mFREE ALL, first_cmd [(nil)]$
-^[[0m
