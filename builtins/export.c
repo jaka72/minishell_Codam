@@ -21,7 +21,7 @@ t_env	*find_and_split(const char *s, char c, t_env *env)
 			if (env->value == NULL)
 				exit(errtx_all_free_exit(1, "for env value malloc failed\n"));
 			ft_strlcpy(env->value, &s[i + 1], (w - i));
-			env->value[w - i] = '\0';
+			env->value[w - i - 1] = '\0';
 			env->next = NULL;
 			return (env);
 		}

@@ -123,8 +123,9 @@ int	ms_execve(t_cmd *str)
 	envs = get_env_array();
 	if (envs == NULL)
 		return (-1);
-	path = ft_findshell_pass(str->args[0], envs);
-
+	path = ft_findshell_path(str->args[0], envs);
+	// signal(SIGINT, SIG_DFL);
+	// signal(SIGQUIT, SIG_DFL);
 	if (ft_strchr(str->args[0], '/') == 0)	// cmd without slashes
 	{
 		printf(GRN"No slashes\n");  // what if it still does not execute?

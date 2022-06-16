@@ -33,8 +33,9 @@ UTIL_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(UTIL_SRC:.c=.o))
 #for getting environment variables and keybound setting
 INIT_DIR	=	./init
 INIT_SRC	=	$(INIT_DIR)/init.c					\
+				$(INIT_DIR)/signal_handle.c			\
 				$(INIT_DIR)/env.c					\
-				$(INIT_DIR)/expand.c	
+				$(INIT_DIR)/expand.c
 INIT_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(INIT_SRC:.c=.o))
 
 #for excute the command
