@@ -1,5 +1,64 @@
 #include "../minishell.h"
 
+int	check_file_access(t_cmd	*current)
+{
+	char	*expanded;
+	char	*temp;
+
+	int	i;
+	int	j;
+	expanded = NULL;
+	temp = NULL;
+	if (current->files == NULL)
+		return (0);
+	i = 0;
+	j = 0;
+	while (current->files[i])
+	{
+		expanded = check_expand_file(&current->files[i][1]);
+		if (expanded == NULL)
+		{
+			gl.g_status = 1;
+			return (return_errtx(-4, "ambiguous redirect\n"));
+		}
+		if (current->files[i][0] == '1')
+		{
+			if (access(expanded, F_OK) != 0
+				|| (access(expanded, F_OK) == 0
+					&& access(expanded, R_OK) < 0))
+			{
+				free(expanded);
+				gl.g_status = 1;
+				return (return_perr(-4, expanded));
+			}
+		}
+		if (current->files[i][0] == '2' || current->files[i][0] == '3')
+		{
+			if (access(expanded, F_OK) == 0 && access(expanded, W_OK) < 0)
+			{
+				free(expanded);
+				gl.g_status = 1;
+				return (return_perr(-4, expanded));
+			}
+			if (access(expanded, F_OK) != 0)
+			{
+				j = open(expanded, O_CREAT, 0666);
+				close(j);
+			}
+		}
+		temp = malloc(sizeof(char) * ft_strlen(expanded) + 2);
+		if (temp == NULL)
+			errtx_all_free_exit(1, "malloc for temp");
+		temp[0] = current->files[i][0];
+		ft_strlcpy(&temp[1], expanded, ft_strlen(expanded) + 1);
+		free(expanded);
+		free(current->files[i]);
+		current->files[i] = temp;
+		i++;
+	}
+	return (0);
+}
+
 char	*ft_find_env_pathnum(char *envp[])
 {
 	int		i;
@@ -86,8 +145,9 @@ int	exec_no_pipe(void)
 {
 	pid_t	pid;
 
-	if (check_infile_avairable(gl.start_cmd) != 0)
+	if (check_file_access(gl.start_cmd) != 0)
 		return (gl.g_status);
+	
 	if (gl.start_cmd->args == NULL)
 		return (gl.g_status);
 	gl.start_cmd->args = expand_array(gl.start_cmd->args);
@@ -170,7 +230,8 @@ int	exec_with_pipe(t_pid *pid)
 	{
 		if (current != gl.start_cmd)
 			gl.g_status = 0;
-		current->args = expand_array(current->args);
+
+		
 		if (current->next)
 			pipe(pid->newpipe);
 		pid->pid = fork();
@@ -188,11 +249,22 @@ int	exec_with_pipe(t_pid *pid)
 			}
 			if (pid->newpipe[0] != 0)
 				close(pid->newpipe[0]);
+
+			if (check_file_access(current) != 0)
+			{
+				gl.g_status = 1;
+				exit(err_all_free_exit(1));
+			}
+			
 			if (connect_fd(current) != 0)
 			{
 				gl.g_status = 1;
 				exit(err_all_free_exit(1));
 			}
+			if (current->args == NULL)
+				break;
+			current->args = expand_array(current->args);
+
 			if (check_if_builtin(current) == 1)
 				gl.g_status = exec_builtin(current, gl.start_cmd);
 			else
@@ -222,34 +294,7 @@ int	check_close(int i)
 }
 
 
-int	make_noexist_outfile(void)
-{
-	t_cmd	*current;
-	int	i;
-	int	j;
 
-	current = gl.start_cmd;
-	while (current)
-	{
-		if (current->outfile != NULL)
-		{
-			i = 0;
-			j = 0;
-			while (current->outfile[i])
-			{
-				current->outfile[i] = check_expand(current->outfile[i]);
-				if (current->outfile[i] && access(current->outfile[i], F_OK) != 0)
-				{
-					j = open(current->outfile[i], O_CREAT, 0666);
-					close(check_close(j));
-				}
-				i++;
-			}
-		}
-		current = current->next;
-	}
-	return (0);
-}
 
 int	run_cmd(void)
 {
@@ -258,7 +303,6 @@ int	run_cmd(void)
 
 	if (open_heredoc() != 0)
 		return (gl.g_status);
-	make_noexist_outfile();
 	init_pid_sig(&pid);
 	if (gl.start_cmd->next == NULL)
 		return (exec_no_pipe());

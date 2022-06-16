@@ -157,6 +157,61 @@ char	*check_expand_hd(char *tx)
 	return (expanded);
 }
 
+char	*check_expand_file(char *tx)
+{
+	int		i;
+	int		d_flag;
+	char	*expanded;
+
+	i = 0;
+	d_flag = 0;
+	if (tx[0] == '$' && tx[1] == '\0')
+		return (tx);
+	expanded = malloc(1);
+	if (expanded == NULL)
+		err_free_env_exit("check expand malloc failed");
+	expanded[0] = '\0';
+	while (tx[i] != '\0')
+	{
+		if (tx[i] == '\"')
+			d_flag ^= FLAG1;
+		else if (tx[i] == '\'' && (d_flag & FLAG1) > 0)
+			expanded = ft_add_c_free(expanded, '\'');
+		else if (tx[i] == '\'' && tx[i + 1] != '\0')
+		{
+			expanded = add_singlequote(expanded, &tx[i + 1]);
+			i = i + count_single_length(&tx[i + 1]);
+		}
+		else if (tx[i] == '$' && tx[i + 1] == '\"' && d_flag == 1)
+		{
+			expanded = ft_add_c_free(expanded, '$');
+			d_flag ^= FLAG1;
+			i++;
+		}
+		else if ((tx[i] == '$' && tx[i + 1] == ' ') || (tx[i] == '$' && tx[i + 1] == '\0'))
+			expanded = ft_add_c_free(expanded, '$');
+		else if (tx[i] == '$' && tx[i + 1] == '?' )
+		{
+			expanded = add_laststatus(expanded, gl.g_status);
+			i++;
+		}
+		else if (tx[i] == '$')
+		{
+			expanded = add_expanded(expanded, &tx[i + 1]);
+			i = i + count_expand_length(&tx[i + 1]);
+		}
+		else
+			expanded = ft_add_c_free(expanded, tx[i]);
+		i++;
+	}
+	if ((tx[0] != '\'' && tx[0] != '\"') && expanded[0] == '\0')
+	{
+		free(expanded);
+		return (NULL);
+	}
+	return (expanded);
+}
+
 char	*check_expand(char *tx)
 {
 	int		i;

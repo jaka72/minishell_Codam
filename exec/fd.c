@@ -1,114 +1,63 @@
 #include "../minishell.h"
 
-int	check_infile_avairable(t_cmd *str)
+
+int	open_file_fd(t_cmd *str)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	if (str->infile == NULL)
+	j = 0;
+
+	if (str->files == NULL)
 		return (0);
-	while (str->infile[i])
+	while (str->files[i])
 	{
-		str->infile[i] = check_expand(str->infile[i]);
-		if (str->infile[i] == NULL)
-			return (return_errtx(-4, "ambiguous redirect\n"));
-		if (access(str->infile[i], F_OK) != 0
-			|| (access(str->infile[i], F_OK) == 0
-				&& access(str->infile[i], R_OK) < 0))
+		if (str->fd_in == -2)
+		{	
+
+			if (str->files[i][0] == '1')
+				j = open(&str->files[i][1], O_RDONLY);
+			if (j < 0)
+				return (-4);
+			if (str->fd_in > 2)
+				close (str->fd_in);
+			str->fd_in = j;
+
+		}
+		if (str->fd_out == -2 || str->fd_out == -3)
 		{
-			gl.g_status = 1;
-			return (return_perr(-4, str->infile[i]));
-		}		
+			if (str->files[i][0] == '2')
+			{
+				j = open(&str->files[i][1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
+				if (j < 0)
+					return (-4);
+				if (str->fd_out > 2)
+					close (str->fd_out);
+				str->fd_out = j;
+
+			}
+				
+			else if (str->files[i][0] == '3')
+			{
+				j = open(&str->files[i][1], O_WRONLY | O_CREAT | O_APPEND, 0666);
+				if (j < 0)
+					return (-4);
+				if (str->fd_out > 2)
+					close (str->fd_out);
+				str->fd_out = j;
+
+			}
+		}
 		i++;
 	}
 	return (0);
 }
 
-int	check_infile_fd(t_cmd *str)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	if (str->infile != NULL)
-	{
-		while (str->infile[i])
-		{
-			str->infile[i] = check_expand(str->infile[i]);
-			if (str->infile[i] == NULL)
-				return (return_errtx(-4, "ambiguous redirect\n"));
-			if (access(str->infile[i], F_OK) != 0
-				|| (access(str->infile[i], F_OK) == 0
-					&& access(str->infile[i], R_OK) < 0))
-				return (return_perr(-4, str->infile[i]));
-			i++;
-		}
-		i--;
-		if (str->fd_in != -2)
-			return (0);
-		j = open(str->infile[i], O_RDONLY);
-		if (j < 0)
-			return (return_perr(-4, str->infile[i]));
-		str->fd_in = j;
-	}
-	return (0);
-}
-
-int	check_outfile_fd(t_cmd *str)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	if (str->outfile != NULL)
-	{
-		while (str->outfile[i])
-		{
-			str->outfile[i] = check_expand(str->outfile[i]);
-			if (str->outfile[i] && access(str->outfile[i], F_OK) == 0
-				&& access(str->outfile[i], W_OK) < 0)
-				{
-					perror("outfile exist but not accessible\n");
-					return (-4);
-				}
-			if (str->outfile[i] && access(str->outfile[i], F_OK) != 0)
-			{
-				j = open(str->outfile[i], O_CREAT, 0666);
-				if (j < 0)
-				{
-					perror("couldn't make output file\n");
-					return (-4);
-				}
-				close(j);
-			}
-			i++;
-		}
-		i--;
-		if (str->fd_out == -2)
-			str->fd_out = open(str->outfile[i],
-					O_WRONLY | O_CREAT | O_TRUNC, 0666);
-		if (str->fd_out == -3)
-			str->fd_out = open(str->outfile[i], O_WRONLY | O_CREAT | O_APPEND, 0666);
-		if (str->fd_out < 0)
-		{
-			perror("output file open failed\n");
-			return (-4);
-		}
-	}
-	return (0);
-}
-
-
 int	connect_fd(t_cmd *current)
 {
-	// current->infile = expand_array(current->infile);
-	if (check_infile_fd(current) != 0)
-		return (-4);
-	// current->outfile = expand_array(current->outfile);
-	if (check_outfile_fd(current) != 0)
-		return (-4);
+	open_file_fd(current);
+		
 	if (current->fd_in > 0)
 	{
 		dup2(current->fd_in, 0);

@@ -69,7 +69,6 @@ PARSING_SRC		= 	$(PARSING_DIR)/make_commands.c \
 					$(PARSING_DIR)/make_commands_utils.c \
 					$(PARSING_DIR)/choose_correct_array.c \
 					$(PARSING_DIR)/store_to_redirect_arr.c \
-					$(PARSING_DIR)/free_commands_list.c \
 					$(PARSING_DIR)/ft_lstadd_back.c \
 					$(PARSING_DIR)/print_commands_info.c		# can be later removed
 PARSING_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(PARSING_SRC:.c=.o))

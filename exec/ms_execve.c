@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/14 09:35:21 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/16 13:16:11 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/16 17:20:03 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	cmd_is_custom(char **args, char **envs)
 	ret = access(args[0], X_OK);
 	if (ret != 0)
 	{
-		//printf(BLU"       Access is not zero!\n");
+		// printf(BLU"       Access not zero! 0\n");
 		if (errno == 2)
 		{
 			print_error_msg("minishell: ", args[0], ": No such file or folder\n");
@@ -128,14 +128,14 @@ int	ms_execve(t_cmd *str)
 	// signal(SIGQUIT, SIG_DFL);
 	if (ft_strchr(str->args[0], '/') == 0)	// cmd without slashes
 	{
-		printf(GRN"No slashes\n");  // what if it still does not execute?
+		// printf(GRN"No slashes\n");  // what if it still does not execute?
 		ret = cmd_no_slash(path, str->args, envs);
 	}
 	else								// cmd has slashes
 	{
 		if (path != NULL)		// is library
 		{
-			printf(GRN"Has slashes, is library.\n");  // what if it still does not execute?
+			// printf(GRN"Has slashes, is library.\n");  // what if it still does not execute?
 			ret = cmd_with_slash(path, str->args, envs);
 		}
 		else		// is custom or library

@@ -15,7 +15,7 @@ typedef struct s_temporary_array
 // MAKE COMMANDS
 // t_cmd	*make_commands(t_source *src);
 t_cmd	*make_commands(t_source *src);
-int		free_commands_list(t_cmd *first_cmd);
+// int		free_commands_list(t_cmd *first_cmd);
 void	print_command_info(t_cmd *cmd);
 void	choose_correct_array(t_source *src, t_cmd *cmd, t_tmp *t);
 int		store_to_redirect_arr(t_source *src, t_cmd *cmd);

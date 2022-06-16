@@ -66,9 +66,10 @@ void	free_tcmd(void)
 	while (current)
 	{
 		free_strings(current->args);
-		free_strings(current->infile);
-		free_strings(current->outfile);
+		// free_strings(current->infile);
+		// free_strings(current->outfile);
 		free_strings(current->heredoc);
+		free_strings(current->files);
 		temp = current;
 		current = current->next;
 		free(temp);

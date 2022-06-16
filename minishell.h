@@ -47,6 +47,7 @@ struct s_cmd
 	char			**infile;
 	char			**outfile;
 	char			**heredoc;
+	char			**files;
 	struct s_cmd	*next;
 };
 
@@ -111,6 +112,7 @@ char	**get_env_array(void);
 // init/expand.c
 void	print_env(void);
 char	*name_expand(char *tx);
+char	*check_expand_file(char *tx);
 char	*check_expand(char *tx);
 char	*check_expand_hd(char *tx);
 char	**expand_array(char **args);
@@ -120,9 +122,7 @@ int		read_heredoc(char *limiter, int fd_out);
 int		make_heredoc(char *limiter);
 
 // exec/fd.c
-int		check_infile_avairable(t_cmd *str);
-int		check_infile_fd(t_cmd *str);
-int		check_outfile_fd(t_cmd *str);
+// int		check_infile_fd(t_cmd *str);
 int		connect_fd(t_cmd *current);
 void	reset_fd_sig(void);
 
