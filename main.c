@@ -29,6 +29,10 @@ int	main(int argc, char *argv[], char *envp[])
 			}
 			add_history(src.inputline);
 			gl.start_cmd = make_commands(&src);
+
+			print_command_info(gl.start_cmd);
+
+
 			gl.g_status = run_cmd();
 			free_tcmd();
 		}

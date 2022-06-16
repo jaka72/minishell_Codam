@@ -67,6 +67,7 @@ do
 	printf "  Test %3d:   %-30s   " $i "[$input]"
 	> out_temp; >out_mini; > out_orig
 	./minishell "$input" | cat -e > out_temp
+	echo "Is this printing?"
 	#./minishell "$input" | 2> out_temp0 | cat -e out_temp0 > out_temp
 	echo $error_message | cat -e > out_orig
 	test_syntax_error "out_orig" "out_mini" "error"

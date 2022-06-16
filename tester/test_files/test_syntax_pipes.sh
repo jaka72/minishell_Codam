@@ -18,35 +18,38 @@ error_message="Minishell: Syntax error"
 
 
 #make
+OUT="output_files"				# folder for all output files
+> $OUT/out_pipes_stxerr_all.txt			# wipe content before start
 
 test_syntax_error()
 {
-	filename="out_orig"
+	filename=$OUT/"out_orig"
 	while read -r line; do
 		# if [[ $line != ^[[* ]] && [[ $line != $ ]]   ;
 		if [[ $line != ^[[* ]] && [[ $line != $ ]]   ;
 		then
-			echo $line >> out_orig2
+			echo $line >> $OUT/out_orig2
 		else
-			: echo $line >> out_else
+			: echo $line >> $OUT/out_else
 		fi
 	done < "$filename"
 
 
 
-	filename="out_temp"
+	filename=$OUT/"out_temp"
 	while read -r line; do
 		if [[ $line != ^[[* ]] && [[ $line != $ ]]   ;
 		then
-			 echo $line >> out_mini
+			echo $line >> $OUT/out_mini
+			echo $line >> $OUT/out_pipes_stxerr_all.txt
 			 # echo "$line" >> out_mini		$line VS "$line"  ???
 			# printf '%b\n' "${line}" >> out_mini
 		else
-			: echo $line >> out_else
+			: echo $line >> $OUT/out_else
 		fi
 	done < "$filename"
 	msg=$3
-	DIFF=$(diff $1 $2)
+	DIFF=$(diff $OUT/$1 $OUT/$2)
 	if [ "$DIFF" == "" ] 
 	then
 		echo -e $GRN"[ OK ] " $GRE $msg $RES 
@@ -62,6 +65,7 @@ test_syntax_error()
 
 
 echo -e $YEL"\nTest syntax error PIPES"$RES
+echo -e "\n--- Test syntax error PIPES -------------------------" >> $OUT/out_pipes_stxerr_all.txt
 
  inputlines=(
 	 		"|"
@@ -84,9 +88,9 @@ while (( $i < $nr_elements ))
 do
 	input=${inputlines[$i]}
 	printf "  Test %3d:   %-30s   " $i "'$input'"
-	> out_temp; >out_mini; > out_orig
-	./minishell "$input" | cat -e > out_temp
-	echo $error_message | cat -e > out_orig
+	> $OUT/out_temp; >$OUT/out_mini; > $OUT/out_orig
+	./minishell "$input" | cat -e > $OUT/out_temp
+	echo $error_message | cat -e > $OUT/out_orig
 	test_syntax_error "out_orig" "out_mini" "error"
 	((i=i+1))
 done
@@ -95,6 +99,8 @@ done
 # ######################################################################
 
 echo -e $YEL"\nTest syntax error: PIPES with words"$RES
+echo -e "\n--- Test syntax error PIPES with words -------------------------" >> $OUT/out_pipes_stxerr_all.txt
+
 
  inputlines=(
 	 		"< infile cat | | < outfile"
@@ -114,9 +120,9 @@ while (( $i < $nr_elements ))
 do
 	input=${inputlines[$i]}
 	printf "  Test %3d:   %-30s   " $i "'$input'"
-	> out_temp; >out_mini; > out_orig
-	./minishell "$input" | cat -e >1 out_temp
-	echo $error_message | cat -e >1 out_orig	
+	> $OUT/out_temp; >$OUT/out_mini; > $OUT/out_orig
+	./minishell "$input" | cat -e > $OUT/out_temp
+	echo $error_message | cat -e > $OUT/out_orig	
 	test_syntax_error "out_orig" "out_mini" "error"
 	((i=i+1))
 done
@@ -129,6 +135,8 @@ done
 
 echo -e $YEL"\nTest PIPES: valid input"$RES
 echo -e $BLU"  ( valid input with wc is KO, because tabs are displayed differently _??"$RES
+echo -e "\n--- TEST PIPES, VALID INPUT -------------------------" >> $OUT/out_pipes_stxerr_all.txt
+
 
  inputlines=(
 	 		"ls|wc"
@@ -146,7 +154,7 @@ echo -e $BLU"  ( valid input with wc is KO, because tabs are displayed different
 			# ## HEREDOC not handled yet
 			# # "<< here cat | wc > outfile"
 			# # "<< here cat | wc | > outfile"
-			# # "<< here | cat infile"
+			# "<< here | cat infile"
 			)
 
 nr_elements=${#inputlines[@]}
@@ -157,13 +165,12 @@ while (( $i < $nr_elements ))
 do
 	input=${inputlines[$i]}
 	printf "  Test %3d:   %-30s   " $i "'$input'"
-	> out_temp; >out_mini; > out_orig; > out_orig2
-	./minishell "$input" | cat -e > out_temp
+	> $OUT/out_temp; >$OUT/out_mini; > $OUT/out_orig; > $OUT/out_orig2
+	./minishell "$input" | cat -e > $OUT/out_temp
 	#echo "syntax error from initial check: pipes; exit" | cat -e > out_orig
 
 	# eval "$input" | cat -e > out_orig
-	eval $input | cat -e > out_orig
-
+	eval $input | cat -e > $OUT/out_orig
 	test_syntax_error "out_orig2" "out_mini" "valid"
 	((i=i+1))
 done

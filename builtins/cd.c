@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 12:41:44 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/09 13:29:49 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/16 11:23:07 by jmurovec      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ int	change_dir(char *old_pwd, char *newpath)
 
 	if (chdir(newpath) == -1)
 	{
-		write(2, "minishell: cd: No such file or directory\n", 42);
+		write(2, "minishell: cd: ", 15);
+		write(2, newpath, ft_strlen(newpath));
+		write(2, ": No such file or directory\n", 28);
 		return (1);
 	}
 	current = getcwd(buff, PATH_MAX);

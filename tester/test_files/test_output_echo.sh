@@ -18,33 +18,36 @@ RES="\033[0m"
 
 
 #make
+OUT="output_files"				# folder for all output files
+> $OUT/out_echo_all.txt			# wipe content before start
 
 test_syntax_error()
 {
-	filename="out_orig"
+	filename=$OUT/"out_orig"
 	while read -r line; do
 		# if [[ $line != ^[[* ]] && [[ $line != $ ]]   ;
 		if [[ $line != ^[[* ]] && [[ $line != $ ]]   ;
 		then
-			echo $line >> out_orig2
+			echo $line >> $OUT/out_orig2
 		else
-			: echo $line >> out_else
+			: echo $line >> $OUT/out_else
 		fi
 	done < "$filename"
 
 
-	filename="out_temp"
+	filename=$OUT/"out_temp"
 	while read -r line; do
 		# if [[ $line != ^[[* ]] && [[ $line != $ ]]   ;
 		if [[ $line != ^[[* ]] && [[ $line != $ ]]   ;
 		then
-			echo $line >> out_mini
+			echo $line >> $OUT/out_mini
+			echo $line >> $OUT/out_echo_all.txt
 		else
-			: echo $line >> out_else
+			: echo $line >> $OUT/out_else
 		fi
 	done < "$filename"
 	msg=$3
-	DIFF=$(diff $1 $2)
+	DIFF=$(diff $OUT/$1 $OUT/$2)
 	if [ "$DIFF" == "" ] 
 	then
 		echo -e $GRN"[ OK ] " $GRE $msg $RES 
@@ -57,7 +60,8 @@ test_syntax_error()
 #############################################################################
 
 
-echo -e $YEL"\nTest output ECHO - SOME EXAMPLES"$RES
+echo -e $YEL"\nTest ECHO - SOME EXAMPLES"$RES
+echo -e "\n--- Test ECHO - SOME EXAMPLES -------------------------" >> $OUT/out_echo_all.txt
 
 ### STORE LINES FROM FILE INTO ARRAY ###################
 FILE="test_files_echo/input_for_echo"
@@ -88,9 +92,9 @@ nr_elements=${#ARRAY01[@]}
 while (( $i < $nr_elements ))
 do
 	printf "  Test %3d:   [%-30s]   " $i "${ARRAY01[$i]}"
-	> out_temp; >out_mini; > out_orig; > out_orig2 
-	./minishell "${ARRAY01[$i]}" | cat -e > out_temp
-	eval "${ARRAY01[$i]}" | cat -e > out_orig
+	> $OUT/out_temp; >$OUT/out_mini; > $OUT/out_orig; > $OUT/out_orig2 
+	./minishell "${ARRAY01[$i]}" | cat -e > $OUT/out_temp
+	eval "${ARRAY01[$i]}" | cat -e > $OUT/out_orig
 	test_syntax_error "out_orig2" "out_mini" "valid"
 	((i=i+1))
 done
@@ -99,7 +103,8 @@ echo ""
 #############################################################################
 
 
-echo -e $YEL"\nTest output ECHO - OPTION -n"$RES
+echo -e $YEL"\nTest ECHO WITH OPTION -n"$RES
+echo -e "\n--- Test ECHO WITH OPTION -n  -------------------------" >> $OUT/out_echo_all.txt
 echo -e $RED"   Incorrect output from tester !!!"$RES
 
 ### STORE LINES FROM FILE INTO ARRAY ###################
@@ -115,9 +120,9 @@ nr_elements=${#ARRAY02[@]}
 while (( $i < $nr_elements ))
 do
 	printf "  Test %3d:   [%-30s]   " $i "${ARRAY02[$i]}"
-	> out_temp; >out_mini; > out_orig; > out_orig2 
-	./minishell "${ARRAY02[$i]}" | cat -e > out_temp
-	eval "${ARRAY02[$i]}" | cat -e > out_orig
+	> $OUT/out_temp; >$OUT/out_mini; > $OUT/out_orig; > $OUT/out_orig2 
+	./minishell "${ARRAY02[$i]}" | cat -e > $OUT/out_temp
+	eval "${ARRAY02[$i]}" | cat -e > $OUT/out_orig
 	test_syntax_error "out_orig2" "out_mini" "valid"
 	((i=i+1))
 done
@@ -126,8 +131,9 @@ echo ""
 ##################################################################################
 
 
+echo -e $YEL"\nTest ECHO - TILDA AND DOLLAR"$RES
+echo -e "\n\n--- Test ECHO - TILDA AND DOLLAR  -------------------------" >> $OUT/out_echo_all.txt
 
-echo -e $YEL"\nTest output ECHO - TILDA AND DOLLAR"$RES
 
 ### STORE LINES FROM FILE INTO ARRAY ###################
 FILE="test_files_echo/input_for_echo_tilda_and_dollar"
@@ -142,9 +148,9 @@ nr_elements=${#ARRAY03[@]}
 while (( $i < $nr_elements ))
 do
 	printf "  Test %3d:   [%-66s]   " $i "${ARRAY03[$i]}"
-	> out_temp; >out_mini; > out_orig; > out_orig2 
-	./minishell "${ARRAY03[$i]}" | cat -e > out_temp
-	eval "${ARRAY03[$i]}" | cat -e > out_orig
+	> $OUT/out_temp; >$OUT/out_mini; > $OUT/out_orig; > $OUT/out_orig2 
+	./minishell "${ARRAY03[$i]}" | cat -e > $OUT/out_temp
+	eval "${ARRAY03[$i]}" | cat -e > $OUT/out_orig
 	test_syntax_error "out_orig2" "out_mini" "valid"
 	((i=i+1))
 done
@@ -154,7 +160,8 @@ echo ""
 
 
 
-echo -e $YEL"\nTest output ECHO - ESCAPE CHARACTER"$RES
+echo -e $YEL"\nTest ECHO - ESCAPE CHARACTER"$RES
+echo -e     "\n--- Test ECHO - ESCAPE CHARACTER  -------------------------" >> $OUT/out_echo_all.txt
 echo -e $RED"   Incorrect output from tester !!!"$RES
 
 ### NOT WORKING CASES
@@ -175,9 +182,9 @@ nr_elements=${#ARRAY04[@]}
 while (( $i < $nr_elements ))
 do
 	printf "  Test %3d:   [%-30s]   " $i "${ARRAY04[$i]}"
-	> out_temp; >out_mini; > out_orig; > out_orig2 
-	./minishell "${ARRAY04[$i]}" | cat -e > out_temp
-	eval "${ARRAY04[$i]}" | cat -e > out_orig
+	> $OUT/out_temp; >$OUT/out_mini; > $OUT/out_orig; > $OUT/out_orig2 
+	./minishell "${ARRAY04[$i]}" | cat -e > $OUT/out_temp
+	eval "${ARRAY04[$i]}" | cat -e > $OUT/out_orig
 	# "${ARRAY04[$i]}" | cat -e > out_orig
 	test_syntax_error "out_orig2" "out_mini" "valid"
 	((i=i+1))
@@ -189,7 +196,9 @@ echo ""
 
 
 
-echo -e $YEL"\nTest output ECHO - WITH QUOTES"$RES
+echo -e $YEL"\nTest ECHO - WITH QUOTES"$RES
+echo -e     "\n--- Test ECHO - WITH QUOTES  -------------------------" >> $OUT/out_echo_all.txt
+
 
 ### STORE LINES FROM FILE INTO ARRAY ###################
 FILE="test_files_echo/input_for_echo_with_quotes"
@@ -204,12 +213,11 @@ nr_elements=${#ARRAY04[@]}
 while (( $i < $nr_elements ))
 do
 	printf "  Test %3d:   [%-30s]   " $i "${ARRAY04[$i]}"
-	> out_temp; >out_mini; > out_orig; > out_orig2 
-	./minishell "${ARRAY04[$i]}" | cat -e > out_temp
-	eval "${ARRAY04[$i]}" | cat -e > out_orig
+	> $OUT/out_temp; >$OUT/out_mini; > $OUT/out_orig; > $OUT/out_orig2 
+	./minishell "${ARRAY04[$i]}" | cat -e > $OUT/out_temp
+	eval "${ARRAY04[$i]}" | cat -e > $OUT/out_orig
 	# "${ARRAY04[$i]}" | cat -e > out_orig
 	test_syntax_error "out_orig2" "out_mini" "valid"
 	((i=i+1))
 done
 echo ""
-

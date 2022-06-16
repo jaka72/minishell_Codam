@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../minishell.h"
 
 char *arr0[] = {"../run", NULL};
 char *arr[]  = {"./run", NULL};
@@ -17,6 +17,8 @@ int main(int argc, char **argv)
     int ret_fork;
     char *arr_folder[2];
 
+
+    // arr_folder[0] = "ls";
     arr_folder[1] = NULL;
 
     if (argc == 2)
@@ -26,11 +28,11 @@ int main(int argc, char **argv)
 
     printf("A) This is from Y_execve_test.c: args[0]: [%s]\n", arr_folder[0]);
 
-    printf(GRN"Acces() returned: %d\n"RES, access("run",   X_OK));
-    printf(GRN"Acces() returned: %d\n"RES, access("./run", X_OK));
-    printf(GRN"Acces() returned: %d\n"RES, access("../run", X_OK));
-    printf(GRN"Acces() returned: %d\n"RES, access("builtins/run", X_OK));
-    printf(GRN"Acces() returned: %d\n"RES, access("./builtins/run", X_OK));
+    // printf(GRN"Acces() returned: %d\n"RES, access("run",   X_OK));
+    // printf(GRN"Acces() returned: %d\n"RES, access("./run", X_OK));
+    // printf(GRN"Acces() returned: %d\n"RES, access("../run", X_OK));
+    // printf(GRN"Acces() returned: %d\n"RES, access("builtins/run", X_OK));
+    // printf(GRN"Acces() returned: %d\n"RES, access("./builtins/run", X_OK));
 
     // ret = fork();
     // if (ret == 0)
@@ -79,35 +81,37 @@ int main(int argc, char **argv)
     {
 
 
-        printf("arr_folder: [%s]\n", arr_folder[0]);
-        ret_access = access(arr_folder[0], R_OK || X_OK || W_OK);
-        if (ret_access != 0)
-        {
-            printf("After access, ret = %d, errno = %d\n", ret_access, errno);
-            if (errno == 2)
-            {
-                //perror("   perror: ");
-                //printf("   access: No such file ...\n");
-                // exit (127);
-            }
-            if (errno == 13)
-            {
-                printf("access: Permission denine\n");
-                exit (126);
-            }
-        }
+        // printf("arr_folder: [%s]\n", arr_folder[0]);
+        // ret_access = access(arr_folder[0], R_OK || X_OK || W_OK);
+        // if (ret_access != 0)
+        // {
+        //     printf("After access, ret = %d, errno = %d\n", ret_access, errno);
+        //     if (errno == 2)
+        //     {
+        //         //perror("   perror: ");
+        //         //printf("   access: No such file ...\n");
+        //         // exit (127);
+        //     }
+        //     if (errno == 13)
+        //     {
+        //         printf("access: Permission denied\n");
+        //         exit (126);
+        //     }
+        // }
 
 
         ret_execve = execve(arr_folder[0], arr_folder, NULL);
-        printf("After execve, ret = %d, errno = %d\n", ret_execve, errno);
+        printf(GRN"After execve, ret = %d, errno = %d\n"RES, ret_execve, errno);
         
         if (ret_execve != 0)
         {
-            perror("   Errno after execve:");
-            if (strchr(arr_folder[0], '/') != NULL)
-                printf("   execve: No such file ..., errno: %d\n", errno);
-            else
-                printf("   execve: Command not found, errno: %d\n", errno);
+            perror(GRN"   Errno after execve:"RES);
+            printf(GRN"   Errno: %d"RES, errno);
+            printf("\n");
+            // if (strchr(arr_folder[0], '/') != NULL)
+            //     printf(GRN"   execve: No such file ..., errno: %d\n"RES, errno);
+            // else
+            //     printf(GRN"   execve: Command not found, errno: %d\n"RES, errno);
             exit (123);
         }        
     }
