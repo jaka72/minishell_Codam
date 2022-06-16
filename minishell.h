@@ -47,6 +47,7 @@ struct s_cmd
 	char			**infile;
 	char			**outfile;
 	char			**heredoc;
+	char			**files;
 	struct s_cmd	*next;
 };
 
@@ -111,6 +112,7 @@ char	**get_env_array(void);
 // init/expand.c
 void	print_env(void);
 char	*name_expand(char *tx);
+char	*check_expand_file(char *tx);
 char	*check_expand(char *tx);
 char	*check_expand_hd(char *tx);
 char	**expand_array(char **args);

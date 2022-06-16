@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 14:31:57 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/06 19:54:40 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/16 09:51:22 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,39 @@ void	store_word_to_array(t_source *src, t_cmd *cmd, t_tmp *t)
 // void	store_word_to_array(t_source *src, t_tmp *t)
 {
 	//printf(CYN"Start store_word, t->count: %d\n"RES, t->count);
-
-
-	ft_strlcpy(t->temp_arr[t->count], &src->inputline[t->start],
-		t->len + 1);
-
-	//printf(CYN"    stored word: [%s] at place %d\n"RES, t->temp_arr[t->count], t->count);
-		
 	if (t->arrow == '<' && cmd->fd_in == -2)
-		cmd->infile = &t->temp_arr[0];
-	else if (t->arrow == '<' && cmd->fd_in == -3)
-		cmd->heredoc = &t->temp_arr[0];
+	{
+		t->temp_arr[t->count][0] = '1';
+		ft_strlcpy(&t->temp_arr[t->count][1], &src->inputline[t->start], t->len);
+		cmd->files = &t->temp_arr[0];
+	}
 	else if (t->arrow == '>')
-		cmd->outfile = &t->temp_arr[0];
+	{
+		if (cmd->fd_out == -2)
+			t->temp_arr[t->count][0] = '2';
+		else
+			t->temp_arr[t->count][0] = '3';
+		ft_strlcpy(&t->temp_arr[t->count][1], &src->inputline[t->start], t->len);
+		cmd->files = &t->temp_arr[0];
+	}
+	else if (t->arrow == '<' && cmd->fd_in == -3)
+	{
+		ft_strlcpy(t->temp_arr[t->count], &src->inputline[t->start], t->len + 1);
+		cmd->heredoc = &t->temp_arr[0];
+	}
+		
+
+	// ft_strlcpy(t->temp_arr[t->count], &src->inputline[t->start],
+	// 	t->len + 1);
+
+	// //printf(CYN"    stored word: [%s] at place %d\n"RES, t->temp_arr[t->count], t->count);
+		
+	// if (t->arrow == '<' && cmd->fd_in == -2)
+	// 	cmd->infile = &t->temp_arr[0];
+	// else if (t->arrow == '<' && cmd->fd_in == -3)
+	// 	cmd->heredoc = &t->temp_arr[0];
+	// else if (t->arrow == '>')
+	// 	cmd->outfile = &t->temp_arr[0];
 	
 	t->temp_arr[t->count + 1] = NULL;
 	
@@ -90,6 +110,12 @@ int	store_to_redirect_arr(t_source *src, t_cmd *cmd)
 	t.len = get_length_of_word(src);
 	t.start = src->currpos - t.len + 1;
 	// t.temp_arr[t.count - 1] = malloc(sizeof(char) * (t.len + 1));
+
+	if (t.arrow == '<' && cmd->fd_in == -2)  // by kito added to add flag in the begenning
+		t.len++;
+	else if (t.arrow == '>')
+		t.len++;
+
 	t.temp_arr[t.count] = malloc(sizeof(char) * (t.len + 1));
 	if (t.temp_arr[t.count] == NULL)
 		return (1);

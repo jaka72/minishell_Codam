@@ -24,6 +24,25 @@ int	check_infile_avairable(t_cmd *str)
 	return (0);
 }
 
+int	open_infile_fd(t_cmd *str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (str->fd_in != -2)
+		return (0);
+	while (str->infile[i])
+		i++;
+	i--;
+	j = open(str->infile[i], O_RDONLY);
+	if (j < 0)
+		return (return_perr(-4, str->infile[i]));
+	str->fd_in = j;
+	return (0);
+}
+
 int	check_infile_fd(t_cmd *str)
 {
 	int	i;
@@ -100,14 +119,51 @@ int	check_outfile_fd(t_cmd *str)
 	return (0);
 }
 
+int	open_file_fd(t_cmd *str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (str->fd_in == -2)
+	{
+		while (str->files[i])
+		{
+			if (str->files[i][0] == 1)
+			j = open(&str->files[i][1], O_RDONLY);
+			if (j < 0)
+				return (return_perr(-4, &str->files[i][1]));
+			if (str->fd_in > 2)
+				close (j);
+			str->fd_in = j;
+			i++;
+		}
+	}
+	i = 0;
+	j = 0;
+	if (str->fd_out == -2 || str->fd_out == -3)
+	{
+		while (str->files[i])
+		{
+			if (str->files[i][0] == 2)
+				j = open(&str->files[i][1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
+			else if (str->files[i][0] == 3)
+				j = open(&str->files[i][1], O_WRONLY | O_CREAT | O_APPEND, 0666);
+			if (j < 0)
+				return (return_perr(-4, &str->files[i][1]));
+			if (str->fd_out > 2)
+				close (j);
+			str->fd_out = j;
+			i++;
+		}
+	}
+	return (0);
+}
 
 int	connect_fd(t_cmd *current)
 {
-	// current->infile = expand_array(current->infile);
-	if (check_infile_fd(current) != 0)
-		return (-4);
-	// current->outfile = expand_array(current->outfile);
-	if (check_outfile_fd(current) != 0)
+	if (open_file_fd(current) != 0)
 		return (-4);
 	if (current->fd_in > 0)
 	{

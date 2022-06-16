@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:14:28 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/08 07:27:44 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/16 08:05:46 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_values(t_cmd *cmd)
 	cmd->infile = NULL;
 	cmd->outfile = NULL;
 	cmd->heredoc = NULL;
+	cmd->files = NULL;
 	//cmd->count_args = 0;
 	//cmd->count_infiles = 0;
 	//cmd->count_outfiles = 0;
