@@ -220,3 +220,4 @@ int	main(int argc, char *argv[], char *envp[])
 //			save the correct path: it has to be without ./ ,if it is in the same folder 
 //								 : if it is in above folder, the execve recognises the ../
 // if (str->args[0][0] == '.' || str->args[0][0] == '/' || h
+//
