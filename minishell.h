@@ -1,7 +1,5 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define ERROR_RETURN 1
-# define ERROR_RETURN_MIN -1
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -20,6 +18,7 @@ typedef struct s_env		t_env;
 typedef struct s_cmd		t_cmd;
 typedef struct s_source		t_source;
 typedef struct s_pid		t_pid;
+extern t_global				g_gl;
 
 struct	s_global
 {
@@ -44,9 +43,8 @@ struct s_cmd
 	char			**args;
 	int				fd_in;		// fd_in  : default is 0, if "<" -2, if "<<" -3.
 	int				fd_out;		// fd_out : default is 1, if ">" -2, if ">>" -3.
-	char			**infile;
-	char			**outfile;
 	char			**heredoc;
+	char			**files;
 	struct s_cmd	*next;
 };
 
@@ -59,14 +57,12 @@ struct s_source
 
 struct s_pid
 {
-	pid_t	pid;
+	pid_t	cu_pid;
 	int		newpipe[3];
 	int		status;
 	pid_t	last_pid;
+	t_cmd	*temp_cmd;
 };
-
-
-extern t_global	gl;
 
 # include "jaka_utils/utils.h"
 # include "check_syntax/check_syntax.h"
@@ -74,16 +70,16 @@ extern t_global	gl;
 # include "builtins/builtins.h"
 
 // util/error.c
-// void	errtext_exit(char *text);  not used any more
 int		return_perr(int i, char *tx);
 int		return_errtx(int i, char *tx);
-int		errtext_return(char *text);
-void	free_envlist(void);
-int		free_strings(char **strs);
-void	free_tcmd(void);
 void	err_free_env_exit(char *text);
 int		err_all_free_exit(int exitnum);
 int		errtx_all_free_exit(int exitnum, char *tx);
+
+// util/free.c
+void	free_envlist(void);
+int		free_strings(char **strs);
+void	free_tcmd(void);
 
 // util/util.c
 char	*free_return_null(char *text);
@@ -111,6 +107,7 @@ char	**get_env_array(void);
 // init/expand.c
 void	print_env(void);
 char	*name_expand(char *tx);
+char	*check_expand_file(char *tx);
 char	*check_expand(char *tx);
 char	*check_expand_hd(char *tx);
 char	**expand_array(char **args);
@@ -118,19 +115,30 @@ char	**expand_array(char **args);
 // file/heredoc.c
 int		read_heredoc(char *limiter, int fd_out);
 int		make_heredoc(char *limiter);
+int		open_heredoc(t_pid *pid);
 
-// exec/fd.c
-int		check_infile_avairable(t_cmd *str);
-int		check_infile_fd(t_cmd *str);
-int		check_outfile_fd(t_cmd *str);
+// exec/open_fd.c
+int		set_infile(t_cmd *str, int i);
+int		set_outfile(t_cmd *str, int i);
+int		set_outfile_ap(t_cmd *str, int i);
+int		open_file_fd(t_cmd *str);
+
+// exec/connect_fd.c
 int		connect_fd(t_cmd *current);
+void	check_close_fd(int fdin, int fdout);
 void	reset_fd_sig(void);
 
-// exec/exec.c
+// exec/find_path.c
 char	*ft_find_env_pathnum(char *envp[]);
 char	*ft_make_binpass(int i, char *pass, char *cmd);
 char	*ft_findshell_path(char *cmd, char *envp[]);
-// int		ms_execve(t_cmd *str);
+
+// exec/check_files.c
+int		check_file_access(t_cmd	*current);
+
+// exec/exec.c
+
+
 int		run_cmd(void);
 
 // exec/ms_execve.c

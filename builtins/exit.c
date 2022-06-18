@@ -6,7 +6,7 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 12:56:23 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/09 15:15:03 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/14 09:41:36 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ int	run_exit_builtin(t_cmd *cmd, t_cmd *list)
 {
 	//printf(GRN"Start exit\n"RES);
 	int	nr_commands;
-	char	*i;
+//	char	*i;
 
-	i = ft_itoa(count_elems(cmd->args));
+//	i = ft_itoa(count_elems(cmd->args));	// is this necessary?
 	nr_commands = count_commands(list);
 	if (count_elems(cmd->args) == 1)
 	{

@@ -25,9 +25,7 @@ void	handle_sigint_p(int num)
 void	handle_sigquit_p(int num)
 {
 	(void) num;
-
 	write(STDOUT_FILENO, "Quit: 3\n", 8);
-	// reset_fd_sig();
 }
 
 void	handle_sigint_hd(int num)

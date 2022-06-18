@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:39:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/08 07:24:30 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/16 15:03:40 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,10 +173,12 @@ t_cmd	*make_commands(t_source *src)
 		if (ret == -1)
 		{
 			//printf(GRN"  Ret -1, should exit \n"RES);
-			free_commands_list(first_cmd);
-			//free(src->inputline); 		// DOES THIS SERVE ANY PURPOSE ???
-			clean_data(1, "");
-			msg_and_exit("make_commands: malloc failed\n", 1);
+			// free_commands_list(first_cmd);
+			// //free(src->inputline); 		// DOES THIS SERVE ANY PURPOSE ???
+			// clean_data(1, "");
+			// free_tcmd();
+			// msg_and_exit("make_commands: malloc failed\n", 1);
+			errtx_all_free_exit(1, "make_commands: malloc failed\n");
 		}
 
 

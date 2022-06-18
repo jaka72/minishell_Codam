@@ -1,12 +1,14 @@
 #include "minishell.h"
 
+t_global	g_gl;
+
 void	free_and_read(t_source *src, int history)
 {
 	if (history == 1)
-		add_history(src->inputline);	
+		add_history(src->inputline);
 	if (src->inputline != NULL)
 		free(src->inputline);
-	src->inputline = readline(gl.prompt);
+	src->inputline = readline(g_gl.prompt);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -28,11 +30,11 @@ int	main(int argc, char *argv[], char *envp[])
 				continue ;
 			}
 			add_history(src.inputline);
-			gl.start_cmd = make_commands(&src);
-			gl.g_status = run_cmd();
+			g_gl.start_cmd = make_commands(&src);
+			g_gl.g_status = run_cmd();
 			free_tcmd();
 		}
 		free_and_read(&src, 0);
 	}
-	return (clean_data(gl.g_status, "exit\n"));
+	return (clean_data(g_gl.g_status, "exit\n"));
 }

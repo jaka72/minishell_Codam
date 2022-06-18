@@ -27,6 +27,7 @@ LIBFT_A		=	$(LIBFT_DIR)/libft.a
 #for common resources like utility, error handling
 UTIL_DIR	=	util
 UTIL_SRC	=	$(UTIL_DIR)/error.c					\
+				$(UTIL_DIR)/free.c					\
 				$(UTIL_DIR)/util.c
 UTIL_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(UTIL_SRC:.c=.o))
 
@@ -40,8 +41,11 @@ INIT_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(INIT_SRC:.c=.o))
 
 #for excute the command
 EXEC_DIR	=	./exec
-EXEC_SRC	=	$(EXEC_DIR)/exec.c	\
-				$(EXEC_DIR)/fd.c	\
+EXEC_SRC	=	$(EXEC_DIR)/exec.c					\
+				$(EXEC_DIR)/open_fd.c				\
+				$(EXEC_DIR)/connect_fd.c			\
+				$(EXEC_DIR)/find_path.c				\
+				$(EXEC_DIR)/check_files.c			\
 				$(EXEC_DIR)/ms_execve.c						# added jaka 10 jun
 EXEC_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(EXEC_SRC:.c=.o))
 
@@ -69,7 +73,6 @@ PARSING_SRC		= 	$(PARSING_DIR)/make_commands.c \
 					$(PARSING_DIR)/make_commands_utils.c \
 					$(PARSING_DIR)/choose_correct_array.c \
 					$(PARSING_DIR)/store_to_redirect_arr.c \
-					$(PARSING_DIR)/free_commands_list.c \
 					$(PARSING_DIR)/ft_lstadd_back.c \
 					$(PARSING_DIR)/print_commands_info.c		# can be later removed
 PARSING_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(PARSING_SRC:.c=.o))
@@ -96,7 +99,7 @@ JAKA_UTILS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(JAKA_UTILS_SRC:.c=.o))
 
 
 #for main and running commands (fork and execte)
-# MAIN_SRC	=	testmain_jaka.c
+#MAIN_SRC	=	testmain_jaka.c
 MAIN_SRC	=	main.c
 MAIN_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(MAIN_SRC:.c=.o))
 

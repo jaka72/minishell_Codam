@@ -7,8 +7,9 @@ int	read_heredoc(char *limiter, int fd_out)
 	str = readline("> ");
 	while (str)
 	{
-		if ((ft_strncmp(str, limiter, ft_strlen(limiter)) == 0) && ft_strlen(limiter) == ft_strlen(str))
-					break ;
+		if ((ft_strncmp(str, limiter, ft_strlen(limiter)) == 0)
+			&& ft_strlen(limiter) == ft_strlen(str))
+			break ;
 		str = check_expand_hd(str);
 		write(fd_out, str, ft_strlen(str));
 		write(fd_out, "\n", 1);
@@ -18,110 +19,86 @@ int	read_heredoc(char *limiter, int fd_out)
 	return (0);
 }
 
-// int	get_heredoc(char *limiter, int fd_out)
-// {
-// 	char	buff[1];
-// 	int		rd;
-// 	char	*exp;
-
-// 	rd = 1;
-// 	exp = malloc(sizeof(char) * 1);
-// 	if (exp == NULL)
-// 		exit(err_all_free_exit(1));
-// 	exp[0] = '\0';
-// 	buff[0] = '\n';
-// 	write(gl.ini_fd[1], "> ", 2);
-// 	while (rd == 1 || (rd == 0 && buff[0] != '\n'))
-// 	{
-// 		rd = read(gl.ini_fd[0], buff, 1);
-// 		if (rd < 0)
-// 			exit(err_all_free_exit(1));
-// 		if (rd > 0 && buff[0] != '\n' && rd > 0 && buff[0] != ' ')
-// 			exp = ft_add_c_free(exp, buff[0]);
-// 		else if (rd > 0 && buff[0] == '\n')
-// 		{
-// 			if (exp[0] != '\0')
-// 			{
-// 				if (ft_strncmp(exp, limiter, ft_strlen(limiter)) == 0)
-// 					break ;
-// 				exp = check_expand_hd(exp);
-// 				exp = ft_add_c_free(exp, buff[0]);
-// 				write(fd_out, exp, ft_strlen(exp));
-// 				free(exp);
-// 				exp = malloc(sizeof(char) * 1);
-// 				if (exp == NULL)
-// 					exit(err_all_free_exit(1));
-// 				exp[0] = '\0';
-// 			}
-// 			else
-// 			{
-// 				write(fd_out, "\n", 1);
-// 				write(gl.ini_fd[1], ">\n", 2);
-// 			}
-				
-// 			write(gl.ini_fd[1], "> ", 2);
-// 		}
-// 		else if (rd > 0 && buff[0] == ' ')
-// 		{
-// 			exp = check_expand_hd(exp);
-// 			exp = ft_add_c_free(exp, buff[0]);
-// 			write(fd_out, exp, ft_strlen(exp));
-// 			free(exp);
-// 			exp = malloc(sizeof(char) * 1);
-// 			if (exp == NULL)
-// 				exit(err_all_free_exit(1));
-// 			exp[0] = '\0';
-// 		}
-// 	}
-// 	free(exp);
-// 	return (0);
-// }
+void	init_pid_sig_hd(t_pid *pidinfo)
+{
+	pidinfo->status = 0;
+	pidinfo->newpipe[0] = 0;
+	pidinfo->newpipe[1] = 0;
+	pidinfo->newpipe[2] = 0;
+	pidinfo->temp_cmd = g_gl.start_cmd;
+	signal(SIGINT, handle_sigint_hd);
+	signal(SIGQUIT, handle_sigquit);
+}
 
 int	make_heredoc(char *limiter)
 {
-	int	pid;
-	int	newpipe[2];
-	int	status;
 	int	rc;
+	t_pid	pid;
 
-	signal(SIGINT, handle_sigint_hd);
-	// signal(SIGQUIT, SIG_IGN);
-	gl.termios_new.c_lflag &= ~(ECHOCTL);
-	rc = tcsetattr(0, 0, &gl.termios_new);
+	init_pid_sig_hd(&pid);
+	g_gl.termios_new.c_lflag &= ~(ECHOCTL);
+	rc = tcsetattr(0, 0, &g_gl.termios_new);
 	if (rc)
 		exit(errtx_all_free_exit(1, "set termios failed\n"));
-	pipe(newpipe);
-	pid = fork();
-	if (pid == 0)
+	pipe(pid.newpipe);
+	pid.cu_pid = fork();
+	if (pid.cu_pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		close(newpipe[0]);
-		read_heredoc(limiter, newpipe[1]);
-		close(newpipe[1]);
+		close(pid.newpipe[0]);
+		read_heredoc(limiter, pid.newpipe[1]);
+		close(pid.newpipe[1]);
 		exit(err_all_free_exit(0));
 	}
 	else
 	{
-		close(newpipe[1]);
-		if (waitpid(pid, &status, WUNTRACED | WCONTINUED) >= 0)
+		close(pid.newpipe[1]);
+		if (waitpid(pid.cu_pid, &pid.status, WUNTRACED | WCONTINUED) >= 0)
 		{
-			if (WIFEXITED(status))
-				gl.g_status = WEXITSTATUS(status);
-			else if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
-				gl.g_status = 1;
+			if (WIFEXITED(pid.status))
+				g_gl.g_status = WEXITSTATUS(pid.status);
+			else if (WIFEXITED(pid.status) == 0 && WIFSIGNALED(pid.status))
+				g_gl.g_status = 1;
 		}
 	}
-	gl.termios_new.c_lflag |= (ECHOCTL);
-	rc = tcsetattr(0, 0, &gl.termios_new);
+	g_gl.termios_new.c_lflag |= (ECHOCTL);
+	rc = tcsetattr(0, 0, &g_gl.termios_new);
 	if (rc)
 		exit(errtx_all_free_exit(1, "set termios failed\n"));
-	if (gl.g_status == 1)
+	if (g_gl.g_status == 1)
 	{
 		reset_fd_sig();
-		close(newpipe[0]);
-		return(-1);
+		close(pid.newpipe[0]);
+		return (-1);
 	}	
-	return (newpipe[0]);
+	return (pid.newpipe[0]);
 }
 
+int	open_heredoc(t_pid *pid)
+{
+	int	i[2];
 
+	while (pid->temp_cmd)
+	{
+		i[0] = 0;
+		i[1] = 0;
+		while (pid->temp_cmd->heredoc != NULL && pid->temp_cmd->heredoc[i[0]])
+		{
+			i[1] = make_heredoc(pid->temp_cmd->heredoc[i[0]]);
+			if (i[1] < 0)
+				return (-1);
+			if (pid->temp_cmd->fd_in == -3)
+				pid->temp_cmd->fd_in = i[1];
+			else if (pid->temp_cmd->fd_in > 2)
+			{
+				close(pid->temp_cmd->fd_in);
+				pid->temp_cmd->fd_in = i[1];
+			}				
+			else
+				close(i[1]);
+			i[0] = i[0] + 1;
+		}
+		pid->temp_cmd = pid->temp_cmd->next;
+	}
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:14:28 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/08 07:27:44 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/16 15:11:09 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ void	init_values(t_cmd *cmd)
 	cmd->fd_in = 0;
 	cmd->fd_out = 1;
 	cmd->args = NULL;
-	cmd->infile = NULL;
-	cmd->outfile = NULL;
+	// cmd->infile = NULL;
+	// cmd->outfile = NULL;
 	cmd->heredoc = NULL;
+	cmd->files = NULL;
 	//cmd->count_args = 0;
 	//cmd->count_infiles = 0;
 	//cmd->count_outfiles = 0;
@@ -50,7 +51,7 @@ int	check_if_builtin(t_cmd *cmd)
 	return (0);
 }
 
-// IS IT HERE BETTER TO RETURN DIRECTLY FROM THE FUNCTION, OR SET THE gl.g_status?
+// IS IT HERE BETTER TO RETURN DIRECTLY FROM THE FUNCTION, OR SET THE g_gl.g_status?
 int	exec_builtin(t_cmd *cmd, t_cmd *list)
 // int	exec_builtin(t_cmd *cmd, t_infos *info)
 {

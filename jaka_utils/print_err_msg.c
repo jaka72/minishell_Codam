@@ -6,7 +6,7 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/06 13:06:34 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/06 13:13:33 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/14 22:19:14 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@
 void	print_err_msg(char *err_msg)
 {
 	printf("\nMinishell: %s\n", err_msg);
+
 	// write(2, "\nMinishel: ", 11);
 	// write(2, err_msg, ft_strlen(err_msg));
 	// write(2, "\n", 1);
-	gl.g_status = SYNTAX_ERROR;
+	g_gl.g_status = SYNTAX_ERROR;
 }
 
 void	msg_and_exit(char *err_msg, int exit_code)

@@ -4,7 +4,7 @@ int	print_env_export(void)
 {
 	t_env	*env;
 
-	env = gl.start_env;
+	env = g_gl.start_env;
 	while (env->next)
 	{
 		printf("declare -x ");
