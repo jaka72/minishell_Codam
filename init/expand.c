@@ -1,7 +1,7 @@
 #include "../minishell.h"
 #define FLAG1 1
 
-void	print_env(void) 
+void	print_env(void)
 {
 	t_env	*env;
 
@@ -26,12 +26,11 @@ char	*name_expand(char *tx)
 		if (ft_strncmp(tx, env->name, ft_strlen(tx) + 1) == 0
 			&& ft_strlen(tx) == ft_strlen(env->name))
 		{
-			// printf("tx is %s found %s %s!!\n", tx, env->name, env->value);	
 			newtx = malloc(ft_strlen(env->value) + 1);
 			if (newtx == NULL)
 				exit(errtx_all_free_exit(1, "check expand malloc failed\n"));
 			newtx = ft_memcpy(newtx, env->value, ft_strlen(env->value));
-			newtx[ft_strlen(env->value)] = '\0';		
+			newtx[ft_strlen(env->value)] = '\0';
 			free(tx);
 			return (newtx);
 		}
@@ -40,7 +39,7 @@ char	*name_expand(char *tx)
 	return (newtx);
 }
 
-char *add_singlequote(char *dst, char *src)
+char	*add_singlequote(char *dst, char *src)
 {
 	int	i;
 
@@ -71,7 +70,9 @@ int	count_expand_length(char *src)
 	int	i;
 
 	i = 0;
-	while (src[i] != '\0' && src[i] != '\'' && src[i] != '\"' && src[i] != '$' && src[i] != ' ' && src[i] != '=' && src[i] != '/' && src[i] != ':')
+	while (src[i] != '\0' && src[i] != '\'' && src[i] != '\"'
+		&& src[i] != '$' && src[i] != ' ' && src[i] != '='
+		&& src[i] != '/' && src[i] != ':')
 		i++;
 	return (i);
 }
@@ -88,14 +89,15 @@ int	count_expand_length_hd(char *src)
 
 char	*add_expanded(char *dst, char *src)
 {
-	int	i;
+	int		i;
 	char	*temp;
 	char	*expanded;
 
 	i = 0;
 	temp = NULL;
 	expanded = NULL;
-	while (src[i] != '\0' && src[i] != '\'' && src[i] != '\"' && src[i] != '$' && src[i] != ' ' && src[i] != '=' && src[i] != '/' && src[i] != ':')
+	while (src[i] != '\0' && src[i] != '\'' && src[i] != '\"' && src[i] != '$'
+		&& src[i] != ' ' && src[i] != '=' && src[i] != '/' && src[i] != ':')
 		i++;
 	temp = malloc(i + 1);
 	if (temp == NULL)
@@ -107,7 +109,6 @@ char	*add_expanded(char *dst, char *src)
 		exit(errtx_all_free_exit(1, "add expand malloc failed\n"));
 	return (dst);
 }
-
 
 char	*add_laststatus(char *dst, int g_status)
 {
@@ -123,6 +124,17 @@ char	*add_laststatus(char *dst, int g_status)
 	return (dst);
 }
 
+char	*ini_expanded(void)
+{
+	char	*expanded;
+
+	expanded = malloc(1);
+	if (expanded == NULL)
+		err_free_env_exit("check expand malloc failed");
+	expanded[0] = '\0';
+	return(expanded);
+}
+
 char	*check_expand_hd(char *tx)
 {
 	int		i;
@@ -131,10 +143,7 @@ char	*check_expand_hd(char *tx)
 	i = 0;
 	if (tx[0] == '$' && tx[1] == '\0')
 		return (tx);
-	expanded = malloc(1);
-	if (expanded == NULL)
-		err_free_env_exit("check expand malloc failed");
-	expanded[0] = '\0';
+	expanded = ini_expanded();
 	while (tx[i] != '\0')
 	{
 		if (tx[i] == '$' && tx[i + 1] == '?' )
@@ -145,8 +154,6 @@ char	*check_expand_hd(char *tx)
 		else if (tx[i] == '$')
 		{
 			expanded = add_expanded(expanded, &tx[i + 1]);
-			// write(2, expanded, ft_strlen(expanded));
-			// write(2, "!", 1);
 			i = i + count_expand_length(&tx[i + 1]);
 		}
 		else
@@ -155,6 +162,41 @@ char	*check_expand_hd(char *tx)
 	}
 	free(tx);
 	return (expanded);
+}
+
+void	check_quote_expand(char *expanded, char *tx, int i, int *d_flag)
+{
+	if (tx[i] == '\"')
+		*d_flag ^= FLAG1;
+	else if (tx[i] == '\'' && (*d_flag & FLAG1) > 0)
+		expanded = ft_add_c_free(expanded, '\'');
+	else if (tx[i] == '\'' && tx[i + 1] != '\0')
+	{
+		expanded = add_singlequote(expanded, &tx[i + 1]);
+		i = i + count_single_length(&tx[i + 1]);
+	}
+}
+
+void	check_doller_expand(char *expanded, char *tx, int i, int *d_flag)
+{
+	if (tx[i] == '$' && tx[i + 1] == '\"' && *d_flag == 1)
+	{
+		expanded = ft_add_c_free(expanded, '$');
+		*d_flag ^= FLAG1;
+		i++;
+	}
+	else if ((tx[i] == '$' && tx[i + 1] == ' ') || (tx[i] == '$' && tx[i + 1] == '\0'))
+		expanded = ft_add_c_free(expanded, '$');
+	else if (tx[i] == '$' && tx[i + 1] == '?' )
+	{
+		expanded = add_laststatus(expanded, g_gl.g_status);
+		i++;
+	}
+	else if (tx[i] == '$')
+	{
+		expanded = add_expanded(expanded, &tx[i + 1]);
+		i = i + count_expand_length(&tx[i + 1]);
+	}
 }
 
 char	*check_expand_file(char *tx)
@@ -167,41 +209,11 @@ char	*check_expand_file(char *tx)
 	d_flag = 0;
 	if (tx[0] == '$' && tx[1] == '\0')
 		return (tx);
-	expanded = malloc(1);
-	if (expanded == NULL)
-		err_free_env_exit("check expand malloc failed");
-	expanded[0] = '\0';
+	expanded = ini_expanded();
 	while (tx[i] != '\0')
 	{
-		if (tx[i] == '\"')
-			d_flag ^= FLAG1;
-		else if (tx[i] == '\'' && (d_flag & FLAG1) > 0)
-			expanded = ft_add_c_free(expanded, '\'');
-		else if (tx[i] == '\'' && tx[i + 1] != '\0')
-		{
-			expanded = add_singlequote(expanded, &tx[i + 1]);
-			i = i + count_single_length(&tx[i + 1]);
-		}
-		else if (tx[i] == '$' && tx[i + 1] == '\"' && d_flag == 1)
-		{
-			expanded = ft_add_c_free(expanded, '$');
-			d_flag ^= FLAG1;
-			i++;
-		}
-		else if ((tx[i] == '$' && tx[i + 1] == ' ') || (tx[i] == '$' && tx[i + 1] == '\0'))
-			expanded = ft_add_c_free(expanded, '$');
-		else if (tx[i] == '$' && tx[i + 1] == '?' )
-		{
-			expanded = add_laststatus(expanded, g_gl.g_status);
-			i++;
-		}
-		else if (tx[i] == '$')
-		{
-			expanded = add_expanded(expanded, &tx[i + 1]);
-			i = i + count_expand_length(&tx[i + 1]);
-		}
-		else
-			expanded = ft_add_c_free(expanded, tx[i]);
+		check_quote_expand(expanded, tx, i, &d_flag);
+		check_doller_expand(expanded, tx, i, &d_flag);
 		i++;
 	}
 	if ((tx[0] != '\'' && tx[0] != '\"') && expanded[0] == '\0')
@@ -222,10 +234,7 @@ char	*check_expand(char *tx)
 	d_flag = 0;
 	if (tx[0] == '$' && tx[1] == '\0')
 		return (tx);
-	expanded = malloc(1);
-	if (expanded == NULL)
-		err_free_env_exit("check expand malloc failed");
-	expanded[0] = '\0';
+	expanded = ini_expanded();
 	while (tx[i] != '\0')
 	{
 		if (tx[i] == '\"')

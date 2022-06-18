@@ -50,11 +50,9 @@ EXEC_SRC	=	$(EXEC_DIR)/exec.c					\
 EXEC_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(EXEC_SRC:.c=.o))
 
 #for setting file information to cmd-struct from (<, <<, > , >>)
-FILE_DIR		= 	./file
-FILE_SRC		= 	$(FILE_DIR)/heredoc.c						
-#					$(FILE_DIR)/infile.c						
-# 					$(FILE_DIR)/outfile.c						
-# 					$(FILE_DIR)/outfile_append.c
+FILE_DIR		= 	./heredoc
+FILE_SRC		= 	$(FILE_DIR)/heredoc.c			\
+					$(FILE_DIR)/heredoc_util.c
 FILE_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(FILE_SRC:.c=.o))
 
 # for SYNTAX ERRORS 
@@ -127,7 +125,7 @@ make_obj_dir:
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/util/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/init/ 
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/exec/
-	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/file/
+	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/heredoc/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/check_syntax/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/parsing/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/builtins/

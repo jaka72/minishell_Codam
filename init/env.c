@@ -25,6 +25,15 @@ int	count_env(void)
 	return (i);
 }
 
+void	free_errtx_all_free_exit(t_env *env, char *envname)
+{
+	if (envname != NULL)
+		free(envname);
+	if (env != NULL)
+		free(env);
+	exit(errtx_all_free_exit(1, "malloc for env failed\n"));
+}
+
 t_env	*get_name_value(t_env *env, char *envtext)
 {
 	int	i;
@@ -36,26 +45,33 @@ t_env	*get_name_value(t_env *env, char *envtext)
 	{
 		env->name = malloc(i + 1);
 		if (env->name == NULL)
-		{
-			free(env);
-			exit(errtx_all_free_exit(1, "malloc for env failed\n"));
-		}
+			free_errtx_all_free_exit(env, NULL);
 		env->name = ft_memcpy(env->name, envtext, i);
 		env->name[i] = '\0';
 		if (i < (int)ft_strlen(envtext))
 		{
 			env->value = malloc(ft_strlen(envtext) - i + 1);
 			if (env->value == NULL)
-			{
-				free(env->name);
-				free(env);
-				exit(errtx_all_free_exit(1, "malloc for env failed\n"));
-			}
-			env->value = ft_memcpy(env->value, &envtext[i + 1], ft_strlen(envtext) - i);
+				free_errtx_all_free_exit(env, env->name);
+			env->value = ft_memcpy(env->value,
+					&envtext[i + 1], ft_strlen(envtext) - i);
 			env->value[ft_strlen(envtext) - i] = '\0';
 		}
 	}
 	return (env);
+}
+
+t_env	*init_tempenv(void)
+{
+	t_env	*temp_env;
+
+	temp_env = malloc(sizeof(t_env));
+	if (temp_env == NULL)
+		exit(errtx_all_free_exit(1, "malloc for env failed\n"));
+	temp_env->name = NULL;
+	temp_env->value = NULL;
+	temp_env->next = NULL;
+	return (temp_env);
 }
 
 t_env	*get_env(char *envp[])
@@ -69,12 +85,7 @@ t_env	*get_env(char *envp[])
 	i = 0;
 	while (envp[i])
 	{
-		temp_env = malloc(sizeof(t_env));
-		if (temp_env == NULL)
-			exit(errtx_all_free_exit(1, "malloc for env failed\n"));
-		temp_env->name = NULL;
-		temp_env->value = NULL;
-		temp_env->next = NULL;
+		temp_env = init_tempenv();
 		temp_env = get_name_value(temp_env, envp[i]);
 		if (temp_env == NULL)
 			err_free_env_exit("getting env failed\n");
@@ -108,10 +119,28 @@ char	**ft_realloc_i(char **str, int i)
 	return (temp);
 }
 
+char	**make_envstr(t_env *current, char **envs, int i)
+{
+	char	*temp;
+
+	temp = malloc((ft_strlen(current->name) + ft_strlen(current->value) + 2));
+	if (temp == NULL)
+	{
+		free_strings(envs);
+		exit(errtx_all_free_exit(1, "malloc for envs failed\n"));
+	}		
+	ft_memcpy(temp, current->name, ft_strlen(current->name));
+	ft_memcpy(&temp[ft_strlen(current->name)], "=", 1);
+	ft_memcpy(&temp[ft_strlen(current->name) + 1],
+		current->value, ft_strlen(current->value) + 1);
+	envs[i] = temp;
+	envs[i + 1] = NULL;
+	return (envs);
+}
+
 char	**get_env_array(void)
 {
 	char	**envs;
-	char	*temp;
 	t_env	*current;
 	int		i;
 
@@ -120,23 +149,15 @@ char	**get_env_array(void)
 	if (envs == NULL)
 		exit(errtx_all_free_exit(1, "malloc for envs failed\n"));
 	envs[0] = NULL;
-	temp = NULL;
 	current = g_gl.start_env;
 	while (current)
 	{
 		envs = ft_add_str(envs);
 		if (envs == NULL)
 			return (NULL);
-		temp = malloc((ft_strlen(current->name) + ft_strlen(current->value) + 2));
-		if (temp == NULL)
-			exit(errtx_all_free_exit(1, "malloc for envs failed\n"));
-		ft_memcpy(temp, current->name, ft_strlen(current->name));
-		ft_memcpy(&temp[ft_strlen(current->name)], "=", 1);
-		ft_memcpy(&temp[ft_strlen(current->name) + 1], current->value, ft_strlen(current->value) + 1);
-		envs[i] = temp;
-		envs[i + 1] = NULL;
+		envs = make_envstr(current, envs, i);
 		current = current->next;
-		i++; 
+		i++;
 	}
-	return(envs);
+	return (envs);
 }

@@ -31,7 +31,6 @@ char	*ft_add_c_free(char *s1, char c)
 	return (str);
 }
 
-
 void	clean_fd(void)
 {
 	t_cmd	*current;
@@ -67,4 +66,3 @@ int	clean_data(int status, char *text)
 	tcsetattr(0, 0, &g_gl.termios_save);
 	return (status);
 }
-

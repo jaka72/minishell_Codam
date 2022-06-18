@@ -19,27 +19,19 @@ int	read_heredoc(char *limiter, int fd_out)
 	return (0);
 }
 
-void	init_pid_sig_hd(t_pid *pidinfo)
+void	set_status(int status)
 {
-	pidinfo->status = 0;
-	pidinfo->newpipe[0] = 0;
-	pidinfo->newpipe[1] = 0;
-	pidinfo->newpipe[2] = 0;
-	pidinfo->temp_cmd = g_gl.start_cmd;
-	signal(SIGINT, handle_sigint_hd);
-	signal(SIGQUIT, handle_sigquit);
+	if (WIFEXITED(status))
+		g_gl.g_status = WEXITSTATUS(status);
+	else if (WIFEXITED(status) == 0 && WIFSIGNALED(status))
+		g_gl.g_status = 1;
 }
 
 int	make_heredoc(char *limiter)
 {
-	int	rc;
 	t_pid	pid;
 
 	init_pid_sig_hd(&pid);
-	g_gl.termios_new.c_lflag &= ~(ECHOCTL);
-	rc = tcsetattr(0, 0, &g_gl.termios_new);
-	if (rc)
-		exit(errtx_all_free_exit(1, "set termios failed\n"));
 	pipe(pid.newpipe);
 	pid.cu_pid = fork();
 	if (pid.cu_pid == 0)
@@ -54,23 +46,11 @@ int	make_heredoc(char *limiter)
 	{
 		close(pid.newpipe[1]);
 		if (waitpid(pid.cu_pid, &pid.status, WUNTRACED | WCONTINUED) >= 0)
-		{
-			if (WIFEXITED(pid.status))
-				g_gl.g_status = WEXITSTATUS(pid.status);
-			else if (WIFEXITED(pid.status) == 0 && WIFSIGNALED(pid.status))
-				g_gl.g_status = 1;
-		}
+			set_status(pid.status);
 	}
-	g_gl.termios_new.c_lflag |= (ECHOCTL);
-	rc = tcsetattr(0, 0, &g_gl.termios_new);
-	if (rc)
-		exit(errtx_all_free_exit(1, "set termios failed\n"));
+	reset_termios();
 	if (g_gl.g_status == 1)
-	{
-		reset_fd_sig();
-		close(pid.newpipe[0]);
-		return (-1);
-	}	
+		return (reset_fd_sig_close(pid.newpipe[0]));
 	return (pid.newpipe[0]);
 }
 

@@ -112,8 +112,14 @@ char	*check_expand(char *tx);
 char	*check_expand_hd(char *tx);
 char	**expand_array(char **args);
 
-// file/heredoc.c
+// heredoc/heredoc_util.c
+void	init_pid_sig_hd(t_pid *pidinfo);
+void	reset_termios(void);
+int		reset_fd_sig_close(int fd);
+
+// heredoc/heredoc.c
 int		read_heredoc(char *limiter, int fd_out);
+void	set_status(int status);
 int		make_heredoc(char *limiter);
 int		open_heredoc(t_pid *pid);
 
