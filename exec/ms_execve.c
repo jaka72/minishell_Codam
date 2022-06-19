@@ -69,7 +69,8 @@ int	cmd_is_custom(char **args, char **envs)
 	{
 		if (errno == 2)
 		{
-			print_error_msg("minishell: ", args[0], ": No such file or folder\n");
+			print_error_msg("minishell: ", args[0],
+				": No such file or folder\n");
 			exit(err_all_free_exit(127));
 		}
 		else if (errno == 13)

@@ -35,7 +35,10 @@ UTIL_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(UTIL_SRC:.c=.o))
 INIT_DIR	=	./init
 INIT_SRC	=	$(INIT_DIR)/init.c					\
 				$(INIT_DIR)/signal_handle.c			\
+				$(INIT_DIR)/env_util.c				\
 				$(INIT_DIR)/env.c					\
+				$(INIT_DIR)/expand_util_1.c			\
+				$(INIT_DIR)/expand_util_2.c			\
 				$(INIT_DIR)/expand.c
 INIT_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(INIT_SRC:.c=.o))
 
@@ -67,21 +70,21 @@ SYNTAX_OBJ		=	$(patsubst %, $(OBJ_DIR)/%, $(SYNTAX_SRC:.c=.o))
 
 # for PARSING
 PARSING_DIR		= 	./parsing
-PARSING_SRC		= 	$(PARSING_DIR)/make_commands.c \
-					$(PARSING_DIR)/make_commands_utils.c \
-					$(PARSING_DIR)/choose_correct_array.c \
-					$(PARSING_DIR)/store_to_redirect_arr.c \
+PARSING_SRC		= 	$(PARSING_DIR)/make_commands.c 				\
+					$(PARSING_DIR)/make_commands_utils.c 		\
+					$(PARSING_DIR)/choose_correct_array.c 		\
+					$(PARSING_DIR)/store_to_redirect_arr.c 		\
 					$(PARSING_DIR)/ft_lstadd_back.c \
 					$(PARSING_DIR)/print_commands_info.c		# can be later removed
 PARSING_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(PARSING_SRC:.c=.o))
 
 # for BUILTINS
 BUILTINS_DIR		= 	./builtins
-BUILTINS_SRC		= 	$(BUILTINS_DIR)/echo.c \
-						$(BUILTINS_DIR)/pwd.c \
-						$(BUILTINS_DIR)/cd.c \
-						$(BUILTINS_DIR)/cd_utils.c \
-						$(BUILTINS_DIR)/exit.c \
+BUILTINS_SRC		= 	$(BUILTINS_DIR)/echo.c 		\
+						$(BUILTINS_DIR)/pwd.c 		\
+						$(BUILTINS_DIR)/cd.c 		\
+						$(BUILTINS_DIR)/cd_utils.c 	\
+						$(BUILTINS_DIR)/exit.c 		\
 		 				$(BUILTINS_DIR)/export.c	\
 						$(BUILTINS_DIR)/env.c		\
 						$(BUILTINS_DIR)/unset.c	 
@@ -101,13 +104,13 @@ JAKA_UTILS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(JAKA_UTILS_SRC:.c=.o))
 MAIN_SRC	=	main.c
 MAIN_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(MAIN_SRC:.c=.o))
 
-OBJ			=	$(UTIL_OBJ)		\
-				$(INIT_OBJ)		\
-				$(EXEC_OBJ)		\
-				$(FILE_OBJ)		\
-				$(SYNTAX_OBJ)	\
-				$(PARSING_OBJ)	\
-				$(BUILTINS_OBJ)	\
+OBJ			=	$(UTIL_OBJ)			\
+				$(INIT_OBJ)			\
+				$(EXEC_OBJ)			\
+				$(FILE_OBJ)			\
+				$(SYNTAX_OBJ)		\
+				$(PARSING_OBJ)		\
+				$(BUILTINS_OBJ)		\
 				$(JAKA_UTILS_OBJ)	\
 				$(MAIN_OBJ)
 

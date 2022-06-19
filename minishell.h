@@ -97,19 +97,41 @@ void	handle_sigint_hd(int num);
 // init/init.c
 void	ms_init( char *envp[]);
 
-// init/env.c
+// init/env_util.c
+
+
+
+// init/env_util.c
 t_env	*last_env(void);
 int		count_env(void);
+void	free_errtx_all_free_exit(t_env *env, char *envname);
 t_env	*get_name_value(t_env *env, char *envtext);
+t_env	*init_tempenv(void);
+
+// init/env.c
 t_env	*get_env(char *envp[]);
+char	**ft_realloc_i(char **str, int i);
+char	**make_envstr(t_env *current, char **envs, int i);
 char	**get_env_array(void);
 
-// init/expand.c
-void	print_env(void);
+// init/expand_util_1.c
 char	*name_expand(char *tx);
+char	*add_singlequote(char *dst, char *src);
+int		count_single_length(char *src);
+int		count_expand_length(char *src);
+int		count_expand_length_hd(char *src);
+
+// init/expand_util_2.c
+char	*add_expanded(char *dst, char *src);
+char	*add_laststatus(char *dst, int g_status);
+char	*ini_expanded(void);
+char	*check_expand_hd(char *tx);
+
+// init/expand.c
+char	*check_quote_expand(char *expanded, char *tx, int *i, int *d_flag);
+char	*check_doller_expand(char *expanded, char *tx, int *i, int *d_flag);
 char	*check_expand_file(char *tx);
 char	*check_expand(char *tx);
-char	*check_expand_hd(char *tx);
 char	**expand_array(char **args);
 
 // heredoc/heredoc_util.c

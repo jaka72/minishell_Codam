@@ -36,14 +36,14 @@ int	run_unset_builtin(t_cmd *cmd)
 		if (cmd->args[i][0] >= '0' && cmd->args[i][0] <= '9')
 		{
 			write(2, "minishell: unset: ", 18);
-			write(2, cmd->args[i],  ft_strlen(cmd->args[i]));
+			write(2, cmd->args[i], ft_strlen(cmd->args[i]));
 			write(2, ": not a valid identifier\n", 25);
 			g_gl.g_status = 1;
 		}
 		if (ft_strchr(cmd->args[i], '=') != NULL)
 		{
 			write(2, "minishell: unset: ", 18);
-			write(2, cmd->args[i],  ft_strlen(cmd->args[i]));
+			write(2, cmd->args[i], ft_strlen(cmd->args[i]));
 			write(2, ": not a valid identifier\n", 25);
 			g_gl.g_status = 1;
 		}

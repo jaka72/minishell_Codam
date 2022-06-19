@@ -19,8 +19,9 @@ int	run_env_builtin(void);
 int	find_name_delate(char *targetname);
 
 //env
+void	print_env(void);
 int	print_env_export(void);
-int	run_env_builtin();
+int	run_env_builtin(void);
 
 //export
 t_env	*find_and_split(const char *s, char c, t_env *env);

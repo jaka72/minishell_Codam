@@ -26,6 +26,12 @@ int	check_outfile(char *expanded)
 	if (access(expanded, F_OK) != 0)
 	{
 		j = open(expanded, O_CREAT, 0666);
+		if (j < 0)
+		{
+			return_perr(-4, expanded);
+			free(expanded);
+			return (-4);
+		}
 		close(j);
 	}
 	return (0);
