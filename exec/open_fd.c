@@ -55,10 +55,8 @@ static int	set_outfile_ap(t_cmd *str, int i)
 int	open_file_fd(t_cmd *str)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	if (str->files == NULL)
 		return (0);
 	while (str->files[i])
