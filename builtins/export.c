@@ -1,5 +1,4 @@
 #include "minishell.h"
-// #include "builtins.h"
 
 static t_env	*find_and_split(const char *s, char c, t_env *env)
 {

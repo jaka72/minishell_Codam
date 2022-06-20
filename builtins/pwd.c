@@ -1,6 +1,5 @@
 #include "../minishell.h"
 
-// free(current_path); // DOES IT NEED TO BE FREED ???
 int	run_pwd_builtin(void)
 {
 	char	buff[PATH_MAX];

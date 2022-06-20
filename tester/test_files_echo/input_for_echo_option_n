@@ -1,9 +1,0 @@
-echo -n one
-echo -nn two
-echo -n -n -n three
-echo -n -n -n four
-echo "-n" five
-echo "-n '-n'" six
-echo "-nnnn" seven
-echo -n"-n" eight
-echo "-n -n -n"-n nine

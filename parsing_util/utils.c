@@ -1,16 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/06/01 10:42:48 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/20 09:18:47 by kito          ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-// #include "utils.h"
 #include "../minishell.h"
 
 int	count_elems(char **arr)
@@ -25,12 +12,6 @@ int	count_elems(char **arr)
 	return (i);
 }
 
-// IF IT FINDS \ ) ( OR ; 
-// IT ALREADY EXITS IN CHECK FOR QUOTES
-///// PROBABLY HERE NOT NEEDED TO CHECK FOR INVALID  CHARS \ ( )
-///// BECAUSE IF THEY APPEAR INSIDE QUOTES, THEY SHOULD BE VALID
-///// IT IS ALREADY CHECKED WHEN CHECKING FOR CORRECT "QUOTES"
-// 1 == valid, 0== invalid
 int	is_allowed_char(int c)
 {
 	if (c >= 33 && c <= 126)
@@ -39,10 +20,13 @@ int	is_allowed_char(int c)
 	}
 	return (0);
 }
+// IF IT FINDS \ ) ( OR ; 
+// IT ALREADY EXITS IN CHECK FOR QUOTES
+///// PROBABLY HERE NOT NEEDED TO CHECK FOR INVALID  CHARS \ ( )
+///// BECAUSE IF THEY APPEAR INSIDE QUOTES, THEY SHOULD BE VALID
+///// IT IS ALREADY CHECKED WHEN CHECKING FOR CORRECT "QUOTES"
+// 1 == valid, 0== invalid
 
-// HERE, IF I BLOCK THE if, THEN I CORRUPT PIPES: ls | wc
-// 0 == invalid
-// 1 == valid
 int	is_valid_filename_char(int c)
 {
 	if (c >= 33 && c <= 126)
@@ -52,6 +36,9 @@ int	is_valid_filename_char(int c)
 	}
 	return (1);
 }
+// HERE, IF I BLOCK THE if, THEN I CORRUPT PIPES: ls | wc
+// 0 == invalid
+// 1 == valid
 
 char	peek_next_char(t_source *src)
 {
@@ -70,8 +57,6 @@ char	peek_next_char(t_source *src)
 	return (src->inputline[pos]);
 }
 
-// RETURNS THE NEW currpos ON THE
-// LAST WHITE SPACE BEFORE THE NEXT CHAR
 void	skip_white_spaces(t_source *src)
 {
 	char	c;
@@ -85,15 +70,5 @@ void	skip_white_spaces(t_source *src)
 		c = peek_next_char(src);
 	}
 }
-
 // RETURNS THE NEW currpos ON THE
 // LAST WHITE SPACE BEFORE THE NEXT CHAR
-// void skip_white_spaces(t_source *src)
-// {
-// 	char c;
-
-// 	if (src == NULL || src->inputline == NULL)
-// 		return;
-// 	while (((c = peek_next_char(src)) != ENDOFLINE) && (isspace(c)))
-// 		src->currpos++;
-// }

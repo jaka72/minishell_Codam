@@ -1,16 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   check_syntax.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/06/02 10:27:00 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/20 09:16:40 by kito          ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-// #include "check_syntax.h"
 #include "../minishell.h"
 
 int	check_syntax_errors(t_source *src)

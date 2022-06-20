@@ -1,21 +1,19 @@
 #include "../minishell.h"
 
-
-void	is_heredoc(t_source *src, t_cmd *cmd, t_tmp *t)
+static	void	is_heredoc(t_source *src, t_cmd *cmd, t_tmp *t)
 {
 	t->temp_arr = cmd->heredoc;
 	cmd->fd_in = -3;
 	src->currpos++;
 }
 
-
-void	is_files_in(t_cmd *cmd, t_tmp *t)
+static	void	is_files_in(t_cmd *cmd, t_tmp *t)
 {
 	t->temp_arr = cmd->files;
 	cmd->fd_in = -2;
 }
 
-void	is_files_out(t_source *src, t_cmd *cmd, t_tmp *t)
+static	void	is_files_out(t_source *src, t_cmd *cmd, t_tmp *t)
 {
 	t->temp_arr = cmd->files;
 	cmd->fd_out = -2;
@@ -25,8 +23,6 @@ void	is_files_out(t_source *src, t_cmd *cmd, t_tmp *t)
 		cmd->fd_out = -3;
 	}
 }
-
-
 
 void	choose_correct_array(t_source *src, t_cmd *cmd, t_tmp *t)
 {
@@ -42,7 +38,5 @@ void	choose_correct_array(t_source *src, t_cmd *cmd, t_tmp *t)
 	{
 		is_files_out(src, cmd, t);
 	}
-	// t->count = count_elems(cmd->outfile);
 	t->count = count_elems(t->temp_arr);
-	//printf(WHT"       t.count: %d\n"RES, t->count);
 }

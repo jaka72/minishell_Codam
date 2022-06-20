@@ -1,11 +1,6 @@
 #include "../minishell.h"
 
-// variable does not exist yet, insert name and value (while struct)
-// printf(YEL"IF $NAME DOES NOT EXIST YET, CALL 
-//			insert() - should only happen with OLDWPD\n"RES);
-// IF MALLOC FAILS, WHICH CODE TO EXIT ??
-// free_all_and_exit();
-int	update_path(t_env *env, char *old_pwd, char *name)
+static	int	update_path(t_env *env, char *old_pwd, char *name)
 {
 	t_env	*temp;
 
@@ -21,7 +16,6 @@ int	update_path(t_env *env, char *old_pwd, char *name)
 			{
 				write(2, "minishell: cd: malloc failed\n", 29);
 				return (1);
-				//exit (0);
 			}
 			return (0);
 		}
@@ -30,10 +24,13 @@ int	update_path(t_env *env, char *old_pwd, char *name)
 	insert_oldpwd_into_list(env, old_pwd);
 	return (0);
 }
+// variable does not exist yet, insert name and value (while struct)
+// printf(YEL"IF $NAME DOES NOT EXIST YET, CALL 
+//			insert() - should only happen with OLDWPD\n"RES);
+// IF MALLOC FAILS, WHICH CODE TO EXIT ??
+// free_all_and_exit();
 
-// THERE IS A DUPLICATE OF THIS FUNCITON IN ECHO BUILTIN
-//     printf(YEL"temp->value: [%s]\n"RES, temp->value);
-char	*get_path(char *name, int *ret)
+static	char	*get_path(char *name, int *ret)
 {
 	char	*newpath;
 	t_env	*temp;
@@ -61,8 +58,10 @@ char	*get_path(char *name, int *ret)
 	}
 	return (NULL);
 }
+// THERE IS A DUPLICATE OF THIS FUNCITON IN ECHO BUILTIN
+//     printf(YEL"temp->value: [%s]\n"RES, temp->value);
 
-int	change_dir(char *old_pwd, char *newpath)
+static	int	change_dir(char *old_pwd, char *newpath)
 {
 	char	*current;
 	char	buff[PATH_MAX];
@@ -84,8 +83,7 @@ int	change_dir(char *old_pwd, char *newpath)
 	return (0);
 }
 
- // get_path(): 2 errors: malloc failed or var not set.
-int	get_path_and_change_dir(char *current_pwd, char *name)
+static	int	get_path_and_change_dir(char *current_pwd, char *name)
 {
 	int		ret;
 	char	*newpath;
@@ -111,7 +109,6 @@ int	get_path_and_change_dir(char *current_pwd, char *name)
 	return (0);
 }
 
-// Shall print some message if current_pwd is NULL ?
 int	run_cd_builtin(t_cmd *cmd)
 {
 	int		ret;

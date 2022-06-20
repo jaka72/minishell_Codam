@@ -21,7 +21,7 @@ int	insert_oldpwd_into_list(t_env *env, const char *value)
 
 	new = malloc(sizeof(t_env));
 	if (new == NULL)
-		return (-1); // 	NEEDS TO GIVE MESSAGE IF MALLOC FAILED, FREE AND AND EXIT !!!
+		return (-1);
 	new->value = ft_strdup(value);
 	new->name = ft_strdup("OLDPWD");
 	new->next = NULL;

@@ -1,7 +1,6 @@
 #include "../minishell.h"
 
-// printf(GRN"   first char [%i]\n"RES, cmd->args[j][0]);
-int	check_n_option(t_cmd *cmd)
+static	int	check_n_option(t_cmd *cmd)
 {
 	int	i;
 	int	j;
@@ -10,24 +9,23 @@ int	check_n_option(t_cmd *cmd)
 	j = 1;
 	while (cmd->args[j] != NULL)
 	{
-		if (cmd->args[j][0] == '-')	// found -n
+		if (cmd->args[j][0] == '-')
 		{
 			i = 1;
 			while (cmd->args[j][i])
 			{
 				if (cmd->args[j][i] != 'n')
-					return (j); // found not n, option must be ignored
-				i++;
+					return (j);
 			}
 		}
 		else
-			return (j); 		// found other element, not -n; go back to  
+			return (j);
 		j++;
 	}
-	return (j); // on
+	return (j);
 }
 
-void	check_line_and_print(t_cmd *cmd, int *flagfw, int *i)
+static	void	check_line_and_print(t_cmd *cmd, int *flagfw, int *i)
 {
 	int		j;
 	char	*word;
@@ -47,8 +45,6 @@ void	check_line_and_print(t_cmd *cmd, int *flagfw, int *i)
 		*flagfw = 1;
 }
 
-// - STILL NEEDS TO HANDLE OPTION -n IF IT IS IN QUOTES
-// - HANDLE BOTH ""  INSIDE '' AND VICE VERSA
 int	run_echo_builtin(t_cmd *cmd)
 {
 	int	i;
@@ -76,3 +72,5 @@ int	run_echo_builtin(t_cmd *cmd)
 		write(1, "\n", 1);
 	return (0);
 }
+// - STILL NEEDS TO HANDLE OPTION -n IF IT IS IN QUOTES
+// - HANDLE BOTH ""  INSIDE '' AND VICE VERSA

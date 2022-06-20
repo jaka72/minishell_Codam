@@ -1,22 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   check_syntax_pipes.c                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jaka <jaka@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/06/01 18:19:55 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/20 09:17:02 by kito          ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-// #include "check_syntax.h"
 #include "../minishell.h"
 
-// RETURNS WITH THE NEW currpos ON THE
-// LAST SPACE BEFORE THE NEXT CHAR
-// ! maybe also is_space needed
-int	skip_allowed_chars(t_source *src)
+static	int	skip_allowed_chars(t_source *src)
 {
 	char	c;
 
@@ -30,6 +14,8 @@ int	skip_allowed_chars(t_source *src)
 	}
 	return (0);
 }
+// RETURNS WITH THE NEW currpos ON THE
+// LAST SPACE BEFORE THE NEXT CHAR
 
 static int	skip_till_first_pipe(t_source *src, int *is_start, int *c)
 {
@@ -58,7 +44,7 @@ static int	skip_till_first_pipe(t_source *src, int *is_start, int *c)
 	return (0);
 }
 
-int	check_next_c_after_pipe(t_source *src)
+static	int	check_next_c_after_pipe(t_source *src)
 {
 	int	ret;
 
@@ -83,7 +69,6 @@ int	check_next_c_after_pipe(t_source *src)
 	return (0);
 }
 
-// while is less than -1, because it looks one char ahead
 int	check_pipes(t_source *src)
 {
 	int	c;
@@ -104,3 +89,4 @@ int	check_pipes(t_source *src)
 	src->currpos = 0;
 	return (0);
 }
+// while is less than -1, because it looks one char ahead
