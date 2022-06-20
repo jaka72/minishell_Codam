@@ -23,6 +23,8 @@ char	*name_expand(char *tx)
 		}
 		env = env->next;
 	}
+	if (newtx == NULL)
+		free(tx);
 	return (newtx);
 }
 

@@ -47,9 +47,9 @@ char	*check_expand_file(char *tx)
 
 	i = 0;
 	d_flag = 0;
-	if (tx[0] == '$' && tx[1] == '\0')
-		return (tx);
 	expanded = ini_expanded();
+	if (tx[0] == '$' && tx[1] == '\0')
+		return (ft_add_c_free(expanded, '$'));
 	while (tx[i] != '\0')
 	{
 		if (tx[i] == '\"' || tx[i] == '\'')
