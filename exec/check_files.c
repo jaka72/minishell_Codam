@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int	check_infile(char *expanded)
+static int	check_infile(char *expanded)
 {
 	if (access(expanded, F_OK) != 0 || (access(expanded, F_OK) == 0
 			&& access(expanded, R_OK) < 0))
@@ -12,7 +12,7 @@ int	check_infile(char *expanded)
 	return (0);
 }
 
-int	check_outfile(char *expanded)
+static int	check_outfile(char *expanded)
 {
 	int	j;
 
@@ -37,7 +37,7 @@ int	check_outfile(char *expanded)
 	return (0);
 }
 
-char	*flag_and_expand(char *expanded, char *original)
+static char	*flag_and_expand(char *expanded, char *original)
 {
 	char	*temp;
 

@@ -41,8 +41,8 @@ struct s_env
 struct s_cmd
 {
 	char			**args;
-	int				fd_in;		// fd_in  : default is 0, if "<" -2, if "<<" -3.
-	int				fd_out;		// fd_out : default is 1, if ">" -2, if ">>" -3.
+	int				fd_in;
+	int				fd_out;
 	char			**heredoc;
 	char			**files;
 	struct s_cmd	*next;
@@ -98,20 +98,16 @@ void	handle_sigint_hd(int num);
 void	ms_init( char *envp[]);
 
 // init/env_util.c
-
-
-
-// init/env_util.c
 t_env	*last_env(void);
-int		count_env(void);
-void	free_errtx_all_free_exit(t_env *env, char *envname);
+// int		count_env(void);
+// void	free_errtx_all_free_exit(t_env *env, char *envname);
 t_env	*get_name_value(t_env *env, char *envtext);
 t_env	*init_tempenv(void);
 
 // init/env.c
 t_env	*get_env(char *envp[]);
-char	**ft_realloc_i(char **str, int i);
-char	**make_envstr(t_env *current, char **envs, int i);
+// char	**ft_realloc_i(char **str, int i);
+// char	**make_envstr(t_env *current, char **envs, int i);
 char	**get_env_array(void);
 
 // init/expand_util_1.c
@@ -119,7 +115,7 @@ char	*name_expand(char *tx);
 char	*add_singlequote(char *dst, char *src);
 int		count_single_length(char *src);
 int		count_expand_length(char *src);
-int		count_expand_length_hd(char *src);
+// int		count_expand_length_hd(char *src);
 
 // init/expand_util_2.c
 char	*add_expanded(char *dst, char *src);
@@ -128,8 +124,8 @@ char	*ini_expanded(void);
 char	*check_expand_hd(char *tx);
 
 // init/expand.c
-char	*check_quote_expand(char *expanded, char *tx, int *i, int *d_flag);
-char	*check_doller_expand(char *expanded, char *tx, int *i, int *d_flag);
+// char	*check_quote_expand(char *expanded, char *tx, int *i, int *d_flag);
+// char	*check_doller_expand(char *expanded, char *tx, int *i, int *d_flag);
 char	*check_expand_file(char *tx);
 char	*check_expand(char *tx);
 char	**expand_array(char **args);
@@ -140,15 +136,15 @@ void	reset_termios(void);
 int		reset_fd_sig_close(int fd);
 
 // heredoc/heredoc.c
-int		read_heredoc(char *limiter, int fd_out);
-void	set_status(int status);
-int		make_heredoc(char *limiter);
+// int		read_heredoc(char *limiter, int fd_out);
+// void	set_status(int status);
+// int		make_heredoc(char *limiter);
 int		open_heredoc(t_pid *pid);
 
 // exec/open_fd.c
-int		set_infile(t_cmd *str, int i);
-int		set_outfile(t_cmd *str, int i);
-int		set_outfile_ap(t_cmd *str, int i);
+// int		set_infile(t_cmd *str, int i);
+// int		set_outfile(t_cmd *str, int i);
+// int		set_outfile_ap(t_cmd *str, int i);
 int		open_file_fd(t_cmd *str);
 
 // exec/connect_fd.c
@@ -157,32 +153,26 @@ void	check_close_fd(int fdin, int fdout);
 void	reset_fd_sig(void);
 
 // exec/find_path.c
-char	*ft_find_env_pathnum(char *envp[]);
-char	*ft_make_binpass(int i, char *pass, char *cmd);
+// char	*ft_find_env_pathnum(char *envp[]);
+// char	*ft_make_binpath(int i, char *pass, char *cmd);
 char	*ft_findshell_path(char *cmd, char *envp[]);
 
 // exec/check_files.c
 int		check_file_access(t_cmd	*current);
 
 // exec/exec.c
-
-
 int		run_cmd(void);
 
 // exec/ms_execve.c
 int		ms_execve(t_cmd *str);
-int		cmd_is_custom(char **args, char **envs);
-int		cmd_with_slash(char *path, char **args, char **envs);
-int		cmd_no_slash(char *path, char **args, char **envs);
-
+// int		cmd_is_custom(char **args, char **envs);
+// int		cmd_with_slash(char *path, char **args, char **envs);
+// int		cmd_no_slash(char *path, char **args, char **envs);
 
 // added jaka: to count the array of arguments:
 int		count_elems(char **arr);
 
-
-
-
 // main.c
-
+int		main(int argc, char *argv[], char *envp[]);
 
 #endif

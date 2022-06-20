@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-char	*ft_find_env_pathnum(char *envp[])
+static char	*ft_find_env_pathnum(char *envp[])
 {
 	int		i;
 	char	*path;
@@ -19,7 +19,7 @@ char	*ft_find_env_pathnum(char *envp[])
 	return (NULL);
 }
 
-char	*ft_make_binpath(int i, char *path, char *cmd)
+static char	*ft_make_binpath(int i, char *path, char *cmd)
 {
 	int		j;
 	int		k;

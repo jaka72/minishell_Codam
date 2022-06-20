@@ -1,7 +1,7 @@
 //#include "minishell.h"
 #include "builtins.h"
 
-t_env	*find_and_split(const char *s, char c, t_env *env)
+static t_env	*find_and_split(const char *s, char c, t_env *env)
 {
 	int	i;
 	int	w;
@@ -30,7 +30,7 @@ t_env	*find_and_split(const char *s, char c, t_env *env)
 	return (NULL);
 }
 
-int	check_valid_identifier(char *text)
+static int	check_valid_identifier(char *text)
 {
 	int	i;
 
@@ -50,7 +50,7 @@ int	check_valid_identifier(char *text)
 	return (0);
 }
 
-int	write_identifier_error(char *text)
+static int	write_identifier_error(char *text)
 {
 	write(2, "minishell: export: \'", 20);
 	write(2, text, ft_strlen(text));
@@ -58,7 +58,7 @@ int	write_identifier_error(char *text)
 	return (1);
 }
 
-void	add_env_tolast(t_env *temp_env)
+static void	add_env_tolast(t_env *temp_env)
 {
 	t_env	*end_env;
 

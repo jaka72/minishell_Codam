@@ -64,12 +64,12 @@ int	count_expand_length(char *src)
 	return (i);
 }
 
-int	count_expand_length_hd(char *src)
-{
-	int	i;
+// int	count_expand_length_hd(char *src)
+// {
+// 	int	i;
 
-	i = 0;
-	while (src[i] != '\0' && src[i] != ' ')
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	while (src[i] != '\0' && src[i] != ' ')
+// 		i++;
+// 	return (i);
+// }

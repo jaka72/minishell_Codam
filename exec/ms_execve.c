@@ -1,13 +1,13 @@
 #include "../minishell.h"
 
-void	print_error_msg(char *s1, char *s2, char *s3)
+static void	print_error_msg(char *s1, char *s2, char *s3)
 {
 	write(2, s1, ft_strlen(s1));
 	write(2, s2, ft_strlen(s2));
 	write(2, s3, ft_strlen(s3));
 }
 
-int	cmd_no_slash(char *path, char **args, char **envs)
+static int	cmd_no_slash(char *path, char **args, char **envs)
 {
 	int	ret;
 
@@ -34,7 +34,7 @@ int	cmd_no_slash(char *path, char **args, char **envs)
 	return (1);
 }
 
-int	cmd_with_slash(char *path, char **args, char **envs)
+static int	cmd_with_slash(char *path, char **args, char **envs)
 {
 	int	ret;
 
@@ -60,7 +60,7 @@ int	cmd_with_slash(char *path, char **args, char **envs)
 	return (1);
 }
 
-int	cmd_is_custom(char **args, char **envs)
+static int	cmd_is_custom(char **args, char **envs)
 {
 	int	ret;
 

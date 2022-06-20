@@ -27,25 +27,25 @@ t_env	*get_env(char *envp[])
 	return (g_gl.start_env);
 }
 
-char	**ft_realloc_i(char **str, int i)
-{
-	char	**temp;
-	int		j;
+// char	**ft_realloc_i(char **str, int i)
+// {
+// 	char	**temp;
+// 	int		j;
 
-	j = 0;
-	temp = malloc(sizeof(char **) * i);
-	if (temp == NULL)
-		return (NULL);
-	while (str[j] && j < i)
-	{
-		temp[j] = str[j];
-		j++;
-	}
-	temp[i - 1] = NULL;
-	return (temp);
-}
+// 	j = 0;
+// 	temp = malloc(sizeof(char **) * i);
+// 	if (temp == NULL)
+// 		return (NULL);
+// 	while (str[j] && j < i)
+// 	{
+// 		temp[j] = str[j];
+// 		j++;
+// 	}
+// 	temp[i - 1] = NULL;
+// 	return (temp);
+// }
 
-char	**make_envstr(t_env *current, char **envs, int i)
+static char	**make_envstr(t_env *current, char **envs, int i)
 {
 	char	*temp;
 

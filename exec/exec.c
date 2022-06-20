@@ -11,7 +11,7 @@ void	init_pid_sig(t_pid *pidinfo)
 	signal(SIGQUIT, handle_sigquit_p);
 }
 
-int	exec_no_pipe(t_pid *pid)
+static int	exec_no_pipe(t_pid *pid)
 {
 	if (check_file_access(g_gl.start_cmd) != 0)
 		return (1);
@@ -38,7 +38,7 @@ int	exec_no_pipe(t_pid *pid)
 	return (g_gl.g_status);
 }
 
-void	connect_fd_child(t_cmd	*current, t_pid *pid)
+static void	connect_fd_child(t_cmd	*current, t_pid *pid)
 {
 	if (current != g_gl.start_cmd)
 		g_gl.g_status = 0;
@@ -65,7 +65,7 @@ void	connect_fd_child(t_cmd	*current, t_pid *pid)
 		exit(exec_builtin(current, g_gl.start_cmd));
 }
 
-int	exec_with_pipe(t_pid *pid)
+static int	exec_with_pipe(t_pid *pid)
 {
 	pid->temp_cmd = g_gl.start_cmd;
 	while (pid->temp_cmd)

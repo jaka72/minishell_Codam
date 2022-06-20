@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int	set_infile(t_cmd *str, int i)
+static int	set_infile(t_cmd *str, int i)
 {
 	int	j;
 
@@ -17,7 +17,7 @@ int	set_infile(t_cmd *str, int i)
 	return (0);
 }
 
-int	set_outfile(t_cmd *str, int i)
+static int	set_outfile(t_cmd *str, int i)
 {
 	int	j;
 
@@ -34,7 +34,7 @@ int	set_outfile(t_cmd *str, int i)
 	return (0);
 }
 
-int	set_outfile_ap(t_cmd *str, int i)
+static int	set_outfile_ap(t_cmd *str, int i)
 {
 	int	j;
 

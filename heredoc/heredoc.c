@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int	read_heredoc(char *limiter, int fd_out)
+static int	read_heredoc(char *limiter, int fd_out)
 {
 	char	*str;
 
@@ -19,7 +19,7 @@ int	read_heredoc(char *limiter, int fd_out)
 	return (0);
 }
 
-void	set_status(int status)
+static void	set_status(int status)
 {
 	if (WIFEXITED(status))
 		g_gl.g_status = WEXITSTATUS(status);
@@ -27,7 +27,7 @@ void	set_status(int status)
 		g_gl.g_status = 1;
 }
 
-int	make_heredoc(char *limiter)
+static int	make_heredoc(char *limiter)
 {
 	t_pid	pid;
 

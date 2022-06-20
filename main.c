@@ -2,7 +2,7 @@
 
 t_global	g_gl;
 
-void	free_and_read(t_source *src, int history)
+static void	free_and_read(t_source *src, int history)
 {
 	if (history == 1)
 		add_history(src->inputline);

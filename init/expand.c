@@ -1,7 +1,7 @@
 #include "../minishell.h"
 #define FLAG1 1
 
-char	*check_quote_expand(char *expanded, char *tx, int *i, int *d_flag)
+static char	*check_quote_expand(char *expanded, char *tx, int *i, int *d_flag)
 {
 	if (tx[*i] == '\"')
 		*d_flag ^= FLAG1;
@@ -15,7 +15,7 @@ char	*check_quote_expand(char *expanded, char *tx, int *i, int *d_flag)
 	return (expanded);
 }
 
-char	*check_doller_expand(char *expanded, char *tx, int *i, int *d_flag)
+static char	*check_doller_expand(char *expanded, char *tx, int *i, int *d_flag)
 {
 	if (tx[*i] == '$' && tx[*i + 1] == '\"' && *d_flag == 1)
 	{
@@ -29,7 +29,7 @@ char	*check_doller_expand(char *expanded, char *tx, int *i, int *d_flag)
 	else if (tx[*i] == '$' && tx[*i + 1] == '?' )
 	{
 		expanded = add_laststatus(expanded, g_gl.g_status);
-		i++;
+		*i = *i + 1;
 	}
 	else if (tx[*i] == '$')
 	{

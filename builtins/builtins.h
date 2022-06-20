@@ -13,21 +13,21 @@ int	print_error_too_many_args(void);
 int	insert_oldpwd_into_list(t_env *env, const char *value);
 // int	run_exit_builtin(t_cmd *cmd, t_cmd *list);
 int	run_exit_builtin(t_cmd *cmd, t_cmd *list);
-int	run_export_builtin(t_cmd *cmd);
-int	run_unset_builtin(t_cmd *cmd);
-int	run_env_builtin(void);
+
+
+
 int	find_name_delate(char *targetname);
 
 //env
-void	print_env(void);
+// void	print_env(void);
 int	print_env_export(void);
 int	run_env_builtin(void);
 
 //export
-t_env	*find_and_split(const char *s, char c, t_env *env);
-int	check_valid_identifier(char *text);
-int	write_identifier_error(char *text);
-void	add_env_tolast(t_env *temp_env);
+// t_env	*find_and_split(const char *s, char c, t_env *env);
+// int	check_valid_identifier(char *text);
+// int	write_identifier_error(char *text);
+// void	add_env_tolast(t_env *temp_env);
 int	run_export_builtin(t_cmd *cmd);
 
 //unset
