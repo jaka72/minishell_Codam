@@ -46,12 +46,12 @@ int	main(int argc, char *argv[], char *envp[])
 			return (SYNTAX_ERROR);
 		}
 		// cmd_list = make_commands(&src);
-		g_gl.start_cmd = make_commands(&src);
+		gl.start_cmd = make_commands(&src);
 
-		g_gl.g_status = run_cmd();
+		gl.g_status = run_cmd();
 		free_tcmd();
 //		free_commands_list(cmd_list);
-		clean_data(g_gl.g_status, NULL);
+		clean_data(gl.g_status, NULL);
 		//printf(GRN"\nexit! (tester mode)\n\n"RES);
 		return (0);
 	}
@@ -60,7 +60,7 @@ int	main(int argc, char *argv[], char *envp[])
 		printf(GRN"Tester mode, needs 1 argument!\n\n"RES);
 		exit (0);
 /*		// printf(GRN"Real mode:\n"RES);
-		//line = readline(g_gl.prompt);
+		//line = readline(gl.prompt);
 		src.inputline = NULL;
 		free_and_read(&src, 0);
 		while (src.inputline)

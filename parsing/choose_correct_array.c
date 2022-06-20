@@ -1,16 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   choose_correct_array.c                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jaka <jaka@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/31 14:07:33 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/20 08:55:47 by kito          ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-// #include "make_commands.h"
 #include "../minishell.h"
 
 
@@ -59,4 +46,3 @@ void	choose_correct_array(t_source *src, t_cmd *cmd, t_tmp *t)
 	t->count = count_elems(t->temp_arr);
 	//printf(WHT"       t.count: %d\n"RES, t->count);
 }
-

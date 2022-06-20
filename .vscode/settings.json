@@ -5,9 +5,13 @@
         "filio.h": "c",
         "sockio.h": "c",
         "cdefs.h": "c",
+<<<<<<< HEAD
         "minishell.h": "c",
         "builtins.h": "c",
         "check_syntax.h": "c",
         "colors.h": "c"
+=======
+        "make_commands.h": "c"
+>>>>>>> main
     }
 }

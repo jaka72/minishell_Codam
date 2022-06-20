@@ -1,16 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   print_err_msg.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jaka <jaka@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/06/06 13:06:34 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/20 09:18:51 by kito          ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-// #include "utils.h"
 #include "../minishell.h"
 
 //  BOTH SYNTAX AND MAKECOMMANDS NEED TO HAVE ACCESS TO 
