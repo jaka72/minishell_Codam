@@ -91,12 +91,12 @@ BUILTINS_SRC		= 	$(BUILTINS_DIR)/echo.c 		\
 BUILTINS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(BUILTINS_SRC:.c=.o))
 
 
-# JAKA_UTILS
-JAKA_UTILS_DIR		= 	./jaka_utils
-JAKA_UTILS_SRC		= 	$(JAKA_UTILS_DIR)/utils.c	\
-						$(JAKA_UTILS_DIR)/print_err_msg.c
+# PARSING_UTIL
+PARS_UTILS_DIR		= 	./parsing_util
+PARS_UTILS_SRC		= 	$(PARS_UTILS_DIR)/utils.c	\
+						$(PARS_UTILS_DIR)/print_err_msg.c
 #						$(JAKA_UTILS_DIR)/from_libft.c
-JAKA_UTILS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(JAKA_UTILS_SRC:.c=.o))
+PARS_UTILS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(PARS_UTILS_SRC:.c=.o))
 
 
 #for main and running commands (fork and execte)
@@ -111,7 +111,7 @@ OBJ			=	$(UTIL_OBJ)			\
 				$(SYNTAX_OBJ)		\
 				$(PARSING_OBJ)		\
 				$(BUILTINS_OBJ)		\
-				$(JAKA_UTILS_OBJ)	\
+				$(PARS_UTILS_OBJ)	\
 				$(MAIN_OBJ)
 
 HEADER		=	minishell.h
@@ -132,7 +132,7 @@ make_obj_dir:
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/check_syntax/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/parsing/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/builtins/
-	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/jaka_utils/
+	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/parsing_util/
 
 libft:		$(LIBFT_A)
 

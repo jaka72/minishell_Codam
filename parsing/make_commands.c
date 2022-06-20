@@ -6,11 +6,12 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:39:36 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/16 15:03:40 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/20 08:56:00 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "make_commands.h"
+// #include "make_commands.h"
+#include "../minishell.h"
 
 char	**realloc_array(char **arr, int count)
 {

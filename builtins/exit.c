@@ -6,11 +6,12 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 12:56:23 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/14 09:41:36 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/20 08:58:48 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+// #include "builtins.h
+#include "../minishell.h"
 
 int	count_commands(t_cmd *list)
 {

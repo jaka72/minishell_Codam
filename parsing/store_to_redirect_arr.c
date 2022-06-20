@@ -6,11 +6,12 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 14:31:57 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/16 09:51:22 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/20 08:56:25 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "make_commands.h"
+// #include "make_commands.h"
+#include "../minishell.h"
 
 void	store_arrow(t_source *src, t_tmp *t)
 {

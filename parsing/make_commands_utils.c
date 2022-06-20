@@ -6,11 +6,12 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:14:28 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/16 15:11:09 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/20 08:55:57 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "make_commands.h"
+// #include "make_commands.h"
+#include "../minishell.h"
 #define FLAG1 1
 
 void	init_values(t_cmd *cmd)

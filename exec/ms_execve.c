@@ -1,4 +1,5 @@
 #include "../minishell.h"
+#include <errno.h>
 
 static void	print_error_msg(char *s1, char *s2, char *s3)
 {

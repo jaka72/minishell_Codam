@@ -6,11 +6,12 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 18:27:16 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/01 18:41:16 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/20 09:16:52 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_syntax.h"
+// #include "check_syntax.h"
+#include "../minishell.h"
 
 void	skip_alphas_spaces_pipes(t_source *src)
 {

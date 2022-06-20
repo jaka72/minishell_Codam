@@ -6,11 +6,12 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 10:27:00 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/02 11:10:58 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/20 09:16:40 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_syntax.h"
+// #include "check_syntax.h"
+#include "../minishell.h"
 
 int	check_syntax_errors(t_source *src)
 {

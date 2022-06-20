@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+// #include "builtins.h"
+#include "../minishell.h"
 
 // printf(GRN"   first char [%i]\n"RES, cmd->args[j][0]);
 int	check_n_option(t_cmd *cmd)

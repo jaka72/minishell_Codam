@@ -6,11 +6,12 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 18:19:55 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/01 18:21:04 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/20 09:17:02 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_syntax.h"
+// #include "check_syntax.h"
+#include "../minishell.h"
 
 // RETURNS WITH THE NEW currpos ON THE
 // LAST SPACE BEFORE THE NEXT CHAR

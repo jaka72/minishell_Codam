@@ -6,11 +6,12 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 12:41:44 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/16 11:23:07 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/20 08:54:20 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+// #include "builtins.h"
+#include "../minishell.h"
 
 // variable does not exist yet, insert name and value (while struct)
 // printf(YEL"IF $NAME DOES NOT EXIST YET, CALL 

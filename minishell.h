@@ -11,7 +11,9 @@
 # include <readline/history.h>
 # include <termcap.h>
 # include <termios.h>
+# include <limits.h>	// FOR PATH_MAX, JUST FOR MAC
 # include "libft/libft.h"
+# include "parsing_util/colors.h"
 
 typedef struct s_global		t_global;
 typedef struct s_env		t_env;
@@ -63,11 +65,6 @@ struct s_pid
 	pid_t	last_pid;
 	t_cmd	*temp_cmd;
 };
-
-# include "jaka_utils/utils.h"
-# include "check_syntax/check_syntax.h"
-# include "parsing/make_commands.h"
-# include "builtins/builtins.h"
 
 // util/error.c
 int		return_perr(int i, char *tx);
@@ -174,5 +171,95 @@ int		count_elems(char **arr);
 
 // main.c
 int		main(int argc, char *argv[], char *envp[]);
+
+
+
+int	run_echo_builtin(t_cmd *cmd);
+int	run_pwd_builtin(void);
+int	run_cd_builtin(t_cmd *cmd);
+int	print_msg_var_not_set(char *name);
+int	print_error_too_many_args(void);
+int	insert_oldpwd_into_list(t_env *env, const char *value);
+// int	run_exit_builtin(t_cmd *cmd, t_cmd *list);
+int	run_exit_builtin(t_cmd *cmd, t_cmd *list);
+
+
+
+int	find_name_delate(char *targetname);
+
+//env
+// void	print_env(void);
+int	print_env_export(void);
+int	run_env_builtin(void);
+
+//export
+// t_env	*find_and_split(const char *s, char c, t_env *env);
+// int	check_valid_identifier(char *text);
+// int	write_identifier_error(char *text);
+// void	add_env_tolast(t_env *temp_env);
+int	run_export_builtin(t_cmd *cmd);
+
+//unset
+int	find_name_delate(char *targetname);
+int	run_unset_builtin(t_cmd *cmd);
+
+
+
+typedef struct s_temporary_array
+{
+	int		arrow;
+	int		len;
+	int		start;
+	char	**temp_arr;
+	int		count;
+} t_tmp;
+
+// MAKE COMMANDS
+// t_cmd	*make_commands(t_source *src);
+t_cmd	*make_commands(t_source *src);
+// int		free_commands_list(t_cmd *first_cmd);
+void	print_command_info(t_cmd *cmd);
+void	choose_correct_array(t_source *src, t_cmd *cmd, t_tmp *t);
+int		store_to_redirect_arr(t_source *src, t_cmd *cmd);
+char	**realloc_array(char **arr, int count);
+
+// UTILS
+void	init_values(t_cmd *cmd);
+int		check_if_builtin(t_cmd *cmd);
+int		exec_builtin(t_cmd *cmd, t_cmd *list);
+// int		exec_builtin(t_cmd *cmd, t_infos *info);
+void	ft_lstadd_back(t_cmd **list, t_cmd *newnode);
+int		get_length_of_word(t_source *src);
+
+
+#define	MSG_SYNTAX "Syntax error"
+
+// INITIAL CHECK
+int	check_syntax_errors(t_source *src);
+int	check_unsuported_chars(t_source *src);
+int	check_pipes(t_source *src);
+int	check_redirects(t_source *src);
+int	check_quotes(t_source *src);
+void skip_alphas_spaces_pipes(t_source *src);
+int	is_space_alpha_or_pipe(t_source *src, int *c);
+int	check_char_after_space(t_source *src, int *c);
+
+
+
+# define SYNTAX_ERROR 	258
+# define ENDOFLINE		(-1)
+# define NOINPUT		(-1)
+
+// UTILS //////////////////////////
+int		is_allowed_char(int c);
+int		is_valid_filename_char(int c);
+void	print_err_msg(char *err_msg);
+char	peek_next_char(t_source *src);
+char	get_next_char(t_source *src);
+void	skip_white_spaces(t_source *src);
+void	print_err_msg(char *err_msg);
+void	msg_and_exit(char *err_msg, int exit_code);
+
+
 
 #endif
