@@ -1,4 +1,6 @@
 #include "../minishell.h"
+#define ENDOFLINE	(-1)
+#define NOINPUT	(-1)
 
 int	count_elems(char **arr)
 {
@@ -64,7 +66,7 @@ void	skip_white_spaces(t_source *src)
 	if (src == NULL || src->inputline == NULL)
 		return ;
 	c = peek_next_char(src);
-	while (c != ENDOFLINE && (isspace(c)))
+	while (c != ENDOFLINE && (ft_isspace(c)))
 	{
 		src->currpos++;
 		c = peek_next_char(src);

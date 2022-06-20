@@ -1,4 +1,5 @@
 #include "../minishell.h"
+#define ENDOFLINE	(-1)
 
 static	int	skip_allowed_chars(t_source *src)
 {

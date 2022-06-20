@@ -1,4 +1,5 @@
 #include "../minishell.h"
+#include <fcntl.h>
 
 static int	set_infile(t_cmd *str, int i)
 {

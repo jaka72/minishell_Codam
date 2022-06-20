@@ -1,4 +1,5 @@
 #include "../minishell.h"
+#include <readline/readline.h>
 
 void	ms_init(char *envp[])
 {

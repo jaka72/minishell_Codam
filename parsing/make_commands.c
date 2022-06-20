@@ -1,34 +1,5 @@
 #include "../minishell.h"
 
-char	**realloc_array(char **arr, int count)
-{
-	int		i;
-	char	**temp;
-
-	temp = malloc(sizeof(char *) * (count));
-	if (temp == NULL)
-		return (NULL);
-	if (arr == NULL)
-		return (temp);
-	i = 0;
-	while (arr[i])
-	{
-		temp[i] = ft_strdup(arr[i]);
-		if (temp[i] == NULL)
-			return (NULL);
-		i++;
-	}
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-	arr = temp;
-	return (arr);
-}
-
 static	int	store_into_command_arr(t_source *src, t_cmd *cmd)
 {
 	int		len;

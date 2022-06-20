@@ -1,4 +1,6 @@
 #include "../minishell.h"
+#define SYNTAX_ERROR	258
+#define MSG_SYNTAX		"Syntax error"
 
 int	check_syntax_errors(t_source *src)
 {

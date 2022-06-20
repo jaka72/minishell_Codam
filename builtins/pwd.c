@@ -1,4 +1,5 @@
 #include "../minishell.h"
+#include <limits.h>
 
 int	run_pwd_builtin(void)
 {

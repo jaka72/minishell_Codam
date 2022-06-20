@@ -1,4 +1,5 @@
 #include "../minishell.h"
+#include <limits.h>
 
 static	int	update_path(t_env *env, char *old_pwd, char *name)
 {
