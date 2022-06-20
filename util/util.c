@@ -1,4 +1,6 @@
 #include "../minishell.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 char	*free_return_null(char *text)
 {

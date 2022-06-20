@@ -1,4 +1,6 @@
 #include "minishell.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 t_global	g_gl;
 

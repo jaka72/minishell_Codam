@@ -1,4 +1,6 @@
 #include "../minishell.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 int	return_perr(int i, char *tx)
 {

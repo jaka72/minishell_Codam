@@ -1,4 +1,5 @@
 #include "../minishell.h"
+#include <readline/readline.h>
 #include <sys/ioctl.h>
 
 void	handle_sigint(int num)

@@ -1,4 +1,5 @@
 #include "../minishell.h"
+#include <readline/readline.h>
 
 static int	read_heredoc(char *limiter, int fd_out)
 {

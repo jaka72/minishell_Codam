@@ -1,4 +1,5 @@
 #include "../minishell.h"
+#define ENDOFLINE	(-1)
 
 static	void	skip_alphas_spaces_pipes(t_source *src)
 {

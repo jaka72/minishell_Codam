@@ -73,8 +73,7 @@ PARSING_DIR		= 	./parsing
 PARSING_SRC		= 	$(PARSING_DIR)/make_commands.c 				\
 					$(PARSING_DIR)/make_commands_utils.c 		\
 					$(PARSING_DIR)/choose_correct_array.c 		\
-					$(PARSING_DIR)/store_to_redirect_arr.c 		\
-					$(PARSING_DIR)/ft_lstadd_back.c
+					$(PARSING_DIR)/store_to_redirect_arr.c
 PARSING_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(PARSING_SRC:.c=.o))
 
 # for BUILTINS
@@ -92,8 +91,8 @@ BUILTINS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(BUILTINS_SRC:.c=.o))
 
 # PARSING_UTIL
 PARS_UTILS_DIR		= 	./parsing_util
-PARS_UTILS_SRC		= 	$(PARS_UTILS_DIR)/utils.c	\
-						$(PARS_UTILS_DIR)/print_err_msg.c
+PARS_UTILS_SRC		= 	$(PARS_UTILS_DIR)/parsing_utils.c	\
+						$(PARS_UTILS_DIR)/parsing_utils_err.c
 #						$(JAKA_UTILS_DIR)/from_libft.c
 PARS_UTILS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(PARS_UTILS_SRC:.c=.o))
 

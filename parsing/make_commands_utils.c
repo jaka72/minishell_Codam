@@ -54,7 +54,7 @@ int	exec_builtin(t_cmd *cmd, t_cmd *list)
 	return (0);
 }
 
-void	set_flags(t_source *src, int *s_flag, int *d_flag, int *len)
+static	void	set_flags(t_source *src, int *s_flag, int *d_flag, int *len)
 {
 	if (src->inputline[src->currpos] == '\'')
 	{
