@@ -8,9 +8,6 @@ void	ms_init(char *envp[])
 	rl_catch_signals = 0;
 	if (tcgetattr(0, &g_gl.termios_save) != 0)
 		exit(errtx_all_free_exit(1, "get termios failed\n"));
-	g_gl.termios_new = g_gl.termios_save;
-	if (tcsetattr(0, 0, &g_gl.termios_new) != 0)
-		exit(errtx_all_free_exit(1, "set termios failed\n"));
 	ft_memccpy(g_gl.prompt, "minishell > ", '\0', 13);
 	g_gl.start_env = get_env(envp);
 	signal(SIGINT, handle_sigint);

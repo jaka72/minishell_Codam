@@ -10,21 +10,6 @@ t_env	*last_env(void)
 	return (last);
 }
 
-// int	count_env(void)
-// {
-// 	int		i;
-// 	t_env	*current;
-
-// 	i = 0;
-// 	current = g_gl.start_env;
-// 	while (current)
-// 	{
-// 		i++;
-// 		current = current->next;
-// 	}
-// 	return (i);
-// }
-
 static void	free_errtx_all_free_exit(t_env *env, char *envname)
 {
 	if (envname != NULL)

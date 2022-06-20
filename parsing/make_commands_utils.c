@@ -6,14 +6,8 @@ void	init_values(t_cmd *cmd)
 	cmd->fd_in = 0;
 	cmd->fd_out = 1;
 	cmd->args = NULL;
-	// cmd->infile = NULL;
-	// cmd->outfile = NULL;
 	cmd->heredoc = NULL;
 	cmd->files = NULL;
-	//cmd->count_args = 0;
-	//cmd->count_infiles = 0;
-	//cmd->count_outfiles = 0;
-	//cmd->count_heredocs = 0;
 }
 
 int	check_if_builtin(t_cmd *cmd)
@@ -39,9 +33,7 @@ int	check_if_builtin(t_cmd *cmd)
 	return (0);
 }
 
-// IS IT HERE BETTER TO RETURN DIRECTLY FROM THE FUNCTION, OR SET THE g_gl.g_status?
 int	exec_builtin(t_cmd *cmd, t_cmd *list)
-// int	exec_builtin(t_cmd *cmd, t_infos *info)
 {
 	if (cmd->args == NULL)
 		return (1);
@@ -53,7 +45,6 @@ int	exec_builtin(t_cmd *cmd, t_cmd *list)
 		return (run_cd_builtin(cmd));
 	else if (ft_strcmp("exit", cmd->args[0]) == 0)
 		return (run_exit_builtin(cmd, list));
-		// return (run_exit_builtin(cmd, list));
 	else if (ft_strcmp("export", cmd->args[0]) == 0)
 		return (run_export_builtin(cmd));
 	else if (ft_strcmp("unset", cmd->args[0]) == 0)
@@ -79,9 +70,6 @@ void	set_flags(t_source *src, int *s_flag, int *d_flag, int *len)
 	src->currpos++;
 }
 
-// NEW, REPAIRED
-//kito changed 26 May : ignore delimiter when it is in quote 
-// skip delimiter if some flag is on
 int	get_length_of_word(t_source *src)
 {
 	int	len;

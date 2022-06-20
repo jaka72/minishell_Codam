@@ -1,19 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   check_syntax_redirects_utils.c                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jaka <jaka@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/06/01 18:27:16 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/20 09:16:52 by kito          ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-// #include "check_syntax.h"
 #include "../minishell.h"
 
-void	skip_alphas_spaces_pipes(t_source *src)
+static	void	skip_alphas_spaces_pipes(t_source *src)
 {
 	char	c;
 
@@ -56,7 +43,6 @@ int	is_space_alpha_or_pipe(t_source *src, int *c)
 	return (0);
 }
 
-//  Checking cases like: 	<<  < 	and  <<  abc
 int	check_char_after_space(t_source *src, int *c)
 {
 	src->currpos += 2;
@@ -72,3 +58,4 @@ int	check_char_after_space(t_source *src, int *c)
 	}
 	return (0);
 }
+//  Checking cases like: 	<<  < 	and  <<  abc

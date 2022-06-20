@@ -48,7 +48,6 @@ static int	make_heredoc(char *limiter)
 		if (waitpid(pid.cu_pid, &pid.status, WUNTRACED | WCONTINUED) >= 0)
 			set_status(pid.status);
 	}
-	reset_termios();
 	if (g_gl.g_status == 1)
 		return (reset_fd_sig_close(pid.newpipe[0]));
 	return (pid.newpipe[0]);
