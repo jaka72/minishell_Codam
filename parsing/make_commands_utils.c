@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   make_commands_utils.c                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jaka <jaka@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/31 13:14:28 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/16 15:11:09 by kito          ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "make_commands.h"
+#include "../minishell.h"
 #define FLAG1 1
 
 void	init_values(t_cmd *cmd)
@@ -51,7 +39,7 @@ int	check_if_builtin(t_cmd *cmd)
 	return (0);
 }
 
-// IS IT HERE BETTER TO RETURN DIRECTLY FROM THE FUNCTION, OR SET THE gl.g_status?
+// IS IT HERE BETTER TO RETURN DIRECTLY FROM THE FUNCTION, OR SET THE g_gl.g_status?
 int	exec_builtin(t_cmd *cmd, t_cmd *list)
 // int	exec_builtin(t_cmd *cmd, t_infos *info)
 {

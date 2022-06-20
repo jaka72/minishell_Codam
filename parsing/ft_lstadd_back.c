@@ -6,12 +6,12 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 13:18:57 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/06 22:04:31 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/20 08:55:52 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../minishell.h"
-#include "make_commands.h"
+#include "../minishell.h"
+// #include "make_commands.h"
 
 void	ft_lstadd_back(t_cmd **list, t_cmd *newnode)
 {

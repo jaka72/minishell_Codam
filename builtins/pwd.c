@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   pwd.c                                              :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jaka <jaka@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/31 12:43:45 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/15 15:49:52 by jmurovec      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "builtins.h"
+#include "../minishell.h"
 
 // free(current_path); // DOES IT NEED TO BE FREED ???
 int	run_pwd_builtin(void)

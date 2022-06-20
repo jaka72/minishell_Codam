@@ -1,10 +1,23 @@
 #include "../minishell.h"
 
+static void	print_env(void)
+{
+	t_env	*env;
+
+	env = g_gl.start_env;
+	while (env->next)
+	{
+		printf("%s=%s\n", env->name, env->value);
+		env = env->next;
+	}
+	printf("%s=%s\n", env->name, env->value);
+}
+
 int	print_env_export(void)
 {
 	t_env	*env;
 
-	env = gl.start_env;
+	env = g_gl.start_env;
 	while (env->next)
 	{
 		printf("declare -x ");

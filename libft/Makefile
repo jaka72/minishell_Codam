@@ -27,7 +27,6 @@ SRC			=	ft_memset.c			\
 				ft_strlcpy.c		\
 				ft_atoi.c			\
 				ft_itoa.c			\
-				ft_split.c			\
 				ft_add_str.c
 
 CFLAGS		=	-Wall -Wextra -Werror

@@ -6,11 +6,12 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 18:41:52 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/02 10:29:55 by jmurovec      ########   odam.nl         */
+/*   Updated: 2022/06/20 09:16:44 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_syntax.h"
+// #include "check_syntax.h"
+#include "../minishell.h"
 
 // Handles cases: <>,  ><, <<space,  <<0,  <<0,  < abc
 int	is_second_arrow(t_source *src, int *c, int arrow)

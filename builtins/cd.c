@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   cd.c                                               :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jaka <jaka@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/31 12:41:44 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/16 11:23:07 by jmurovec      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "builtins.h"
+#include "../minishell.h"
 
 // variable does not exist yet, insert name and value (while struct)
 // printf(YEL"IF $NAME DOES NOT EXIST YET, CALL 
@@ -50,7 +38,7 @@ char	*get_path(char *name, int *ret)
 	char	*newpath;
 	t_env	*temp;
 
-	temp = gl.start_env;
+	temp = g_gl.start_env;
 	while (temp)
 	{
 		if (ft_strcmp(temp->name, name) == 0)
@@ -89,9 +77,9 @@ int	change_dir(char *old_pwd, char *newpath)
 	current = getcwd(buff, PATH_MAX);
 	if (current == NULL)
 		return (1);
-	if (update_path(gl.start_env, current, "PWD") != 0)
+	if (update_path(g_gl.start_env, current, "PWD") != 0)
 		return (1);
-	if (update_path(gl.start_env, old_pwd, "OLDPWD") != 0)
+	if (update_path(g_gl.start_env, old_pwd, "OLDPWD") != 0)
 		return (1);
 	return (0);
 }
@@ -116,9 +104,9 @@ int	get_path_and_change_dir(char *current_pwd, char *name)
 	newpath = getcwd(buff, PATH_MAX);
 	if (newpath == NULL)
 		return (1);
-	if (update_path(gl.start_env, newpath, "PWD") != 0)
+	if (update_path(g_gl.start_env, newpath, "PWD") != 0)
 		return (1);
-	if (update_path(gl.start_env, current_pwd, "OLDPWD") != 0)
+	if (update_path(g_gl.start_env, current_pwd, "OLDPWD") != 0)
 		return (1);
 	return (0);
 }

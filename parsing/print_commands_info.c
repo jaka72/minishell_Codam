@@ -1,4 +1,5 @@
-#include "make_commands.h"
+// #include "make_commands.h"
+#include "../minishell.h"
 
 
 void print_command_info(t_cmd *cmd)

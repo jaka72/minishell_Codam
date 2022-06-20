@@ -6,11 +6,12 @@
 /*   By: jaka <jaka@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 18:22:44 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/01 18:23:12 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/20 09:16:57 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_syntax.h"
+// #include "check_syntax.h"
+#include "../minishell.h"
 
 int	check_unsuported_chars(t_source *src)
 {

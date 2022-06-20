@@ -12,6 +12,14 @@
 
 #include "libft.h"
 
+void	ft_free_strs(char *s1, char *s2)
+{
+	if (s1 != NULL)
+		free(s1);
+	if (s2 != NULL)
+		free(s2);
+}
+
 char	*ft_strjoin_free(char *s1, char *s2)
 {
 	char	*str;
@@ -36,9 +44,6 @@ char	*ft_strjoin_free(char *s1, char *s2)
 		k++;
 	}
 	str[k] = '\0';
-	if (s1 != NULL)
-		free(s1);
-	if (s2 != NULL)
-		free(s2);
+	ft_free_strs(s1, s2);
 	return (str);
 }

@@ -1,0 +1,637 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.81
+# Copyright (C) 2006  Free Software Foundation, Inc.
+# This is free software; see the source for copying conditions.
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# This program built for i386-apple-darwin11.3.0
+ 
+
+# Make data base, printed on Sun Jun 19 10:10:04 2022
+
+# Variables
+
+ 
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# makefile (from `Makefile', line 107)
+OBJ = $(UTIL_OBJ) $(INIT_OBJ) $(EXEC_OBJ) $(FILE_OBJ) $(SYNTAX_OBJ) $(PARSING_OBJ) $(BUILTINS_OBJ) $(JAKA_UTILS_OBJ) $(MAIN_OBJ)
+# makefile (from `Makefile', line 95)
+JAKA_UTILS_DIR = ./jaka_utils
+# environment
+VSCODE_LOG_NATIVE = false
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+CPPFLAGS = -I/usr/local/opt/readline/include
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# makefile
+CURDIR := /Users/keika/Desktop/Mini_18_june
+# makefile (from `Makefile', line 73)
+PARSING_SRC = $(PARSING_DIR)/make_commands.c $(PARSING_DIR)/make_commands_utils.c $(PARSING_DIR)/choose_correct_array.c $(PARSING_DIR)/store_to_redirect_arr.c $(PARSING_DIR)/ft_lstadd_back.c $(PARSING_DIR)/print_commands_info.c		
+# makefile
+SHELL = /bin/sh
+# environment
+VSCODE_NLS_CONFIG = {"locale":"ja","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/bin/make
+# makefile (from `Makefile', line 119)
+CFLAGS = -Wall -Wextra -Werror 
+# makefile (from `Makefile', line 29)
+UTIL_SRC = $(UTIL_DIR)/error.c $(UTIL_DIR)/free.c $(UTIL_DIR)/util.c
+# makefile (from `Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# makefile (from `Makefile', line 83)
+BUILTINS_SRC = $(BUILTINS_DIR)/echo.c $(BUILTINS_DIR)/pwd.c $(BUILTINS_DIR)/cd.c $(BUILTINS_DIR)/cd_utils.c $(BUILTINS_DIR)/exit.c $(BUILTINS_DIR)/export.c $(BUILTINS_DIR)/env.c $(BUILTINS_DIR)/unset.c	 
+# makefile (from `Makefile', line 105)
+MAIN_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(MAIN_SRC:.c=.o))
+# makefile (from `Makefile', line 57)
+FILE_SRC = $(FILE_DIR)/heredoc.c $(FILE_DIR)/heredoc_util.c
+# makefile (from `Makefile', line 72)
+PARSING_DIR = ./parsing
+# makefile (from `Makefile', line 5)
+OBJ_DIR = obj_dir
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# makefile (from `Makefile', line 28)
+UTIL_DIR = util
+# makefile (from `Makefile', line 2)
+BONUS = minishell_bonus
+# makefile (from `Makefile', line 82)
+BUILTINS_DIR = ./builtins
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/pk/ns046dtx2t19fvg7mvxp5d540000gp/T/vscode-ipc-9f349ca3-68a3-4952-9690-a347075fe345.sock
+# environment
+VSCODE_CWD = /
+# makefile (from `Makefile', line 56)
+FILE_DIR = ./heredoc
+# environment
+PATH = /Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/local/opt/llvm/bin:/usr/local/bin:/Users/keika/.brew/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/local/opt/llvm/bin:/usr/local/bin:/Users/keika/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
+# environment
+C_INCLUDE_PATH = /Users/keika/.brew/include:/Users/keika/.brew/include:
+# environment
+LIBRARY_PATH = /Users/keika/.brew/lib:/Users/keika/.brew/lib:
+# makefile (from `Makefile', line 47)
+EXEC_SRC = $(EXEC_DIR)/exec.c $(EXEC_DIR)/open_fd.c $(EXEC_DIR)/connect_fd.c $(EXEC_DIR)/find_path.c $(EXEC_DIR)/check_files.c $(EXEC_DIR)/ms_execve.c						
+# environment
+LaunchInstanceID = D28E5698-2210-4C67-91F9-6D460B1D2FE8
+# environment
+VSCODE_LOG_STACK = false
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+LDFLAGS = -L/usr/local/opt/readline/lib
+# default
+.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# makefile (from `Makefile', line 7)
+LIBFT_DIR = ./libft
+# environment
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.IlIv2nm5Fe/Listeners
+# automatic
+%F = $(notdir $%)
+# environment
+HOMEBREW_TEMP = /tmp/keika/Homebrew/Temp
+# makefile (from `Makefile', line 46)
+EXEC_DIR = ./exec
+# environment
+VSCODE_PIPE_LOGGING = true
+# makefile (from `Makefile', line 104)
+MAIN_SRC = main.c
+# environment
+PWD = /Users/keika/Desktop/Mini_18_june
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+PYENV_SHELL = zsh
+# environment
+HOME = /Users/keika
+ 
+# default
+MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
+# environment
+VSCODE_CODE_CACHE_PATH = /Users/keika/Library/Application Support/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
+# environment
+LOGNAME = keika
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# makefile (from `Makefile', line 68)
+SYNTAX_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(SYNTAX_SRC:.c=.o))
+# makefile (from `Makefile', line 43)
+INIT_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(INIT_SRC:.c=.o))
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# makefile (from `Makefile', line 59)
+FILE_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(FILE_SRC:.c=.o))
+# environment
+XPC_FLAGS = 0x0
+# makefile (from `Makefile', line 121)
+RLFLAG = $(shell brew --prefix readline)
+# default
+MAKE = $(MAKE_COMMAND)
+# makefile (from `Makefile', line 99)
+JAKA_UTILS_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(JAKA_UTILS_SRC:.c=.o))
+# default
+MAKECMDGOALS := all
+# environment
+HOMEBREW_CACHE = /tmp/keika/Homebrew/Caches
+# environment
+SHLVL = 1
+# default
+MAKE_VERSION := 3.81
+# environment
+USER = keika
+# makefile
+.DEFAULT_GOAL := all
+# makefile (from `Makefile', line 1)
+NAME = minishell
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# default
+MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
+# makefile (from `Makefile', line 79)
+PARSING_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(PARSING_SRC:.c=.o))
+# default
+.VARIABLES := 
+# environment
+TMPDIR = /var/folders/pk/ns046dtx2t19fvg7mvxp5d540000gp/T/
+# automatic
+*F = $(notdir $*)
+# environment
+VSCODE_IPC_HOOK = /Users/keika/Library/Application Support/Code/1.68.1-main.sock
+# makefile (from `Makefile', line 32)
+UTIL_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(UTIL_SRC:.c=.o))
+# makefile
+MAKEFLAGS = Rrqp
+# environment
+MFLAGS = -Rrqp
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+XPC_SERVICE_NAME = com.microsoft.VSCode.28868
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# makefile (from `Makefile', line 91)
+BUILTINS_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(BUILTINS_SRC:.c=.o))
+# makefile (from `Makefile', line 25)
+LIBFT_A = $(LIBFT_DIR)/libft.a
+# automatic
++F = $(notdir $+)
+# environment
+__CF_USER_TEXT_ENCODING = 0x1F6:0x1:0xE
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+LC_ALL = C
+# makefile (from `Makefile', line 117)
+HEADER = minishell.h
+# environment
+SECURITYSESSIONID = 186a6
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# makefile (from `Makefile', line 63)
+SYNTAX_SRC = $(SYNTAX_DIR)/check_syntax.c $(SYNTAX_DIR)/check_syntax_quotes.c $(SYNTAX_DIR)/check_syntax_pipes.c $(SYNTAX_DIR)/check_syntax_redirects.c $(SYNTAX_DIR)/check_syntax_redirects_utils.c
+# makefile (from `Makefile', line 36)
+INIT_SRC = $(INIT_DIR)/init.c $(INIT_DIR)/signal_handle.c $(INIT_DIR)/env_util.c $(INIT_DIR)/env.c $(INIT_DIR)/expand_util_1.c $(INIT_DIR)/expand_util_2.c $(INIT_DIR)/expand.c
+# makefile (from `Makefile', line 53)
+EXEC_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(EXEC_SRC:.c=.o))
+# default
+.INCLUDE_DIRS = /usr/local/include
+# environment
+MAKELEVEL := 0
+# makefile (from `Makefile', line 96)
+JAKA_UTILS_SRC = $(JAKA_UTILS_DIR)/utils.c $(JAKA_UTILS_DIR)/print_err_msg.c
+# environment
+LANG = C
+ 
+# environment
+VSCODE_PID = 544
+# makefile (from `Makefile', line 62)
+SYNTAX_DIR = ./check_syntax
+# makefile (from `Makefile', line 35)
+INIT_DIR = ./init
+# variable set hash-table stats:
+# Load=104/1024=10%, Rehash=0, Collisions=9/226=4%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 16777220, inode 12927922344): 26 files, no impossibilities.
+
+# 26 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+obj_dir/%.o: %.c minishell.h
+#  commands to execute (from `Makefile', line 146):
+	gcc -c $(CFLAGS) -I$(RLFLAG)/include -o $@ $<
+	
+
+# 1 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+# Not a target:
+obj_dir/./parsing/ft_lstadd_back.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/util/util.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./heredoc/heredoc_util.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./parsing/choose_correct_array.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./builtins/env.o:
+ 
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./builtins/exit.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+all: make_obj_dir minishell
+#  Command-line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/18=0%
+
+# Not a target:
+obj_dir/./check_syntax/check_syntax_pipes.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/main.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./exec/check_files.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./exec/find_path.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./exec/ms_execve.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./builtins/unset.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./parsing/make_commands.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./heredoc/heredoc.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+libft: libft/libft.a
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./parsing/print_commands_info.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-19 10:00:21
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+obj_dir/./builtins/cd_utils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+ 
+obj_dir/./init/expand_util_1.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./init/expand.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./exec/connect_fd.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+minishell: libft/libft.a obj_dir/util/error.o obj_dir/util/free.o obj_dir/util/util.o obj_dir/./init/init.o obj_dir/./init/signal_handle.o obj_dir/./init/env_util.o obj_dir/./init/env.o obj_dir/./init/expand_util_1.o obj_dir/./init/expand_util_2.o obj_dir/./init/expand.o obj_dir/./exec/exec.o obj_dir/./exec/open_fd.o obj_dir/./exec/connect_fd.o obj_dir/./exec/find_path.o obj_dir/./exec/check_files.o obj_dir/./exec/ms_execve.o obj_dir/./heredoc/heredoc.o obj_dir/./heredoc/heredoc_util.o obj_dir/./check_syntax/check_syntax.o obj_dir/./check_syntax/check_syntax_quotes.o obj_dir/./check_syntax/check_syntax_pipes.o obj_dir/./check_syntax/check_syntax_redirects.o obj_dir/./check_syntax/check_syntax_redirects_utils.o obj_dir/./parsing/make_commands.o obj_dir/./parsing/make_commands_utils.o obj_dir/./parsing/choose_correct_array.o obj_dir/./parsing/store_to_redirect_arr.o obj_dir/./parsing/ft_lstadd_back.o obj_dir/./parsing/print_commands_info.o obj_dir/./builtins/echo.o obj_dir/./builtins/pwd.o obj_dir/./builtins/cd.o obj_dir/./builtins/cd_utils.o obj_dir/./builtins/exit.o obj_dir/./builtins/export.o obj_dir/./builtins/env.o obj_dir/./builtins/unset.o obj_dir/./jaka_utils/utils.o obj_dir/./jaka_utils/print_err_msg.o obj_dir/main.o minishell.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 149):
+	gcc $(CFLAGS) $(OBJ) -I$(RLFLAG)/include -L$(RLFLAG)/lib -lreadline $(LIBFT_A) -o $(NAME)
+	
+
+libft/libft.a: libft/libft.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 140):
+	cd $(LIBFT_DIR); make ; cd ../
+	
+
+# Not a target:
+obj_dir/util/error.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+fclean: libftclean clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 161):
+	rm -f $(NAME)
+	
+
+# Not a target:
+obj_dir/./check_syntax/check_syntax_quotes.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./init/env_util.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+ 
+obj_dir/./init/expand_util_2.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./check_syntax/check_syntax.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./jaka_utils/utils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./builtins/pwd.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./builtins/cd.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+re: fclean all
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 157):
+	rm -f $(OBJ)
+	rm -rf $(OBJ_DIR)
+	
+
+# Not a target:
+obj_dir/./parsing/store_to_redirect_arr.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+libftclean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 164):
+	cd $(LIBFT_DIR); make fclean; cd ../
+	
+
+# Not a target:
+obj_dir/./init/init.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./jaka_utils/print_err_msg.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./builtins/echo.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./builtins/export.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/util/free.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./init/signal_handle.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./exec/open_fd.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./check_syntax/check_syntax_redirects.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+libft/libft.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+ 
+
+# Not a target:
+obj_dir/./parsing/make_commands_utils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./init/env.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+minishell.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./exec/exec.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj_dir/./check_syntax/check_syntax_redirects_utils.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+make_obj_dir:
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: `'
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := make_obj_dir
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := 
+# automatic
+# | := 
+# automatic
+# < := 
+# automatic
+# ^ := 
+# automatic
+# ? := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/26=4%
+#  commands to execute (from `Makefile', line 128):
+	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/util/
+	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/init/ 
+	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/exec/
+	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/heredoc/
+	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/check_syntax/
+	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/parsing/
+	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/builtins/
+	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/jaka_utils/
+	
+
+# files hash-table stats:
+# Load=54/1024=5%, Rehash=0, Collisions=6/118=5%
+# VPATH Search Paths
+
+# No `vpath' search paths.
+
+# No general (`VPATH' variable) search path.
+
+# # of strings in strcache: 1
+# # of strcache buffers: 1
+# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
+# strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
+
+# Finished Make data base on Sun Jun 19 10:10:04 2022
+
+ 

@@ -6,11 +6,12 @@
 /*   By: jmurovec <jmurovec@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/01 10:42:48 by jmurovec      #+#    #+#                 */
-/*   Updated: 2022/06/06 13:12:21 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/20 09:18:47 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+// #include "utils.h"
+#include "../minishell.h"
 
 int	count_elems(char **arr)
 {

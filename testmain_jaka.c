@@ -17,7 +17,7 @@ void	free_and_read(t_source *src, int history)
 		add_history(src->inputline);	
 	if (src->inputline != NULL)
 		free(src->inputline);
-	src->inputline = readline(gl.prompt);
+	src->inputline = readline(g_gl.prompt);
 }
 
 // ORIGINAL FROM testmain.c
@@ -34,7 +34,7 @@ int	main(int argc, char *argv[], char *envp[])
 	ms_init(envp);
 	//free_and_read(&src, 0);
 
-	//line = readline(gl.prompt);
+	//line = readline(g_gl.prompt);
 
 	if (argc == 2)	// JUST FOR TESTING ////////////////////////
 	{
@@ -71,7 +71,7 @@ int	main(int argc, char *argv[], char *envp[])
 				{
 					//add_history(line);				// ADDED JAKA: IN CASE OF ERROR MUST NOT EXIT, BUT LOOP AGAIN
 					//free(line);
-					//line = readline(gl.prompt);
+					//line = readline(g_gl.prompt);
 					free_and_read(&src, 1);
 					continue ;
 				}
@@ -79,18 +79,18 @@ int	main(int argc, char *argv[], char *envp[])
 				// cmd_list = make_commands(&src);
 				cmd_list = make_commands(&src);
 
-				gl.g_status = run_cmd();
+				g_gl.g_status = run_cmd();
 				free_commands_list(cmd_list);	
 			}
 			free_and_read(&src, 0);
 			//free(line);
-			//line = readline(gl.prompt);
+			//line = readline(g_gl.prompt);
 		}
 */
 	}
 
 	//system("leaks minishell");
-	return (clean_data(gl.g_status, "exit\n"));
+	return (clean_data(g_gl.g_status, "exit\n"));
 }
 
 /*

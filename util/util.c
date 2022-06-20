@@ -31,12 +31,11 @@ char	*ft_add_c_free(char *s1, char c)
 	return (str);
 }
 
-
 void	clean_fd(void)
 {
 	t_cmd	*current;
 
-	current = gl.start_cmd;
+	current = g_gl.start_cmd;
 	while (current)
 	{
 		if (current->fd_in > 1)
@@ -51,10 +50,10 @@ void	clean_fd(void)
 		}
 		current = current->next;
 	}
-	if (gl.ini_fd[0] > 1)
-		close(gl.ini_fd[0]);
-	if (gl.ini_fd[1] > 1)
-		close(gl.ini_fd[1]);
+	if (g_gl.ini_fd[0] > 1)
+		close(g_gl.ini_fd[0]);
+	if (g_gl.ini_fd[1] > 1)
+		close(g_gl.ini_fd[1]);
 }
 
 int	clean_data(int status, char *text)
@@ -64,7 +63,6 @@ int	clean_data(int status, char *text)
 	free_envlist();
 	clean_fd();
 	rl_clear_history();
-	tcsetattr(0, 0, &gl.termios_save);
+	tcsetattr(0, 0, &g_gl.termios_save);
 	return (status);
 }
-

@@ -1,13 +1,5 @@
 #include "libft.h"
 
-// int	ft_isdigit(int c)		jaka: Moved to libft, needed also in other files
-// {
-// 	if (c >= '0' && c <= '9')
-// 		return (1);
-// 	else
-// 		return (0);
-// }
-
 static int	overflow(int sign, long long num, const char *str, int i)
 {
 	if (sign == -1 && str[i] > '8')
@@ -25,7 +17,7 @@ static int	overflow(int sign, long long num, const char *str, int i)
 	}
 }
 
-int			ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int			i;
 	int			sign;

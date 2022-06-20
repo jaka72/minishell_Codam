@@ -1,16 +1,4 @@
-	/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   echo.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: jaka <jaka@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/05/31 12:41:35 by jaka          #+#    #+#                 */
-/*   Updated: 2022/06/06 12:37:20 by jaka          ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "builtins.h"
+#include "../minishell.h"
 
 // printf(GRN"   first char [%i]\n"RES, cmd->args[j][0]);
 int	check_n_option(t_cmd *cmd)
