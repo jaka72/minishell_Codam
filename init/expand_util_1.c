@@ -49,8 +49,6 @@ int	count_single_length(char *src)
 	i = 0;
 	while (src[i] != '\'' && src[i] != '\0')
 		i++;
-	if (src[i] == '\'')
-		i++;
 	return (i);
 }
 
