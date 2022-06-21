@@ -25,6 +25,8 @@ static int	exec_no_pipe(t_pid *pid)
 	else
 	{
 		pid->cu_pid = fork();
+		if (pid->cu_pid < 0)
+			return (reset_fd_sig());
 		if (pid->cu_pid == 0)
 			ms_execve(g_gl.start_cmd);
 		check_close_fd(g_gl.start_cmd->fd_in, g_gl.start_cmd->fd_out);
@@ -75,6 +77,8 @@ static int	exec_with_pipe(t_pid *pid)
 		if (pid->temp_cmd->next)
 			pipe(pid->newpipe);
 		pid->cu_pid = fork();
+		if (pid->cu_pid < 0)
+			return (wait_return());
 		if (pid->cu_pid == 0)
 		{
 			connect_fd_child(pid->temp_cmd, pid);
@@ -102,7 +106,8 @@ int	run_cmd(void)
 		return (g_gl.g_status);
 	if (g_gl.start_cmd->next == NULL)
 		return (exec_no_pipe(&pid));
-	exec_with_pipe(&pid);
+	if (exec_with_pipe(&pid) != 0)
+		return (reset_fd_sig());
 	current = g_gl.start_cmd;
 	while (current)
 	{

@@ -24,6 +24,14 @@ char	*add_expanded(char *dst, char *src)
 	return (dst);
 }
 
+char	*add_two_cha(char *dst, char a, char b, int *i)
+{
+	dst = ft_add_c_free(dst, a);
+	dst = ft_add_c_free(dst, b);
+	*i = *i + 1;
+	return (dst);
+}
+
 char	*add_laststatus(char *dst, int g_status)
 {
 	char	*stat;
@@ -32,7 +40,7 @@ char	*add_laststatus(char *dst, int g_status)
 	stat = ft_itoa(g_status);
 	if (stat == NULL)
 		exit(errtx_all_free_exit(1, "last status malloc failed\n"));
-	dst = ft_strjoin(dst, stat);
+	dst = ft_strjoin_free(dst, stat);
 	if (dst == NULL)
 		exit(errtx_all_free_exit(1, "last status malloc failed\n"));
 	return (dst);

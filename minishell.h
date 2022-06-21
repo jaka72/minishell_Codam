@@ -27,6 +27,7 @@ char	*free_return_null(char *text);
 char	*ft_add_c_free(char *s1, char c);
 void	clean_fd(void);
 int		clean_data(int status, char *text);
+int		wait_return(void);
 
 //check_syntax/check_syntax_redirects_utils.c
 int		is_space_alpha_or_pipe(t_source *src, int *c);
@@ -99,6 +100,7 @@ int		count_expand_length(char *src);
 
 // init/expand_util_2.c
 char	*add_expanded(char *dst, char *src);
+char	*add_two_cha(char *dst, char a, char b, int *i);
 char	*add_laststatus(char *dst, int g_status);
 char	*ini_expanded(void);
 char	*check_expand_hd(char *tx);
@@ -121,7 +123,7 @@ int		open_file_fd(t_cmd *str);
 // exec/connect_fd.c
 int		connect_fd(t_cmd *current);
 void	check_close_fd(int fdin, int fdout);
-void	reset_fd_sig(void);
+int		reset_fd_sig(void);
 
 // exec/find_path.c
 char	*ft_findshell_path(char *cmd, char *envp[]);

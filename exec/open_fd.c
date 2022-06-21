@@ -66,7 +66,7 @@ int	open_file_fd(t_cmd *str)
 			if (set_infile(str, i) != 0)
 				return (-4);
 		}
-		if (str->fd_out == -2 || str->fd_out == -3)
+		if (str->fd_out == -2 || str->fd_out == -3 || str->fd_out > 2)
 		{
 			if (set_outfile(str, i) != 0)
 				return (-4);

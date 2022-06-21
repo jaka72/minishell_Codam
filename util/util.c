@@ -4,7 +4,8 @@
 
 char	*free_return_null(char *text)
 {
-	free(text);
+	if (text != NULL)
+		free(text);
 	return (NULL);
 }
 
@@ -67,4 +68,11 @@ int	clean_data(int status, char *text)
 	rl_clear_history();
 	tcsetattr(0, 0, &g_gl.termios_save);
 	return (status);
+}
+
+int	wait_return(void)
+{
+	while (wait(NULL) > 0)
+		;
+	return (1);
 }
