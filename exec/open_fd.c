@@ -61,7 +61,7 @@ int	open_file_fd(t_cmd *str)
 		return (0);
 	while (str->files[i])
 	{
-		if (str->fd_in == -2)
+		if (str->fd_in == -2 || str->fd_in > 2)
 		{
 			if (set_infile(str, i) != 0)
 				return (-4);
