@@ -20,6 +20,8 @@ static	int	check_if_numeric(char *arg)
 	int	i;
 
 	i = 0;
+	if (arg[0] == '-' || arg[0] == '+')
+		i++;
 	while (arg[i])
 	{
 		if (!ft_isdigit(arg[i]))
@@ -41,6 +43,7 @@ static	int	check_args_and_print(t_cmd *cmd, int nr_commands)
 {
 	int	exit_code;
 
+	printf("cmd->args[1] is %s\n", cmd->args[1]);
 	exit_code = ft_atoi(cmd->args[1]);
 	if (check_if_numeric(cmd->args[1]) != 0 && count_elems(cmd->args) >= 2)
 	{

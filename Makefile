@@ -1,13 +1,14 @@
 NAME	=	minishell
 BONUS	=	minishell_bonus
 
-# for temporary folder, only for object files
+# for object files
 OBJ_DIR = obj_dir
 
 LIBFT_DIR	= 	./libft
 # LIBFT_SRC	= 	$(LIBFT_DIR)/ft_memset.c					\
 # 				$(LIBFT_DIR)/ft_strlen.c					\
 # 				$(LIBFT_DIR)/ft_isalpha.c					\
+# 				$(LIBFT_DIR)/ft_isdigit.c					\
 # 				$(LIBFT_DIR)/ft_isspace.c					\
 # 				$(LIBFT_DIR)/ft_memcpy.c					\
 # 				$(LIBFT_DIR)/ft_memccpy.c					\
@@ -42,17 +43,7 @@ INIT_SRC	=	$(INIT_DIR)/init.c					\
 				$(INIT_DIR)/expand.c
 INIT_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(INIT_SRC:.c=.o))
 
-#for excute the command
-EXEC_DIR	=	./exec
-EXEC_SRC	=	$(EXEC_DIR)/exec.c					\
-				$(EXEC_DIR)/open_fd.c				\
-				$(EXEC_DIR)/connect_fd.c			\
-				$(EXEC_DIR)/find_path.c				\
-				$(EXEC_DIR)/check_files.c			\
-				$(EXEC_DIR)/ms_execve.c						# added jaka 10 jun
-EXEC_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(EXEC_SRC:.c=.o))
-
-#for setting file information to cmd-struct from (<, <<, > , >>)
+#for heredocument
 FILE_DIR		= 	./heredoc
 FILE_SRC		= 	$(FILE_DIR)/heredoc.c			\
 					$(FILE_DIR)/heredoc_util.c
@@ -76,6 +67,16 @@ PARSING_SRC		= 	$(PARSING_DIR)/make_commands.c 				\
 					$(PARSING_DIR)/store_to_redirect_arr.c
 PARSING_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(PARSING_SRC:.c=.o))
 
+#for excute the command
+EXEC_DIR	=	./exec
+EXEC_SRC	=	$(EXEC_DIR)/exec.c					\
+				$(EXEC_DIR)/open_fd.c				\
+				$(EXEC_DIR)/connect_fd.c			\
+				$(EXEC_DIR)/find_path.c				\
+				$(EXEC_DIR)/check_files.c			\
+				$(EXEC_DIR)/ms_execve.c
+EXEC_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(EXEC_SRC:.c=.o))
+
 # for BUILTINS
 BUILTINS_DIR		= 	./builtins
 BUILTINS_SRC		= 	$(BUILTINS_DIR)/echo.c 		\
@@ -88,17 +89,13 @@ BUILTINS_SRC		= 	$(BUILTINS_DIR)/echo.c 		\
 						$(BUILTINS_DIR)/unset.c	 
 BUILTINS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(BUILTINS_SRC:.c=.o))
 
-
 # PARSING_UTIL
 PARS_UTILS_DIR		= 	./parsing_util
 PARS_UTILS_SRC		= 	$(PARS_UTILS_DIR)/parsing_utils.c	\
 						$(PARS_UTILS_DIR)/parsing_utils_err.c
-#						$(JAKA_UTILS_DIR)/from_libft.c
 PARS_UTILS_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(PARS_UTILS_SRC:.c=.o))
 
-
 #for main and running commands (fork and execte)
-#MAIN_SRC	=	testmain_jaka.c
 MAIN_SRC	=	main.c
 MAIN_OBJ	=	$(patsubst %, $(OBJ_DIR)/%, $(MAIN_SRC:.c=.o))
 
@@ -112,16 +109,17 @@ OBJ			=	$(UTIL_OBJ)			\
 				$(PARS_UTILS_OBJ)	\
 				$(MAIN_OBJ)
 
-HEADER		=	minishell.h
+HEADER		=	minishell.h			\
+				typedef.h
 
 CFLAGS		=	-Wall -Wextra -Werror 
 
 RLFLAG = $(shell brew --prefix readline)
 
 # all:		$(NAME)
-all:		make_obj_dir	$(NAME)  # added Jaka
+all:		make_obj_dir	$(NAME)
 
-### for folders for temporary object files
+### for folders for object files
 make_obj_dir:
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/util/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/init/ 
@@ -137,19 +135,15 @@ libft:		$(LIBFT_A)
 $(LIBFT_A):	$(LIBFT_OBJ) $(LIBFT_DIR)/libft.h
 	cd $(LIBFT_DIR); make ; cd ../
 
-# %.o:		%.c $(HEADER)
-# 	gcc -c $(CFLAGS) -I$(RLFLAG)/include -o $@ $<
-
 $(OBJ_DIR)/%.o:		%.c $(HEADER)
 	gcc -c $(CFLAGS) -I$(RLFLAG)/include -o $@ $<
 
 $(NAME):	$(LIBFT_A) $(OBJ) $(HEADER)
 	gcc $(CFLAGS) $(OBJ) -I$(RLFLAG)/include -L$(RLFLAG)/lib -lreadline $(LIBFT_A) -o $(NAME)
 
-# -I$(RLFLAG)/include 		# headers 	inside /Users/jmurovec/.brew/opt/readline/include/readline
+# -I$(RLFLAG)/include 		# headers 	inside /Users/jmurovec/.brew/opt/readline/include
 # -L$(RLFLAG)/lib 			# libraries	inside /Users/jmurovec/.brew/opt/readline/lib
-# if compile doesn't work, check 'brew info readline' and add 2 flags of LDFLAGS and CPPFLAGS
-# for example "-L/usr/local/lib -I/usr/local/include"
+# compile needs readline library and header, it called by 'brew --prefix readline'
 
 clean:
 	rm -f $(OBJ)

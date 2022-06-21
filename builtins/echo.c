@@ -16,6 +16,7 @@ static	int	check_n_option(t_cmd *cmd)
 			{
 				if (cmd->args[j][i] != 'n')
 					return (j);
+				i++;
 			}
 		}
 		else

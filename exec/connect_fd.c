@@ -26,7 +26,7 @@ void	check_close_fd(int fdin, int fdout)
 		close(fdout);
 }
 
-void	reset_fd_sig(void)
+int	reset_fd_sig(void)
 {
 	int	fd0;
 	int	fd1;
@@ -39,4 +39,5 @@ void	reset_fd_sig(void)
 	close(fd1);
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
+	return (1);
 }
