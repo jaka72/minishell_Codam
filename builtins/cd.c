@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   cd.c                                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: J&K(Jaka and Kito)                           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
+/*   Updated: 2022/06/22 12:11:49 by kito          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 #include <limits.h>
 
@@ -80,6 +92,7 @@ int	if_folder_deleted(int *ret, t_cmd *cmd, char *current_pwd)
 	if (current_pwd == NULL)
 	{
 		if (ft_strcmp(cmd->args[1], "..") == 0
+			|| ft_strcmp(cmd->args[1], "../") == 0
 			|| ft_strcmp(cmd->args[1], "-") == 0)
 		{
 			*ret = get_path_and_change_dir(current_pwd, "OLDPWD", 0);
