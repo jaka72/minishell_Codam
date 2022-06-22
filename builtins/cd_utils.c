@@ -1,9 +1,32 @@
 #include "../minishell.h"
 
-int	print_error_too_many_args(void)
+char	*get_path(char *name, int *ret, int n)
 {
-	write(2, "minishell: cd: too many arguments\n", 34);
-	return (1);
+	char	*newpath;
+	t_env	*temp;
+
+	temp = g_gl.start_env;
+	while (temp)
+	{
+		if (ft_strcmp(temp->name, name) == 0)
+		{
+			newpath = ft_strdup(temp->value);
+			if (newpath == NULL)
+			{
+				write(2, "minishell: cd: malloc failed\n", 29);
+				*ret = 1;
+				return (NULL);
+			}
+			if (ft_strcmp(name, "OLDPWD") == 0 && newpath && n == 1)
+			{
+				write(1, newpath, ft_strlen(newpath));
+				write(1, "\n", 1);
+			}
+			return (newpath);
+		}
+		temp = temp->next;
+	}
+	return (NULL);
 }
 
 int	print_msg_var_not_set(char *name)

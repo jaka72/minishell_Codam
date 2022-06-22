@@ -141,7 +141,7 @@ int		ms_execve(t_cmd *str);
 int		main(int argc, char *argv[], char *envp[]);
 
 // builtin/cd_util.c
-int		print_error_too_many_args(void);
+char	*get_path(char *name, int *ret, int n);
 int		print_msg_var_not_set(char *name);
 int		insert_oldpwd_into_list(t_env *env, const char *value);
 
