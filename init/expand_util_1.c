@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:13:45 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/22 12:50:39 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	count_single_length(char *src)
 
 	i = 0;
 	while (src[i] != '\'' && src[i] != '\0')
+		i++;
+	if (src[i] == '\'')
 		i++;
 	return (i);
 }
