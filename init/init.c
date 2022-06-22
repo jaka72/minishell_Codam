@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 15:59:01 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/22 17:31:57 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@ static void	ini_oldpwd(void)
 	current = g_gl.start_env;
 	while (current)
 	{
-		if (ft_strncmp("OLDPWD", current->name, 7) == 0)
+		if (ft_strncmp("OLDPWD", current->name, 6) == 0)
 		{
 			if (current->value != NULL)
 				free(current->value);
-			current->value = NULL;
+			current->value = malloc(sizeof(char) * 1);
+			if (current->value == NULL)
+				exit(errtx_all_free_exit(1, "malloc for ini failed\n"));
+			current->value[0] = '\0';
 		}
 		current = current->next;
 	}
