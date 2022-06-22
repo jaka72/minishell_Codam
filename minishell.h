@@ -91,6 +91,7 @@ t_env	*init_tempenv(void);
 // init/env.c
 t_env	*get_env(char *envp[]);
 char	**get_env_array(void);
+void	add_env_tolast(t_env *temp_env);
 
 // init/expand_util_1.c
 char	*name_expand(char *tx);

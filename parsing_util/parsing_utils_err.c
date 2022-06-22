@@ -3,7 +3,9 @@
 
 void	print_err_msg(char *err_msg)
 {
-	printf("\nMinishell: %s\n", err_msg);
+	write(2, "\nminishell: ", 12);
+	write(2, err_msg, ft_strlen(err_msg));
+	write(2, "\n ", 1);
 	g_gl.g_status = SYNTAX_ERROR;
 }
 

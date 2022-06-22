@@ -16,6 +16,10 @@ int	find_name_delate(char *targetname)
 				g_gl.start_env = env->next;
 			else
 				prev->next = env->next;
+			if (env->name)
+				free(env->name);
+			if (env->value)
+				free(env->value);
 			free(env);
 			break ;
 		}

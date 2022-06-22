@@ -40,10 +40,12 @@ static int	check_valid_identifier(char *text)
 	{
 		if (text[i] == '<' || text[i] == '>' || text[i] == '|')
 			return (2);
-		if (text[i] == '"' || text[i] == '\"')
+		if (text[i] == '\'' || text[i] == '\"')
 			return (3);
 		if (text[i] == '[' || text[i] == ']' || text[i] == ':')
 			return (4);
+		if (text[i] == '=')
+			break ;
 		i++;
 	}
 	return (0);
@@ -57,12 +59,16 @@ static int	write_identifier_error(char *text)
 	return (1);
 }
 
-static void	add_env_tolast(t_env *temp_env)
+static	void	env_only_name(t_env *temp_env, char *str)
 {
-	t_env	*end_env;
-
-	end_env = last_env();
-	end_env->next = temp_env;
+	temp_env->name = malloc(ft_strlen(str) + 1);
+	if (temp_env->name == NULL)
+		exit(errtx_all_free_exit(1, "for temp_env malloc failed"));
+	ft_strlcpy(temp_env->name, str, ft_strlen(str) + 1);
+	temp_env->value = NULL;
+	temp_env->next = NULL;
+	find_name_delate(temp_env->name);
+	add_env_tolast(temp_env);
 }
 
 int	run_export_builtin(t_cmd *cmd)
@@ -75,20 +81,19 @@ int	run_export_builtin(t_cmd *cmd)
 		return (print_env_export());
 	while (cmd->args[i])
 	{
-		if (cmd->args[1][0] == '=' || (check_valid_identifier(cmd->args[i]) != 0
-			&& ft_strchr(cmd->args[i], '=') == NULL))
+		if (cmd->args[i][0] == '=' || check_valid_identifier(cmd->args[i]) != 0)
 			return (write_identifier_error(cmd->args[i]));
+		temp_env = malloc(sizeof(t_env) * 1);
+		if (temp_env == NULL)
+			exit(errtx_all_free_exit(1, "for temp_env malloc failed"));
 		if (ft_strchr(cmd->args[i], '=') != NULL)
 		{
-			temp_env = malloc(sizeof(t_env) * 1);
-			if (temp_env == NULL)
-				exit(errtx_all_free_exit(1, "for temp_env malloc failed"));
 			temp_env = find_and_split(cmd->args[i], '=', temp_env);
-			if (check_valid_identifier(temp_env->name) != 0)
-				return (write_identifier_error(cmd->args[i]));
 			find_name_delate(temp_env->name);
 			add_env_tolast(temp_env);
 		}
+		else
+			env_only_name(temp_env, cmd->args[i]);
 		i++;
 	}
 	return (0);
