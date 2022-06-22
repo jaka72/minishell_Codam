@@ -8,145 +8,145 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Mon Jun 20 19:08:24 2022
+# Make data base, printed on Wed Jun 22 11:35:48 2022
 
 # Variables
 
+ 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
-# makefile (from `Makefile', line 105)
+# makefile (from `Makefile', line 102)
 OBJ = $(UTIL_OBJ) $(INIT_OBJ) $(EXEC_OBJ) $(FILE_OBJ) $(SYNTAX_OBJ) $(PARSING_OBJ) $(BUILTINS_OBJ) $(PARS_UTILS_OBJ) $(MAIN_OBJ)
-# makefile (from `Makefile', line 103)
+# makefile (from `Makefile', line 100)
 MAIN_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(MAIN_SRC:.c=.o))
 # environment
 VSCODE_LOG_NATIVE = false
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-CPPFLAGS = -I/usr/local/opt/readline/include
+CPPFLAGS = -I/Users/jmurovec/.brew/opt/readline/include
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # automatic
 @F = $(notdir $@)
 # makefile
-CURDIR := /Users/keika/Desktop/Mini20June
-# makefile (from `Makefile', line 73)
+CURDIR := /Users/jmurovec/Desktop/projects/minishell_22jun_mainclone
+# makefile (from `Makefile', line 64)
 PARSING_SRC = $(PARSING_DIR)/make_commands.c $(PARSING_DIR)/make_commands_utils.c $(PARSING_DIR)/choose_correct_array.c $(PARSING_DIR)/store_to_redirect_arr.c
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"ja","availableLanguages":{},"_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
-# makefile (from `Makefile', line 117)
+# makefile (from `Makefile', line 115)
 CFLAGS = -Wall -Wextra -Werror 
-# makefile (from `Makefile', line 29)
+# makefile (from `Makefile', line 30)
 UTIL_SRC = $(UTIL_DIR)/error.c $(UTIL_DIR)/free.c $(UTIL_DIR)/util.c
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
-# makefile (from `Makefile', line 81)
+# makefile (from `Makefile', line 82)
 BUILTINS_SRC = $(BUILTINS_DIR)/echo.c $(BUILTINS_DIR)/pwd.c $(BUILTINS_DIR)/cd.c $(BUILTINS_DIR)/cd_utils.c $(BUILTINS_DIR)/exit.c $(BUILTINS_DIR)/export.c $(BUILTINS_DIR)/env.c $(BUILTINS_DIR)/unset.c	 
-# makefile (from `Makefile', line 57)
+# makefile (from `Makefile', line 48)
 FILE_SRC = $(FILE_DIR)/heredoc.c $(FILE_DIR)/heredoc_util.c
-# makefile (from `Makefile', line 72)
+# makefile (from `Makefile', line 63)
 PARSING_DIR = ./parsing
 # makefile (from `Makefile', line 5)
 OBJ_DIR = obj_dir
 # environment
 VSCODE_VERBOSE_LOGGING = true
-# makefile (from `Makefile', line 28)
+# makefile (from `Makefile', line 29)
 UTIL_DIR = util
 # makefile (from `Makefile', line 2)
 BONUS = minishell_bonus
-# makefile (from `Makefile', line 80)
+# makefile (from `Makefile', line 81)
 BUILTINS_DIR = ./builtins
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/pk/ns046dtx2t19fvg7mvxp5d540000gp/T/vscode-ipc-caf3b7d6-31c6-4b97-8280-b6e9d76ea7a9.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n0009kjh002cmc/T/vscode-ipc-3eccfd40-b45e-4707-8015-6a61b7128fb3.sock
 # environment
 VSCODE_CWD = /
-# makefile (from `Makefile', line 56)
+# makefile (from `Makefile', line 47)
 FILE_DIR = ./heredoc
 # environment
-PATH = /Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/local/opt/llvm/bin:/usr/local/bin:/Users/keika/.brew/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/local/opt/llvm/bin:/usr/local/bin:/Users/keika/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.JGh1xNTl1S/Render
 # environment
-C_INCLUDE_PATH = /Users/keika/.brew/include:/Users/keika/.brew/include:
+PATH = /Users/jmurovec/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/bin
 # environment
-LIBRARY_PATH = /Users/keika/.brew/lib:/Users/keika/.brew/lib:
-# makefile (from `Makefile', line 47)
-EXEC_SRC = $(EXEC_DIR)/exec.c $(EXEC_DIR)/open_fd.c $(EXEC_DIR)/connect_fd.c $(EXEC_DIR)/find_path.c $(EXEC_DIR)/check_files.c $(EXEC_DIR)/ms_execve.c						
-# makefile (from `Makefile', line 97)
+C_INCLUDE_PATH = /Users/jmurovec/.brew/include:
+# environment
+LIBRARY_PATH = /Users/jmurovec/.brew/lib:
+# makefile (from `Makefile', line 72)
+EXEC_SRC = $(EXEC_DIR)/exec.c $(EXEC_DIR)/open_fd.c $(EXEC_DIR)/connect_fd.c $(EXEC_DIR)/find_path.c $(EXEC_DIR)/check_files.c $(EXEC_DIR)/ms_execve.c
+# makefile (from `Makefile', line 96)
 PARS_UTILS_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(PARS_UTILS_SRC:.c=.o))
-# environment
-LaunchInstanceID = 28822211-F904-4064-946A-638654E986F1
 # environment
 VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-LDFLAGS = -L/usr/local/opt/readline/lib
+LDFLAGS = -L/Users/jmurovec/.brew/opt/readline/lib
 # default
- 
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # makefile (from `Makefile', line 7)
 LIBFT_DIR = ./libft
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.XYQQGAcHNN/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.YALJjgJ8g4/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
-HOMEBREW_TEMP = /tmp/keika/Homebrew/Temp
-# makefile (from `Makefile', line 46)
+HOMEBREW_TEMP = /tmp/jmurovec/Homebrew/Temp
+# environment
+DISPLAY = /private/tmp/com.apple.launchd.lVTLpkRcCe/org.xquartz:0
+# makefile (from `Makefile', line 71)
 EXEC_DIR = ./exec
 # environment
 VSCODE_PIPE_LOGGING = true
-# makefile (from `Makefile', line 102)
+# makefile (from `Makefile', line 99)
 MAIN_SRC = main.c
 # environment
-PWD = /Users/keika/Desktop/Mini20June
+PWD = /Users/jmurovec/Desktop/projects/minishell_22jun_mainclone
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-PYENV_SHELL = zsh
-# environment
-HOME = /Users/keika
+HOME = /Users/jmurovec
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/keika/Library/Application Support/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
+VSCODE_CODE_CACHE_PATH = /Users/jmurovec/Library/Application Support/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
 # environment
-LOGNAME = keika
+LOGNAME = jmurovec
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
-# makefile (from `Makefile', line 68)
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# makefile (from `Makefile', line 59)
 SYNTAX_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(SYNTAX_SRC:.c=.o))
-# makefile (from `Makefile', line 43)
+# makefile (from `Makefile', line 44)
 INIT_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(INIT_SRC:.c=.o))
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
-# makefile (from `Makefile', line 59)
+# makefile (from `Makefile', line 50)
 FILE_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(FILE_SRC:.c=.o))
 # environment
 XPC_FLAGS = 0x0
-# makefile (from `Makefile', line 119)
+# makefile (from `Makefile', line 117)
 RLFLAG = $(shell brew --prefix readline)
 # default
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-HOMEBREW_CACHE = /tmp/keika/Homebrew/Caches
+HOMEBREW_CACHE = /tmp/jmurovec/Homebrew/Caches
 # environment
 SHLVL = 1
 # default
 MAKE_VERSION := 3.81
 # environment
-USER = keika
+USER = jmurovec
 # makefile
 .DEFAULT_GOAL := all
 # makefile (from `Makefile', line 1)
@@ -155,17 +155,17 @@ NAME = minishell
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
-# makefile (from `Makefile', line 77)
+# makefile (from `Makefile', line 68)
 PARSING_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(PARSING_SRC:.c=.o))
 # default
 .VARIABLES := 
 # environment
-TMPDIR = /var/folders/pk/ns046dtx2t19fvg7mvxp5d540000gp/T/
+TMPDIR = /var/folders/zz/zyxvpxvq6csfxvn_n0009kjh002cmc/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/keika/Library/Application Support/Code/1.68.1-main.sock
-# makefile (from `Makefile', line 32)
+VSCODE_IPC_HOOK = /Users/jmurovec/Library/Application Support/Code/1.68.1-main.sock
+# makefile (from `Makefile', line 33)
 UTIL_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(UTIL_SRC:.c=.o))
 # makefile (from `Makefile', line 94)
 PARS_UTILS_SRC = $(PARS_UTILS_DIR)/parsing_utils.c $(PARS_UTILS_DIR)/parsing_utils_err.c
@@ -176,38 +176,36 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.microsoft.VSCode.28868
+XPC_SERVICE_NAME = com.microsoft.VSCode.4588
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
-# makefile (from `Makefile', line 89)
+# makefile (from `Makefile', line 90)
 BUILTINS_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(BUILTINS_SRC:.c=.o))
-# makefile (from `Makefile', line 25)
+# makefile (from `Makefile', line 26)
 LIBFT_A = $(LIBFT_DIR)/libft.a
 # automatic
 +F = $(notdir $+)
 # makefile (from `Makefile', line 93)
 PARS_UTILS_DIR = ./parsing_util
 # environment
-__CF_USER_TEXT_ENCODING = 0x1F6:0x1:0xE
+__CF_USER_TEXT_ENCODING = 0x1328C:0x0:0x0
 # default
 MAKEFILES := 
 # automatic
 <F = $(notdir $<)
 # environment
 LC_ALL = C
-# makefile (from `Makefile', line 115)
-HEADER = minishell.h
-# environment
-SECURITYSESSIONID = 186a6
+# makefile (from `Makefile', line 112)
+HEADER = minishell.h typedef.h
 # automatic
 ^F = $(notdir $^)
 # default
 SUFFIXES := 
-# makefile (from `Makefile', line 63)
+# makefile (from `Makefile', line 54)
 SYNTAX_SRC = $(SYNTAX_DIR)/check_syntax.c $(SYNTAX_DIR)/check_syntax_quotes.c $(SYNTAX_DIR)/check_syntax_pipes.c $(SYNTAX_DIR)/check_syntax_redirects.c $(SYNTAX_DIR)/check_syntax_redirects_utils.c
-# makefile (from `Makefile', line 36)
+# makefile (from `Makefile', line 37)
 INIT_SRC = $(INIT_DIR)/init.c $(INIT_DIR)/signal_handle.c $(INIT_DIR)/env_util.c $(INIT_DIR)/env.c $(INIT_DIR)/expand_util_1.c $(INIT_DIR)/expand_util_2.c $(INIT_DIR)/expand.c
-# makefile (from `Makefile', line 53)
+# makefile (from `Makefile', line 78)
 EXEC_OBJ = $(patsubst %, $(OBJ_DIR)/%, $(EXEC_SRC:.c=.o))
 # default
 .INCLUDE_DIRS = /usr/local/include
@@ -216,13 +214,13 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 783
-# makefile (from `Makefile', line 62)
+VSCODE_PID = 28151
+# makefile (from `Makefile', line 53)
 SYNTAX_DIR = ./check_syntax
-# makefile (from `Makefile', line 35)
+# makefile (from `Makefile', line 36)
 INIT_DIR = ./init
 # variable set hash-table stats:
-# Load=104/1024=10%, Rehash=0, Collisions=7/224=3%
+# Load=103/1024=10%, Rehash=0, Collisions=7/223=3%
 
 # Pattern-specific Variable Values
 
@@ -230,14 +228,14 @@ INIT_DIR = ./init
 
 # Directories
 
-# . (device 16777222, inode 12928010314): 21 files, no impossibilities.
+# . (device 16777229, inode 785439): 20 files, no impossibilities.
 
-# 21 files, no impossibilities in 1 directories.
+# 20 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
-obj_dir/%.o: %.c minishell.h
-#  commands to execute (from `Makefile', line 144):
+obj_dir/%.o: %.c minishell.h typedef.h
+#  commands to execute (from `Makefile', line 139):
 	gcc -c $(CFLAGS) -I$(RLFLAG)/include -o $@ $<
 	
 
@@ -267,6 +265,7 @@ obj_dir/./parsing/choose_correct_array.o:
 obj_dir/./builtins/env.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
+ 
 #  File has not been updated.
 
 # Not a target:
@@ -333,6 +332,12 @@ obj_dir/./parsing/make_commands.o:
 #  File has not been updated.
 
 # Not a target:
+typedef.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 obj_dir/./heredoc/heredoc.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -358,7 +363,7 @@ obj_dir/./parsing_util/parsing_utils_err.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-20 15:46:48
+#  Last modified 2022-06-22 11:35:00
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -384,16 +389,15 @@ obj_dir/./init/expand.o:
 
 # Not a target:
 obj_dir/./exec/connect_fd.o:
- 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
-minishell: libft/libft.a obj_dir/util/error.o obj_dir/util/free.o obj_dir/util/util.o obj_dir/./init/init.o obj_dir/./init/signal_handle.o obj_dir/./init/env_util.o obj_dir/./init/env.o obj_dir/./init/expand_util_1.o obj_dir/./init/expand_util_2.o obj_dir/./init/expand.o obj_dir/./exec/exec.o obj_dir/./exec/open_fd.o obj_dir/./exec/connect_fd.o obj_dir/./exec/find_path.o obj_dir/./exec/check_files.o obj_dir/./exec/ms_execve.o obj_dir/./heredoc/heredoc.o obj_dir/./heredoc/heredoc_util.o obj_dir/./check_syntax/check_syntax.o obj_dir/./check_syntax/check_syntax_quotes.o obj_dir/./check_syntax/check_syntax_pipes.o obj_dir/./check_syntax/check_syntax_redirects.o obj_dir/./check_syntax/check_syntax_redirects_utils.o obj_dir/./parsing/make_commands.o obj_dir/./parsing/make_commands_utils.o obj_dir/./parsing/choose_correct_array.o obj_dir/./parsing/store_to_redirect_arr.o obj_dir/./builtins/echo.o obj_dir/./builtins/pwd.o obj_dir/./builtins/cd.o obj_dir/./builtins/cd_utils.o obj_dir/./builtins/exit.o obj_dir/./builtins/export.o obj_dir/./builtins/env.o obj_dir/./builtins/unset.o obj_dir/./parsing_util/parsing_utils.o obj_dir/./parsing_util/parsing_utils_err.o obj_dir/main.o minishell.h
+minishell: libft/libft.a obj_dir/util/error.o obj_dir/util/free.o obj_dir/util/util.o obj_dir/./init/init.o obj_dir/./init/signal_handle.o obj_dir/./init/env_util.o obj_dir/./init/env.o obj_dir/./init/expand_util_1.o obj_dir/./init/expand_util_2.o obj_dir/./init/expand.o obj_dir/./exec/exec.o obj_dir/./exec/open_fd.o obj_dir/./exec/connect_fd.o obj_dir/./exec/find_path.o obj_dir/./exec/check_files.o obj_dir/./exec/ms_execve.o obj_dir/./heredoc/heredoc.o obj_dir/./heredoc/heredoc_util.o obj_dir/./check_syntax/check_syntax.o obj_dir/./check_syntax/check_syntax_quotes.o obj_dir/./check_syntax/check_syntax_pipes.o obj_dir/./check_syntax/check_syntax_redirects.o obj_dir/./check_syntax/check_syntax_redirects_utils.o obj_dir/./parsing/make_commands.o obj_dir/./parsing/make_commands_utils.o obj_dir/./parsing/choose_correct_array.o obj_dir/./parsing/store_to_redirect_arr.o obj_dir/./builtins/echo.o obj_dir/./builtins/pwd.o obj_dir/./builtins/cd.o obj_dir/./builtins/cd_utils.o obj_dir/./builtins/exit.o obj_dir/./builtins/export.o obj_dir/./builtins/env.o obj_dir/./builtins/unset.o obj_dir/./parsing_util/parsing_utils.o obj_dir/./parsing_util/parsing_utils_err.o obj_dir/main.o minishell.h typedef.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 147):
+#  commands to execute (from `Makefile', line 142):
 	gcc $(CFLAGS) $(OBJ) -I$(RLFLAG)/include -L$(RLFLAG)/lib -lreadline $(LIBFT_A) -o $(NAME)
 	
 
@@ -401,7 +405,7 @@ libft/libft.a: libft/libft.h
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 138):
+#  commands to execute (from `Makefile', line 136):
 	cd $(LIBFT_DIR); make ; cd ../
 	
 
@@ -415,7 +419,7 @@ fclean: libftclean clean
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 159):
+#  commands to execute (from `Makefile', line 153):
 	rm -f $(NAME)
 	
 
@@ -470,7 +474,7 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 155):
+#  commands to execute (from `Makefile', line 149):
 	rm -f $(OBJ)
 	rm -rf $(OBJ_DIR)
 	
@@ -485,7 +489,7 @@ libftclean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 162):
+#  commands to execute (from `Makefile', line 156):
 	cd $(LIBFT_DIR); make fclean; cd ../
 	
 
@@ -529,6 +533,7 @@ obj_dir/./exec/open_fd.o:
 obj_dir/./check_syntax/check_syntax_redirects.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
+ 
 #  File has not been updated.
 
 # Not a target:
@@ -591,7 +596,7 @@ make_obj_dir:
 # ? := 
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=1/26=4%
-#  commands to execute (from `Makefile', line 126):
+#  commands to execute (from `Makefile', line 124):
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/util/
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/init/ 
 	@mkdir -p $(OBJ_DIR)/ $(OBJ_DIR)/exec/
@@ -603,7 +608,7 @@ make_obj_dir:
 	
 
 # files hash-table stats:
-# Load=52/1024=5%, Rehash=0, Collisions=8/114=7%
+# Load=53/1024=5%, Rehash=0, Collisions=8/116=7%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -615,6 +620,6 @@ make_obj_dir:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Mon Jun 20 19:08:24 2022
+# Finished Make data base on Wed Jun 22 11:35:48 2022
 
  
