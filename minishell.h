@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: J&K(Jaka and Kito)                           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
+/*   Updated: 2022/06/22 12:16:37 by kito          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -91,6 +103,7 @@ t_env	*init_tempenv(void);
 // init/env.c
 t_env	*get_env(char *envp[]);
 char	**get_env_array(void);
+void	add_env_tolast(t_env *temp_env);
 
 // init/expand_util_1.c
 char	*name_expand(char *tx);

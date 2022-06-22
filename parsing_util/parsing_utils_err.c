@@ -1,9 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parsing_utils_err.c                                :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: J&K(Jaka and Kito)                           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
+/*   Updated: 2022/06/22 12:15:36 by kito          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 #define SYNTAX_ERROR	258
 
 void	print_err_msg(char *err_msg)
 {
-	printf("\nMinishell: %s\n", err_msg);
+	write(2, "\nminishell: ", 12);
+	write(2, err_msg, ft_strlen(err_msg));
+	write(2, "\n ", 1);
 	g_gl.g_status = SYNTAX_ERROR;
 }
 

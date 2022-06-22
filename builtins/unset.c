@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   unset.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: J&K(Jaka and Kito)                           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
+/*   Updated: 2022/06/22 12:12:34 by kito          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	find_name_delate(char *targetname)
@@ -16,6 +28,10 @@ int	find_name_delate(char *targetname)
 				g_gl.start_env = env->next;
 			else
 				prev->next = env->next;
+			if (env->name)
+				free(env->name);
+			if (env->value)
+				free(env->value);
 			free(env);
 			break ;
 		}
