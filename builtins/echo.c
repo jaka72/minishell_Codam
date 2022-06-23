@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:12:06 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 10:03:16 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	run_echo_builtin(t_cmd *cmd)
 	}
 	flag_first_word = 0;
 	flag_newline = 0;
-	if (cmd->args[1][0] == '-')
+	if (cmd->args[1][0] == '-' && cmd->args[1][1] == 'n')
 		flag_newline = check_n_option(cmd);
 	i = 1;
 	if (flag_newline > 0)

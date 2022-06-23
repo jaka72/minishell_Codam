@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:13:15 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 09:48:54 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static int	cmd_no_slash(char *path, char **args, char **envs)
 {
 	int	ret;
 
+	if (args == NULL || args[0] == NULL)
+		return (0);
 	if (path == NULL)
 	{
 		print_error_msg("minishell: ", args[0], ": Command not found\n");
@@ -110,6 +112,8 @@ int	ms_execve(t_cmd *str)
 	envs = get_env_array();
 	if (envs == NULL)
 		return (-1);
+	if (str->args == NULL)
+		exit(err_all_free_exit(0));
 	path = ft_findshell_path(str->args[0], envs);
 	if (ft_strchr(str->args[0], '/') == 0)
 		ret = cmd_no_slash(path, str->args, envs);
