@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:13:49 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 10:05:46 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*ini_expanded(void)
 {
 	char	*expanded;
 
-	expanded = malloc(1);
+	expanded = malloc(sizeof(char) * 1);
 	if (expanded == NULL)
 		err_free_env_exit("check expand malloc failed");
 	expanded[0] = '\0';

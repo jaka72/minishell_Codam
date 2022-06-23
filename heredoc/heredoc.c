@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:13:29 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 09:44:10 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ static int	read_heredoc(char *limiter, int fd_out)
 	{
 		if ((ft_strncmp(str, limiter, ft_strlen(limiter)) == 0)
 			&& ft_strlen(limiter) == ft_strlen(str))
+		{
+			free(str);
 			break ;
+		}	
 		str = check_expand_hd(str);
 		write(fd_out, str, ft_strlen(str));
 		write(fd_out, "\n", 1);
@@ -78,7 +81,7 @@ int	open_heredoc(t_pid *pid)
 		{
 			i[1] = make_heredoc(pid->temp_cmd->heredoc[i[0]]);
 			if (i[1] < 0)
-				return (-1);
+				return (-1);		
 			if (pid->temp_cmd->fd_in == -3)
 				pid->temp_cmd->fd_in = i[1];
 			else if (pid->temp_cmd->fd_in > 2)

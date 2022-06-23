@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:15:23 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 09:46:59 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_values(t_cmd *cmd)
 int	check_if_builtin(t_cmd *cmd)
 {
 	if (cmd->args == NULL)
-		return (1);
+		return (0);
 	if (cmd->args[0] == NULL)
 		return (-1);
 	if (ft_strcmp("echo", cmd->args[0]) == 0)

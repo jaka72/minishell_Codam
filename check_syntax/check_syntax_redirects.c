@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:12:51 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 10:00:23 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	check_redirects(t_source *src)
 
 	src->currpos = 0;
 	c = src->inputline[src->currpos];
-	while (src->currpos <= src->inputline_size)
+	while (src->currpos < src->inputline_size)
 	{
 		if (c == '<' || c == '>')
 		{

@@ -1,0 +1,7 @@
+	printf("hello\n");
+
+    protected : if the expanded word becomes NULL and str array has no value,
+    str array becomes NULL.
+
+    changed the 'check_if_builtin' and 'ms_execve' to return 0 and do nothing if cmd array is NULL.
+    

@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 15:12:05 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 09:32:25 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,11 @@ char	**expand_array(char **args)
 			i--;
 		}
 		i++;
+	}
+	if (args[0] == NULL)
+	{
+		free(args);
+		args = NULL;
 	}
 	return (args);
 }
