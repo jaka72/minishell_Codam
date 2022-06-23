@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:16:37 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 17:09:21 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	handle_sigquit_p(int num);
 void	handle_sigint_hd(int num);
 
 // init/init.c
-void	ms_init( char *envp[]);
+void	ms_init(char *envp[], int *ex_stat);
 
 // init/env_util.c
 t_env	*last_env(void);
@@ -119,9 +119,9 @@ char	*ini_expanded(void);
 char	*check_expand_hd(char *tx);
 
 // init/expand.c
-char	*check_expand_file(char *tx);
-char	*check_expand(char *tx);
-char	**expand_array(char **args);
+char	*check_expand_file(char *tx, int *ex_stat);
+char	*check_expand(char *tx, int *ex_stat);
+char	**expand_array(char **args, int *ex_stat);
 
 // heredoc/heredoc_util.c
 void	init_pid_sig_hd(t_pid *pidinfo);
@@ -142,10 +142,10 @@ int		reset_fd_sig(void);
 char	*ft_findshell_path(char *cmd, char *envp[]);
 
 // exec/check_files.c
-int		check_file_access(t_cmd	*current);
+int	    check_file_access(t_cmd	*current, int *ex_stat);
 
 // exec/exec.c
-int		run_cmd(void);
+int	    run_cmd(int *ex_stat);
 
 // exec/ms_execve.c
 int		ms_execve(t_cmd *str);

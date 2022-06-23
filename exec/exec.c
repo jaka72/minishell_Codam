@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:13:08 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 19:27:45 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	init_pid_sig(t_pid *pidinfo)
 	signal(SIGQUIT, handle_sigquit_p);
 }
 
-static int	exec_no_pipe(t_pid *pid)
+static int	exec_no_pipe(t_pid *pid, int *ex_stat)
 {
-	if (check_file_access(g_gl.start_cmd) != 0)
+	if (check_file_access(g_gl.start_cmd, ex_stat) != 0)
 		return (1);
 	if (g_gl.start_cmd->args == NULL)
 		return (0);
-	g_gl.start_cmd->args = expand_array(g_gl.start_cmd->args);
+	g_gl.start_cmd->args = expand_array(g_gl.start_cmd->args, ex_stat);
 	if (connect_fd(g_gl.start_cmd) != 0)
 		g_gl.g_status = 1;
 	else if (check_if_builtin(g_gl.start_cmd) == 1)
@@ -52,7 +52,7 @@ static int	exec_no_pipe(t_pid *pid)
 	return (g_gl.g_status);
 }
 
-static void	connect_fd_child(t_cmd	*current, t_pid *pid)
+static void	connect_fd_child(t_cmd	*current, t_pid *pid, int *ex_stat)
 {
 	if (current != g_gl.start_cmd)
 		g_gl.g_status = 0;
@@ -68,18 +68,18 @@ static void	connect_fd_child(t_cmd	*current, t_pid *pid)
 	}
 	if (pid->newpipe[0] != 0)
 		close(pid->newpipe[0]);
-	if (check_file_access(current) != 0)
+	if (check_file_access(current, ex_stat) != 0)
 		exit(err_all_free_exit(1));
 	if (connect_fd(current) != 0)
 		exit(err_all_free_exit(1));
 	if (current->args == NULL)
 		exit(0);
-	current->args = expand_array(current->args);
+	current->args = expand_array(current->args, ex_stat);
 	if (check_if_builtin(current) == 1)
 		exit(exec_builtin(current, g_gl.start_cmd));
 }
 
-static int	exec_with_pipe(t_pid *pid)
+static int	exec_with_pipe(t_pid *pid, int *ex_stat)
 {
 	pid->temp_cmd = g_gl.start_cmd;
 	while (pid->temp_cmd)
@@ -93,7 +93,7 @@ static int	exec_with_pipe(t_pid *pid)
 			return (wait_return());
 		if (pid->cu_pid == 0)
 		{
-			connect_fd_child(pid->temp_cmd, pid);
+			connect_fd_child(pid->temp_cmd, pid, ex_stat);
 			ms_execve(pid->temp_cmd);
 		}
 		if (pid->newpipe[2] != 0)
@@ -108,7 +108,7 @@ static int	exec_with_pipe(t_pid *pid)
 	return (0);
 }
 
-int	run_cmd(void)
+int	run_cmd(int *ex_stat)
 {
 	t_cmd	*current;
 	t_pid	pid;
@@ -117,8 +117,8 @@ int	run_cmd(void)
 	if (open_heredoc(&pid) != 0)
 		return (g_gl.g_status);
 	if (g_gl.start_cmd->next == NULL)
-		return (exec_no_pipe(&pid));
-	if (exec_with_pipe(&pid) != 0)
+		return (exec_no_pipe(&pid, ex_stat));
+	if (exec_with_pipe(&pid, ex_stat) != 0)
 		return (reset_fd_sig());
 	current = g_gl.start_cmd;
 	while (current)

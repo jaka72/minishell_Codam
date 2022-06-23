@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:16:02 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 17:09:50 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <readline/history.h>
 
 t_global	g_gl;
+struct termios	g_termios_saved;
 
 static void	free_and_read(t_source *src, int history)
 {
@@ -22,17 +23,18 @@ static void	free_and_read(t_source *src, int history)
 		add_history(src->inputline);
 	if (src->inputline != NULL)
 		free(src->inputline);
-	src->inputline = readline(g_gl.prompt);
+	src->inputline = readline("minishell > ");
 }
 
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_source	src;
+	int			ex_stat;
 
 	(void) argc;
 	(void) argv;
 	src.inputline = NULL;
-	ms_init(envp);
+	ms_init(envp, &ex_stat);
 	free_and_read(&src, 0);
 	while (src.inputline)
 	{
@@ -45,10 +47,10 @@ int	main(int argc, char *argv[], char *envp[])
 			}
 			add_history(src.inputline);
 			g_gl.start_cmd = make_commands(&src);
-			g_gl.g_status = run_cmd();
+			ex_stat = run_cmd(&ex_stat);
 			free_tcmd();
 		}
 		free_and_read(&src, 0);
 	}
-	return (clean_data(g_gl.g_status, "exit\n"));
+	return (clean_data(ex_stat, "exit\n"));
 }

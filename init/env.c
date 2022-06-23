@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:13:40 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 19:27:08 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_env	*get_env(char *envp[])
 	return (g_gl.start_env);
 }
 
-static char	**make_envstr(t_env *current, char **envs, int i)
+static char	**make_envstr(t_env *current, char **envs, int *i)
 {
 	char	*temp;
 
@@ -53,8 +53,8 @@ static char	**make_envstr(t_env *current, char **envs, int i)
 	ft_memcpy(&temp[ft_strlen(current->name)], "=", 1);
 	ft_memcpy(&temp[ft_strlen(current->name) + 1],
 		current->value, ft_strlen(current->value) + 1);
-	envs[i] = temp;
-	envs[i + 1] = NULL;
+	envs[*i] = temp;
+	envs[*i + 1] = NULL;
 	return (envs);
 }
 
@@ -72,10 +72,13 @@ char	**get_env_array(void)
 	current = g_gl.start_env;
 	while (current)
 	{
-		envs = ft_add_str(envs);
-		if (envs == NULL)
-			return (NULL);
-		envs = make_envstr(current, envs, i);
+		if (current->name && current->value)
+		{
+			envs = ft_add_str(envs);
+			if (envs == NULL)
+				return (NULL);
+			envs = make_envstr(current, envs, &i);
+		}
 		current = current->next;
 		i++;
 	}

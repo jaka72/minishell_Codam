@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:15:55 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 16:13:05 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	clean_data(int status, char *text)
 	free_envlist();
 	clean_fd();
 	rl_clear_history();
-	tcsetattr(0, 0, &g_gl.termios_save);
+	tcsetattr(0, 0, &g_termios_saved);
 	return (status);
 }
 

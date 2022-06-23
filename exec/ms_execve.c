@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/23 09:48:54 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 19:28:14 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	print_error_msg(char *s1, char *s2, char *s3)
 static int	cmd_no_slash(char *path, char **args, char **envs)
 {
 	int	ret;
+
 
 	if (args == NULL || args[0] == NULL)
 		return (0);

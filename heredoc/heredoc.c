@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/23 09:44:10 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 11:29:42 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	open_heredoc(t_pid *pid)
 		{
 			i[1] = make_heredoc(pid->temp_cmd->heredoc[i[0]]);
 			if (i[1] < 0)
-				return (-1);		
+				return (-1);
 			if (pid->temp_cmd->fd_in == -3)
 				pid->temp_cmd->fd_in = i[1];
 			else if (pid->temp_cmd->fd_in > 2)

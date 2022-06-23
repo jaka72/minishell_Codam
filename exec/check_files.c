@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:13:00 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 16:59:37 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	*flag_and_expand(char *expanded, char *original)
 	return (temp);
 }
 
-int	check_file_access(t_cmd	*current)
+int	check_file_access(t_cmd	*current, int *ex_stat)
 {
 	char	*expanded;
 	int		i;
@@ -76,7 +76,7 @@ int	check_file_access(t_cmd	*current)
 		return (0);
 	while (current->files[i])
 	{
-		expanded = check_expand_file(&current->files[i][1]);
+		expanded = check_expand_file(&current->files[i][1], ex_stat);
 		if (expanded == NULL)
 			return (return_errtx(-4, "ambiguous redirect\n"));
 		if (current->files[i][0] == '1' && check_infile(expanded) != 0)

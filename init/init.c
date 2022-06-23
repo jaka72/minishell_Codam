@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/23 07:20:47 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 16:39:36 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,14 @@ static void	ini_oldpwd(void)
 	}
 }
 
-void	ms_init(char *envp[])
+void	ms_init(char *envp[], int *ex_stat)
 {
-	g_gl.g_status = 0;
 	g_gl.start_env = NULL;
 	g_gl.start_cmd = NULL;
 	rl_catch_signals = 0;
-	if (tcgetattr(0, &g_gl.termios_save) != 0)
+	*ex_stat = 0;
+	if (tcgetattr(0, &g_termios_saved) != 0)
 		exit(errtx_all_free_exit(1, "get termios failed\n"));
-	ft_memccpy(g_gl.prompt, "minishell > ", '\0', 13);
 	g_gl.start_env = get_env(envp);
 	ini_oldpwd();
 	signal(SIGINT, handle_sigint);

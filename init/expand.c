@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/23 09:32:25 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 17:00:31 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ static char	*check_quote_expand(char *expanded, char *tx, int *i, int *d_flag)
 	return (expanded);
 }
 
+static char *show_last_status(char *expanded, int *ex_stat, int *i)
+{
+	expanded = add_laststatus(expanded, *ex_stat);
+	*i = *i + 1;
+	return (expanded);
+}
+
 static char	*check_doller_expand(char *expanded, char *tx, int *i, int *d_flag)
 {
 	if (tx[*i] == '$' && tx[*i + 1] == '\"' && *d_flag == 1)
@@ -40,11 +47,6 @@ static char	*check_doller_expand(char *expanded, char *tx, int *i, int *d_flag)
 	else if ((tx[*i] == '$' && tx[*i + 1] == ' ')
 		|| (tx[*i] == '$' && tx[*i + 1] == '\0'))
 		expanded = ft_add_c_free(expanded, '$');
-	else if (tx[*i] == '$' && tx[*i + 1] == '?' )
-	{
-		expanded = add_laststatus(expanded, g_gl.g_status);
-		*i = *i + 1;
-	}
 	else if (tx[*i] == '$')
 	{
 		expanded = add_expanded(expanded, &tx[*i + 1]);
@@ -53,7 +55,7 @@ static char	*check_doller_expand(char *expanded, char *tx, int *i, int *d_flag)
 	return (expanded);
 }
 
-char	*check_expand_file(char *tx)
+char	*check_expand_file(char *tx, int *ex_stat)
 {
 	int		i;
 	int		d_flag;
@@ -71,6 +73,8 @@ char	*check_expand_file(char *tx)
 	{
 		if (tx[i] == '\"' || tx[i] == '\'')
 			expanded = check_quote_expand(expanded, tx, &i, &d_flag);
+		else if (tx[i] == '$' && tx[i + 1] == '?')
+			expanded = show_last_status(expanded, ex_stat, &i);
 		else if (tx[i] == '$')
 			expanded = check_doller_expand(expanded, tx, &i, &d_flag);
 		else
@@ -82,16 +86,16 @@ char	*check_expand_file(char *tx)
 	return (expanded);
 }
 
-char	*check_expand(char *tx)
+char	*check_expand(char *tx, int *ex_stat)
 {
 	char	*expanded;
 
-	expanded = check_expand_file(tx);
+	expanded = check_expand_file(tx, ex_stat);
 	free(tx);
 	return (expanded);
 }
 
-char	**expand_array(char **args)
+char	**expand_array(char **args, int *ex_stat)
 {
 	int	i;
 	int	temp;
@@ -102,7 +106,7 @@ char	**expand_array(char **args)
 		return (args);
 	while (args[i])
 	{
-		args[i] = check_expand(args[i]);
+		args[i] = check_expand(args[i], ex_stat);
 		if (args[i] == NULL)
 		{
 			temp = i;

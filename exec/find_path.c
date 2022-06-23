@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:13:11 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 19:28:22 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*ft_find_env_pathnum(char *envp[])
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
 			path = &envp[i][5];
-			return (path);
+			return (path);	
 		}
 		i++;
 	}
