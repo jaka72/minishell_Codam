@@ -24,7 +24,7 @@ static char	*ft_find_env_pathnum(char *envp[])
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
 			path = &envp[i][5];
-			return (path);	
+			return (path);
 		}
 		i++;
 	}

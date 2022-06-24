@@ -14,7 +14,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-t_global	g_gl;
+// t_global	st_base;
 struct termios	g_termios_saved;
 
 static void	free_and_read(t_source *src, int history)
@@ -26,15 +26,20 @@ static void	free_and_read(t_source *src, int history)
 	src->inputline = readline("minishell > ");
 }
 
+static	void	unused_arg(int argc, char *argv[])
+{
+	(void) argc;
+	(void) argv;
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_source	src;
 	int			ex_stat;
+	t_util		st_base;
 
-	(void) argc;
-	(void) argv;
-	src.inputline = NULL;
-	ms_init(envp, &ex_stat);
+	unused_arg(argc, argv);
+	ms_init(envp, &ex_stat, &st_base, &src);
 	free_and_read(&src, 0);
 	while (src.inputline)
 	{
@@ -46,11 +51,11 @@ int	main(int argc, char *argv[], char *envp[])
 				continue ;
 			}
 			add_history(src.inputline);
-			g_gl.start_cmd = make_commands(&src);
-			ex_stat = run_cmd(&ex_stat);
-			free_tcmd();
+			st_base.start_cmd = make_commands(&src);
+			ex_stat = run_cmd(&ex_stat, &st_base);
+			free_tcmd(&st_base);
 		}
 		free_and_read(&src, 0);
 	}
-	return (clean_data(ex_stat, "exit\n"));
+	return (clean_data(ex_stat, "exit\n", &st_base));
 }

@@ -13,12 +13,12 @@
 #include "../minishell.h"
 #include <limits.h>
 
-static	char	*get_pwd_path(char *name, int *ret)
+static	char	*get_pwd_path(char *name, int *ret, t_util *st_base)
 {
 	char	*newpath;
 	t_env	*temp;
 
-	temp = g_gl.start_env;
+	temp = st_base->start_env;
 	while (temp)
 	{
 		if (ft_strcmp(temp->name, name) == 0)
@@ -37,7 +37,7 @@ static	char	*get_pwd_path(char *name, int *ret)
 	return (NULL);
 }
 
-int	run_pwd_builtin(void)
+int	run_pwd_builtin(t_util *st_base)
 {
 	int		ret;
 	char	buff[PATH_MAX];
@@ -46,7 +46,7 @@ int	run_pwd_builtin(void)
 	current_path = getcwd(buff, PATH_MAX);
 	if (current_path == NULL)
 	{
-		current_path = get_pwd_path("PWD", &ret);
+		current_path = get_pwd_path("PWD", &ret, st_base);
 		if (ret == 1)
 			return (1);
 		write(1, current_path, ft_strlen(current_path));

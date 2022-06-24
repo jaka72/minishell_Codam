@@ -27,96 +27,83 @@ static char	*check_quote_expand(char *expanded, char *tx, int *i, int *d_flag)
 	return (expanded);
 }
 
-static char *show_last_status(char *expanded, int *ex_stat, int *i)
+static char	*check_doller_expand(char *expanded, char *tx, t_util *st_base)
 {
-	expanded = add_laststatus(expanded, *ex_stat);
-	*i = *i + 1;
-	return (expanded);
-}
-
-static char	*check_doller_expand(char *expanded, char *tx, int *i, int *d_flag)
-{
-	if (tx[*i] == '$' && tx[*i + 1] == '\"' && *d_flag == 1)
+	if (tx[st_base->i] == '$' && tx[st_base->i + 1] == '\"'
+		&& st_base->flag == 1)
 	{
 		expanded = ft_add_c_free(expanded, '$');
-		*d_flag ^= FLAG1;
-		*i = *i + 1;
+		st_base->flag ^= FLAG1;
+		(st_base->i)++;
 	}
-	else if (tx[*i] == '$' && tx[*i + 1] == '=')
-		expanded = add_two_cha(expanded, '$', '=', i);
-	else if ((tx[*i] == '$' && tx[*i + 1] == ' ')
-		|| (tx[*i] == '$' && tx[*i + 1] == '\0'))
+	else if (tx[st_base->i] == '$' && tx[st_base->i + 1] == '=')
+		expanded = add_two_cha(expanded, '$', '=', &st_base->i);
+	else if ((tx[st_base->i] == '$' && tx[st_base->i + 1] == ' ')
+		|| (tx[st_base->i] == '$' && tx[st_base->i + 1] == '\0'))
 		expanded = ft_add_c_free(expanded, '$');
-	else if (tx[*i] == '$')
+	else if (tx[st_base->i] == '$')
 	{
-		expanded = add_expanded(expanded, &tx[*i + 1]);
-		*i = *i + count_expand_length(&tx[*i + 1]);
+		expanded = add_expanded(expanded, &tx[st_base->i + 1], st_base);
+		st_base->i = st_base->i + count_expand_length(&tx[st_base->i + 1]);
 	}
 	return (expanded);
 }
 
-char	*check_expand_file(char *tx, int *ex_stat)
+char	*check_expand_file(char *tx, int *ex_stat, t_util *st_base)
 {
-	int		i;
-	int		d_flag;
-	char	*expanded;
+	char	*str;
 
-	i = 0;
-	d_flag = 0;
-	expanded = ini_expanded();
+	st_base->i = 0;
+	st_base->flag = 0;
+	str = ini_expanded();
 	if ((tx[0] == '\'' && tx[1] == '\'' && tx[2] == '\0')
 		|| (tx[0] == '\"' && tx[1] == '\"' && tx[2] == '\0'))
-		return (ft_add_c_free(expanded, '\0'));
+		return (ft_add_c_free(str, '\0'));
 	if (tx[0] == '$' && tx[1] == '\0')
-		return (ft_add_c_free(expanded, '$'));
-	while (tx[i] != '\0')
+		return (ft_add_c_free(str, '$'));
+	while (tx[st_base->i] != '\0')
 	{
-		if (tx[i] == '\"' || tx[i] == '\'')
-			expanded = check_quote_expand(expanded, tx, &i, &d_flag);
-		else if (tx[i] == '$' && tx[i + 1] == '?')
-			expanded = show_last_status(expanded, ex_stat, &i);
-		else if (tx[i] == '$')
-			expanded = check_doller_expand(expanded, tx, &i, &d_flag);
+		if (tx[st_base->i] == '\"' || tx[st_base->i] == '\'')
+			str = check_quote_expand(str, tx, &st_base->i, &st_base->flag);
+		else if (tx[st_base->i] == '$' && tx[st_base->i + 1] == '?')
+			str = show_last_status(str, ex_stat, &st_base->i);
+		else if (tx[st_base->i] == '$')
+			str = check_doller_expand(str, tx, st_base);
 		else
-			expanded = ft_add_c_free(expanded, tx[i]);
-		i++;
+			str = ft_add_c_free(str, tx[st_base->i]);
+		st_base->i++;
 	}
-	if (expanded[0] == '\0')
-		return (free_return_null(expanded));
-	return (expanded);
+	if (str[0] == '\0')
+		return (free_return_null(str));
+	return (str);
 }
 
-char	*check_expand(char *tx, int *ex_stat)
+char	*check_expand(char *tx, int *ex_stat, t_util *st_base)
 {
 	char	*expanded;
 
-	expanded = check_expand_file(tx, ex_stat);
+	expanded = check_expand_file(tx, ex_stat, st_base);
 	free(tx);
 	return (expanded);
 }
 
-char	**expand_array(char **args, int *ex_stat)
+char	**expand_array(char **args, int *ex_stat, t_util *st_base)
 {
 	int	i;
-	int	temp;
 
 	i = 0;
-	temp = 0;
-	if (args == NULL)
-		return (args);
 	while (args[i])
 	{
-		args[i] = check_expand(args[i], ex_stat);
+		args[i] = check_expand(args[i], ex_stat, st_base);
 		if (args[i] == NULL)
 		{
-			temp = i;
-			while (args[temp + 1])
+			while (args[i + 1])
 			{
-				args[temp] = args[temp + 1];
-				temp++;
+				args[i] = args[i + 1];
+				i++;
 			}
-			args[temp] = NULL;
-			i--;
+			args[i] = NULL;
+			break ;
 		}
 		i++;
 	}

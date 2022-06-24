@@ -45,24 +45,24 @@ int	check_if_builtin(t_cmd *cmd)
 	return (0);
 }
 
-int	exec_builtin(t_cmd *cmd, t_cmd *list)
+int	exec_builtin(t_cmd *cmd, t_cmd *list, t_util *st_base)
 {
 	if (cmd->args == NULL)
 		return (1);
 	if (ft_strcmp("echo", cmd->args[0]) == 0)
 		return (run_echo_builtin(cmd));
 	else if (ft_strcmp("pwd", cmd->args[0]) == 0)
-		return (run_pwd_builtin());
+		return (run_pwd_builtin(st_base));
 	else if (ft_strcmp("cd", cmd->args[0]) == 0)
-		return (run_cd_builtin(cmd));
+		return (run_cd_builtin(cmd, st_base));
 	else if (ft_strcmp("exit", cmd->args[0]) == 0)
 		return (run_exit_builtin(cmd, list));
 	else if (ft_strcmp("export", cmd->args[0]) == 0)
-		return (run_export_builtin(cmd));
+		return (run_export_builtin(cmd, st_base));
 	else if (ft_strcmp("unset", cmd->args[0]) == 0)
-		return (run_unset_builtin(cmd));
+		return (run_unset_builtin(cmd, st_base));
 	else if (ft_strcmp("env", cmd->args[0]) == 0)
-		return (run_env_builtin());
+		return (run_env_builtin(st_base));
 	return (0);
 }
 

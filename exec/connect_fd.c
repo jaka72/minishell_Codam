@@ -38,13 +38,13 @@ void	check_close_fd(int fdin, int fdout)
 		close(fdout);
 }
 
-int	reset_fd_sig(void)
+int	reset_fd_sig(t_util *st_base)
 {
 	int	fd0;
 	int	fd1;
 
-	fd0 = dup(g_gl.ini_fd[0]);
-	fd1 = dup(g_gl.ini_fd[1]);
+	fd0 = dup(st_base->ini_fd[0]);
+	fd1 = dup(st_base->ini_fd[1]);
 	dup2(fd0, 0);
 	dup2(fd1, 1);
 	close(fd0);

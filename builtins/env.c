@@ -12,11 +12,11 @@
 
 #include "../minishell.h"
 
-static void	print_env(void)
+static void	print_env(t_util *st_base)
 {
 	t_env	*env;
 
-	env = g_gl.start_env;
+	env = st_base->start_env;
 	while (env)
 	{
 		if (env->value != NULL)
@@ -30,11 +30,11 @@ static void	print_env(void)
 	}
 }
 
-int	print_env_export(void)
+int	print_env_export(t_util *st_base)
 {
 	t_env	*env;
 
-	env = g_gl.start_env;
+	env = st_base->start_env;
 	while (env)
 	{
 		write(1, "declare -x ", 11);
@@ -55,16 +55,16 @@ int	print_env_export(void)
 	return (0);
 }
 
-int	run_env_builtin(void)
+int	run_env_builtin(t_util *st_base)
 {
-	print_env();
+	print_env(st_base);
 	return (0);
 }
 
-void	add_env_tolast(t_env *temp_env)
+void	add_env_tolast(t_env *temp_env, t_util *st_base)
 {
 	t_env	*end_env;
 
-	end_env = last_env();
+	end_env = last_env(st_base);
 	end_env->next = temp_env;
 }

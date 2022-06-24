@@ -90,7 +90,7 @@ t_cmd	*make_commands(t_source *src)
 		if (ret == 1)
 			break ;
 		if (ret == -1)
-			errtx_all_free_exit(1, "make_commands: malloc failed\n");
+			err_return_num(1, "make_commands: malloc failed\n");
 		i++;
 	}
 	return (first_cmd);

@@ -46,11 +46,11 @@ char	*ft_add_c_free(char *s1, char c)
 	return (str);
 }
 
-void	clean_fd(void)
+void	clean_fd(t_util *st_base)
 {
 	t_cmd	*current;
 
-	current = g_gl.start_cmd;
+	current = st_base->start_cmd;
 	while (current)
 	{
 		if (current->fd_in > 1)
@@ -65,18 +65,18 @@ void	clean_fd(void)
 		}
 		current = current->next;
 	}
-	if (g_gl.ini_fd[0] > 1)
-		close(g_gl.ini_fd[0]);
-	if (g_gl.ini_fd[1] > 1)
-		close(g_gl.ini_fd[1]);
+	if (st_base->ini_fd[0] > 1)
+		close(st_base->ini_fd[0]);
+	if (st_base->ini_fd[1] > 1)
+		close(st_base->ini_fd[1]);
 }
 
-int	clean_data(int status, char *text)
+int	clean_data(int status, char *text, t_util *st_base)
 {
 	if (text != NULL)
 		write(STDOUT_FILENO, text, ft_strlen(text));
-	free_envlist();
-	clean_fd();
+	free_envlist(st_base);
+	clean_fd(st_base);
 	rl_clear_history();
 	tcsetattr(0, 0, &g_termios_saved);
 	return (status);

@@ -24,13 +24,12 @@ static int	cmd_no_slash(char *path, char **args, char **envs)
 {
 	int	ret;
 
-
 	if (args == NULL || args[0] == NULL)
 		return (0);
 	if (path == NULL)
 	{
 		print_error_msg("minishell: ", args[0], ": Command not found\n");
-		exit(err_all_free_exit(127));
+		exit(127);
 	}
 	else
 	{
@@ -38,13 +37,13 @@ static int	cmd_no_slash(char *path, char **args, char **envs)
 		if (ret != 0)
 		{
 			print_error_msg("minishell: ", args[0], ": Permission denied\n");
-			exit(err_all_free_exit(126));
+			exit(126);
 		}
 		else
 		{
 			execve(path, args, envs);
 			print_error_msg("minishell: ", args[0], ": Command not found\n");
-			exit(err_all_free_exit(127));
+			exit(127);
 		}
 	}
 	return (1);
@@ -60,12 +59,12 @@ static int	cmd_with_slash(char *path, char **args, char **envs)
 		if (errno == 2)
 		{
 			print_error_msg("minishell: ", path, ": No such file or folder\n");
-			exit(err_all_free_exit(127));
+			exit(127);
 		}
 		else if (errno == 13)
 		{
 			print_error_msg("minishell: ", path, ": Permission denied\n");
-			exit(err_all_free_exit(126));
+			exit(126);
 		}
 	}
 	else
@@ -87,34 +86,34 @@ static int	cmd_is_custom(char **args, char **envs)
 		{
 			print_error_msg("minishell: ", args[0],
 				": No such file or folder\n");
-			exit(err_all_free_exit(127));
+			exit(127);
 		}
 		else if (errno == 13)
 		{
 			print_error_msg("minishell: ", args[0], ": Permission denied\n");
-			exit(err_all_free_exit(126));
+			exit(126);
 		}
 	}
 	else
 	{
 		ret = execve(args[0], args, envs);
 		print_error_msg("minishell: ", args[0], ": is a directory\n");
-		exit(err_all_free_exit(126));
+		exit(126);
 	}
 	return (1);
 }
 
-int	ms_execve(t_cmd *str)
+int	ms_execve(t_cmd *str, t_util *st_base)
 {
 	char	**envs;
 	char	*path;
 	int		ret;
 
-	envs = get_env_array();
+	envs = get_env_array(st_base);
 	if (envs == NULL)
 		return (-1);
 	if (str->args == NULL)
-		exit(err_all_free_exit(0));
+		exit(0);
 	path = ft_findshell_path(str->args[0], envs);
 	if (ft_strchr(str->args[0], '/') == 0)
 		ret = cmd_no_slash(path, str->args, envs);
@@ -125,5 +124,5 @@ int	ms_execve(t_cmd *str)
 		else
 			ret = cmd_is_custom(str->args, envs);
 	}
-	exit(err_all_free_exit(ret));
+	exit(ret);
 }

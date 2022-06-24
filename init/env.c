@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-t_env	*get_env(char *envp[])
+t_env	*get_env(char *envp[], t_util *st_base)
 {
 	int		i;
 	t_env	*temp_env;
@@ -26,17 +26,17 @@ t_env	*get_env(char *envp[])
 		temp_env = init_tempenv();
 		temp_env = get_name_value(temp_env, envp[i]);
 		if (temp_env == NULL)
-			err_free_env_exit("getting env failed\n");
-		if (g_gl.start_env == NULL)
-			g_gl.start_env = temp_env;
+			msg_and_exit("getting env failed\n", 1);
+		if (st_base->start_env == NULL)
+			st_base->start_env = temp_env;
 		else
 		{
-			current_env = last_env();
+			current_env = last_env(st_base);
 			current_env->next = temp_env;
 		}
 		i++;
 	}
-	return (g_gl.start_env);
+	return (st_base->start_env);
 }
 
 static char	**make_envstr(t_env *current, char **envs, int *i)
@@ -47,7 +47,7 @@ static char	**make_envstr(t_env *current, char **envs, int *i)
 	if (temp == NULL)
 	{
 		free_strings(envs);
-		exit(errtx_all_free_exit(1, "malloc for envs failed\n"));
+		msg_and_exit("malloc for envs failed\n", 1);
 	}		
 	ft_memcpy(temp, current->name, ft_strlen(current->name));
 	ft_memcpy(&temp[ft_strlen(current->name)], "=", 1);
@@ -58,7 +58,7 @@ static char	**make_envstr(t_env *current, char **envs, int *i)
 	return (envs);
 }
 
-char	**get_env_array(void)
+char	**get_env_array(t_util *st_base)
 {
 	char	**envs;
 	t_env	*current;
@@ -67,9 +67,9 @@ char	**get_env_array(void)
 	i = 0;
 	envs = malloc(sizeof(char **) * 1);
 	if (envs == NULL)
-		exit(errtx_all_free_exit(1, "malloc for envs failed\n"));
+		msg_and_exit("malloc for envs failed\n", 1);
 	envs[0] = NULL;
-	current = g_gl.start_env;
+	current = st_base->start_env;
 	while (current)
 	{
 		if (current->name && current->value)

@@ -34,10 +34,9 @@ void	handle_sigint_p(int num)
 
 	(void) num;
 	write(STDOUT_FILENO, "\n", 1);
-	reset_fd_sig();
 	i = tcsetattr(0, 0, &g_termios_saved);
 	if (i)
-		exit(errtx_all_free_exit(1, "set termios failed\n"));
+		msg_and_exit("set termios failed\n", 1);
 }
 
 void	handle_sigquit_p(int num)
@@ -46,10 +45,9 @@ void	handle_sigquit_p(int num)
 
 	(void) num;
 	write(STDOUT_FILENO, "Quit: 3\n", 8);
-	reset_fd_sig();
 	i = tcsetattr(0, 0, &g_termios_saved);
 	if (i)
-		exit(errtx_all_free_exit(1, "set termios failed\n"));
+		msg_and_exit("set termios failed\n", 1);
 }
 
 void	handle_sigint_hd(int num)
@@ -60,5 +58,5 @@ void	handle_sigint_hd(int num)
 	write(STDOUT_FILENO, "\n", 1);
 	i = tcsetattr(0, 0, &g_termios_saved);
 	if (i)
-		exit(errtx_all_free_exit(1, "set termios failed\n"));
+		msg_and_exit("set termios failed\n", 1);
 }

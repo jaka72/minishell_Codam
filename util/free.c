@@ -12,12 +12,12 @@
 
 #include "../minishell.h"
 
-void	free_envlist(void)
+void	free_envlist(t_util *st_base)
 {
 	t_env	*env;
 	t_env	*temp_env;
 
-	env = g_gl.start_env;
+	env = st_base->start_env;
 	while (env)
 	{
 		if (env->name)
@@ -28,7 +28,7 @@ void	free_envlist(void)
 		env = env->next;
 		free(temp_env);
 	}
-	g_gl.start_env = NULL;
+	st_base->start_env = NULL;
 }
 
 int	free_strings(char **strs)
@@ -48,12 +48,12 @@ int	free_strings(char **strs)
 	return (0);
 }
 
-void	free_tcmd(void)
+void	free_tcmd(t_util *st_base)
 {
 	t_cmd	*current;
 	t_cmd	*temp;
 
-	current = g_gl.start_cmd;
+	current = st_base->start_cmd;
 	while (current)
 	{
 		free_strings(current->args);
@@ -63,5 +63,5 @@ void	free_tcmd(void)
 		current = current->next;
 		free(temp);
 	}
-	g_gl.start_cmd = NULL;
+	st_base->start_cmd = NULL;
 }

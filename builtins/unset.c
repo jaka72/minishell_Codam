@@ -12,39 +12,43 @@
 
 #include "../minishell.h"
 
-int	find_name_delate(char *targetname)
+static	void	free_env_item(t_env *env)
+{
+	if (env->name)
+		free(env->name);
+	if (env->value)
+		free(env->value);
+	free(env);
+}
+
+int	find_name_delate(char *targetname, t_util *st_base)
 {
 	t_env	*env;
 	t_env	*prev;
-	int		i;
 
-	env = g_gl.start_env;
+	env = st_base->start_env;
 	prev = NULL;
-	i = 0;
+	st_base->i = 0;
 	while (env)
 	{
 		if (ft_strncmp(targetname, env->name, ft_strlen(targetname)) == 0
 			&& ft_strlen(targetname) == ft_strlen(env->name))
 		{
-			if (i == 0)
-				g_gl.start_env = env->next;
+			if (st_base->i == 0)
+				st_base->start_env = env->next;
 			else
 				prev->next = env->next;
-			if (env->name)
-				free(env->name);
-			if (env->value)
-				free(env->value);
-			free(env);
+			free_env_item(env);
 			break ;
 		}
 		prev = env;
 		env = env->next;
-		i++;
+		(st_base->i)++;
 	}
 	return (0);
 }
 
-int	run_unset_builtin(t_cmd *cmd)
+int	run_unset_builtin(t_cmd *cmd, t_util *st_base)
 {
 	int	i;
 	int	ex_stat;
@@ -67,7 +71,7 @@ int	run_unset_builtin(t_cmd *cmd)
 			write(2, ": not a valid identifier\n", 25);
 			ex_stat = 1;
 		}
-		find_name_delate(cmd->args[i]);
+		find_name_delate(cmd->args[i], st_base);
 		i++;
 	}
 	return (ex_stat);

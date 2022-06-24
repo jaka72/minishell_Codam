@@ -13,13 +13,13 @@
 #include "../minishell.h"
 #define FLAG1 1
 
-char	*name_expand(char *tx)
+char	*name_expand(char *tx, t_util *st_base)
 {
 	char	*newtx;
 	t_env	*env;
 
 	newtx = NULL;
-	env = g_gl.start_env;
+	env = st_base->start_env;
 	while (env)
 	{
 		if (ft_strncmp(tx, env->name, ft_strlen(tx) + 1) == 0
@@ -27,7 +27,7 @@ char	*name_expand(char *tx)
 		{
 			newtx = malloc(ft_strlen(env->value) + 1);
 			if (newtx == NULL)
-				exit(errtx_all_free_exit(1, "check expand malloc failed\n"));
+				msg_and_exit("check expand malloc failed\n", 1);
 			newtx = ft_memcpy(newtx, env->value, ft_strlen(env->value));
 			newtx[ft_strlen(env->value)] = '\0';
 			free(tx);
@@ -76,4 +76,11 @@ int	count_expand_length(char *src)
 		&& src[i] != '/' && src[i] != ':')
 		i++;
 	return (i);
+}
+
+char	*show_last_status(char *expanded, int *ex_stat, int *i)
+{
+	expanded = add_laststatus(expanded, ex_stat);
+	*i = *i + 1;
+	return (expanded);
 }

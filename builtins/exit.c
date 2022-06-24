@@ -61,7 +61,7 @@ static	int	check_args_and_print(t_cmd *cmd, int nr_commands)
 		if (nr_commands == 1)
 			write(2, "exit\n", 5);
 		print_msg_var_exit_numeric(cmd->args[1]);
-		exit(err_all_free_exit(255));
+		exit(255);
 	}
 	else if (check_if_numeric(cmd->args[1]) == 0 && count_elems(cmd->args) > 2)
 	{
@@ -74,7 +74,7 @@ static	int	check_args_and_print(t_cmd *cmd, int nr_commands)
 	{
 		if (nr_commands == 1)
 			write(2, "exit\n", 5);
-		exit(err_all_free_exit(exit_code));
+		exit(exit_code);
 	}
 	return (0);
 }
@@ -90,7 +90,7 @@ int	run_exit_builtin(t_cmd *cmd, t_cmd *list)
 	{
 		if (nr_commands == 1)
 			write(cmd->fd_out, "exit\n", 5);
-		exit(err_all_free_exit(0));
+		exit(0);
 	}
 	else if (count_elems(cmd->args) > 1)
 	{
