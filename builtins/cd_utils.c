@@ -12,12 +12,12 @@
 
 #include "../minishell.h"
 
-char	*get_path(char *name, int *ret, int n)
+char	*get_path(char *name, int *ret, int n, t_util *st_base)
 {
 	char	*newpath;
 	t_env	*temp;
 
-	temp = g_gl.start_env;
+	temp = st_base->start_env;
 	while (temp)
 	{
 		if (ft_strcmp(temp->name, name) == 0)

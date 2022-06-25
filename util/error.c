@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:15:46 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 11:30:23 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,22 @@ int	return_errtx(int i, char *tx)
 	return (i);
 }
 
-void	err_free_env_exit(char *text)
-{
-	perror(text);
-	free_envlist();
-	exit(1);
-}
-
-int	err_all_free_exit(int exitnum)
-{
-	free_tcmd();
-	free_envlist();
-	rl_clear_history();
-	return (exitnum);
-}
-
-int	errtx_all_free_exit(int exitnum, char *tx)
+int	err_return_num(int exit_code, char *tx)
 {
 	if (tx != NULL)
 		perror(tx);
-	return (err_all_free_exit(exitnum));
+	return (exit_code);
+}
+
+void	print_err_msg(char *err_msg)
+{
+	write(2, "minishell: ", 11);
+	write(2, err_msg, ft_strlen(err_msg));
+	write(2, "\n ", 1);
+}
+
+void	msg_and_exit(char *err_msg, int exit_code)
+{
+	write(2, err_msg, ft_strlen(err_msg));
+	exit (exit_code);
 }

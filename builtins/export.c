@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:12:24 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 19:26:43 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ static t_env	*find_and_split(const char *s, char c, t_env *env)
 		{
 			env->name = malloc(sizeof(char) * (i + 1));
 			if (env->name == NULL)
-				exit(errtx_all_free_exit(1, "for env name malloc failed\n"));
+				msg_and_exit("for env name malloc failed\n", 1);
 			ft_strlcpy(env->name, s, i + 1);
 			env->name[i] = '\0';
 			env->value = malloc(sizeof(char) * (w - i));
 			if (env->value == NULL)
-				exit(errtx_all_free_exit(1, "for env value malloc failed\n"));
+				msg_and_exit("for env value malloc failed\n", 1);
 			ft_strlcpy(env->value, &s[i + 1], (w - i));
 			env->value[w - i - 1] = '\0';
 			env->next = NULL;
@@ -50,12 +50,10 @@ static int	check_valid_identifier(char *text)
 		return (1);
 	while (text[i])
 	{
-		if (text[i] == '<' || text[i] == '>' || text[i] == '|')
-			return (2);
-		if (text[i] == '\'' || text[i] == '\"')
-			return (3);
-		if (text[i] == '[' || text[i] == ']' || text[i] == ':')
-			return (4);
+		if (text[i] == '<' || text[i] == '>' || text[i] == '|'
+			|| text[i] == '\'' || text[i] == '\"' || text[i] == '+'
+			||text[i] == '[' || text[i] == ']' || text[i] == ':')
+			return (1);
 		if (text[i] == '=')
 			break ;
 		i++;
@@ -71,41 +69,41 @@ static int	write_identifier_error(char *text)
 	return (1);
 }
 
-static	void	env_only_name(t_env *temp_env, char *str)
+static	void	env_only_name(t_env *temp_env, char *str, t_util *st_base)
 {
 	temp_env->name = malloc(ft_strlen(str) + 1);
 	if (temp_env->name == NULL)
-		exit(errtx_all_free_exit(1, "for temp_env malloc failed"));
+		msg_and_exit("for temp_env malloc failed\n", 1);
 	ft_strlcpy(temp_env->name, str, ft_strlen(str) + 1);
 	temp_env->value = NULL;
 	temp_env->next = NULL;
-	find_name_delate(temp_env->name);
-	add_env_tolast(temp_env);
+	find_name_delate(temp_env->name, st_base);
+	add_env_tolast(temp_env, st_base);
 }
 
-int	run_export_builtin(t_cmd *cmd)
+int	run_export_builtin(t_cmd *cmd, t_util *st_base)
 {
 	int		i;
 	t_env	*temp_env;
 
 	i = 1;
 	if (cmd->args[1] == NULL)
-		return (print_env_export());
+		return (print_env_export(st_base));
 	while (cmd->args[i])
 	{
 		if (cmd->args[i][0] == '=' || check_valid_identifier(cmd->args[i]) != 0)
 			return (write_identifier_error(cmd->args[i]));
 		temp_env = malloc(sizeof(t_env) * 1);
 		if (temp_env == NULL)
-			exit(errtx_all_free_exit(1, "for temp_env malloc failed"));
+			msg_and_exit("for temp_env malloc failed\n", 1);
 		if (ft_strchr(cmd->args[i], '=') != NULL)
 		{
 			temp_env = find_and_split(cmd->args[i], '=', temp_env);
-			find_name_delate(temp_env->name);
-			add_env_tolast(temp_env);
+			find_name_delate(temp_env->name, st_base);
+			add_env_tolast(temp_env, st_base);
 		}
 		else
-			env_only_name(temp_env, cmd->args[i]);
+			env_only_name(temp_env, cmd->args[i], st_base);
 		i++;
 	}
 	return (0);

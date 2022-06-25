@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:14:05 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 16:12:57 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@ void	handle_sigint_p(int num)
 
 	(void) num;
 	write(STDOUT_FILENO, "\n", 1);
-	reset_fd_sig();
-	i = tcsetattr(0, 0, &g_gl.termios_save);
+	i = tcsetattr(0, 0, &g_termios_saved);
 	if (i)
-		exit(errtx_all_free_exit(1, "set termios failed\n"));
+		msg_and_exit("set termios failed\n", 1);
 }
 
 void	handle_sigquit_p(int num)
@@ -46,10 +45,9 @@ void	handle_sigquit_p(int num)
 
 	(void) num;
 	write(STDOUT_FILENO, "Quit: 3\n", 8);
-	reset_fd_sig();
-	i = tcsetattr(0, 0, &g_gl.termios_save);
+	i = tcsetattr(0, 0, &g_termios_saved);
 	if (i)
-		exit(errtx_all_free_exit(1, "set termios failed\n"));
+		msg_and_exit("set termios failed\n", 1);
 }
 
 void	handle_sigint_hd(int num)
@@ -58,7 +56,7 @@ void	handle_sigint_hd(int num)
 
 	(void) num;
 	write(STDOUT_FILENO, "\n", 1);
-	i = tcsetattr(0, 0, &g_gl.termios_save);
+	i = tcsetattr(0, 0, &g_termios_saved);
 	if (i)
-		exit(errtx_all_free_exit(1, "set termios failed\n"));
+		msg_and_exit("set termios failed\n", 1);
 }

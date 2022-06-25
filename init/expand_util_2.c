@@ -13,7 +13,7 @@
 #include "../minishell.h"
 #define FLAG1 1
 
-char	*add_expanded(char *dst, char *src)
+char	*add_expanded(char *dst, char *src, t_util *st_base)
 {
 	int		i;
 	char	*temp;
@@ -27,12 +27,12 @@ char	*add_expanded(char *dst, char *src)
 		i++;
 	temp = malloc(i + 1);
 	if (temp == NULL)
-		exit(errtx_all_free_exit(1, "add expand malloc failed\n"));
+		msg_and_exit("add expand malloc failed\n", 1);
 	ft_strlcpy(temp, src, i + 1);
-	expanded = name_expand(temp);
+	expanded = name_expand(temp, st_base);
 	dst = ft_strjoin_free(dst, expanded);
 	if (dst == NULL)
-		exit(errtx_all_free_exit(1, "add expand malloc failed\n"));
+		msg_and_exit("add expand malloc failed\n", 1);
 	return (dst);
 }
 
@@ -44,17 +44,17 @@ char	*add_two_cha(char *dst, char a, char b, int *i)
 	return (dst);
 }
 
-char	*add_laststatus(char *dst, int g_status)
+char	*add_laststatus(char *dst, int *ex_stat)
 {
 	char	*stat;
 
 	stat = NULL;
-	stat = ft_itoa(g_status);
+	stat = ft_itoa(*ex_stat);
 	if (stat == NULL)
-		exit(errtx_all_free_exit(1, "last status malloc failed\n"));
+		msg_and_exit("last status malloc failed\n", 1);
 	dst = ft_strjoin_free(dst, stat);
 	if (dst == NULL)
-		exit(errtx_all_free_exit(1, "last status malloc failed\n"));
+		msg_and_exit("last status malloc failed\n", 1);
 	return (dst);
 }
 
@@ -64,12 +64,12 @@ char	*ini_expanded(void)
 
 	expanded = malloc(sizeof(char) * 1);
 	if (expanded == NULL)
-		err_free_env_exit("check expand malloc failed");
+		msg_and_exit("check expand malloc failed\n", 1);
 	expanded[0] = '\0';
 	return (expanded);
 }
 
-char	*check_expand_hd(char *tx)
+char	*check_expand_hd(char *tx, t_util *st_base)
 {
 	int		i;
 	char	*expanded;
@@ -87,7 +87,7 @@ char	*check_expand_hd(char *tx)
 		}
 		else if (tx[i] == '$')
 		{
-			expanded = add_expanded(expanded, &tx[i + 1]);
+			expanded = add_expanded(expanded, &tx[i + 1], st_base);
 			i = i + count_expand_length(&tx[i + 1]);
 		}
 		else

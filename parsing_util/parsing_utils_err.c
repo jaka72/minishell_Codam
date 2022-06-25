@@ -6,26 +6,12 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:15:36 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 16:32:52 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #define SYNTAX_ERROR	258
-
-void	print_err_msg(char *err_msg)
-{
-	write(2, "\nminishell: ", 12);
-	write(2, err_msg, ft_strlen(err_msg));
-	write(2, "\n ", 1);
-	g_gl.g_status = SYNTAX_ERROR;
-}
-
-void	msg_and_exit(char *err_msg, int exit_code)
-{
-	write(2, err_msg, ft_strlen(err_msg));
-	exit (exit_code);
-}
 
 void	ft_lstadd_back(t_cmd **list, t_cmd *newnode)
 {

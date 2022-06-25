@@ -6,28 +6,27 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:16:45 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 16:40:47 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPEDEF_H
 # define TYPEDEF_H
 
-typedef struct s_global		t_global;
+typedef struct s_util		t_util;
 typedef struct s_env		t_env;
 typedef struct s_cmd		t_cmd;
 typedef struct s_source		t_source;
 typedef struct s_pid		t_pid;
-extern t_global				g_gl;
+extern struct termios		g_termios_saved;
 
-struct	s_global
+struct	s_util
 {
-	int				g_status;
-	t_env			*start_env;
-	t_cmd			*start_cmd;
-	char			prompt[13];
-	int				ini_fd[2];
-	struct termios	termios_save;
+	t_env	*start_env;
+	t_cmd	*start_cmd;
+	int		ini_fd[2];
+	int		i;
+	int		flag;
 };
 
 struct s_env

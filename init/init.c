@@ -6,18 +6,18 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/23 07:20:47 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 16:39:36 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include <readline/readline.h>
 
-static void	ini_oldpwd(void)
+static void	ini_oldpwd(t_util *st_base)
 {
 	t_env	*current;
 
-	current = g_gl.start_env;
+	current = st_base->start_env;
 	while (current)
 	{
 		if (ft_strncmp("OLDPWD", current->name, 6) == 0)
@@ -26,33 +26,35 @@ static void	ini_oldpwd(void)
 				free(current->value);
 			current->value = malloc(sizeof(char) * 1);
 			if (current->value == NULL)
-				exit(errtx_all_free_exit(1, "malloc for ini failed\n"));
+				msg_and_exit("malloc for ini failed\n", 1);
 			current->value[0] = '\0';
 		}
 		current = current->next;
 	}
 }
 
-void	ms_init(char *envp[])
+void	ms_init(char *envp[], int *ex_stat, t_util *st_base, t_source *src)
 {
-	g_gl.g_status = 0;
-	g_gl.start_env = NULL;
-	g_gl.start_cmd = NULL;
+	st_base->start_env = NULL;
+	st_base->start_cmd = NULL;
+	st_base->i = 0;
+	st_base->flag = 0;
+	src->inputline = NULL;
 	rl_catch_signals = 0;
-	if (tcgetattr(0, &g_gl.termios_save) != 0)
-		exit(errtx_all_free_exit(1, "get termios failed\n"));
-	ft_memccpy(g_gl.prompt, "minishell > ", '\0', 13);
-	g_gl.start_env = get_env(envp);
-	ini_oldpwd();
+	*ex_stat = 0;
+	if (tcgetattr(0, &g_termios_saved) != 0)
+		msg_and_exit("GET termios failed\n", 1);
+	st_base->start_env = get_env(envp, st_base);
+	ini_oldpwd(st_base);
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
-	g_gl.ini_fd[0] = dup(0);
-	if (g_gl.ini_fd[0] < 0)
-		exit(errtx_all_free_exit(1, "dup for initial fd failed\n"));
-	g_gl.ini_fd[1] = dup(1);
-	if (g_gl.ini_fd[1] < 0)
+	st_base->ini_fd[0] = dup(0);
+	if (st_base->ini_fd[0] < 0)
+		msg_and_exit("dup for initial fd failed\n", 1);
+	st_base->ini_fd[1] = dup(1);
+	if (st_base->ini_fd[1] < 0)
 	{
-		close(g_gl.ini_fd[0]);
-		exit(errtx_all_free_exit(1, "dup for initial fd failed\n"));
+		close(st_base->ini_fd[0]);
+		msg_and_exit("dup for initial fd failed\n", 1);
 	}
 }

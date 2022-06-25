@@ -12,24 +12,24 @@
 
 #include "../minishell.h"
 
-t_env	*last_env(void)
+t_env	*last_env(t_util *st_base)
 {
 	t_env	*last;
 
-	last = g_gl.start_env;
+	last = st_base->start_env;
 	while (last->next != NULL)
 		last = last->next;
 	return (last);
 }
 
-static void	free_errtx_all_free_exit(t_env *env, char *envname)
-{
-	if (envname != NULL)
-		free(envname);
-	if (env != NULL)
-		free(env);
-	exit(errtx_all_free_exit(1, "malloc for env failed\n"));
-}
+// static void	free_errtx_all_free_exit(t_env *env, char *envname)
+// {
+// 	if (envname != NULL)
+// 		free(envname);
+// 	if (env != NULL)
+// 		free(env);
+// 	exit(errtx_all_free_exit(1, "malloc for env failed\n"));
+// }
 
 t_env	*get_name_value(t_env *env, char *envtext)
 {
@@ -42,14 +42,14 @@ t_env	*get_name_value(t_env *env, char *envtext)
 	{
 		env->name = malloc(i + 1);
 		if (env->name == NULL)
-			free_errtx_all_free_exit(env, NULL);
+			msg_and_exit("malloc for env failed\n", 1);
 		env->name = ft_memcpy(env->name, envtext, i);
 		env->name[i] = '\0';
 		if (i < (int)ft_strlen(envtext))
 		{
 			env->value = malloc(ft_strlen(envtext) - i + 1);
 			if (env->value == NULL)
-				free_errtx_all_free_exit(env, env->name);
+				msg_and_exit("malloc for env failed\n", 1);
 			env->value = ft_memcpy(env->value,
 					&envtext[i + 1], ft_strlen(envtext) - i);
 			env->value[ft_strlen(envtext) - i] = '\0';
@@ -64,7 +64,7 @@ t_env	*init_tempenv(void)
 
 	temp_env = malloc(sizeof(t_env));
 	if (temp_env == NULL)
-		exit(errtx_all_free_exit(1, "malloc for env failed\n"));
+		msg_and_exit("malloc for env failed\n", 1);
 	temp_env->name = NULL;
 	temp_env->value = NULL;
 	temp_env->next = NULL;

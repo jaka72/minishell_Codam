@@ -6,47 +6,55 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/22 12:12:34 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/23 18:07:40 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	find_name_delate(char *targetname)
+static	void	free_env_item(t_env *env)
+{
+	if (env->name)
+		free(env->name);
+	if (env->value)
+		free(env->value);
+	free(env);
+}
+
+int	find_name_delate(char *targetname, t_util *st_base)
 {
 	t_env	*env;
 	t_env	*prev;
 
-	env = g_gl.start_env;
+	env = st_base->start_env;
 	prev = NULL;
+	st_base->i = 0;
 	while (env)
 	{
-		if (ft_strncmp(targetname, env->name, ft_strlen(targetname) + 1) == 0
+		if (ft_strncmp(targetname, env->name, ft_strlen(targetname)) == 0
 			&& ft_strlen(targetname) == ft_strlen(env->name))
 		{
-			if (prev == NULL)
-				g_gl.start_env = env->next;
+			if (st_base->i == 0)
+				st_base->start_env = env->next;
 			else
 				prev->next = env->next;
-			if (env->name)
-				free(env->name);
-			if (env->value)
-				free(env->value);
-			free(env);
+			free_env_item(env);
 			break ;
 		}
 		prev = env;
 		env = env->next;
+		(st_base->i)++;
 	}
 	return (0);
 }
 
-int	run_unset_builtin(t_cmd *cmd)
+int	run_unset_builtin(t_cmd *cmd, t_util *st_base)
 {
 	int	i;
+	int	ex_stat;
 
 	i = 1;
-	g_gl.g_status = 0;
+	ex_stat = 0;
 	while (cmd->args[i])
 	{
 		if (cmd->args[i][0] >= '0' && cmd->args[i][0] <= '9')
@@ -54,17 +62,17 @@ int	run_unset_builtin(t_cmd *cmd)
 			write(2, "minishell: unset: ", 18);
 			write(2, cmd->args[i], ft_strlen(cmd->args[i]));
 			write(2, ": not a valid identifier\n", 25);
-			g_gl.g_status = 1;
+			ex_stat = 1;
 		}
 		if (ft_strchr(cmd->args[i], '=') != NULL)
 		{
 			write(2, "minishell: unset: ", 18);
 			write(2, cmd->args[i], ft_strlen(cmd->args[i]));
 			write(2, ": not a valid identifier\n", 25);
-			g_gl.g_status = 1;
+			ex_stat = 1;
 		}
-		find_name_delate(cmd->args[i]);
+		find_name_delate(cmd->args[i], st_base);
 		i++;
 	}
-	return (g_gl.g_status);
+	return (ex_stat);
 }
