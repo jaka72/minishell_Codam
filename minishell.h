@@ -58,7 +58,7 @@ int		check_quotes(t_source *src);
 int		check_pipes(t_source *src);
 
 //check_syntax/check_syntax.c
-int		check_syntax_errors(t_source *src);
+int		check_syntax_errors(t_source *src, int *stat);
 
 // parsing_util/parsing_utils_err.c
 void	ft_lstadd_back(t_cmd **list, t_cmd *newnode);

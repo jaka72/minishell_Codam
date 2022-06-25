@@ -38,7 +38,7 @@ int	err_return_num(int exit_code, char *tx)
 
 void	print_err_msg(char *err_msg)
 {
-	write(2, "\nminishell: ", 12);
+	write(2, "minishell: ", 11);
 	write(2, err_msg, ft_strlen(err_msg));
 	write(2, "\n ", 1);
 }

@@ -97,13 +97,14 @@ char	**expand_array(char **args, int *ex_stat, t_util *st_base)
 		args[i] = check_expand(args[i], ex_stat, st_base);
 		if (args[i] == NULL)
 		{
-			while (args[i + 1])
+			st_base->i = i;
+			while (args[st_base->i + 1])
 			{
-				args[i] = args[i + 1];
-				i++;
+				args[st_base->i] = args[st_base->i + 1];
+				(st_base->i)++;
 			}
-			args[i] = NULL;
-			break ;
+			args[st_base->i] = NULL;
+			i--;
 		}
 		i++;
 	}

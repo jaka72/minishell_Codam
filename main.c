@@ -45,7 +45,7 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		if (ft_strlen(src.inputline) > 0)
 		{
-			if (check_syntax_errors(&src) != 0)
+			if (check_syntax_errors(&src, &ex_stat) != 0)
 			{
 				free_and_read(&src, 1);
 				continue ;

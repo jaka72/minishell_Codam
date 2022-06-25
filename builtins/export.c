@@ -50,12 +50,10 @@ static int	check_valid_identifier(char *text)
 		return (1);
 	while (text[i])
 	{
-		if (text[i] == '<' || text[i] == '>' || text[i] == '|')
-			return (2);
-		if (text[i] == '\'' || text[i] == '\"')
-			return (3);
-		if (text[i] == '[' || text[i] == ']' || text[i] == ':')
-			return (4);
+		if (text[i] == '<' || text[i] == '>' || text[i] == '|'
+			|| text[i] == '\'' || text[i] == '\"' || text[i] == '+'
+			||text[i] == '[' || text[i] == ']' || text[i] == ':')
+			return (1);
 		if (text[i] == '=')
 			break ;
 		i++;
