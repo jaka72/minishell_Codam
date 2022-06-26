@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/23 11:29:42 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/26 11:56:50 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static void	set_status(int status, int *ex_stat)
 static int	make_heredoc(char *limiter, int *ex_stat, t_util *st_base)
 {
 	t_pid	pid;
-	int		stat;
+//	int		stat;
 
-	stat = 0;
+//	stat = 0;		// jaka: looks like not used
 	init_pid_sig_hd(&pid, st_base);
 	pipe(pid.newpipe);
 	pid.cu_pid = fork();
