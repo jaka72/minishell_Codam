@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ms_execve.c                                        :+:    :+:            */
+/*   ms_execve copy.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/23 19:28:14 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/26 13:41:20 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int	cmd_is_custom(char **args, char **envs)
 	else
 	{
 		ret = execve(args[0], args, envs);
-		print_error_msg("minishell: ", args[0], ": is a directory\n");
+		print_error_msg("minishell: ", args[0], ": Command not found or is a directory\n");
 		exit(126);
 	}
 	return (1);
