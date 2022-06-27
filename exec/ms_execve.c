@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/27 06:38:14 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/27 10:23:42 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,11 @@ int	ms_execve(t_cmd *str, t_util *st_base)
 		return (-1);
 	if (str->args == NULL)
 		exit(0);
-	path = ft_findshell_path(str->args[0], envs);
+	if (str->args[0][0] != '/' &&
+		!(str->args[0][0] == '.' && str->args[0][1] == '/'))
+		path = ft_findshell_path(str->args[0], envs);
+	else
+		path = ft_strdup(str->args[0]);
 	if (ft_strchr(str->args[0], '/') == 0)
 		ret = cmd_no_slash(path, str->args, envs);
 	else
