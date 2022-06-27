@@ -5,24 +5,25 @@ BONUS	=	minishell_bonus
 OBJ_DIR = obj_dir
 
 LIBFT_DIR	= 	./libft
-# LIBFT_SRC	= 	$(LIBFT_DIR)/ft_memset.c					\
-# 				$(LIBFT_DIR)/ft_strlen.c					\
-# 				$(LIBFT_DIR)/ft_isalpha.c					\
-# 				$(LIBFT_DIR)/ft_isdigit.c					\
-# 				$(LIBFT_DIR)/ft_isspace.c					\
-# 				$(LIBFT_DIR)/ft_memcpy.c					\
-# 				$(LIBFT_DIR)/ft_memccpy.c					\
-# 				$(LIBFT_DIR)/ft_strchr.c					\
-# 				$(LIBFT_DIR)/ft_strncmp.c					\
-# 				$(LIBFT_DIR)/ft_strdup.c					\
-# 				$(LIBFT_DIR)/ft_strjoin.c					\
-# 				$(LIBFT_DIR)/ft_strjoin_free.c				\
-# 				$(LIBFT_DIR)/ft_strlcpy.c					\
-# 				$(LIBFT_DIR)/ft_atoi.c						\
-# 				$(LIBFT_DIR)/ft_itoa.c						\
-# 				$(LIBFT_DIR)/ft_split.c						\
-# 				$(LIBFT_DIR)/ft_add_str.c
-# LIBFT_OBJ	=	$(LIBFT_SRC:%.c=%.o)
+LIBFT_SRC	= 	$(LIBFT_DIR)/ft_memset.c					\
+				$(LIBFT_DIR)/ft_strlen.c					\
+				$(LIBFT_DIR)/ft_isalpha.c					\
+				$(LIBFT_DIR)/ft_isdigit.c					\
+				$(LIBFT_DIR)/ft_isspace.c					\
+				$(LIBFT_DIR)/ft_memcpy.c					\
+				$(LIBFT_DIR)/ft_memccpy.c					\
+				$(LIBFT_DIR)/ft_strchr.c					\
+				$(LIBFT_DIR)/ft_strdup.c					\
+				$(LIBFT_DIR)/ft_strjoin.c					\
+				$(LIBFT_DIR)/ft_strjoin_free.c				\
+				$(LIBFT_DIR)/ft_strcmp.c					\
+				$(LIBFT_DIR)/ft_strncmp.c					\
+				$(LIBFT_DIR)/ft_strlcpy.c					\
+				$(LIBFT_DIR)/ft_atoi.c						\
+				$(LIBFT_DIR)/ft_atoi_errcode.c				\
+				$(LIBFT_DIR)/ft_itoa.c						\
+				$(LIBFT_DIR)/ft_add_str.c
+LIBFT_OBJ	=	$(LIBFT_SRC:%.c=%.o)
 LIBFT_A		=	$(LIBFT_DIR)/libft.a
 
 #for common resources like utility, error handling

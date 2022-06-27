@@ -6,17 +6,13 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/26 11:54:01 by jaka          ########   odam.nl         */
+/*   Updated: 2022/06/27 07:08:18 by kito          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <limits.h>
 #include "../minishell.h"
 
-// printf("tilda: OLDPWD [%s]\n", new_path);
-// buff2[0] = 'x';
-// buff2[1] = '\0';
-// printf("ret = %d, buff2 [%s]\n", ret, buff2);
 int	get_path_tilda_n_change_dir(char *arg, t_util *u)
 {
 	int		ret;
