@@ -6,7 +6,7 @@
 /*   By: J&K(Jaka and Kito)                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/22 12:10:44 by kito          #+#    #+#                 */
-/*   Updated: 2022/06/23 17:09:21 by kito          ########   odam.nl         */
+/*   Updated: 2022/06/26 16:57:24 by jaka          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,9 +155,12 @@ int		ms_execve(t_cmd *str, t_util *st_base);
 int		main(int argc, char *argv[], char *envp[]);
 
 // builtin/cd_util.c
-char	*get_path(char *name, int *ret, int n, t_util *st_base);
+char	*get_path(char *name, int *ret, int n, t_util *u);
 int		print_msg_var_not_set(char *name);
 int		insert_oldpwd_into_list(t_env *env, const char *value);
+int		get_path_tilda_n_change_dir(char *arg, t_util *u);
+int		change_dir(char *old_pwd, char *newpath, t_util *st_base);
+int		update_path(t_env *env, char *old_pwd, char *name);
 
 // builtin/cd.c
 int		run_cd_builtin(t_cmd *cmd, t_util *st_base);
